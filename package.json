@@ -22,14 +22,17 @@
     "npm": ">= 1.0.0"
   },
   "dependencies": {
+    "bower": "latest",
     "express": "^4.13.4",
-    "bower": "latest"
+    "gulp": "^3.9.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "gulp-google-cdn": "^2.1.0"
+  },
   "bundleDependencies": [],
   "private": true,
   "main": "server.js",
-  "scripts": {  
-    "postinstall": "HOME=$OPENSHIFT_REPO_DIR bower install || bower install"  
-}
+  "scripts": {
+    "postinstall": "HOME=$OPENSHIFT_REPO_DIR bower install || bower install"
+  }
 }
