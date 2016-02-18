@@ -27,7 +27,14 @@
     "gulp": "^3.9.1"
   },
   "devDependencies": {
-    "gulp-google-cdn": "^2.1.0"
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-google-cdn": "^2.1.0",
+    "gulp-html5-lint": "^1.1.0",
+    "gulp-jslint": "^0.2.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.5.2",
+    "jslint": "^0.9.6"
   },
   "bundleDependencies": [],
   "private": true,
