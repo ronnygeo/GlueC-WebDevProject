@@ -1,3 +1,2 @@
-The OpenShift `nodejs` cartridge documentation can be found at:
-
-http://openshift.github.io/documentation/oo_cartridge_guide.html#nodejs
+Open Issues:
+-   Side Nav Not working due to include as the element is not present in the DOM.

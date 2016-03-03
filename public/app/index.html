@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="GlueCApp">
+<html lang="en" ng-app="GluecApp">
 <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
     <title>GlueC</title>
 
     <!--Import Google Icon Font-->
@@ -12,6 +11,23 @@
     <!--<link rel="css" href="http  s://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">-->
     <link rel="stylesheet" href="../bower_components/Materialize/dist/css/materialize.min.css">
     <link href="css/style.css" rel="stylesheet"/>
+
+    <!--Import jQuery before materialize.js-->
+    <!--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>-->
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>-->
+    <script src="../bower_components/Materialize/dist/js/materialize.min.js"></script>
+
+    <!--Angular JS Files-->
+    <script src="../bower_components/angular/angular.min.js"></script>
+    <script src="../bower_components/angular-route/angular-route.min.js"></script>
+    <!--Ng Modules-->
+    <script src="ngApp.js"></script>
+    <script src="ngConfig.js"></script>
+    <script src="views/home/home.controller.js"></script>
+    <script src="views/users/register.controller.js"></script>
+    <script src="views/users/login.controller.js"></script>
+    <script src="views/main/main.controller.js"></script>
 </head>
 <body ng-controller="MainController">
 <!--Navbar Starting-->
@@ -25,20 +41,7 @@
 
 <div ng-include="'views/footer/footer.view.html'"></div>
 
-<!--Import jQuery before materialize.js-->
-<!--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>-->
-<script src="../bower_components/jquery/dist/jquery.min.js"></script>
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>-->
-<script src="../bower_components/Materialize/dist/js/materialize.min.js"></script>
-
-<!--Angular JS Files-->
-<script src="../bower_components/angular/angular.min.js"></script>
-<script src="../bower_components/angular-route/angular-route.min.js"></script>
-
-<!--Ng Modules-->
-<script src="ngApp.js"></script>
-<script src="ngConfig.js"></script>
-<script src="views/home/home.controller.js"></script>
-
+<!--Init JS-->
+<script src="js/init.js"></script>
 </body>
 </html>

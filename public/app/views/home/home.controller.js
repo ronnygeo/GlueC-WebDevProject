@@ -1,9 +1,14 @@
 /**
  * Created by ronnygeo on 2/17/16.
  */
-(function(){
-    angular.module('GlueCApp')
-        .controller('HomeController', ['$scope', function($scope){
+"use strict";
+(function () {
+    angular
+        .module('GluecApp')
+        .controller('HomeController', HomeController);
 
-        }]);
+    function HomeController($location, $scope, $rootScope) {
+
+        $scope.$location = $location;
+    };
 })();

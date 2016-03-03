@@ -1,9 +1,11 @@
 /**
  * Created by ronnygeo on 2/17/16.
  */
-(function(){
-    angular.module('GlueCApp')
-        .config(function($routeProvider){
+"use strict";
+(function () {
+    angular
+        .module('GluecApp')
+        .config(function ($routeProvider) {
             $routeProvider
                 .when('/', {
                     controller: 'HomeController',
