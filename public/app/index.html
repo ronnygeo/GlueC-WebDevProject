@@ -9,16 +9,16 @@
     <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
-    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">-->
+    <!--<link rel="css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">-->
     <link rel="stylesheet" href="../bower_components/Materialize/dist/css/materialize.min.css">
-    <link href="stylesheet/style.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
 </head>
 <body ng-controller="MainController">
 <!--Navbar Starting-->
 <div ng-include="'modules/topNav/topNav.html'"></div>
 
 <!--Content Starting-->
-<div class="container" id="main-content" ng-view>
+    <div class="container" id="main-content" ng-view>
 </div>
 
 <div ng-include="'modules/footer/footer.html'"></div>
@@ -36,7 +36,7 @@
 <!--Ng Modules-->
 <script src="ngApp.js"></script>
 <script src="ngConfig.js"></script>
-<script src="modules/home/home.controller.js"></script>
+<script src="views/home/home.controller.js"></script>
 
 </body>
 </html>

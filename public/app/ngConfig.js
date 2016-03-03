@@ -7,15 +7,15 @@
             $routeProvider
                 .when('/', {
                     controller: 'HomeController',
-                    templateUrl: 'modules/home/home.view.html'
+                    templateUrl: 'views/home/home.view.html'
                 })
                 .when('/login', {
                     controller: 'LoginController',
-                    templateUrl: 'modules/users/login.view.html'
+                    templateUrl: 'views/users/login.view.html'
                 })
                 .when('/register', {
                     controller: 'RegisterController',
-                    templateUrl: 'modules/users/register.view.html'
+                    templateUrl: 'views/users/register.view.html'
                 })
                 .otherwise({
                     redirectTo: '/'
