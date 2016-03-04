@@ -25,6 +25,7 @@
   "dependencies": {
     "Materialize": "materialize#^0.97.5",
     "angular": "angularjs#^1.5.0",
-    "angular-route": "^1.5.0"
+    "angular-route": "^1.5.0",
+    "angular-material": "^1.0.6"
   }
 }
