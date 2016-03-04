@@ -16,7 +16,7 @@
         };
         return api;
 
-        function findItemsByKeywords(callback){
+        function findItemsByKeywords(keyword,callback){
             var url = "http://svcs.ebay.com/services/search/FindingService/v1";
             url += "?OPERATION-NAME=findItemsByKeywords";
             url += "&SERVICE-VERSION=1.0.0";
@@ -25,8 +25,8 @@
             url += "&RESPONSE-DATA-FORMAT=JSON";
             url += "&callback=JSON_CALLBACK";
             url += "&REST-PAYLOAD";
-            url += "&keywords=harry%20potter";
-            url += "&paginationInput.entriesPerPage=3";
+            url += "&keywords="+keyword;
+            url += "&paginationInput.entriesPerPage=40";
             $http.jsonp(url).success(callback);
         };
     };

@@ -11,7 +11,7 @@
         $scope.$location = $location;
         $scope.search = search;
         function search(){
-            EbayService.findItemsByKeywords(callback);
+            EbayService.findItemsByKeywords($scope.search_input, callback);
 
             function callback(response){
 

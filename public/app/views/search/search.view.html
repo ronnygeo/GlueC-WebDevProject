@@ -1,28 +1,37 @@
-<img ng-src="{{products[0].galleryURL}}" class="md-card-image" alt="Product Image">
-
-<md-card ng-repeat="product in products">
-    <img ng-src="{{product.galleryURL.replaceAll("a" , "a")}}" class="md-card-image" alt="Product Image">
-    <md-card-title>
-        <md-card-title-text>
-            <span class="md-headline">In-card mixed actions</span>
-        </md-card-title-text>
-    </md-card-title>
-    <md-card-actions layout="row" layout-align="start center">
-        <md-card-icon-actions>
-            <md-button class="md-icon-button" aria-label="Favorite">
-                <md-icon md-svg-icon="img/icons/favorite.svg"></md-icon>
-            </md-button>
-            <md-button class="md-icon-button" aria-label="Share">
-                <md-icon md-svg-icon="img/icons/share-arrow.svg"></md-icon>
-            </md-button>
-        </md-card-icon-actions>
-        <md-button>Action 1</md-button>
-        <md-button>Action 2</md-button>
-    </md-card-actions>
-    <md-card-content>
-        <p>
-            The titles of Washed Out's breakthrough song and the first single from Paracosm share the
-            two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
-        </p>
-    </md-card-content>
-</md-card>
+<div class="row">
+    <div class="col s12 m3 l3" ng-repeat="product in products">
+        <md-card>
+            <md-card-header>
+                <md-card-avatar>
+                    <img class="md-user-avatar" ng-src="../../../app/media/eBay_rightnow_vert.png">
+                </md-card-avatar>
+                <md-card-header-text>
+                    <span class="md-title">Ebay</span>
+                    <span class="md-subhead">Contract ID</span>
+                </md-card-header-text>
+            </md-card-header>
+            <img ng-src="{{product.galleryURL | removeDoubleQuotes}}" class="md-card-image" alt="Product Image">
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">{{product.title[0] | removeDoubleQuotes}}</span>
+                    <span class="md-subhead">Reversed</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-actions layout="row" layout-align="start center">
+                <md-button>Action 1</md-button>
+                <md-button>Action 2</md-button>
+                <md-card-icon-actions>
+                    <md-button class="md-icon-button" aria-label="toggle">
+                        <md-icon md-svg-icon="md-toggle-arrow"></md-icon>
+                    </md-button>
+                </md-card-icon-actions>
+            </md-card-actions>
+            <md-card-content>
+                    <!--<p>-->
+                        <!--The titles of Washed Out's breakthrough song and the first single from Paracosm share the-->
+                        <!--two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...-->
+                    <!--</p>-->
+            </md-card-content>
+        </md-card>
+    </div>
+</div>

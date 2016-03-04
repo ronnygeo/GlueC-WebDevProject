@@ -22,4 +22,11 @@ footer {
     /* bring your own prefixes */
     transform: translate(-50%, -50%);
 }
+.prod-img{
+    display: block;
+    max-width:230px;
+    max-height:150px;
+    width: auto;
+    height: auto;
+}
 /*# sourceMappingURL=style.css.map */
