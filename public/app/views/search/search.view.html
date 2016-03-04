@@ -35,24 +35,27 @@
 <!--</md-card>-->
 <!--</div>-->
 <!--</div>-->
-<div class="row">
-    <div class="col s12 m6 l4" ng-repeat="product in products">
-        <div class="card small">
-            <div class="card-image waves-effect waves-block waves-light">
-                <img ng-src="{{product.galleryURL | removeDoubleQuotes}}" class="md-card-image" alt="Product Image">
-                <span class="card-title">{{product.title[0] | removeDoubleQuotes}}</span>
-            </div>
-            <div class="card-content">
+<div class="container">
+    <div class="section main-content">
+        <div class="row">
+            <div class="col s12 m6 l4" ng-repeat="product in products">
+                <div class="card small">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img ng-src="{{product.galleryURL | removeDoubleQuotes}}" class="md-card-image" alt="Product Image">
+                        <span class="card-title">{{product.title[0] | removeDoubleQuotes}}</span>
+                    </div>
+                    <div class="card-content">
                 <span class="card-title activator grey-text text-darken-4">Ebay<i
                         class="material-icons right">more_vert</i></span>
-                <p><a href="#">This is a link</a></p>
-            </div>
-            <div class="card-reveal">
+                        <p><a href="#">This is a link</a></p>
+                    </div>
+                    <div class="card-reveal">
                 <span class="card-title grey-text text-darken-4">{{product.title[0] | removeDoubleQuotes}}<i
                         class="material-icons right">close</i></span>
-                <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                        <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-

@@ -1,7 +1,10 @@
-<div class="center">
-    <div class="input-field">
-        <input ng-model="search_input" placeholder="Search Products, Buyers, Listings, Reviews.." id="search" type="text">
-        <!--<label for="search">Search</label>-->
+<div class="center main-content">
+    <div class="container">
+        <div class="input-field">
+            <input ng-model="search_input" id="search"
+                   placeholder="Search Products, Buyers, Listings, Reviews.." type="text">
+            <!--<label for="search">Search Products, Buyers, Listings, Reviews..</label>-->
+        </div>
+        <a ng-click="search()" class="waves-effect waves-light btn "><i class="material-icons left">search</i>Search</a>
     </div>
-    <a ng-click="search()" class="waves-effect waves-light btn "><i class="material-icons left">search</i>Search</a>
 </div>

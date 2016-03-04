@@ -29,4 +29,11 @@ footer {
     width: auto;
     height: auto;
 }
+.main-search-div {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image:url("../media/photo-1451186859696-371d9477be93.jpg");
+}
+
 /*# sourceMappingURL=style.css.map */

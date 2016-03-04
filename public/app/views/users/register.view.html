@@ -1,44 +1,48 @@
-<div class="row center">
-    <h4 class="grey-text">We would love to have you on Board!</h4>
-</div>
-<div class="row">
-    <form class="col s12">
-        <div class="row">
-            <div class="input-field col s6">
-                <input ng-model="user.firstName" id="first_name" type="text" class="validate">
-                <label for="first_name">First Name</label>
-            </div>
-            <div class="input-field col s6">
-                <input ng-model="user.lastName" id="last_name" type="text" class="validate">
-                <label for="last_name">Last Name</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12">
-                <input ng-model="user.username" id="username" type="text" class="validate">
-                <label for="username">User Name</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s6">
-                <input ng-model="user.password" id="password" type="password" class="validate">
-                <label for="password">Password</label>
-            </div>
-            <div class="input-field col s6">
-                <input ng-model="user.repeatPassword" id="repeat-password" type="password" class="validate">
-                <label for="repeat-password">Repeat Password</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12">
-                <input ng-model="user.email" id="email" type="email" class="validate">
-                <label for="email">Email</label>
-            </div>
-        </div>
+<div class="container">
+    <div class="section main-content">
         <div class="row center">
-            <div class col s12>
-                <a ng-click="register(user)" class="waves-effect waves-light btn">Rgister</a>
-            </div>
+            <h4 class="grey-text">We would love to have you on Board!</h4>
         </div>
-    </form>
+        <div class="row">
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input ng-model="user.firstName" id="first_name" type="text" class="validate">
+                        <label for="first_name">First Name</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input ng-model="user.lastName" id="last_name" type="text" class="validate">
+                        <label for="last_name">Last Name</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input ng-model="user.username" id="username" type="text" class="validate">
+                        <label for="username">User Name</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input ng-model="user.password" id="password" type="password" class="validate">
+                        <label for="password">Password</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input ng-model="user.repeatPassword" id="repeat-password" type="password" class="validate">
+                        <label for="repeat-password">Repeat Password</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input ng-model="user.email" id="email" type="email" class="validate">
+                        <label for="email">Email</label>
+                    </div>
+                </div>
+                <div class="row center">
+                    <div class col s12>
+                        <a ng-click="register(user)" class="waves-effect waves-light btn">Rgister</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
