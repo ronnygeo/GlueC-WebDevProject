@@ -42,9 +42,20 @@ footer {
     background-image: url("../media/photo-1451186859696-371d9477be93.jpg");
 }
 
-.main-search-empty-div {
+.div-40 {
     min-height: 40vh !important;
     margin-top: 10vh;
 }
+
+.div-20 {
+    min-height: 20vh !important;
+    margin-top: 10vh;
+}
+.div-10{
+    min-height: 10vh !important;
+    margin-top: 10vh;
+}
+
+
 
 /*# sourceMappingURL=style.css.map */
