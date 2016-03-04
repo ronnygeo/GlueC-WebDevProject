@@ -5,5 +5,5 @@
 "use strict";
 (function () {
     angular
-        .module("GluecApp", ["ngRoute"]);
+        .module("GluecApp", ["ngRoute","ngMaterial"]);
 })();

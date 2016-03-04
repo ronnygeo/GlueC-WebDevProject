@@ -14,7 +14,9 @@
             EbayService.findItemsByKeywords(callback);
 
             function callback(response){
-                $rootScope.products = response;
+
+                console.log(response.findItemsByKeywordsResponse[0].searchResult[0].item);
+                $rootScope.products = response.findItemsByKeywordsResponse[0].searchResult[0].item;
                 $location.url("/search");
             }
 

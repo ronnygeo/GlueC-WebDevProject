@@ -9,6 +9,7 @@
         .controller("SearchController",SearchController);
 
     function SearchController(){
+        //$scope.imagePath = 'img/washedout.png';
 
     };
 })();
