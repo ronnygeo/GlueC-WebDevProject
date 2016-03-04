@@ -20,7 +20,7 @@
                     //Storing the user in the Root Scope
                     $rootScope.user = response;
                     // Navigating to the Profile Page of this particular User
-                    $location.url("/home/");
+                    $location.url("/");
                 }
             }
         };

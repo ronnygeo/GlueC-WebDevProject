@@ -5,5 +5,10 @@
 "use strict";
 (function () {
     angular
-        .module("GluecApp", ["ngRoute","ngMaterial","angular.filter"]);
+        .module("GluecApp", [
+            "ngRoute",
+            //"ngMaterial",
+            "angular.filter",
+            "gluec.directives"
+        ]);
 })();

@@ -15,12 +15,16 @@
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input ng-model="user.password" id="password" type="password" class="validate">
-                <label for="password">Password</label>
+                <input ng-model="user.username" id="username" type="text" class="validate">
+                <label for="username">User Name</label>
             </div>
         </div>
         <div class="row">
-            <div class="input-field col s12">
+            <div class="input-field col s6">
+                <input ng-model="user.password" id="password" type="password" class="validate">
+                <label for="password">Password</label>
+            </div>
+            <div class="input-field col s6">
                 <input ng-model="user.repeatPassword" id="repeat-password" type="password" class="validate">
                 <label for="repeat-password">Repeat Password</label>
             </div>
@@ -33,7 +37,7 @@
         </div>
         <div class="row center">
             <div class col s12>
-                <a ng-click="register(user)" class="waves-effect waves-light btn">Login</a>
+                <a ng-click="register(user)" class="waves-effect waves-light btn">Rgister</a>
             </div>
         </div>
     </form>

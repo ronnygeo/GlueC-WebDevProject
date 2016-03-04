@@ -69,15 +69,15 @@
         //Adds the new user to local array of users
         //Calls back with new user
         function createUser(form_user, callback) {
-            if (form_user.password === form_user.repeat_password) {
+            if (form_user.password === form_user.repeatPassword) {
                 var new_user = {
                     _id: Math.floor(Math.random() * 900) + 100,
-                    firstName: "",
-                    lastName: "",
+                    firstName: form_user.firstName,
+                    lastName: form_user.lastName,
                     username: form_user.username,
                     password: form_user.password,
                     role: "",
-                    email: form_user.email,
+                    email: form_user.email
                 };
                 current_users.push(new_user);
                 callback(new_user);
