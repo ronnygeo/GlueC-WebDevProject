@@ -5,7 +5,7 @@
 (function () {
     angular
         .module('GluecApp')
-        .config(function ($routeProvider) {
+        .config(function ($routeProvider,$httpProvider) {
             $routeProvider
                 .when('/', {
                     controller: 'HomeController',
@@ -19,8 +19,16 @@
                     controller: 'RegisterController',
                     templateUrl: 'views/users/register.view.html'
                 })
+                .when('/search', {
+                    controller: 'SearchController',
+                    templateUrl: 'views/search/search.view.html'
+                })
                 .otherwise({
                     redirectTo: '/'
                 })
+
+            $httpProvider.defaults.useXDomain = true;
+            delete $httpProvider.defaults.headers.common['X-Requested-With'];
+
         });
 })();

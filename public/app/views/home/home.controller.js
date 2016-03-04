@@ -1,4 +1,4 @@
-/**
+    /**
  * Created by ronnygeo on 2/17/16.
  */
 "use strict";
@@ -7,8 +7,17 @@
         .module('GluecApp')
         .controller('HomeController', HomeController);
 
-    function HomeController($location, $scope, $rootScope) {
-
+    function HomeController(EbayService, $location, $scope, $rootScope) {
         $scope.$location = $location;
+        $scope.search = search;
+        function search(){
+            EbayService.findItemsByKeywords(callback);
+
+            function callback(response){
+                $rootScope.products = response;
+                $location.url("/search");
+            }
+
+        }
     };
 })();
