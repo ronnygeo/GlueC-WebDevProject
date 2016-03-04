@@ -1,8 +1,9 @@
-<nav class="light-blue lighten-1" role="navigation" ng-controller="HeaderController">
+<nav class="amber accent-4" role="navigation" ng-controller="HeaderController">
     <div class="nav-wrapper container"><a id="logo-container" href="#/home" class="brand-logo">GlueC</a>
         <ul class="right hide-on-med-and-down">
             <li ng-show="user"><i class="material-icons left">perm_identity</i>Welcome {{user.firstName}}</li>
             <li ng-show="user"><a href="#/dashboard"><i class="material-icons left">dashboard</i>Dashboard</a></li>
+            <li><a href="#/new-listing"><i class="material-icons left">input</i>Sell</a></li>
             <li ng-hide="user" ng-class="{active: $location.url() == '/register'}"><a href="#/register">Register</a></li>
             <li ng-hide="user" ng-class="{active: $location.url() == '/login'}"><a href="#/login">Login</a></li>
             <li ng-show="user"><a ng-click="logout()">Logout</a></li>
@@ -10,6 +11,7 @@
         <ul id="nav-mobile" class="side-nav">
             <li ng-show="user" class="text-black"><i class="material-icons left">perm_identity</i>Welcome {{user.firstName}}</li>
             <li ng-show="user"><a href="#/dashboard"><i class="material-icons left">dashboard</i>Dashboard</a></li>
+            <li><a href="#/new-listing">Sell</a></li>
             <li ng-hide="user" ng-class="{active: $location.url() == '/register'}"><a href="#/register">Register</a></li>
             <li ng-hide="user" ng-class="{active: $location.url() == '/login'}"><a href="#/login">Login</a></li>
             <li ng-show="user"><a ng-click="logout()">Logout</a></li>

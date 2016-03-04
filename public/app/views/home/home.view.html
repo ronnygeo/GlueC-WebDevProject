@@ -1,10 +1,24 @@
 <div class="center main-content">
     <div class="container">
-        <div class="input-field">
-            <input ng-model="search_input" id="search"
-                   placeholder="Search Products, Buyers, Listings, Reviews.." type="text">
-            <!--<label for="search">Search Products, Buyers, Listings, Reviews..</label>-->
+        <div class="row main-search-empty-div main-search-div">
+            &nbsp;
         </div>
-        <a ng-click="search()" class="waves-effect waves-light btn "><i class="material-icons left">search</i>Search</a>
+        <div class="row">
+            <div class="row">
+                <div class="col s10 m8 l8 offset-s1 offset-m2 offset-l2">
+                    <div class="input-field">
+                        <input class="center-align" ng-model="search_input" id="search"
+                               placeholder="Search Products, Buyers, Listings, Reviews.." type="text">
+                        <!--<label for="search">Search Products, Buyers, Listings, Reviews..</label>-->
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s10 m8 l8 offset-s1 offset-m2 offset-l2">
+                    <a ng-click="search()" class="waves-effect waves-light btn ">
+                        <i class="material-icons left">search</i>Search</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
