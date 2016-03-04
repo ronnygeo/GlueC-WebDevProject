@@ -1,12 +1,18 @@
-<nav class="light-blue lighten-1" role="navigation">
+<nav class="light-blue lighten-1" role="navigation" ng-controller="HeaderController">
     <div class="nav-wrapper container"><a id="logo-container" href="#/home" class="brand-logo">GlueC</a>
         <ul class="right hide-on-med-and-down">
-            <li><a href="#/register">Register</a></li>
-            <li><a href="#/login">Login</a></li>
+            <li ng-show="user">Welcome {{user.firstName}}</li>
+            <li ng-show="user"><a href="#/dashboard"><i class="material-icons left">dashboard</i>Dashboard</a></li>
+            <li ng-hide="user" ng-class="{active: $location.url() == '/register'}"><a href="#/register">Register</a></li>
+            <li ng-hide="user" ng-class="{active: $location.url() == '/login'}"><a href="#/login">Login</a></li>
+            <li ng-show="user"><a ng-click="logout()">Logout</a></li>
         </ul>
         <ul id="nav-mobile" class="side-nav">
-            <li><a href="#/register">Register</a></li>
-            <li><a href="#/login">Login</a></li>
+            <li ng-show="user">Welcome {{user.firstName}}</li>
+            <li ng-show="user"><a href="#/dashboard"><i class="material-icons left">dashboard</i>Dashboard</a></li>
+            <li ng-hide="user" ng-class="{active: $location.url() == '/register'}"><a href="#/register">Register</a></li>
+            <li ng-hide="user" ng-class="{active: $location.url() == '/login'}"><a href="#/login">Login</a></li>
+            <li ng-show="user"><a ng-click="logout()">Logout</a></li>
         </ul>
         <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>

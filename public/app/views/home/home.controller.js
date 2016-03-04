@@ -10,8 +10,13 @@
     function HomeController(EbayService, $location, $scope, $rootScope) {
         $scope.$location = $location;
         $scope.search = search;
+
+
+
         function search(){
-            EbayService.findItemsByKeywords($scope.search_input, callback);
+            if ($scope.search_input) {
+                EbayService.findItemsByKeywords($scope.search_input, callback);
+            }
 
             function callback(response){
 
