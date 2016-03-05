@@ -55,6 +55,13 @@ footer {
     min-height: 10vh !important;
     margin-top: 10vh;
 }
+.card .card-title{
+
+    font-size: 15px;
+}
+.card .card-content .card-title{
+    line-height: 0px;
+}
 
 
 
