@@ -14,7 +14,7 @@
             <li ng-show="user"><a href="#/Profile"><i class="material-icons left">perm_identity</i>Welcome
                 {{user.firstName}}</a></li>
             <li ng-show="user"><a href="#/dashboard"><i class="material-icons left">dashboard</i>Dashboard</a></li>
-            <li><a href="#/new-listing">Sell</a></li>
+            <li><a href="#/new-listing"><i class="material-icons left">shopping_cart</i>Sell</a></li>
             <li ng-hide="user" ng-class="{active: $location.url() == '/register'}"><a href="#/register">Register</a>
             </li>
             <li ng-hide="user" ng-class="{active: $location.url() == '/login'}"><a href="#/login">Login</a></li>
