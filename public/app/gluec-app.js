@@ -8,6 +8,7 @@
             "ngRoute",
             //"ngMaterial",
             "angular.filter",
-            "gluec.directives"
+            "gluec.directives",
+            "ngProgress"
         ]);
 })();

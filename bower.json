@@ -27,6 +27,7 @@
     "angular": "angularjs#^1.5.0",
     "angular-route": "^1.5.0",
     "angular-material": "^1.0.6",
-    "angular-filter": "^0.5.8"
+    "angular-filter": "^0.5.8",
+    "ngprogress": "^1.1.2"
   }
 }
