@@ -23,6 +23,14 @@
                     controller: 'SearchController',
                     templateUrl: 'views/search/search.view.html'
                 })
+                .when('/admin', {
+                    controller: 'DashboardController',
+                    templateUrl: 'views/dashboard/dashboard.view.html'
+                })
+                .when('/listing', {
+                    controller: 'ListingController',
+                    templateUrl: 'views/listing/listing.view.html'
+                })
                 .otherwise({
                     redirectTo: '/'
                 })
