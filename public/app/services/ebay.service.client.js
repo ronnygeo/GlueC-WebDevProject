@@ -3,12 +3,13 @@
  */
 
 "use strict";
-(function(){
+(function () {
     angular
         .module("GluecApp")
-        .factory("EbayService",EbayService);
+        .factory("EbayService", EbayService);
 
     EbayService.$inject = ['$http'];
+
     function EbayService($http){
 
         var APPID = "BhanuJai-Gluec-PRD-d38ccaf50-a1104f30";
@@ -29,6 +30,6 @@
             url += "&keywords="+keyword;
             url += "&paginationInput.entriesPerPage=40";
             $http.jsonp(url).success(callback);
-        };
-    };
+        }
+    }
 })();
