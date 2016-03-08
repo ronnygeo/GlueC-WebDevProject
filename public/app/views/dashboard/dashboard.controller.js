@@ -4,7 +4,7 @@
 
 (function (){
 
-    angular.module()
+    angular.module("GluecApp")
         .controller('DashboardController', DashboardController);
 
     DashboardController.$inject = ['$scope'];

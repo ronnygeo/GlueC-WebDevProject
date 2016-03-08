@@ -3,6 +3,13 @@
  */
 (function () {
     'use strict';
+    angular.module("GluecApp")
+        .controller('DashboardController', ListingController);
 
+    ListingController.$inject = ['$scope', '$routeParams'];
+
+    function ListingController($scope, $routeParams) {
+
+    }
 
 })();

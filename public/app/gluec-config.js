@@ -27,7 +27,7 @@
                     controller: 'DashboardController',
                     templateUrl: 'views/dashboard/dashboard.view.html'
                 })
-                .when('/listing', {
+                .when('/listing/:id', {
                     controller: 'ListingController',
                     templateUrl: 'views/listing/listing.view.html'
                 })
