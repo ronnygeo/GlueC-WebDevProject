@@ -19,9 +19,10 @@
                     controller: 'RegisterController',
                     templateUrl: 'views/users/register.view.html'
                 })
-                .when('/search', {
+                .when('/search/q/:keyword', {
                     controller: 'SearchController',
-                    templateUrl: 'views/search/search.view.html'
+                    templateUrl: 'views/search/search.view.html',
+                    controllerAs: "model"
                 })
                 .when('/admin', {
                     controller: 'DashboardController',
@@ -29,7 +30,8 @@
                 })
                 .when('/item/:productId', {
                     controller: 'PDPController',
-                    templateUrl: 'views/product/pdp.view.html'
+                    templateUrl: 'views/product/pdp.view.html',
+                    controllerAs: "model"
                 })
                 .otherwise({
                     redirectTo: '/'

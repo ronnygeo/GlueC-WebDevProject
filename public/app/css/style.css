@@ -63,6 +63,22 @@ footer {
     line-height: 0px;
 }
 
+.card .pdp-image {
+    max-height: 80vh !important;
+    /*width: auto;*/
+    /*height: auto;*/
+}
+
+.card .pdp-image img{
+    /*max-width: 40vh;*/
+    height: auto;
+    /*width: auto;*/
+}
+
+.pdp-card .card-image .card-title{
+    font-size: 30px;
+    font-weight: 300;
+}
 
 
 /*# sourceMappingURL=style.css.map */
