@@ -6,32 +6,33 @@
 (function () {
     angular
         .module('GluecApp')
-        .controller("SearchController",SearchController);
+        .controller("SearchController", SearchController);
 
-    function SearchController(EbayService, $scope, $routeParams, $location, $rootScope, ngProgressFactory){
+    SearchController.$inject = ['EbayService', '$scope', '$routeParams', '$location', 'ProgressBarFactory'];
+
+    function SearchController(EbayService, $scope, $routeParams, $location, ProgressBarFactory) {
 
         $scope.$location = $location;
         //$scope.search = search;
         var vm = this;
-        var keyword= $routeParams.keyword;
+        var keyword = $routeParams.keyword;
 
-        function init(){
+        function init() {
             search();
-        }init()
+        }
 
-        function search(){
-            if (keyword && keyword!="") {
+        init()
+
+        function search() {
+            if (keyword && keyword != "") {
                 EbayService
                     .findItemsByKeywords(keyword)
                     .then(render);
-                $rootScope.progressbar = ngProgressFactory.createInstance();
-                $rootScope.progressbar.setHeight('4px');
-                $rootScope.progressbar.setColor('#E64A19');
-                $rootScope.progressbar.start();
+                ProgressBarFactory.showProgressBar();
             }
 
-            function render(response){
-                $rootScope.progressbar.complete();
+            function render(response) {
+                ProgressBarFactory.hideProgressBar();
                 console.log(response.data.findItemsByKeywordsResponse[0].searchResult[0].item);
                 vm.products = response.data.findItemsByKeywordsResponse[0].searchResult[0].item;
             }
