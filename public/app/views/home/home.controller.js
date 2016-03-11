@@ -11,21 +11,21 @@
         $scope.$location = $location;
         $scope.search = search;
 
-
-
         function search(){
             if ($scope.search_input) {
-                EbayService.findItemsByKeywords($scope.search_input, callback);
+                EbayService
+                    .findItemsByKeywords($scope.search_input)
+                    .then(render);
                 $scope.progressbar = ngProgressFactory.createInstance();
                 $scope.progressbar.setHeight('4px');
                 $scope.progressbar.setColor('#E64A19');
                 $scope.progressbar.start();
             }
 
-            function callback(response){
+            function render(response){
                 $scope.progressbar.complete();
-                console.log(response.findItemsByKeywordsResponse[0].searchResult[0].item);
-                $rootScope.products = response.findItemsByKeywordsResponse[0].searchResult[0].item;
+                console.log(response.data.findItemsByKeywordsResponse[0].searchResult[0].item);
+                $rootScope.products = response.data.findItemsByKeywordsResponse[0].searchResult[0].item;
                 $location.url("/search");
             }
 

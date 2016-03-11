@@ -27,9 +27,9 @@
                     controller: 'DashboardController',
                     templateUrl: 'views/dashboard/dashboard.view.html'
                 })
-                .when('/listing/:id', {
-                    controller: 'ListingController',
-                    templateUrl: 'views/listing/listing.view.html'
+                .when('/item/:productId', {
+                    controller: 'PDPController',
+                    templateUrl: 'views/product/pdp.view.html'
                 })
                 .otherwise({
                     redirectTo: '/'

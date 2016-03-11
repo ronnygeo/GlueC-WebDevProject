@@ -8,8 +8,9 @@
         .module('GluecApp')
         .controller("SearchController",SearchController);
 
-    function SearchController(){
-        //$scope.imagePath = 'img/washedout.png';
+    function SearchController(EbayService, $scope, $routeParams){
+
+
 
     };
 })();
