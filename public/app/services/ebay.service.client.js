@@ -16,7 +16,8 @@
         var FIND_SERVICE = "http://svcs.ebay.com/services/search/FindingService/v1";
         var api ={
             findItemsByKeywords:findItemsByKeywords,
-            findItemsByProduct:findItemsByProduct,
+            findItemsAdvanced:findItemsAdvanced,
+            findItemsByProduct:findItemsByProduct
         };
         return api;
 
@@ -30,7 +31,21 @@
             url += "&callback=JSON_CALLBACK";
             url += "&REST-PAYLOAD";
             url += "&keywords="+keyword;
-            url += "&paginationInput.entriesPerPage=40";
+            url += "&paginationInput.entriesPerPage=80";
+            return $http.jsonp(url);
+        };
+
+        function findItemsAdvanced(keyword){
+            var url = FIND_SERVICE;
+            url += "?OPERATION-NAME=findItemsAdvanced";
+            url += "&SERVICE-VERSION=1.0.0";
+            url += "&SECURITY-APPNAME="+APP_ID;
+            url += "&GLOBAL-ID=EBAY-US";
+            url += "&RESPONSE-DATA-FORMAT=JSON";
+            url += "&callback=JSON_CALLBACK";
+            url += "&REST-PAYLOAD";
+            url += "&keywords="+keyword;
+            url += "&paginationInput.entriesPerPage=80";
             return $http.jsonp(url);
         };
 
@@ -45,7 +60,7 @@
             url += "&REST-PAYLOAD";
             url += "&paginationInput.entriesPerPage=1";
             url += "&productId.@type=ReferenceID";
-            url += "&productId=110258144"
+            url += "&productId="+productId;
             return $http.jsonp(url);
         }
     }

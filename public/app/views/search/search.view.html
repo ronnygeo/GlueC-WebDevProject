@@ -39,9 +39,9 @@
     <div class="section main-content">
         <div class="row">
             <div class="col s12 m6 l4" ng-repeat="product in model.products">
-                <div class="card small">
+                <div class="card small" ng-if="product.productId">
                     <div class="card-image waves-effect waves-block waves-light">
-                        <a href="#/item/{{product.itemId[0] | removeDoubleQuotes}}">
+                        <a href="#/item/{{product.productId[0].__value__}}">
                             <img ng-src="{{product.galleryURL | removeDoubleQuotes}}" alt="Product Image">
                         </a>
                         <!--<span class="card-title">{{product.title[0] | removeDoubleQuotes}}</span>-->
@@ -51,7 +51,7 @@
                             {{product.title[0] | removeDoubleQuotes}}
                             <i class="material-icons right">more_vert</i>
                         </span>
-                        <p><a href="#/item/{{product.itemId[0] | removeDoubleQuotes}}">PDP</a></p>
+                        <p><a href="#/item/{{product.productId[0].__value__}}">Details</a></p>
                     </div>
                     <div class="card-reveal">
                         <span class="card-title grey-text text-darken-5">

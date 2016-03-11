@@ -75,8 +75,8 @@ footer {
     /*width: auto;*/
 }
 
-.pdp-card .card-image .card-title{
-    font-size: 30px;
+.pdp-card .card-content .card-title{
+    font-size: 18px;
     font-weight: 300;
 }
 

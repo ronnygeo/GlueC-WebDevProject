@@ -5,20 +5,28 @@
                 <div class="card pdp-card">
                     <div class="card-image waves-effect waves-block waves-light pdp-image">
                         <img ng-src="{{model.product.galleryURL | removeDoubleQuotes}}" alt="Product Image">
-                        <span class="card-title">{{model.product.title[0] | removeDoubleQuotes}}</span>
+                        <!--<span class="card-title">{{model.product.title[0] | removeDoubleQuotes}}</span>-->
                     </div>
-                    <div class="card-content">
-                        <!--<span class="card-title activator grey-text text-darken-5">-->
-                        <!--{{model.product.title[0] | removeDoubleQuotes}}-->
-                        <!--</span>-->
-                        <p class="flow-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                            unknown printer took a galley of type and scrambled it to make a type specimen book. It has
-                            survived not only five centuries, but also the leap into electronic typesetting, remaining
-                            essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets
-                            containing Lorem Ipsum passages, and more recently with desktop publishing software like
-                            Aldus PageMaker including versions of Lorem Ipsum.
-                        </p>
+                    <div class="card-content grey-text">
+                        <div>
+                            <span class="card-title activator grey-text text-darken-5">
+                        {{model.product.title[0] | removeDoubleQuotes}}
+                        </span>
+                        </div>
+                        <div>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+                                unknown printer took a galley of type and scrambled it to make a type specimen book. It
+                                has
+                                survived not only five centuries, but also the leap into electronic typesetting,
+                                remaining
+                                essentially unchanged. It was popularised in the 1960s with the release of Letraset
+                                sheets
+                                containing Lorem Ipsum passages, and more recently with desktop publishing software like
+                                Aldus PageMaker including versions of Lorem Ipsum.
+                            </p>
+                        </div>
+
                     </div>
                     <div class="card-action">
                         <a href="{{model.product.viewItemURL[0] | removeDoubleQuotes}}">Buy</a>

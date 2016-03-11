@@ -26,15 +26,17 @@
         function search() {
             if (keyword && keyword != "") {
                 EbayService
-                    .findItemsByKeywords(keyword)
+                    .findItemsAdvanced(keyword)
                     .then(render);
                 ProgressBarFactory.showProgressBar();
             }
 
             function render(response) {
                 ProgressBarFactory.hideProgressBar();
-                console.log(response.data.findItemsByKeywordsResponse[0].searchResult[0].item);
-                vm.products = response.data.findItemsByKeywordsResponse[0].searchResult[0].item;
+                //console.log(response.data.findItemsByKeywordsResponse[0].searchResult[0].item);
+                console.log(response.data.findItemsAdvancedResponse[0].searchResult[0].item);
+                //vm.products = response.data.findItemsByKeywordsResponse[0].searchResult[0].item;
+                vm.products = response.data.findItemsAdvancedResponse[0].searchResult[0].item;
             }
 
         }
