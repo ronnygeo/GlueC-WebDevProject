@@ -64,15 +64,16 @@ footer {
 }
 
 .card .pdp-image {
-    max-height: 80vh !important;
+    /*max-height: 80vh !important;*/
     /*width: auto;*/
     /*height: auto;*/
 }
 
 .card .pdp-image img{
-    /*max-width: 40vh;*/
+    max-width:20%;
     height: auto;
-    /*width: auto;*/
+    width: auto;
+
 }
 
 .pdp-card .card-content .card-title{

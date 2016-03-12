@@ -21,13 +21,16 @@
             if(productId  && productId != ""){
                 ProgressBarFactory.showProgressBar();
                 EbayService
-                    .findItemsByProduct(productId)
+                    .getSingleItem(productId)
                     .then(render);
             }
             function render(response){
                 ProgressBarFactory.hideProgressBar();
-                console.log(response.data.findItemsByProductResponse[0].searchResult[0].item[0]);
-                vm.product = response.data.findItemsByProductResponse[0].searchResult[0].item[0];
+                //console.log(response.data.findItemsByProductResponse[0].searchResult[0].item[0]);
+                //vm.product = response.data.findItemsByProductResponse[0].searchResult[0].item[0];
+                console.log(response.data.Item);
+                vm.product=response.data.Item;
+
             }
         }
 

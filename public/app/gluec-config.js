@@ -33,6 +33,11 @@
                     templateUrl: 'views/product/pdp.view.html',
                     controllerAs: "model"
                 })
+                .when('/listing/create', {
+                    controller: 'CreateListingController',
+                    templateUrl: 'views/listing/create-listing.view.html',
+                    controllerAs: "model"
+                })
                 .otherwise({
                     redirectTo: '/'
                 })

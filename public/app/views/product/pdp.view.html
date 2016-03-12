@@ -3,14 +3,14 @@
         <div class="row">
             <div class="col s12">
                 <div class="card pdp-card">
-                    <div class="card-image waves-effect waves-block waves-light pdp-image">
-                        <img ng-src="{{model.product.galleryURL | removeDoubleQuotes}}" alt="Product Image">
+                    <div class="card-image waves-effect waves-block waves-light pdp-image center-align">
+                        <img ng-src="{{model.product.PictureURL[0] | removeDoubleQuotes}}" alt="Product Image">
                         <!--<span class="card-title">{{model.product.title[0] | removeDoubleQuotes}}</span>-->
                     </div>
                     <div class="card-content grey-text">
                         <div>
                             <span class="card-title activator grey-text text-darken-5">
-                        {{model.product.title[0] | removeDoubleQuotes}}
+                        {{model.product.Title | removeDoubleQuotes}}
                         </span>
                         </div>
                         <div>
