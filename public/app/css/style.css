@@ -67,8 +67,11 @@ footer {
     max-height: 40rem !important;
 }
 
-.card .pdp-image img{
+@media only screen and (min-width : 992px) {
+.card .pdp-image img {
     height: 100%;
+    width: auto;
+}
 }
 
 .pdp-card .card-content .card-title{
