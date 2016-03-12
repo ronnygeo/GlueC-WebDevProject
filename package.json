@@ -7,15 +7,11 @@
     "Node.js",
     "eCommerce"
   ],
-  "author": {
-    "name": "GlueC",
-    "email": "glueclabs@gmail.com",
-    "url": "http://www.gluec.com/"
-  },
+  "author": "GlueC <glueclabs@gmail.com> (http://www.gluec.com/)",
   "homepage": "http://www.gluec.com/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/openshift/origin-server"
+    "url": "git+https://github.com/openshift/origin-server.git"
   },
   "engines": {
     "node": ">= 0.6.0",
@@ -25,7 +21,8 @@
     "bower": "latest",
     "cors": "^2.7.1",
     "express": "^4.13.4",
-    "gulp": "^3.9.1"
+    "gulp": "^3.9.1",
+    "request": "^2.69.0"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
@@ -41,6 +38,11 @@
   "private": true,
   "main": "server.js",
   "scripts": {
-    "postinstall": "HOME=$OPENSHIFT_REPO_DIR bower install || bower install"
-  }
+    "postinstall": "HOME=$OPENSHIFT_REPO_DIR bower install || bower install",
+    "start": "node server.js"
+  },
+  "bugs": {
+    "url": "https://github.com/openshift/origin-server/issues"
+  },
+  "license": "ISC"
 }
