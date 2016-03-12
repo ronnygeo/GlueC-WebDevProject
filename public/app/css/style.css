@@ -64,21 +64,16 @@ footer {
 }
 
 .card .pdp-image {
-    /*max-height: 80vh !important;*/
-    /*width: auto;*/
-    /*height: auto;*/
+    max-height: 40rem !important;
 }
 
 .card .pdp-image img{
-    max-width:20%;
-    height: auto;
-    width: auto;
-
+    height: 100%;
 }
 
 .pdp-card .card-content .card-title{
-    font-size: 18px;
-    font-weight: 300;
+    font-size: 1.5rem;
+    font-weight: 400;
 }
 
 
