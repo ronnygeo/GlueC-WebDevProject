@@ -79,5 +79,11 @@ footer {
     font-weight: 400;
 }
 
+.brand-logo{
+    font-family: Rancho;
+    font-style: normal;
+    text-shadow: .04em .04em 0 #fff,.08em .08em 0 #aaa;
+    -webkit-text-shadow: .04em .04em 0 #fff, .08em .08em 0 #aaa;
 
+}
 /*# sourceMappingURL=style.css.map */
