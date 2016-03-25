@@ -9,7 +9,7 @@ module.exports = function (q, uuid, request) {
         FIND_API: "http://svcs.ebay.com/services/search/FindingService/v1",
         SHOPPING_API: "http://open.api.ebay.com/shopping"
 
-    }
+    };
 
     var api = {
         ebay: {
@@ -23,21 +23,19 @@ module.exports = function (q, uuid, request) {
     return api;
 
     function getSingleItem(itemId) {
-        var url = EBAY.SHOPPING_API;
-        var itemId = req.params.itemId;
-        var APP_ID = "BhanuJai-Gluec-PRD-d38ccaf50-a1104f30";
-        var SHOPPING_API = "http://open.api.ebay.com/shopping";
-        var url = SHOPPING_API;
+        var url =   EBAY.SHOPPING_API;
         url += "?callName=GetSingleItem";
         url += "&responseencoding=JSON";
-        url += "&appid=" + APP_ID;
+        url += "&appid=" + EBAY.APP_ID;
         url += "&siteid=0";
         url += "&version=515";
         url += "&ItemID=" + itemId;
         console.log(url);
         request(url, function (error, response, body) {
             if (!error && response.statusCode == 200) {
-                return res.json(JSON.parse(body));
+                var res = JSON.parse(body);
+                console.log(res);
+                //return res.json(JSON.parse(body));
             }
         });
     }
@@ -115,7 +113,7 @@ module.exports = function (q, uuid, request) {
             "catalogId": "",
             "merchantId": "",
             "imageUrl": ebayProduct.galleryURL[0]
-        }
+        };
         return product;
     }
 
@@ -152,4 +150,4 @@ module.exports = function (q, uuid, request) {
         });
     }
 
-}
+};

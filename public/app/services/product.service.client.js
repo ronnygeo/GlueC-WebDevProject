@@ -18,8 +18,8 @@
         };
         return api;
 
-        function getSingleItem(provider, itemId) {
-            var url = "/api/getSingleItem/" + provider + "/" + itemId;
+        function getSingleItem(providerId, productId) {
+            var url = "/api/getSingleItem/" + providerId + "/" + productId;
             return $http.get(url);
         }
 
