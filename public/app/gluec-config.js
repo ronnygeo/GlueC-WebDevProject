@@ -34,7 +34,7 @@
                     templateUrl: 'views/dashboard/dashboard.view.html',
                     controllerAs: 'cc'
                 })
-                .when('/item/:productId', {
+                .when('/item/:providerId/:productId', {
                     controller: 'PDPController',
                     templateUrl: 'views/product/pdp.view.html',
                     controllerAs: "model"

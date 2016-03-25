@@ -14,33 +14,34 @@
 
         $scope.$location = $location;
         //$scope.search = search;
-        var vm = this;
+        var SearchController = this;
         var keyword = $routeParams.keyword;
 
         function init() {
             search();
         }
 
-        init()
+        init();
 
         function search() {
             if (keyword && keyword != "") {
+                ProgressBarFactory.showProgressBar();
                 ProductService
                     .findItemsAdvanced(keyword)
-                    .then(render);
-                ProgressBarFactory.showProgressBar();
+                    .then(success_callback, error_callback);
             }
 
-            function render(response) {
+            function success_callback(response) {
                 ProgressBarFactory.hideProgressBar();
-                //console.log(response.data.findItemsByKeywordsResponse[0].searchResult[0].item);
-                console.log(response.data.findItemsAdvancedResponse[0].searchResult[0].item);
-                //vm.products = response.data.findItemsByKeywordsResponse[0].searchResult[0].item;
-                vm.products = response.data.findItemsAdvancedResponse[0].searchResult[0].item;
+                console.log(response.data);
+                SearchController.products = response.data;
             }
 
+            function error_callback(error) {
+                ProgressBarFactory.hideProgressBar();
+                console.log("error");
+                console.log(error);
+            }
         }
-
-
-    };
+    }
 })();

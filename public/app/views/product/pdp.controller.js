@@ -7,29 +7,38 @@
         .controller('PDPController', PDPController);
 
     PDPController.$inject = ['ProductService', '$scope', '$routeParams', '$location', 'ProgressBarFactory'];
-    function PDPController(ProductService, $scope, $routeParams, $location,ProgressBarFactory) {
+    function PDPController(ProductService, $scope, $routeParams, $location, ProgressBarFactory) {
 
         $scope.$location = $location;
-        var vm = this;
-        var productId = $routeParams.productId;
+        var PDPController = this;
 
-        function init(){
+        function init() {
             getProductById();
-        }init();
+        }
 
-        function getProductById(){
-            if(productId  && productId != ""){
-                ProgressBarFactory.showProgressBar();
-                ProductService
-                    .getSingleItem(productId)
-                    .then(render);
+        init();
+
+        function getProductById() {
+            var productId = $routeParams.productId;
+            var providerId = $routeParams.providerId;
+            if (!productId || !productId) {
+                return;
             }
-            function render(response){
+            ProgressBarFactory.showProgressBar();
+            ProductService
+                .getSingleItem(providerId, productId)
+                .then(success_callback, error_callback);
+
+            function success_callback(response) {
                 ProgressBarFactory.hideProgressBar();
-                //console.log(response.data.findItemsByProductResponse[0].searchResult[0].item[0]);
-                //vm.product = response.data.findItemsByProductResponse[0].searchResult[0].item[0];
-                console.log(response.data.Item);
-                vm.product=response.data.Item;
+                console.log(response.data);
+                PDPController.product = response.data;
+
+            }
+
+            function error_callback(error) {
+                console.log(error);
+                ProgressBarFactory.hideProgressBar();
 
             }
         }

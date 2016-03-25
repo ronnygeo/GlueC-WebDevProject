@@ -7,6 +7,6 @@
         .module('GluecApp')
         .controller('HomeController', HomeController);
 
-        function HomeController($location, $scope, $rootScope, ngProgressFactory) {
+        function HomeController(ProductService, $location, $scope, $rootScope, ngProgressFactory) {
     }
 })();
