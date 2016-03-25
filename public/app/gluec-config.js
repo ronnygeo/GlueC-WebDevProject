@@ -29,9 +29,10 @@
                     templateUrl: 'views/search/search.view.html',
                     controllerAs: "model"
                 })
-                .when('/admin', {
+                .when('/dashboard', {
                     controller: 'DashboardController',
-                    templateUrl: 'views/dashboard/dashboard.view.html'
+                    templateUrl: 'views/dashboard/dashboard.view.html',
+                    controllerAs: 'cc'
                 })
                 .when('/item/:productId', {
                     controller: 'PDPController',
@@ -43,7 +44,12 @@
                     templateUrl: 'views/listing/create-listing.view.html',
                     controllerAs: "model"
                 })
-                .when('/user/:id/catalogs', {
+                .when('/admin', {
+                    controller: 'AdminDashboardController',
+                    templateUrl: 'views/admin/dashboard.admin.view.html',
+                    controllerAs: 'admin'
+                })
+                .when('/admin/catalogs', {
                     controller: 'ShowAllCatalogController',
                     templateUrl: 'views/catalog/showall.catalog.view.html',
                     controllerAs: "cc"
