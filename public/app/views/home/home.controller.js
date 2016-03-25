@@ -11,14 +11,18 @@
 
         var HomeController = this;
 
+        function init() {
+
+            $("#search").focus();
+        }
+
+        init();
+
         HomeController.search = search;
 
-        function search($event) {
-            var keyCode = $event.which || $event.keyCode;
-            if (keyCode === 13) {
-                console.log("Got KeyEvent Enter");
-                $location.url("/search/q/" + HomeController.search_input);
-            }
+        function search() {
+            console.log("Got KeyEvent Enter");
+            $location.url("/search/q/" + HomeController.search_input);
         }
 
     }
