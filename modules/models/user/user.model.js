@@ -1,9 +1,11 @@
 /**
  * Created by ronnygeo on 3/24/16.
  */
- module.exports = function (q) {
+ module.exports = function (q, uuid) {
+
      var deferred = q.defer();
      var users = require("./user.test.json");
+
      return {
          findUserById: findUserById,
          findUserByCredentials: findUserByCredentials,
@@ -20,6 +22,7 @@
              if( users[u]._id == userId ) {
                  // console.log(users[u]);
                  deferred.resolve(users[u]);
+                 break;
              }
          }
          deferred.reject();
@@ -35,10 +38,13 @@
          for (var i in users) {
              var user = users[i];
              if (user.username === username && user.password === password) {
+                 console.log(username, password);
+                 console.log(user);
                  deferred.resolve(user);
+                 break;
              }
          }
-         deferred.reject();
+         //deferred.reject();
         return deferred.promise;
      }
 

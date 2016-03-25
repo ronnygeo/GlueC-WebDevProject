@@ -5,7 +5,7 @@
 (function () {
     angular
         .module('GluecApp')
-        .config(function ($routeProvider,$httpProvider) {
+        .config(function ($routeProvider, $httpProvider) {
             $routeProvider
                 .when('/', {
                     controller: 'HomeController',
@@ -18,6 +18,11 @@
                 .when('/register', {
                     controller: 'RegisterController',
                     templateUrl: 'views/users/register.view.html'
+                })
+                .when('/profile', {
+                    controller: 'ProfileController',
+                    templateUrl: 'views/users/profile.view.html',
+                    controllerAs: "user"
                 })
                 .when('/search/q/:keyword', {
                     controller: 'SearchController',
@@ -40,7 +45,7 @@
                 })
                 .otherwise({
                     redirectTo: '/'
-                })
+                });
 
             $httpProvider.defaults.useXDomain = true;
             delete $httpProvider.defaults.headers.common['X-Requested-With'];

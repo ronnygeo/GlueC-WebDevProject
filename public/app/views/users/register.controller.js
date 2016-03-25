@@ -15,17 +15,15 @@
         //Event Handlers Implementations
         function Register(form_user) {
 
-            UserService.createUser(form_user, userRegisterCallback)
-
-            function userRegisterCallback(response) {
-                if (response != null) {
-                    //Storing the user in the Root Scope
-                    $rootScope.user = response;
-                    // Navigating to the Profile Page of this particular User
-                    $location.url("/");
+            UserService.createUser(form_user).then(function userRegisterCallback(response) {
+                    if (response.data != null) {
+                        //Storing the user in the Root Scope
+                        $rootScope.user = response.data;
+                        // Navigating to the Profile Page of this particular User
+                        $location.url("/");
+                    }
                 }
-            };
-        };
-
-    };
+            )
+        }
+    }
 })();

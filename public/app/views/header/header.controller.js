@@ -1,11 +1,11 @@
 /**
  * Created by Bhanu on 02/03/2016.
  */
-"user strict";
 (function () {
+    "use strict";
     angular
         .module("GluecApp")
-        .controller("HeaderController", HeaderController)
+        .controller("HeaderController", HeaderController);
 
     function HeaderController($location, $scope, $rootScope) {
 
@@ -18,6 +18,6 @@
         function logout() {
             delete $rootScope.user;
             $location.url("/login");
-        };
-    };
+        }
+    }
 })();

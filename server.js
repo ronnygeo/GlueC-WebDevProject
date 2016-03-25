@@ -5,16 +5,17 @@ var express = require('express'),
     cors = require('cors'),
     request = require('request');
 var q = require("q");
+var uuid = require("node-uuid");
 
 var IP = process.env.OPENSHIFT_NODEJS_IP || 'localhost';
 var PORT = process.env.OPENSHIFT_NODEJS_PORT || 3000;
-// var bodyParser    = require('body-parser');
+var bodyParser    = require('body-parser');
 // var multer        = require('multer');
 
 var app = express();
 
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(multer());
 
 app.use(cors());
@@ -46,7 +47,7 @@ function getEbayItem(req, res) {
     });
 }
 
-var userModel = require("./modules/models/user/user.model.js")(q);
+var userModel = require("./modules/models/user/user.model.js")(q, uuid);
 require("./modules/services/user/user.service.js")(app, userModel);
 // require("./modules/services/provider/ebay.service.js")(app, request);
 
