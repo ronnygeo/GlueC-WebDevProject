@@ -37,6 +37,7 @@
             }
 
             function error_callback(error) {
+                ProgressBarFactory.hideProgressBar();
                 console.log(error);
                 ProgressBarFactory.hideProgressBar();
 

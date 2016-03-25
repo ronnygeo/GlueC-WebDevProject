@@ -9,6 +9,7 @@
             $routeProvider
                 .when('/', {
                     controller: 'HomeController',
+                    controllerAs: "model",
                     templateUrl: 'views/home/home.view.html'
                 })
                 .when('/login', {
