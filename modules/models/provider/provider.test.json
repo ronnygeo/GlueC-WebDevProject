@@ -1,0 +1,14 @@
+[
+  {
+    "_id": 10001,
+    "name": "eBay",
+    "apiKey": 12313,
+    "accessToken": ""
+},
+  {
+    "_id": 10002,
+    "name": "Amazon",
+    "apiKey": 123124324,
+    "accessToken": ""
+  }
+]

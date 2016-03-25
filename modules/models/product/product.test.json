@@ -1,0 +1,54 @@
+[
+  {
+  "_id": 101,
+    "name": "Apple Watch 42mm",
+    "manufacturer": "Apple",
+    "description": "The new redesigned Apple watch 42mm. Blah, Blah, Blah",
+    "categories": ["watches", "computer accessories"],
+    "price": 500,
+    "discount": 10,
+    "providerIds": [1001, 1002],
+    "catalogId": 1,
+    "merchantId": 234,
+    "imageUrl": "static/images/products/101.jpg"
+},
+  {
+    "_id": 102,
+    "name": "Apple Watch 38mm",
+    "manufacturer": "Apple",
+    "description": "The new redesigned Apple watch 42mm. Blah, Blah, Blah",
+    "categories": ["watches", "computer accessories"],
+    "price": 500,
+    "discount": 10,
+    "providerIds": [1001],
+    "merchantId": 234,
+    "catalogId": 1,
+    "imageUrl": "static/images/products/102.jpg"
+  },
+  {
+    "_id": 201,
+    "name": "Macbook Air 13",
+    "manufacturer": "Apple",
+    "description": "The new redesigned Macbook Air. Blah, Blah, Blah",
+    "categories": ["laptop", "computer"],
+    "price": 1000,
+    "discount": 10,
+    "providerIds": [1002],
+    "merchantId": 234,
+    "catalogId": 2,
+    "imageUrl": "static/images/products/201.jpg"
+  },
+  {
+  "_id": 202,
+  "name": "Watch",
+  "manufacturer": "Apple",
+  "description": "The new redesigned Apple watch 42mm. Blah, Blah, Blah",
+  "categories": ["laptop", "computer"],
+  "price": 500,
+  "discount": 10,
+  "providerIds": [1001, 1002],
+  "catalogId": 2,
+    "merchantId": 234,
+  "imageUrl": "static/images/products/202.jpg"
+}
+]

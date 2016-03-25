@@ -1,0 +1,9 @@
+[
+  {"_id": 87,
+  "name": "watch",
+  "productIds": [100,101]
+  },
+  {"_id": 90,
+  "name": "laptop",
+  "productIds": [201,202]}
+]

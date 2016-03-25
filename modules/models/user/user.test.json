@@ -1,0 +1,6 @@
+[
+  {"_id": 123, "firstName": "Bhanu", 	"lastName": "Jain",	"username": "bhanu", "roles": ["admin"],	"password": "bhanu"},
+  {"_id": 125, "firstName": "Ronny", "lastName": "Mathew", "username": "ronnygeo", "roles":["admin"], "password": "ronny"},
+  {"_id": 234, "firstName": "Bob",	"lastName": "Hope", "username": "bob", "roles":["user", "merchant"],	"password": "bob"},
+  {"_id": 240, "firstName": "Alice", 	"lastName": "Wonderland",	"username": "alice", "roles": ["user", "consumer"],	"password": "alice"}
+]
