@@ -6,8 +6,8 @@
     angular.module("GluecApp")
         .controller('PDPController', PDPController);
 
-    PDPController.$inject = ['EbayService', '$scope', '$routeParams', '$location', 'ProgressBarFactory'];
-    function PDPController(EbayService, $scope, $routeParams, $location,ProgressBarFactory) {
+    PDPController.$inject = ['ProductService', '$scope', '$routeParams', '$location', 'ProgressBarFactory'];
+    function PDPController(ProductService, $scope, $routeParams, $location,ProgressBarFactory) {
 
         $scope.$location = $location;
         var vm = this;
@@ -20,7 +20,7 @@
         function getProductById(){
             if(productId  && productId != ""){
                 ProgressBarFactory.showProgressBar();
-                EbayService
+                ProductService
                     .getSingleItem(productId)
                     .then(render);
             }
