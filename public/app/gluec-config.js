@@ -43,6 +43,16 @@
                     templateUrl: 'views/listing/create-listing.view.html',
                     controllerAs: "model"
                 })
+                .when('user/:id/catalogs', {
+                    controller: 'CatalogController',
+                    templateUrl: 'views/catalog/show.catalog.view.html',
+                    controllerAs: "cc"
+                })
+                .when('user/:id/catalog/new', {
+                    controller: 'CatalogController',
+                    templateUrl: 'views/catalog/create.catalog.view.html',
+                    controllerAs: "cc"
+                })
                 .otherwise({
                     redirectTo: '/'
                 });

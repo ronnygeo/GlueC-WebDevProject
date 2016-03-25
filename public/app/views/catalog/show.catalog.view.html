@@ -1,0 +1,11 @@
+<div ng-repeat="catalog in cc.catalogs">
+    <ul>
+        <li>catalog.name</li>
+        <li>catalog.merchantId</li>
+        <li>catalog.productIds</li>
+        <li><a ng-click="updateCatalog(catalog._id)">Update</a></li>
+        <li><a ng-click="deleteCatalog(catalog._id)">Delete</a></li>
+    </ul>
+</div>
+
+<a ng-click="cc.createCatalog()">Create Catalog</a>

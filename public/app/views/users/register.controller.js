@@ -15,7 +15,7 @@
         //Event Handlers Implementations
         function Register(form_user) {
 
-            UserService.createUser(form_user).then(function userRegisterCallback(response) {
+            UserService.createCatalog(form_user).then(function userRegisterCallback(response) {
                     if (response.data != null) {
                         //Storing the user in the Root Scope
                         $rootScope.user = response.data;

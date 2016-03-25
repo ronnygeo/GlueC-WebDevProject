@@ -37,9 +37,6 @@ module.exports = function (app, userModel) {
                 console.log(data);
                 res.json(data);
              }
-            // function (err) {
-            //     res.statusCode(404).send(err);
-            // }
             )
     }
 
@@ -59,7 +56,8 @@ module.exports = function (app, userModel) {
         var userId = req.params['id'];
         data = req.body;
         userModel.updateUser(userId, data).then(function (data) {
-                res.json(data);
+            console.log(data);
+            res.json(data);
             },
             function (err) {
                 res.statusCode(404).send(err);

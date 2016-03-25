@@ -44,10 +44,8 @@
         };
         return api;
 
-        function findUserById() {
-            $http.get("/api/user/:id").then(function (data) {
-                return data.data;
-            });
+        function findUserById(userId) {
+            $http.get("/api/user/"+userId);
         }
         //Accepts parameters username, password, and callback function
         //Iterates over the array of current users looking for user object
@@ -80,7 +78,7 @@
         //If found, removes user from the array of current users
         //Calls back with remaining array of all users
         function deleteUserById(userId) {
-            return $http.delete("/api/user/:userId");
+            return $http.delete("/api/user/"+userId);
         }
 
         //Accepts parameters user id, user object and callback function
@@ -89,7 +87,7 @@
         //If found, updates user with new user properties
         //Calls back with updated user
         function updateUser(userId, newUser) {
-            return $http.put("/api/user/:userId", newUser);
+            return $http.put("/api/user/"+userId, newUser);
         }
     }
 })();
