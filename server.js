@@ -1,54 +1,27 @@
-#!/bin/env node
-//  OpenShift sample Node application
-
-var express = require('express'),
-    cors = require('cors'),
-    request = require('request');
+var express = require('express');
+var request = require('request');
+var bodyParser = require('body-parser');
+var multer = require('multer');
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
 var q = require("q");
 var uuid = require("node-uuid");
-
-var IP = process.env.OPENSHIFT_NODEJS_IP || 'localhost';
-var PORT = process.env.OPENSHIFT_NODEJS_PORT || 3000;
-var bodyParser    = require('body-parser');
-// var multer        = require('multer');
-
 var app = express();
+var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
+var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(multer());
-
-app.use(cors());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(multer());
 
 app.use(express.static(__dirname + '/public'));
-app.use(express.static(__dirname + '/bower_components'));
+app.use('/bower_components', express.static(__dirname + '/bower_components'));
+
 app.get('/hello', function (req, res) {
-    res.send("Hello World!");
+    res.send('hello world');
 });
 
-app.get("/api/getSingleItem/:itemId",getEbayItem);
+/*Injecting Server App*/
+require("./modules/app.js")(app, request, q, uuid);
 
-function getEbayItem(req, res) {
-    var itemId = req.params.itemId;
-    var APP_ID = "BhanuJai-Gluec-PRD-d38ccaf50-a1104f30";
-    var SHOPPING_API = "http://open.api.ebay.com/shopping";
-    var url = SHOPPING_API;
-    url += "?callName=GetSingleItem";
-    url += "&responseencoding=JSON";
-    url += "&appid=" + APP_ID;
-    url += "&siteid=0";
-    url += "&version=515";
-    url += "&ItemID=" + itemId;
-    console.log(url);
-    request(url, function(error, response, body){
-        if (!error && response.statusCode == 200) {
-            return res.json(JSON.parse(body));
-        }
-    });
-}
-
-var userModel = require("./modules/models/user/user.model.js")(q, uuid);
-require("./modules/services/user/user.service.js")(app, userModel);
-// require("./modules/services/provider/ebay.service.js")(app, request);
-
-app.listen(PORT, IP);
+app.listen(port, ipaddress);

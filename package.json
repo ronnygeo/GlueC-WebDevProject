@@ -18,16 +18,16 @@
     "npm": ">= 1.0.0"
   },
   "dependencies": {
-    "body-parser": "^1.15.0",
     "bower": "latest",
-    "cors": "^2.7.1",
-    "express": "^4.13.4",
-    "gulp": "^3.9.1",
-    "multer": "^1.1.0",
-    "node-uuid": "^1.4.7",
+    "express": "~3.4.4",
     "q": "^1.4.1",
     "request": "^2.69.0",
-    "uuid": "^2.0.1"
+    "body-parser": "^1.15.0",
+    "cookie-parser": "^1.4.1",
+    "express-session": "^1.13.0",
+    "guid": "0.0.12",
+    "multer": "^1.1.0",
+    "node-uuid": "^1.4.7"
   },
   "devDependencies": {
     "gulp": "^3.9.1",

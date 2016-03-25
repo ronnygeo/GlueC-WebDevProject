@@ -3,7 +3,6 @@
  */
  module.exports = function (q, uuid) {
 
-     var deferred = q.defer();
      var users = require("./user.test.json");
 
      return {
