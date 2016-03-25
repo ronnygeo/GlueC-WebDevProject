@@ -1,8 +1,8 @@
 /**
  * Created by ronnygeo on 3/24/16.
  */
- module.exports = function (q, uuid) {
-     var deferred = q.defer();
+ module.exports = function (uuid) {
+     var q = require("q");
      var users = require("./user.test.json");
 
      return {
@@ -15,7 +15,7 @@
      };
 
      function findUserById(userId) {
-         "use strict";
+         var deferred = q.defer();
          var found = 0;
          for(var u in users) {
              // console.log(u);
@@ -39,23 +39,27 @@
      // // whose username and password match the parameters
      // //Calls bac k with user found or null otherwise
      function findUserByCredentials(username, password) {
-         "use strict";
+         var found = 0;
+         var deferred = q.defer();
          for (var i in users) {
              var user = users[i];
              if (user.username === username && user.password === password) {
                  console.log(username, password);
                  console.log(user);
+                 found = 1;
                  deferred.resolve(user);
                  break;
              }
          }
-         //deferred.reject();
+         if (found == 0)
+         deferred.reject();
         return deferred.promise;
      }
 
      function findAllUsers() {
-         "use strict";
-             deferred.resolve(users);
+         var deferred = q.defer();
+
+         deferred.resolve(users);
          return deferred.promise;
      }
 
@@ -64,7 +68,7 @@
      // //Adds the new user to local array of users
      // //Calls back with new user
      function register(user) {
-         "use strict";
+         var deferred = q.defer();
          user._id = uuid.v1();
          if (users.push(user)) {
              deferred.resolve(user);
@@ -80,7 +84,7 @@
      // //If found, updates user with new user properties
      // //Calls back with updated user
      function updateUser(userId, data) {
-         "use strict";
+         var deferred = q.defer();
          var user = findById(userId);
          var found = 0;
          if (user) {
@@ -101,7 +105,7 @@
      // //If found, removes user from the array of current users
      // //Calls back with remaining array of all users
      function deleteUser(userId) {
-         "use strict";
+         var deferred = q.defer();
          for (var i = 0; i < users.length; i++){
              if (userId == users[i]._id)
              {

@@ -1,5 +1,4 @@
 [
-  [
     {"_id": 87,
       "name": "watch",
       "merchantId": 234,
@@ -9,5 +8,4 @@
       "name": "laptop",
       "merchantId": 234,
       "productIds": [201,202]}
-  ]
 ]

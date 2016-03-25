@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var multer = require('multer');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
-var q = require("q");
+// var q = require("q");
 var uuid = require("node-uuid");
 var app = express();
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
@@ -22,6 +22,6 @@ app.get('/hello', function (req, res) {
 });
 
 /*Injecting Server App*/
-require("./modules/app.js")(app, request, q, uuid);
+require("./modules/app.js")(app, request, uuid);
 
 app.listen(port, ipaddress);

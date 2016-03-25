@@ -2,8 +2,6 @@
  * Created by ronnygeo on 3/24/16.
  */
 module.exports = function (app, userModel) {
-    "use strict";
-
     app.get("/api/users", findAllUsers);
     app.get("/api/user/:id", findUserById);
     app.get("/api/user", findUserByCredentials);
