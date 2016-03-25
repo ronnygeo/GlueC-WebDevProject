@@ -15,7 +15,8 @@
     "providerId": 10001,
     "catalogId": 1,
     "merchantId": 234,
-    "imageUrl": "static/images/products/101.jpg"
+    "imageUrl": "static/images/products/101.jpg",
+    "providerUrl": ""
   },
   {
     "_id": 102,
@@ -33,7 +34,8 @@
     "providerId": 10001,
     "merchantId": 234,
     "catalogId": 1,
-    "imageUrl": "static/images/products/102.jpg"
+    "imageUrl": "static/images/products/102.jpg",
+    "providerUrl": ""
   },
   {
     "_id": 201,
@@ -51,7 +53,8 @@
     "providerId": 10001,
     "merchantId": 234,
     "catalogId": 2,
-    "imageUrl": "static/images/products/201.jpg"
+    "imageUrl": "static/images/products/201.jpg",
+    "providerUrl": ""
   },
   {
     "_id": 202,
@@ -69,6 +72,7 @@
     "providerId": 10001,
     "catalogId": 2,
     "merchantId": 234,
-    "imageUrl": "static/images/products/202.jpg"
+    "imageUrl": "static/images/products/202.jpg",
+    "providerUrl": ""
   }
 ]

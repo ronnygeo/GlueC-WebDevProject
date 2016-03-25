@@ -4,13 +4,13 @@
             <div class="col s12">
                 <div class="card pdp-card">
                     <div class="card-image waves-effect waves-block waves-light pdp-image center-align">
-                        <img ng-src="{{model.product.PictureURL[0] | removeDoubleQuotes}}" alt="Product Image">
+                        <img ng-src="{{model.product.imageUrl}}" alt="Product Image">
                         <!--<span class="card-title">{{model.product.title[0] | removeDoubleQuotes}}</span>-->
                     </div>
                     <div class="card-content grey-text">
                         <div>
                             <span class="card-title activator grey-text text-darken-5">
-                        {{model.product.Title | removeDoubleQuotes}}
+                        {{model.product.title}}
                         </span>
                         </div>
                         <div>
@@ -29,8 +29,8 @@
 
                     </div>
                     <div class="card-action">
-                        <a href="{{model.product.ViewItemURLForNaturalSearch | removeDoubleQuotes}}">Buy</a>
-                        <a href="#/item/{{model.product.ItemID | removeDoubleQuotes}}">Sell</a>
+                        <a href="{{model.product.providerUrl}}">Buy</a>
+                        <a href="#/item/{{model.product.providerId}}/{{model.product.ItemID}}">Sell</a>
                     </div>
                 </div>
             </div>

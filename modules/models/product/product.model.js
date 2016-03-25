@@ -23,7 +23,8 @@ module.exports = function (q, uuid, request) {
     return api;
 
     function getSingleItem(itemId) {
-        var url =   EBAY.SHOPPING_API;
+        var deferred = q.defer();
+        var url = EBAY.SHOPPING_API;
         url += "?callName=GetSingleItem";
         url += "&responseencoding=JSON";
         url += "&appid=" + EBAY.APP_ID;
@@ -34,10 +35,41 @@ module.exports = function (q, uuid, request) {
         request(url, function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 var res = JSON.parse(body);
-                console.log(res);
-                //return res.json(JSON.parse(body));
+                //console.log(res);
+                //console.log(res.Item);
+                if (res.Item) {
+                    deferred.resolve(mapEbaySingleFindToGluecProduct(res.Item));
+                } else {
+                    deferred.reject("Cannot Find the Item from Ebay");
+                }
+            } else {
+                console.log(error);
+                deferred.reject(error);
             }
         });
+
+        return deferred.promise;
+    }
+
+    function mapEbaySingleFindToGluecProduct(ebayProduct) {
+        var product = {
+            "_id": uuid.v1(),
+            //"externalProductId": ebayProduct.productId[0].__value__,
+            "externalItemId": ebayProduct.ItemID,
+            "title": ebayProduct.Title,
+            "name": "",
+            "manufacturer": "",
+            "description": "",
+            "categories": [],
+            "price": "",
+            "discount": "",
+            "providerId": 10001,
+            "catalogId": "",
+            "merchantId": "",
+            "imageUrl": ebayProduct.PictureURL[0],
+            "providerUrl": ebayProduct.ViewItemURLForNaturalSearch
+        };
+        return product;
     }
 
     function findItemsByKeywords(keyword) {
@@ -74,14 +106,14 @@ module.exports = function (q, uuid, request) {
                     res.findItemsAdvancedResponse[0].searchResult[0] &&
                     res.findItemsAdvancedResponse[0].searchResult[0].item) {
                     deferred.resolve(
-                        mapEbayToGluecProducts(res.findItemsAdvancedResponse[0].searchResult[0].item));
+                        mapFindEbayToGluecProducts(res.findItemsAdvancedResponse[0].searchResult[0].item));
                 } else {
                     console.log("Ebay API Call Failed");
                     deferred.reject("Ebay API Call Failed")
                 }
-            }else{
-                console.log("Ebay API Call Failed");
-                deferred.reject("Ebay API Call Failed")
+            } else {
+                console.log(error);
+                deferred.reject(error);
             }
         });
 
@@ -89,15 +121,15 @@ module.exports = function (q, uuid, request) {
 
     }
 
-    function mapEbayToGluecProducts(ebayProducts) {
+    function mapFindEbayToGluecProducts(ebayProducts) {
         var products = [];
         for (var ebayProduct in ebayProducts) {
-            products.push(mapEbayToGluecProduct(ebayProducts[ebayProduct]))
+            products.push(mapFindEbayToGluecProduct(ebayProducts[ebayProduct]))
         }
         return products;
     }
 
-    function mapEbayToGluecProduct(ebayProduct) {
+    function mapFindEbayToGluecProduct(ebayProduct) {
         var product = {
             "_id": uuid.v1(),
             //"externalProductId": ebayProduct.productId[0].__value__,
@@ -112,7 +144,9 @@ module.exports = function (q, uuid, request) {
             "providerId": 10001,
             "catalogId": "",
             "merchantId": "",
-            "imageUrl": ebayProduct.galleryURL[0]
+            "imageUrl": ebayProduct.galleryURL[0],
+            "providerUrl": ""
+
         };
         return product;
     }
