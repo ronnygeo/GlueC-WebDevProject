@@ -2,7 +2,7 @@
  * Created by ronnygeo on 3/24/16.
  */
  module.exports = function (q, uuid) {
-
+     var deferred = q.defer();
      var users = require("./user.test.json");
 
      return {
@@ -16,15 +16,21 @@
 
      function findUserById(userId) {
          "use strict";
+         var found = 0;
          for(var u in users) {
              // console.log(u);
              if( users[u]._id == userId ) {
                  // console.log(users[u]);
+                 found = 1;
                  deferred.resolve(users[u]);
                  break;
              }
          }
-         deferred.reject();
+         console.log(found);
+         if (found == 0) {
+             deferred.reject();
+            found = 0;
+         }
          return deferred.promise;
      }
 
