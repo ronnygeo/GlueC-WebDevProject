@@ -38,14 +38,17 @@ module.exports = function (app, userModel) {
         userModel.findUserByCredentials(username, password).then(function (data) {
                 console.log(data);
                 res.json(data);
-            },
-            function (err) {
-                res.statusCode(404).send(err);
-            });
+             }
+            // function (err) {
+            //     res.statusCode(404).send(err);
+            // }
+            )
     }
 
     function registerUser(req, res) {
-        data = req.body;
+        // console.log(req);
+        var data = req.body;
+        // console.log(data);
         userModel.register(data).then(function (data) {
                 res.json(data);
             },

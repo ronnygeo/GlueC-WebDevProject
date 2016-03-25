@@ -62,9 +62,7 @@
         //Accepts parameter callback function
         //Calls back with array of all u
         function findAllUsers() {
-            $http.get("/api/users").then(function (data) {
-                return data.data;
-            })
+            $http.get("/api/users");
         }
 
         //Accepts parameters user object and callback function
@@ -72,6 +70,7 @@
         //Adds the new user to local array of users
         //Calls back with new user
         function createUser(user) {
+            console.log(user);
             return $http.post("/api/user", user);
         }
 
