@@ -6,11 +6,11 @@
 (function () {
     angular
         .module("GluecApp")
-        .factory("EbayService", EbayService);
+        .factory("ProductService", ProductService);
 
-    EbayService.$inject = ['$http'];
+    ProductService.$inject = ['$http'];
 
-    function EbayService($http) {
+    function ProductService($http) {
 
         var APP_ID = "BhanuJai-Gluec-PRD-d38ccaf50-a1104f30";
         var FIND_API = "http://svcs.ebay.com/services/search/FindingService/v1";

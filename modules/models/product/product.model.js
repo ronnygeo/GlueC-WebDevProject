@@ -1,37 +1,44 @@
-module.exports = function (app, request) {
+/**
+ * Created by Bhanu on 25/03/2016.
+ */
 
-    app.get("/api/getSingleItem/:itemId", getEbayItem);
+module.exports = function (q, uuid) {
 
-    var APP_ID = "BhanuJai-Gluec-PRD-d38ccaf50-a1104f30";
-    var FIND_API = "http://svcs.ebay.com/services/search/FindingService/v1";
-    var SHOPPING_API = "http://open.api.ebay.com/shoppin" +
-        "g";
+    var EBAY = {
+        APP_ID: "BhanuJai-Gluec-PRD-d38ccaf50-a1104f30",
+        FIND_API: "http://svcs.ebay.com/services/search/FindingService/v1",
+        SHOPPING_API: "http://open.api.ebay.com/shopping"
+
+    }
+
     var api = {
-        findItemsByKeywords: findItemsByKeywords,
-        findItemsAdvanced: findItemsAdvanced,
-        findItemsByProduct: findItemsByProduct,
-        getSingleItem: getSingleItem
+        ebay: {
+            findItemsByKeywords: findItemsByKeywords,
+            findItemsAdvanced: findItemsAdvanced,
+            findItemsByProduct: findItemsByProduct,
+            getSingleItem: getSingleItem
+        }
     };
     return api;
 
     function getSingleItem(itemId) {
-        var url = SHOPPING_API;
+        var url = EBAY.SHOPPING_API;
         url += "?callName=GetSingleItem";
         url += "&responseencoding=JSON";
-        url += "&appid=" + APP_ID;
+        url += "&appid=" + EBAY.APP_ID;
         url += "&siteid=0";
         url += "&version=961";
         url += "&ItemID=" + itemId;
         //url += "&format=jsonp";
         //url += "&json_callback=JSON_CALLBACK";
-        return $http.get("/api/getSingleItem/"+itemId);
+        return $http.get("/api/getSingleItem/" + itemId);
     }
 
     function findItemsByKeywords(keyword) {
-        var url = FIND_API;
+        var url = EBAY.FIND_API;
         url += "?OPERATION-NAME=findItemsByKeywords";
         url += "&SERVICE-VERSION=1.0.0";
-        url += "&SECURITY-APPNAME=" + APP_ID;
+        url += "&SECURITY-APPNAME=" + EBAY.APP_ID;
         url += "&GLOBAL-ID=EBAY-US";
         url += "&RESPONSE-DATA-FORMAT=JSON";
         url += "&callback=JSON_CALLBACK";
@@ -42,10 +49,10 @@ module.exports = function (app, request) {
     }
 
     function findItemsAdvanced(keyword) {
-        var url = FIND_API;
+        var url = EBAY.FIND_API;
         url += "?OPERATION-NAME=findItemsAdvanced";
         url += "&SERVICE-VERSION=1.0.0";
-        url += "&SECURITY-APPNAME=" + APP_ID;
+        url += "&SECURITY-APPNAME=" + EBAY.APP_ID;
         url += "&GLOBAL-ID=EBAY-US";
         url += "&RESPONSE-DATA-FORMAT=JSON";
         url += "&callback=JSON_CALLBACK";
@@ -56,10 +63,10 @@ module.exports = function (app, request) {
     }
 
     function findItemsByProduct(productId, callback) {
-        var url = FIND_API;
+        var url = EBAY.FIND_API;
         url += "?OPERATION-NAME=findItemsByProduct";
         url += "&SERVICE-VERSION=1.0.0";
-        url += "&SECURITY-APPNAME=" + APP_ID;
+        url += "&SECURITY-APPNAME=" + EBAY.APP_ID;
         url += "&GLOBAL-ID=EBAY-US";
         url += "&RESPONSE-DATA-FORMAT=JSON";
         url += "&callback=JSON_CALLBACK";
@@ -73,12 +80,10 @@ module.exports = function (app, request) {
 
     function getEbayItem(req, res) {
         var itemId = req.params.itemId;
-        var APP_ID = "BhanuJai-Gluec-PRD-d38ccaf50-a1104f30";
-        var SHOPPING_API = "http://open.api.ebay.com/shopping";
-        var url = SHOPPING_API;
+        var url = EBAY.SHOPPING_API;
         url += "?callName=GetSingleItem";
         url += "&responseencoding=JSON";
-        url += "&appid=" + APP_ID;
+        url += "&appid=" + EBAY.APP_ID;
         url += "&siteid=0";
         url += "&version=515";
         url += "&ItemID=" + itemId;
@@ -89,4 +94,5 @@ module.exports = function (app, request) {
             }
         });
     }
-};
+
+}

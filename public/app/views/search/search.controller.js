@@ -8,9 +8,9 @@
         .module('GluecApp')
         .controller("SearchController", SearchController);
 
-    SearchController.$inject = ['EbayService', '$scope', '$routeParams', '$location', 'ProgressBarFactory'];
+    SearchController.$inject = ['ProductService', '$scope', '$routeParams', '$location', 'ProgressBarFactory'];
 
-    function SearchController(EbayService, $scope, $routeParams, $location, ProgressBarFactory) {
+    function SearchController(ProductService, $scope, $routeParams, $location, ProgressBarFactory) {
 
         $scope.$location = $location;
         //$scope.search = search;
@@ -25,7 +25,7 @@
 
         function search() {
             if (keyword && keyword != "") {
-                EbayService
+                ProductService
                     .findItemsAdvanced(keyword)
                     .then(render);
                 ProgressBarFactory.showProgressBar();
