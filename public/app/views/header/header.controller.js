@@ -8,7 +8,8 @@
         .controller("HeaderController", HeaderController);
 
     function HeaderController($location, $scope, $rootScope) {
-
+        if ($rootScope.user)
+            console.log($rootScope.user.roles);
         $scope.$location = $location;
 
         //Event Handler Deceleration

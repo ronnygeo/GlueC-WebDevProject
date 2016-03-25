@@ -23,7 +23,7 @@
             return api;
 
             function findCatalogById(userId, catId) {
-                return $http.get("/api/user/"+userId+"/catalog/"+catId);
+                return $http.get("/api/user/"+userId+"/catalog/"+catId+"/");
             }
 
             //Accepts parameters username, password, and callback function

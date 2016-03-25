@@ -7,7 +7,7 @@
 module.exports = function (app, catalogModel) {
     app.get("/api/catalogs", findAllCatalogs);
     app.get("/api/user/:id/catalogs", findAllCatalogsByUser);
-    app.get("/api/user/:id/catalog/:catId", findCatalogById);
+    app.get("/api/user/:id/catalog/:catId/", findCatalogById);
     app.post("/api/user/:id/catalog", createCatalog);
     app.put("/api/user/:id/catalog/:catId", updateCatalog);
     app.delete("/api/user/:id/catalog/:catId", deleteCatalog);

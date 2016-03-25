@@ -3,6 +3,7 @@
  */
 
 (function (){
+
     angular.module('GluecApp')
         .controller('AdminDashboardController', AdminDashboardController);
 
@@ -10,6 +11,12 @@
     function AdminDashboardController($rootScope, UserService, CatalogService, ProductService) {
         var vm = this;
         var user = $rootScope.user;
+
+        angular.element(document).ready(function () {
+            $('ul.tabs').tabs();
+        });
+
+
         UserService.findAllUsers().then(function (data) {
             vm.users = data.data;
         });

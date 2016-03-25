@@ -2,7 +2,7 @@
 
 <div ng-repeat="catalog in cc.catalogs">
     <ul>
-        <li><a ng-click="goToCatalog(catalog._id)">{{catalog.name}}</a></li>
+        <li><a href="/user/{{user._id}}/catalog/{{catalog._id}}">{{catalog.name}}</a></li>
         <li>{{catalog.merchantId}}</li>
         <li>{{catalog.productIds}}</li>
         <li><button ng-click="cc.goToUpdate(catalog)">Update</button></li>
