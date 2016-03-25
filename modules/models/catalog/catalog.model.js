@@ -66,7 +66,7 @@ module.exports = function (uuid) {
         data._id = uuid.v1();
         data.merchantId = userId;
         if (catalogs.push(data)) {
-            deferred.resolve(user);
+            deferred.resolve(catalogs);
         } else {
             deferred.reject();
         }

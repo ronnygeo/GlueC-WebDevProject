@@ -7,6 +7,6 @@
         .module('GluecApp')
         .controller('HomeController', HomeController);
 
-        function HomeController(EbayService, $location, $scope, $rootScope, ngProgressFactory) {
+        function HomeController($location, $scope, $rootScope, ngProgressFactory) {
     }
 })();

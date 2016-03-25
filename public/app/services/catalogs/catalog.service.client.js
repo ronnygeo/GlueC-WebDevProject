@@ -23,7 +23,7 @@
             return api;
 
             function findCatalogById(userId, catId) {
-                $http.get("/api/user/"+userId+"catalog/"+catId);
+                $http.get("/api/user/"+userId+"/catalog/"+catId);
             }
 
             //Accepts parameters username, password, and callback function
@@ -45,9 +45,9 @@
             //Adds property called _id with unique value to the user object parameter.
             //Adds the new user to local array of users
             //Calls back with new user
-            function createCatalog(userId) {
-                console.log(user);
-                return $http.post("/api/user/"+userId+"/catalog", user);
+            function createCatalog(userId, catalog) {
+                // console.log(user);
+                return $http.post("/api/user/"+userId+"/catalog/", catalog);
             }
 
             //Accepts parameters user id and callback function
@@ -64,8 +64,8 @@
             // object whose user id is equal to parameter user id
             //If found, updates user with new user properties
             //Calls back with updated user
-            function updateCatalog(userId, catId, newUser) {
-                return $http.put("/api/user/"+userId+"/catalog/"+catId, newUser);
+            function updateCatalog(userId, catId, catalog) {
+                return $http.put("/api/user/"+userId+"/catalog/"+catId, catalog);
             }
         }
     }

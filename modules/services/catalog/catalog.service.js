@@ -51,6 +51,7 @@ module.exports = function (app, catalogModel) {
     function findCatalogById(req, res) {
         var userId = req.params['id'];
         var catId = req.params['catId'];
+        console.log(catId);
         catalogModel.findCatalogById(catId).then(function (data) {
                 // console.log(data);
                 res.json(data);
