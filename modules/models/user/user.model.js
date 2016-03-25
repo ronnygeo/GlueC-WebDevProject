@@ -85,15 +85,19 @@
      // //Calls back with updated user
      function updateUser(userId, data) {
          var deferred = q.defer();
-         var user = findUserById(userId);
          var found = 0;
-         if (user) {
-             for (var key in data) {
-                 console.log(key);
-                 user[key] = data[key];
+         for(var u in users) {
+             // console.log(u);
+             if( users[u]._id == userId ) {
+                 user = users[u];
+                 // console.log(users[u]);
+                 for (var key in data) {
+                     console.log(key);
+                     user[key] = data[key];
+                 }
+                found = 1;
+                 deferred.resolve(user);
              }
-             found = 1;
-             deferred.resolve(user);
          }
          if (found === 0)
              deferred.reject();

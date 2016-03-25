@@ -26,7 +26,7 @@ module.exports = function (uuid) {
                 break;
             }
         }
-        console.log(found);
+        // console.log(found);
         if (found === 0) {
             deferred.reject();
         }
@@ -82,13 +82,19 @@ module.exports = function (uuid) {
         var deferred = q.defer();
         var catalog = findCatalogById(catId);
         var found = 0;
-        if (catalog) {
-            for (var key in data) {
-                catalog[key] = data[key];
+        for(var c in catalogs) {
+            // console.log(u);
+            if( catalogs[c]._id == catId ) {
+                catalog = catalogs[c];
+                for (var key in data) {
+                    catalog[key] = data[key];
+                }
+                found = 1;
+                deferred.resolve(catalog);
+                break;
             }
-            found = 1;
-            deferred.resolve(catalog);
         }
+        
         if (found === 0)
             deferred.reject();
         return deferred.promise;
