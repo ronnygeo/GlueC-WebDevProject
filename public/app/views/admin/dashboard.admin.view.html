@@ -1,0 +1,38 @@
+<h2>Manage Users:</h2>
+<div ng-repeat="user in admin.users">
+    <ul>
+        <li>First Name: {{user.firstName}}</li>
+        <li>Last Name: {{user.lastName}}</li>
+        <li>Username: {{user.username}}</li>
+        <li>Password: {{user.password}}</li>
+        Roles
+        <li ng-repeat="role in user.roles">{{role}}</li>
+        <li>{{user.email}}</li>
+        <li><button ng-click="cc.goToUpdate(user)">Update</button></li>
+        <li><button ng-click="cc.deleteCatalog(user._id)">Delete</button></li>
+    </ul>
+</div>
+
+
+<h2>Manage Catalogs:</h2>
+<div ng-repeat="catalog in admin.catalogs">
+    <ul>
+        <li>{{catalog.name}}</li>
+        <li>{{catalog.merchantId}}</li>
+        <li>{{catalog.productIds}}</li>
+        <li><button ng-click="cc.goToUpdate(catalog)">Update</button></li>
+        <li><button ng-click="cc.deleteCatalog(catalog._id)">Delete</button></li>
+    </ul>
+</div>
+
+
+<h2>Manage Products:</h2>
+<div ng-repeat="catalog in cc.catalogs">
+    <ul>
+        <li>{{catalog.name}}</li>
+        <li>{{catalog.merchantId}}</li>
+        <li>{{catalog.productIds}}</li>
+        <li><button ng-click="cc.goToUpdate(catalog)">Update</button></li>
+        <li><button ng-click="cc.deleteCatalog(catalog._id)">Delete</button></li>
+    </ul>
+</div>

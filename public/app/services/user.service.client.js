@@ -45,7 +45,7 @@
         return api;
 
         function findUserById(userId) {
-            $http.get("/api/user/"+userId);
+            return $http.get("/api/user/"+userId);
         }
         //Accepts parameters username, password, and callback function
         //Iterates over the array of current users looking for user object
@@ -60,7 +60,7 @@
         //Accepts parameter callback function
         //Calls back with array of all u
         function findAllUsers() {
-            $http.get("/api/users");
+            return $http.get("/api/users");
         }
 
         //Accepts parameters user object and callback function

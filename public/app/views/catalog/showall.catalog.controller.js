@@ -18,7 +18,7 @@
         var userId = $routeParams.id;
         var catId = $routeParams.catId;
 
-        CatalogService.findAllCatalogsByUser(userId).then(function (res) {
+        CatalogService.findAllCatalogs().then(function (res) {
             vm.catalogs = res.data;
         });
 
