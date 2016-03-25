@@ -20,6 +20,7 @@
 
         function getSingleItem(providerId, productId) {
             var url = "/api/getSingleItem/" + providerId + "/" + productId;
+            console.log("Getting Single Item from "+url);
             return $http.get(url);
         }
 

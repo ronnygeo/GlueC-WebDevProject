@@ -1,18 +1,19 @@
 module.exports = function (app, ProductModel) {
 
-    app.get("/api/getSingleItem/:provider/:itemId", getSingleItem);
+    app.get("/api/getSingleItem/:providerId/:itemId", getSingleItem);
     app.get("/api/getItems/:keyword", findItemsAdvanced);
 
-    function getSingleItem(provider, itemId) {
+    function getSingleItem(req, res) {
 
-        if (provider == "Ebay") {
+        /*Getting Single Item from Ebay*/
+        if (req.params.providerId == "10001") {
             ProductModel.ebay
-                .getSingleItem(itemId)
-                .then(success_callback, errorCallback);
+                .getSingleItem(req.params.itemId)
+                .then(success_callback, error_callback);
 
             function success_callback(response) {
                 console.log(response);
-                res.json(response.data.Item);
+                res.json(response);
             }
 
             function error_callback(error) {
