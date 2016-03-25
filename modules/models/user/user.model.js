@@ -41,7 +41,7 @@
      function findAllUsers() {
          "use strict";
          defered.resolve(users);
-     };
+     }
 
      // //Accepts parameters user object and callback function
      // //Adds property called _id with unique value to the user object parameter.
