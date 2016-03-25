@@ -20,7 +20,7 @@
                     templateUrl: 'views/users/register.view.html'
                 })
                 .when('/profile', {
-                    controller: 'ProfileController',
+                    controller: "ProfileController",
                     templateUrl: 'views/users/profile.view.html',
                     controllerAs: "user"
                 })

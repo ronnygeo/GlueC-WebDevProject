@@ -3,7 +3,8 @@
  */
 (function () {
     'use strict';
-    angular.module("GlueCApp")
+
+    angular.module('GluecApp')
         .controller("ProfileController", ProfileController);
 
     ProfileController.$inject = ['$rootScope', 'UserService'];
