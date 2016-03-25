@@ -17,6 +17,7 @@
 
             function render(response) {
                 if (response != null) {
+                    console.log(response.data);
                     //Storing the user in the Root Scope
                     $rootScope.user = response.data;
                     // Navigating to the Profile Page of this particular User
