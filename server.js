@@ -6,7 +6,6 @@ var express = require('express'),
     request = require('request');
 var q = require("q");
 
-
 var IP = process.env.OPENSHIFT_NODEJS_IP || 'localhost';
 var PORT = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 // var bodyParser    = require('body-parser');

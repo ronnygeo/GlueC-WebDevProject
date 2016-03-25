@@ -2,7 +2,7 @@
  * Created by ronnygeo on 3/24/16.
  */
  module.exports = function (q) {
-     var defered = q.defer();
+     var deferred = q.defer();
      var users = require("./user.test.json");
      return {
          findUserById: findUserById,
@@ -16,31 +16,36 @@
      function findUserById(userId) {
          "use strict";
          for(var u in users) {
-             if( users[u]._id === userId ) {
-                 q.resolve(users[u]);
+             // console.log(u);
+             if( users[u]._id == userId ) {
+                 // console.log(users[u]);
+                 deferred.resolve(users[u]);
              }
          }
-         q.reject();
+         deferred.reject();
+         return deferred.promise;
      }
 
      // //Accepts parameters username, password, and callback function
      // //Iterates over the array of current users looking for user object
      // // whose username and password match the parameters
      // //Calls bac k with user found or null otherwise
-     function findUserByCredentials(credentials) {
+     function findUserByCredentials(username, password) {
          "use strict";
          for (var i in users) {
              var user = users[i];
-             if (user.username === credentials.username && user.password === credentials.password) {
-                 defered.resolve(user);
+             if (user.username === username && user.password === password) {
+                 deferred.resolve(user);
              }
          }
-         defered.reject();
+         deferred.reject();
+        return deferred.promise;
      }
 
      function findAllUsers() {
          "use strict";
-         defered.resolve(users);
+             deferred.resolve(users);
+         return deferred.promise;
      }
 
      // //Accepts parameters user object and callback function
@@ -51,10 +56,11 @@
          "use strict";
          user._id = uuid.v1();
          if (users.push(user)) {
-             defered.resolve(user);
+             deferred.resolve(user);
          } else {
-             defered.reject();
+             deferred.reject();
          }
+         return deferred.promise;
      }
 
      // //Accepts parameters user id, user object and callback function
@@ -65,13 +71,17 @@
      function updateUser(userId, data) {
          "use strict";
          var user = findById(userId);
+         var found = 0;
          if (user) {
              for (var key in data) {
                  user[key] = data[key];
              }
-             defered.resolve(user);
+             found = 1;
+             deferred.resolve(user);
          }
-         defered.reject();
+         if (found === 0)
+             deferred.reject();
+         return deferred.promise;
      }
 
      // //Accepts parameters user id and callback function
@@ -82,13 +92,13 @@
      function deleteUser(userId) {
          "use strict";
          for (var i = 0; i < users.length; i++){
-             if (userId === users[i]._id)
+             if (userId == users[i]._id)
              {
                  users.splice(i, 1);
                  break;
              }
          }
-         defered.resolve(users);
+         deferred.resolve(users);
+         return deferred.promise;
      }
-
  };

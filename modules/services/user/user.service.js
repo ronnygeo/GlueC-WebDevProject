@@ -3,6 +3,7 @@
  */
 module.exports = function (app, userModel) {
     "use strict";
+
     app.get("/api/users", findAllUsers);
     app.get("/api/user/:id", findUserById);
     app.get("/api/user", findUserByCredentials);
@@ -20,8 +21,9 @@ module.exports = function (app, userModel) {
         });
     }
     function findUserById(req, res) {
-        var userId = req.params['userId'];
+        var userId = req.params['id'];
         userModel.findUserById(userId).then(function (data) {
+            // console.log(data);
             res.json(data);
         },
             function (err) {
@@ -52,7 +54,7 @@ module.exports = function (app, userModel) {
     }
 
     function updateUser(req, res) {
-        var userId = req.params['userId'];
+        var userId = req.params['id'];
         data = req.body;
         userModel.updateUser(userId, data).then(function (data) {
                 res.json(data);
