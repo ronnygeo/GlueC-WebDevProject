@@ -1,5 +1,5 @@
-module.exports = function (app, request, uuid) {
-    var userModel = require("./models/user/user.model.js")(uuid);
+module.exports = function (app, request, q, uuid) {
+    var userModel = require("./models/user/user.model.js")(q, uuid);
     require("./services/user/user.service.js")(app, userModel);
 
     var catalogModel = require('./models/catalog/catalog.model.js')(uuid);
