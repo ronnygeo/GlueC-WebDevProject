@@ -4,7 +4,7 @@
 
 module.exports = function (q, uuid, request) {
 
-    var products = require('./product.test.json');
+    var products = require('./product.local.test.json');
     var EBAY = {
         APP_ID: "BhanuJai-Gluec-PRD-d38ccaf50-a1104f30",
         FIND_API: "http://svcs.ebay.com/services/search/FindingService/v1",
