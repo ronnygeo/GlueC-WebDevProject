@@ -42,6 +42,16 @@ footer {
     background-image: url("../media/photo-1451186859696-371d9477be93.jpg");
 }
 
+.landing-logo {
+    font-family: Rancho;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 18vw;
+    text-shadow: .04em .04em 0 #fff,.08em .08em 0 #aaa;
+    -webkit-text-shadow: .04em .04em 0 #fff, .08em .08em 0 #aaa;
+
+}
+
 .div-40 {
     min-height: 40vh !important;
     margin-top: 10vh;
@@ -96,4 +106,12 @@ footer {
 
 #login-alert {
     display:none;
+}
+
+.btn {
+    background-color: #3aa9e0;
+}
+
+.btn:hover {
+    background-color: rgb(100, 206, 255);
 }
