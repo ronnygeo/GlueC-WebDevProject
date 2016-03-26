@@ -8,9 +8,17 @@
         .controller("HeaderController", HeaderController);
 
     function HeaderController($location, $scope, $rootScope) {
-        if ($rootScope.user)
-            // console.log($rootScope.user.roles);
-        $scope.$location = $location;
+
+        function init() {
+            angular.element(document).ready(function () {
+                $('.button-collapse').sideNav();
+                if ($rootScope.user)
+                // console.log($rootScope.user.roles);
+                    $scope.$location = $location;
+            });
+        }
+
+        init();
 
         //Event Handler Deceleration
         $scope.logout = logout;
