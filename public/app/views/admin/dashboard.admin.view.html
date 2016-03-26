@@ -28,11 +28,10 @@
                     <input type="text" ng-model="admin.user.roles" id="adminNewUserRole" class="validate" placeholder="Role">
                 </td>
                 <td style="white-space: nowrap">
-                    <button ng-click="admin.updateUser()" class="btn btn-success">
-                        <span class="glyphicon glyphicon-ok"></span>
+                    <button ng-click="admin.updateUser()" class="btn green">
+                        <i class="fa fa-thumbs-up fa-2x"></i>
                     </button>
-                    <button ng-click="admin.addUser()" class="btn btn-primary">
-                        <span class="glyphicon glyphicon-plus"></span>
+                    <button ng-click="admin.addUser()" class="btn blue"><i class="fa fa-plus-square fa-2x"></i>
                     </button>
                 </td>
             </tr>
@@ -44,11 +43,9 @@
                 <td>{{u.email}}</td>
                 <td>{{u.roles}}</td>
                 <td>
-                    <button ng-click="admin.selectUser($index)" class="btn btn-warning">
-                        <span class="glyphicon glyphicon-pencil"></span>
+                    <button ng-click="admin.selectUser($index)" class="btn amber"><i class="fa fa-pencil fa-2x"></i>
                     </button>
-                    <button ng-click="admin.deleteUser($index)" class="btn btn-danger">
-                        <span class="glyphicon glyphicon-remove"></span>
+                    <button ng-click="admin.deleteUser($index)" class="btn red"><i class="fa fa-trash fa-2x"></i>
                     </button>
                 </td>
             </tr>
@@ -78,11 +75,11 @@
                     <input type="text" ng-model="admin.catalog.productIds" id="adminNewCatalogProducts" class="validate" placeholder="Product IDs">
                 </td>
                 <td style="white-space: nowrap">
-                    <button ng-click="admin.updateUser()" class="btn btn-success">
-                        <span class="glyphicon glyphicon-ok"></span>
+                    <button ng-click="admin.updateUser()" class="btn green">
+                        <i class="fa fa-thumbs-up fa-2x"></i>
                     </button>
-                    <button ng-click="admin.addUser()" class="btn btn-primary">
-                        <span class="glyphicon glyphicon-plus"></span>
+                    <button ng-click="admin.addUser()" class="btn blue"><i class="fa fa-plus-square fa-2x"></i>
+                    </button>
                     </button>
                 </td>
             </tr>
@@ -94,11 +91,9 @@
                 <td>{{catalog.merchantId}}</td>
                 <td>{{catalog.productIds}}</td>
                 <td>
-                    <button ng-click="admin.selectCatalog($index)" class="btn btn-warning">
-                        <span class="glyphicon glyphicon-pencil"></span>
+                    <button ng-click="admin.selectCatalog($index)" class="btn amber"><i class="fa fa-pencil fa-2x"></i>
                     </button>
-                    <button ng-click="admin.deleteCatalog($index)" class="btn btn-danger">
-                        <span class="glyphicon glyphicon-remove"></span>
+                    <button ng-click="admin.deleteCatalog($index)" class="btn red"><i class="fa fa-trash fa-2x"></i>
                     </button>
                 </td>
             </tr>
@@ -128,11 +123,11 @@
                     <input type="text" ng-model="admin.catalog.productIds" id="adminNewCatalogProducts" class="validate" placeholder="Product IDs">
                 </td>
                 <td style="white-space: nowrap">
-                    <button ng-click="admin.updateUser()" class="btn btn-success">
-                        <span class="glyphicon glyphicon-ok"></span>
+                    <button ng-click="admin.updateProduct()" class="btn green">
+                        <i class="fa fa-thumbs-up fa-2x"></i>
                     </button>
-                    <button ng-click="admin.addUser()" class="btn btn-primary">
-                        <span class="glyphicon glyphicon-plus"></span>
+                    <button ng-click="admin.addProduct()" class="btn blue"><i class="fa fa-plus-square fa-2x"></i>
+                    </button>
                     </button>
                 </td>
             </tr>
@@ -144,10 +139,9 @@
                 <td>{{product.merchantId}}</td>
                 <td>{{product.productIds}}</td>
                 <td>
-                    <button ng-click="admin.selectProduct($index)" class="btn btn-warning">
-                        <span class="glyphicon glyphicon-pencil"></span>
+                    <button ng-click="admin.selectProduct($index)" class="btn amber"><i class="fa fa-pencil fa-2x"></i>
                     </button>
-                    <button ng-click="admin.deleteProduct($index)" class="btn btn-danger">
+                    <button ng-click="admin.deleteProduct($index)" class="btn red"><i class="fa fa-trash fa-2x"></i>
                         <span class="glyphicon glyphicon-remove"></span>
                     </button>
                 </td>
