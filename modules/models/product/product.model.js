@@ -4,6 +4,7 @@
 
 module.exports = function (q, uuid, request) {
 
+    var products = require('./product.test.json');
     var EBAY = {
         APP_ID: "BhanuJai-Gluec-PRD-d38ccaf50-a1104f30",
         FIND_API: "http://svcs.ebay.com/services/search/FindingService/v1",
@@ -12,6 +13,17 @@ module.exports = function (q, uuid, request) {
     };
 
     var api = {
+        product: {
+            findProductByUserId: findProductByUserId,
+            findProductByCatalogId: findProductByCatalogId,
+            findProductById: findProductById,
+            findAllProductsByUserId: findAllProductsByUserId,
+            findAllProductsByCatalogId: findAllProductsByCatalogId,
+            findAllProducts: findAllProducts,
+            createProduct: createProduct,
+            updateProduct: updateProduct,
+            deleteProduct: deleteProduct
+        },
         ebay: {
             findItemsByKeywords: findItemsByKeywords,
             findItemsAdvanced: findItemsAdvanced,
@@ -183,5 +195,128 @@ module.exports = function (q, uuid, request) {
             }
         });
     }
+
+
+
+    // function findProductByUserId(req, res) {}
+    // function findProductByCatalogId(req, res) {}
+
+    //Functions for our product
+    function findProductById(prodId) {
+        var deferred = q.defer();
+        var found = 0;
+        for(var p in products) {
+            // console.log(u);
+            if( products[p]._id == prodId ) {
+                found = 1;
+                deferred.resolve(products[p]);
+                break;
+            }
+        }
+        // console.log(found);
+        if (found === 0) {
+            deferred.reject();
+        }
+        return deferred.promise;
+    }
+
+    function findAllProductsByUserId(userId) {
+        var collection = [];
+        var deferred = q.defer();
+        for (var i in products) {
+            if (products[i].merchantId == userId) {
+                collection.push(products[i]);
+            }
+        }
+        deferred.resolve(collection);
+        //deferred.reject();
+        return deferred.promise;
+    }
+
+
+    function findAllProductsByCatalogId(catId) {
+        var collection = [];
+        var deferred = q.defer();
+        for (var i in products) {
+            if (products[i].catalogId == catId) {
+                collection.push(products[i]);
+            }
+        }
+        deferred.resolve(collection);
+        //deferred.reject();
+        return deferred.promise;
+
+    }
+
+
+    function findAllProducts() {
+        var deferred = q.defer();
+        deferred.resolve(products);
+        return deferred.promise;
+    }
+
+    // //Accepts parameters user object and callback function
+    // //Adds property called _id with unique value to the user object parameter.
+    // //Adds the new user to local array of users
+    // //Calls back with new user
+    function createProduct(userId, data) {
+        var deferred = q.defer();
+        data._id = uuid.v1();
+        data.merchantId = userId;
+        if (catalogs.push(data)) {
+            deferred.resolve(data);
+        } else {
+            deferred.reject();
+        }
+        return deferred.promise;
+    }
+
+    // //Accepts parameters user id, user object and callback function
+    // //Iterates over the array of current users looking for a user
+    // // object whose user id is equal to parameter user id
+    // //If found, updates user with new user properties
+    // //Calls back with updated user
+    function updateProduct(prodId, data) {
+        var deferred = q.defer();
+        var found = 0;
+        for(var p in products) {
+            // console.log(u);
+            if( products[p]._id == prodId ) {
+                product = products[p];
+                for (var key in data) {
+                    product[key] = data[key];
+                }
+                found = 1;
+                deferred.resolve(product);
+                break;
+            }
+        }
+
+        if (found === 0)
+            deferred.reject();
+        return deferred.promise;
+    }
+
+    // //Accepts parameters user id and callback function
+    // //Iterates over the array of current users looking for a
+    // // user object whose user id is equal to parameter user id
+    // //If found, removes user from the array of current users
+    // //Calls back with remaining array of all users
+    function deleteProduct(prodId) {
+        var deferred = q.defer();
+        for (var i = 0; i < products.length; i++){
+            if (prodId == products[i]._id)
+            {
+                products.splice(i, 1);
+                break;
+            }
+        }
+        deferred.resolve(products);
+        return deferred.promise;
+    }
+
+
+
+
 
 };

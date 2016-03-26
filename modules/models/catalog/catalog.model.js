@@ -80,7 +80,6 @@ module.exports = function (uuid) {
     // //Calls back with updated user
     function updateCatalog(catId, data) {
         var deferred = q.defer();
-        var catalog = findCatalogById(catId);
         var found = 0;
         for(var c in catalogs) {
             // console.log(u);
