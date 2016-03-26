@@ -263,7 +263,7 @@ module.exports = function (q, uuid, request) {
         var deferred = q.defer();
         data._id = uuid.v1();
         data.merchantId = userId;
-        if (catalogs.push(data)) {
+        if (products.push(data)) {
             deferred.resolve(data);
         } else {
             deferred.reject();

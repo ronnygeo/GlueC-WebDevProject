@@ -15,7 +15,7 @@
     "providerId": 10001,
     "catalogId": 1,
     "merchantId": 234,
-    "imageUrl": "static/images/products/101.jpg",
+    "imageUrl": "https://developer.apple.com/library/watchos/documentation/General/Conceptual/WatchKitProgrammingGuide/Art/watch_hero_2x.png",
     "providerUrl": ""
   },
   {
@@ -34,7 +34,7 @@
     "providerId": 10001,
     "merchantId": 234,
     "catalogId": 1,
-    "imageUrl": "static/images/products/102.jpg",
+    "imageUrl": "http://www.imore.com/sites/imore.com/files/styles/large/public/topic_images/2015/topic-apple-watch-all.png?itok=OUtlCphV",
     "providerUrl": ""
   },
   {
@@ -53,7 +53,7 @@
     "providerId": 10001,
     "merchantId": 234,
     "catalogId": 2,
-    "imageUrl": "static/images/products/201.jpg",
+    "imageUrl": "http://o.aolcdn.com/hss/storage/midas/ca2687b9f4d4c49b314e73ab7dc18c2e/201745630/Fullbleed+1.jpg",
     "providerUrl": ""
   },
   {
@@ -72,7 +72,7 @@
     "providerId": 10001,
     "catalogId": 2,
     "merchantId": 234,
-    "imageUrl": "static/images/products/202.jpg",
+    "imageUrl": "http://www.wired.com/wp-content/uploads/2015/09/google-logo.jpg",
     "providerUrl": ""
   }
 ]

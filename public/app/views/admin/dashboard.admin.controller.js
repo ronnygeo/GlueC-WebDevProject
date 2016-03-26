@@ -81,7 +81,8 @@
         function addProduct() {
             ProductService.createProduct(userId, vm.product).then(function(data){
                 vm.products.push(data.data);
-                vm.products = {};
+                vm.products = data;
+                vm.product = {};
             });
         }
 
@@ -97,36 +98,33 @@
         }
 
         function deleteProduct(index) {
-            ProductService.deleteProduct(vm.products[index]._id).then(function(data){
+            ProductService.deleteProduct(userId, vm.products[index]._id).then(function(data){
                 vm.products = data.data;
             });
         }
 
         angular.element(document).ready(function () {
-            vm.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
-            vm.data = [300, 500, 100];
 
             $('ul.tabs').tabs();
-
 
             vm.data = [
                 {
                     value: 300,
                     color:"#F7464A",
                     highlight: "#FF5A5E",
-                    label: "Red"
+                    label: "Products"
                 },
                 {
                     value: 50,
                     color: "#46BFBD",
                     highlight: "#5AD3D1",
-                    label: "Green"
+                    label: "Users"
                 },
                 {
                     value: 100,
                     color: "#FDB45C",
                     highlight: "#FFC870",
-                    label: "Yellow"
+                    label: "Catalogs"
                 }
             ];
 

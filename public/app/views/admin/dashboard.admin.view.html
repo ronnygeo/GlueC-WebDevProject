@@ -30,13 +30,13 @@
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
-                    <tr>
-                        <th><span class="glyphicon glyphicon-triangle-bottom"></span> Username</th>
-                        <th><span class="glyphicon glyphicon-triangle-bottom"></span> Password</th>
-                        <th><span class="glyphicon glyphicon-triangle-bottom"></span> Email</th>
-                        <th><span class="glyphicon glyphicon-triangle-bottom"></span> Role</th>
-                        <th><span class="glyphicon glyphicon-triangle-bottom"></span> Actions</th>
-                    </tr>
+                    <!--<tr>-->
+                        <!--<th><span class="glyphicon glyphicon-triangle-bottom"></span> Username</th>-->
+                        <!--<th><span class="glyphicon glyphicon-triangle-bottom"></span> Password</th>-->
+                        <!--<th><span class="glyphicon glyphicon-triangle-bottom"></span> Email</th>-->
+                        <!--<th><span class="glyphicon glyphicon-triangle-bottom"></span> Role</th>-->
+                        <!--<th><span class="glyphicon glyphicon-triangle-bottom"></span> Actions</th>-->
+                    <!--</tr>-->
                     <tr>
                         <td><input type="text" ng-model="admin.user.username" id="adminNewUsername" class="validate"
                                    placeholder="Username"></td>
@@ -83,13 +83,13 @@
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
-                    <tr>
-                        <th><span class="glyphicon glyphicon-triangle-bottom"></span> Name</th>
-                        <th><span class="glyphicon glyphicon-triangle-bottom"></span> Description</th>
-                        <th><span class="glyphicon glyphicon-triangle-bottom"></span> Merchant Id</th>
-                        <th><span class="glyphicon glyphicon-triangle-bottom"></span> Product Ids</th>
-                        <th><span class="glyphicon glyphicon-triangle-bottom"></span> Actions</th>
-                    </tr>
+                    <!--<tr>-->
+                        <!--<th><span class="glyphicon glyphicon-triangle-bottom"></span> Name</th>-->
+                        <!--<th><span class="glyphicon glyphicon-triangle-bottom"></span> Description</th>-->
+                        <!--<th><span class="glyphicon glyphicon-triangle-bottom"></span> Merchant Id</th>-->
+                        <!--<th><span class="glyphicon glyphicon-triangle-bottom"></span> Product Ids</th>-->
+                        <!--<th><span class="glyphicon glyphicon-triangle-bottom"></span> Actions</th>-->
+                    <!--</tr>-->
                     <tr>
                         <td><input type="text" ng-model="admin.catalog.name" id="adminNewCatalogName" class="validate"
                                    placeholder="Name"></td>
@@ -150,7 +150,7 @@
                     <!--</tr>-->
                     <tr>
                         <td>
-                            <input type="email" ng-model="admin.product.imageUrl" id="adminNewProductImage"
+                            <input type="text" ng-model="admin.product.imageUrl" id="adminNewProductImage"
                                    class="validate" placeholder="Image Url">
                         </td>
                         <td><input type="text" ng-model="admin.product.name" id="adminNewProductName" class="validate"
@@ -158,7 +158,7 @@
                         <td><input type="text" ng-model="admin.product.description" id="adminNewProductDesc"
                                    class="validate" placeholder="Description"></td>
                         <td>
-                            <input type="email" ng-model="admin.product.merchantId" id="adminNewProductMerchantId"
+                            <input type="text" ng-model="admin.product.merchantId" id="adminNewProductMerchantId"
                                    class="validate" placeholder="Merchant ID">
                         </td>
                         <td>
@@ -166,11 +166,11 @@
                                    class="validate" placeholder="Catalog ID">
                         </td>
                         <td>
-                            <input type="email" ng-model="admin.product.price" id="adminNewProductPrice"
+                            <input type="text" ng-model="admin.product.price" id="adminNewProductPrice"
                                    class="validate" placeholder="Price">
                         </td>
                         <td>
-                            <input type="email" ng-model="admin.product.discount" id="adminNewProductDiscount"
+                            <input type="text" ng-model="admin.product.discount" id="adminNewProductDiscount"
                                    class="validate" placeholder="Discount">
                         </td>
 
@@ -185,14 +185,17 @@
                         </td>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="product-table-body">
                     <tr ng-repeat="product in admin.products">
-                        <td><img ng-src="product.imageUrl" /></td>
+                        <td><img class="responsive-img" width="50%" src="{{product.imageUrl}}" /></td>
                         <td>{{product.name}}</td>
                         <td>{{product.description}}</td>
                         <td>{{product.merchantId}}</td>
                         <td>{{product.catalogId}}</td>
-                        <td>
+                        <td>{{product.price}}</td>
+                        <td>{{product.discount}}</td>
+
+                        <td class="admin-table-thumbnail">
                             <button ng-click="admin.selectProduct($index)" class="btn amber"><i
                                     class="fa fa-pencil fa-2x"></i>
                             </button>

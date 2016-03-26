@@ -60,8 +60,8 @@
             return $http.put('/api/user/'+userId+'/product/'+prodId, product);
         }
 
-        function deleteProduct(prodId) {
-            return $http.delete('/api/product/'+prodId);
+        function deleteProduct(userId, prodId) {
+            return $http.delete('/api/user/'+userId+'/product/'+prodId);
         }
     }
 })();
