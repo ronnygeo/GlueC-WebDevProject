@@ -8,4 +8,7 @@ module.exports = function (app, request, q, uuid) {
     var productModel = require("./models/product/product.model.js")(q, uuid, request);
     require("./services/provider/product.service.server.js")(app, productModel);
     require("./services/product/product.service.js")(app, productModel);
+
+    var categoryModel = require("./models/category/category.model.js")(q, uuid, request);
+    require("./services/category/category.service.server")(app, categoryModel);
 };

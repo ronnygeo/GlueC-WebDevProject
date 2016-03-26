@@ -1,9 +1,14 @@
 [
-  {"_id": 87,
-  "name": "watch",
-  "productIds": [100,101]
+  {
+    "_id": 87,
+    "parentId": 123,
+    "level": 1,
+    "name": "watch"
   },
-  {"_id": 90,
-  "name": "laptop",
-  "productIds": [201,202]}
+  {
+    "_id": 90,
+    "parentId": 123,
+    "level": 1,
+    "name": "laptop"
+  }
 ]

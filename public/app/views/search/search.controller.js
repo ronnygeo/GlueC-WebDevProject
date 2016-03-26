@@ -37,7 +37,7 @@
                 inputArray.splice(0, 1);
                 sell(inputArray.join());
             }else{
-                buy(keyword);
+                buy(keyword );
             }
 }
 
