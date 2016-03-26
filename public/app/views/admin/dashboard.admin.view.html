@@ -1,5 +1,10 @@
 <div class="row">
     <div class="col s12">
+        <canvas id="base" class="chart-base" chart-type="type"
+                chart-data="data" chart-labels="labels" chart-legend="true">
+        </canvas>
+    </div>
+    <div class="col s12">
         <ul class="tabs">
             <li class="tab col s3"><a href="#test1">Users</a></li>
             <li class="tab col s3"><a class="active" href="#test2">Catalogs</a></li>
@@ -114,13 +119,13 @@
                 <th><span class="glyphicon glyphicon-triangle-bottom"></span> Actions</th>
             </tr>
             <tr>
-                <td><input type="text" ng-model="admin.catalog.name" id="adminNewCatalogName" class="validate" placeholder="Name"></td>
-                <td><input type="text" ng-model="admin.catalog.description" id="adminNewCatalogDesc" class="validate" placeholder="Description"></td>
+                <td><input type="text" ng-model="admin.catalog.name" id="adminNewProductName" class="validate" placeholder="Name"></td>
+                <td><input type="text" ng-model="admin.catalog.description" id="adminNewProductDesc" class="validate" placeholder="Description"></td>
                 <td>
-                    <input type="email" ng-model="admin.catalog.merchantId" id="adminNewCatalogMerchantId" class="validate" placeholder="Merchant ID">
+                    <input type="email" ng-model="admin.catalog.merchantId" id="adminNewProductMerchantId" class="validate" placeholder="Merchant ID">
                 </td>
                 <td>
-                    <input type="text" ng-model="admin.catalog.productIds" id="adminNewCatalogProducts" class="validate" placeholder="Product IDs">
+                    <input type="text" ng-model="admin.catalog.productIds" id="adminNewProductProducts" class="validate" placeholder="Product IDs">
                 </td>
                 <td style="white-space: nowrap">
                     <button ng-click="admin.updateProduct()" class="btn green">

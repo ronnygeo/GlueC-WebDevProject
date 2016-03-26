@@ -12,6 +12,17 @@
         var vm = this;
         var user = $rootScope.user;
 
+        vm.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales", "Tele Sales", "Corporate Sales"];
+        vm.data = [300, 500, 100, 40, 120];
+        vm.type = 'PolarArea';
+
+        vm.toggle = toggle;
+
+        function toggle() {
+            vm.type = vm.type === 'PolarArea' ?
+                'Pie' : 'PolarArea';
+        };
+
         angular.element(document).ready(function () {
             $('ul.tabs').tabs();
             
@@ -24,7 +35,7 @@
 
         CatalogService.findAllCatalogs().then(function (data) {
             vm.catalogs = data.data;
-            console.log(data.data);
+            // console.log(data.data);
         })
 
     }

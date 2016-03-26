@@ -9,6 +9,7 @@
             //"ngMaterial",
             "angular.filter",
             "gluec.directives",
-            "ngProgress"
+            "ngProgress",
+            'chart.js'
         ]);
 })();
