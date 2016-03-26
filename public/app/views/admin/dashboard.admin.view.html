@@ -1,8 +1,8 @@
 <br>
 <div class="row">
     <!--<div class="col s12">-->
-        <!--<canvas id="doughnut" class="chart chart-doughnut"-->
-            <!--chart-data="admin.data" chart-labels="admin.labels">-->
+    <!--<canvas id="doughnut" class="chart chart-doughnut"-->
+    <!--chart-data="admin.data" chart-labels="admin.labels">-->
     <!--</canvas></div>-->
 
     <div class="col s12 m4">
@@ -16,159 +16,178 @@
     </div>
 
     <br>
-<div class="row">
-    <div class="col s12">
-        <ul class="tabs">
-            <li class="tab col s3"><a href="#test1">Users</a></li>
-            <li class="tab col s3"><a class="active" href="#test2">Catalogs</a></li>
-            <li class="tab col s3"><a href="#test3">Products</a></li>
-            <li class="tab col s3 disabled"><a href="#test4">Providers</a></li>
-        </ul>
+    <div class="row">
+        <div class="col s12">
+            <ul class="tabs">
+                <li class="tab col s3"><a href="#test1">Users</a></li>
+                <li class="tab col s3"><a class="active" href="#test2">Catalogs</a></li>
+                <li class="tab col s3"><a href="#test3">Products</a></li>
+                <li class="tab col s3 disabled"><a href="#test4">Providers</a></li>
+            </ul>
+        </div>
+        <div id="test1" class="col s12">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th><span class="glyphicon glyphicon-triangle-bottom"></span> Username</th>
+                        <th><span class="glyphicon glyphicon-triangle-bottom"></span> Password</th>
+                        <th><span class="glyphicon glyphicon-triangle-bottom"></span> Email</th>
+                        <th><span class="glyphicon glyphicon-triangle-bottom"></span> Role</th>
+                        <th><span class="glyphicon glyphicon-triangle-bottom"></span> Actions</th>
+                    </tr>
+                    <tr>
+                        <td><input type="text" ng-model="admin.user.username" id="adminNewUsername" class="validate"
+                                   placeholder="Username"></td>
+                        <td><input type="text" ng-model="admin.user.password" id="adminNewPassword" class="validate"
+                                   placeholder="Password"></td>
+                        <td>
+                            <input type="email" ng-model="admin.user.email" id="adminNewEmail" class="validate"
+                                   placeholder="Email">
+                        </td>
+                        <td>
+                            <input type="text" ng-model="admin.user.roles" id="adminNewUserRole" class="validate"
+                                   placeholder="Role">
+                        </td>
+                        <td style="white-space: nowrap">
+                            <button ng-click="admin.updateUser()" class="btn green">
+                                <i class="fa fa-thumbs-up fa-2x"></i>
+                            </button>
+                            <button ng-click="admin.addUser()" class="btn blue"><i class="fa fa-plus-square fa-2x"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="u in admin.users">
+                        <td>{{u.username}}</td>
+                        <td>{{u.password}}</td>
+                        <td>{{u.email}}</td>
+                        <td>{{u.roles}}</td>
+                        <td>
+                            <button ng-click="admin.selectUser($index)" class="btn amber"><i
+                                    class="fa fa-pencil fa-2x"></i>
+                            </button>
+                            <button ng-click="admin.deleteUser($index)" class="btn red"><i
+                                    class="fa fa-trash fa-2x"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="test2" class="col s12">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th><span class="glyphicon glyphicon-triangle-bottom"></span> Name</th>
+                        <th><span class="glyphicon glyphicon-triangle-bottom"></span> Description</th>
+                        <th><span class="glyphicon glyphicon-triangle-bottom"></span> Merchant Id</th>
+                        <th><span class="glyphicon glyphicon-triangle-bottom"></span> Product Ids</th>
+                        <th><span class="glyphicon glyphicon-triangle-bottom"></span> Actions</th>
+                    </tr>
+                    <tr>
+                        <td><input type="text" ng-model="admin.catalog.name" id="adminNewCatalogName" class="validate"
+                                   placeholder="Name"></td>
+                        <td><input type="text" ng-model="admin.catalog.description" id="adminNewCatalogDesc"
+                                   class="validate" placeholder="Description"></td>
+                        <td>
+                            <input type="text" ng-model="admin.catalog.merchantId" id="adminNewCatalogMerchantId"
+                                   class="validate" placeholder="Merchant ID">
+                        </td>
+                        <td>
+                            <input type="text" ng-model="admin.catalog.productIds" id="adminNewCatalogProducts"
+                                   class="validate" placeholder="Product IDs">
+                        </td>
+                        <td style="white-space: nowrap">
+                            <button ng-click="admin.updateCatalog()" class="btn green">
+                                <i class="fa fa-thumbs-up fa-2x"></i>
+                            </button>
+                            <button ng-click="admin.addCatalog()" class="btn blue"><i
+                                    class="fa fa-plus-square fa-2x"></i>
+                            </button>
+                            </button>
+                        </td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="catalog in admin.catalogs">
+                        <td>{{catalog.name}}</td>
+                        <td>{{catalog.description}}</td>
+                        <td>{{catalog.merchantId}}</td>
+                        <td>{{catalog.productIds}}</td>
+                        <td>
+                            <button ng-click="admin.selectCatalog($index)" class="btn amber"><i
+                                    class="fa fa-pencil fa-2x"></i>
+                            </button>
+                            <button ng-click="admin.deleteCatalog($index)" class="btn red"><i
+                                    class="fa fa-trash fa-2x"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="test3" class="col s12">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th><span class="glyphicon glyphicon-triangle-bottom"></span> Name</th>
+                        <th><span class="glyphicon glyphicon-triangle-bottom"></span> Description</th>
+                        <th><span class="glyphicon glyphicon-triangle-bottom"></span> Merchant Id</th>
+                        <th><span class="glyphicon glyphicon-triangle-bottom"></span> Product Ids</th>
+                        <th><span class="glyphicon glyphicon-triangle-bottom"></span> Actions</th>
+                    </tr>
+                    <tr>
+                        <td><input type="text" ng-model="admin.catalog.name" id="adminNewProductName" class="validate"
+                                   placeholder="Name"></td>
+                        <td><input type="text" ng-model="admin.catalog.description" id="adminNewProductDesc"
+                                   class="validate" placeholder="Description"></td>
+                        <td>
+                            <input type="email" ng-model="admin.catalog.merchantId" id="adminNewProductMerchantId"
+                                   class="validate" placeholder="Merchant ID">
+                        </td>
+                        <td>
+                            <input type="text" ng-model="admin.catalog.productIds" id="adminNewProductProducts"
+                                   class="validate" placeholder="Product IDs">
+                        </td>
+                        <td style="white-space: nowrap">
+                            <button ng-click="admin.updateProduct()" class="btn green">
+                                <i class="fa fa-thumbs-up fa-2x"></i>
+                            </button>
+                            <button ng-click="admin.addProduct()" class="btn blue"><i
+                                    class="fa fa-plus-square fa-2x"></i>
+                            </button>
+                            </button>
+                        </td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="product in admin.products">
+                        <td>{{product.name}}</td>
+                        <td>{{product.description}}</td>
+                        <td>{{product.merchantId}}</td>
+                        <td>{{product.productIds}}</td>
+                        <td>
+                            <button ng-click="admin.selectProduct($index)" class="btn amber"><i
+                                    class="fa fa-pencil fa-2x"></i>
+                            </button>
+                            <button ng-click="admin.deleteProduct($index)" class="btn red"><i
+                                    class="fa fa-trash fa-2x"></i>
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="test4" class="col s12"></div>
     </div>
-<div id="test1" class="col s12">
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th><span class="glyphicon glyphicon-triangle-bottom"></span> Username</th>
-                <th><span class="glyphicon glyphicon-triangle-bottom"></span> Password</th>
-                <th><span class="glyphicon glyphicon-triangle-bottom"></span> Email</th>
-                <th><span class="glyphicon glyphicon-triangle-bottom"></span> Role</th>
-                <th><span class="glyphicon glyphicon-triangle-bottom"></span> Actions</th>
-            </tr>
-            <tr>
-                <td><input type="text" ng-model="admin.user.username" id="adminNewUsername" class="validate" placeholder="Username"></td>
-                <td><input type="text" ng-model="admin.user.password" id="adminNewPassword" class="validate" placeholder="Password"></td>
-                <td>
-                    <input type="email" ng-model="admin.user.email" id="adminNewEmail" class="validate" placeholder="Email">
-                </td>
-                <td>
-                    <input type="text" ng-model="admin.user.roles" id="adminNewUserRole" class="validate" placeholder="Role">
-                </td>
-                <td style="white-space: nowrap">
-                    <button ng-click="admin.updateUser()" class="btn green">
-                        <i class="fa fa-thumbs-up fa-2x"></i>
-                    </button>
-                    <button ng-click="admin.addUser()" class="btn blue"><i class="fa fa-plus-square fa-2x"></i>
-                    </button>
-                </td>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="u in admin.users">
-                <td>{{u.username}}</td>
-                <td>{{u.password}}</td>
-                <td>{{u.email}}</td>
-                <td>{{u.roles}}</td>
-                <td>
-                    <button ng-click="admin.selectUser($index)" class="btn amber"><i class="fa fa-pencil fa-2x"></i>
-                    </button>
-                    <button ng-click="admin.deleteUser($index)" class="btn red"><i class="fa fa-trash fa-2x"></i>
-                    </button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-</div>
-</div>
-
-<div id="test2" class="col s12">
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th><span class="glyphicon glyphicon-triangle-bottom"></span> Name</th>
-                <th><span class="glyphicon glyphicon-triangle-bottom"></span> Description</th>
-                <th><span class="glyphicon glyphicon-triangle-bottom"></span> Merchant Id</th>
-                <th><span class="glyphicon glyphicon-triangle-bottom"></span> Product Ids</th>
-                <th><span class="glyphicon glyphicon-triangle-bottom"></span> Actions</th>
-            </tr>
-            <tr>
-                <td><input type="text" ng-model="admin.catalog.name" id="adminNewCatalogName" class="validate" placeholder="Name"></td>
-                <td><input type="text" ng-model="admin.catalog.description" id="adminNewCatalogDesc" class="validate" placeholder="Description"></td>
-                <td>
-                    <input type="text" ng-model="admin.catalog.merchantId" id="adminNewCatalogMerchantId" class="validate" placeholder="Merchant ID">
-                </td>
-                <td>
-                    <input type="text" ng-model="admin.catalog.productIds" id="adminNewCatalogProducts" class="validate" placeholder="Product IDs">
-                </td>
-                <td style="white-space: nowrap">
-                    <button ng-click="admin.updateCatalog()" class="btn green">
-                        <i class="fa fa-thumbs-up fa-2x"></i>
-                    </button>
-                    <button ng-click="admin.addCatalog()" class="btn blue"><i class="fa fa-plus-square fa-2x"></i>
-                    </button>
-                    </button>
-                </td>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="catalog in admin.catalogs">
-                <td>{{catalog.name}}</td>
-                <td>{{catalog.description}}</td>
-                <td>{{catalog.merchantId}}</td>
-                <td>{{catalog.productIds}}</td>
-                <td>
-                    <button ng-click="admin.selectCatalog($index)" class="btn amber"><i class="fa fa-pencil fa-2x"></i>
-                    </button>
-                    <button ng-click="admin.deleteCatalog($index)" class="btn red"><i class="fa fa-trash fa-2x"></i>
-                    </button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<div id="test3" class="col s12">
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th><span class="glyphicon glyphicon-triangle-bottom"></span> Name</th>
-                <th><span class="glyphicon glyphicon-triangle-bottom"></span> Description</th>
-                <th><span class="glyphicon glyphicon-triangle-bottom"></span> Merchant Id</th>
-                <th><span class="glyphicon glyphicon-triangle-bottom"></span> Product Ids</th>
-                <th><span class="glyphicon glyphicon-triangle-bottom"></span> Actions</th>
-            </tr>
-            <tr>
-                <td><input type="text" ng-model="admin.catalog.name" id="adminNewProductName" class="validate" placeholder="Name"></td>
-                <td><input type="text" ng-model="admin.catalog.description" id="adminNewProductDesc" class="validate" placeholder="Description"></td>
-                <td>
-                    <input type="email" ng-model="admin.catalog.merchantId" id="adminNewProductMerchantId" class="validate" placeholder="Merchant ID">
-                </td>
-                <td>
-                    <input type="text" ng-model="admin.catalog.productIds" id="adminNewProductProducts" class="validate" placeholder="Product IDs">
-                </td>
-                <td style="white-space: nowrap">
-                    <button ng-click="admin.updateProduct()" class="btn green">
-                        <i class="fa fa-thumbs-up fa-2x"></i>
-                    </button>
-                    <button ng-click="admin.addProduct()" class="btn blue"><i class="fa fa-plus-square fa-2x"></i>
-                    </button>
-                    </button>
-                </td>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="product in admin.products">
-                <td>{{product.name}}</td>
-                <td>{{product.description}}</td>
-                <td>{{product.merchantId}}</td>
-                <td>{{product.productIds}}</td>
-                <td>
-                    <button ng-click="admin.selectProduct($index)" class="btn amber"><i class="fa fa-pencil fa-2x"></i>
-                    </button>
-                    <button ng-click="admin.deleteProduct($index)" class="btn red"><i class="fa fa-trash fa-2x"></i>
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-
-    <div id="test4" class="col s12"></div>
-
 </div>
