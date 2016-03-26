@@ -24,13 +24,31 @@
         init();
 
         function search() {
-            if (keyword && keyword != "") {
-                ProgressBarFactory.showProgressBar();
-                ProductService
-                    .findItemsAdvanced(keyword)
-                    .then(success_callback, error_callback);
+            if (!keyword && keyword == "") {
+                return;
             }
+            console.log(keyword);
+            var inputArray = keyword.split(/[ ,]+/);
+            console.log(inputArray);
+            if (inputArray[0].toUpperCase() == "BUY") {
+                inputArray.splice(0, 1);
+                buy(inputArray.join());
+            } else if (inputArray[0].toUpperCase() == "SELL") {
+                inputArray.splice(0, 1);
+                sell(inputArray.join());
+            }
+        }
 
+        function sell(keyword) {
+
+        }
+
+        function buy(keyword) {
+            console.log(keyword);
+            ProgressBarFactory.showProgressBar(keyword);
+            ProductService
+                .findItemsAdvanced(keyword)
+                .then(success_callback, error_callback);
             function success_callback(response) {
                 ProgressBarFactory.hideProgressBar();
                 console.log(response.data);
