@@ -1,8 +1,16 @@
-<form class="form-catalog">
-    <h2 class="form-signin-heading">Profile</h2>
-    <div class="form-group">
-        <label for="inputUsername">Catalog Name</label>
-        <input type="text" id="inputUsername" ng-model="cc.catalog.name" class="form-control" placeholder="Username" required>
+<div class="row">
+<form class="col s12">
+    <h2 class="form-signin-heading">Update Catalog</h2>
+    <div class="row">
+        <div class="input-field col s12">
+        <label for="inputCatName" class="active">Catalog Name</label>
+        <input type="text" id="inputCatName" ng-model="cc.catalog.name" class="validate">
+        </div>
+        <div class="input-field col s12">
+            <label for="inputDesc" class="active">Catalog Description</label>
+        <textarea id="inputDesc" ng-model="cc.catalog.description" placeholder="" class="materialize-textarea validate">
+</textarea>
+            </div>
     </div>
     <div class="form-group">
         <input type="hidden" ng-model="cc.catalog.merchantId" class="form-control" value="cc.user._id" required>
@@ -10,5 +18,4 @@
     <br>
     <button class="btn btn-lg btn-primary btn-block" ng-click="cc.createCatalog()">Update</button>
 </form>
-
-{{cc.catalog}}
+</div>
