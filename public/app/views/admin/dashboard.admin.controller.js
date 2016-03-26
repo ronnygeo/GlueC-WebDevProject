@@ -14,6 +14,7 @@
 
         angular.element(document).ready(function () {
             $('ul.tabs').tabs();
+            
         });
 
 
@@ -23,6 +24,7 @@
 
         CatalogService.findAllCatalogs().then(function (data) {
             vm.catalogs = data.data;
+            console.log(data.data);
         })
 
     }
