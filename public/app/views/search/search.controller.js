@@ -47,7 +47,7 @@
 
         function buy(keyword) {
             console.log(keyword);
-            ProgressBarFactory.showProgressBar(keyword);
+            ProgressBarFactory.showProgressBar();
             ProductService
                 .findItemsAdvanced(keyword)
                 .then(success_callback, error_callback);

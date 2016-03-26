@@ -94,3 +94,7 @@ footer {
     margin: auto !important; } }
 
 /*# sourceMappingURL=style.css.map */
+.listing-card-content{
+  margin: 10px;
+  padding: 10px;
+}

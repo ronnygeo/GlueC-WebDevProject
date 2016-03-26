@@ -1,0 +1,20 @@
+<ul id="card_{{card.type}}" ng-switch="card.type" class="collapsible popout" data-collapsible="accordion">
+    <li ng-switch-when="category">
+        <div class="collapsible-header active">
+            <i class="material-icons">filter_drama</i>
+            Select a Category
+        </div>
+        <div class="collapsible-body">
+            <div class="collection">
+                <a ng-click="apply()" ng-repeat="category in card.data" class="collection-item">{{category.name}}</a>
+            </div>
+            <!--Button-->
+            <!--<div class="row">
+                <div class="col s3 offset-s9 m1 offset-m11 acc-next">
+                    <a class="btn-floating" ng-click="applyOperation"><i
+                            class="material-icons">done</i></a>
+                </div>-->
+        </div>
+        </div>
+    </li>
+</ul>
