@@ -111,14 +111,18 @@
      // //Calls back with remaining array of all users
      function deleteUser(userId) {
          var deferred = q.defer();
+         var found = 0;
          for (var i = 0; i < users.length; i++){
              if (userId == users[i]._id)
              {
+                 found =1;
                  users.splice(i, 1);
+                 deferred.resolve(users);
                  break;
              }
          }
-         deferred.resolve(users);
+        if (found == 0)
+            deferred.reject();
          return deferred.promise;
      }
  };

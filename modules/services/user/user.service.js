@@ -7,6 +7,7 @@ module.exports = function (app, userModel) {
     app.get("/api/user", findUserByCredentials);
     app.post("/api/user", registerUser);
     app.put("/api/user/:id", updateUser);
+    app.delete("/api/user/:id", deleteUser);
 
     function findAllUsers(req, res) {
         userModel
@@ -67,4 +68,14 @@ module.exports = function (app, userModel) {
                 res.status(404).send(err);
             });
     }
+    function deleteUser(req, res) {
+        var userId = req.params['id'];
+        userModel.deleteUser(userId).then(function (data) {
+                res.json(data);
+            },
+            function (err) {
+                res.status(404).send(err);
+            });
+    }
+
 };
