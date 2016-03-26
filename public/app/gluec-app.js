@@ -6,7 +6,6 @@
     angular
         .module("GluecApp", [
             "ngRoute",
-            //"ngMaterial",
             "angular.filter",
             "gluec.directives",
             "ngProgress",
