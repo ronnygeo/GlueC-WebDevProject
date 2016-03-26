@@ -45,7 +45,7 @@
         }
         
         function findAllProductsByCatalogId(catId) {
-            return $http.get("/api/catalog/"+catId+"products");
+            return $http.get("/api/catalog/"+catId+"/products");
         }
         
         function findAllProducts() {

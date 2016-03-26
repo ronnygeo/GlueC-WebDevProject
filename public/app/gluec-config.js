@@ -60,6 +60,21 @@
                     templateUrl: 'views/catalog/new/new.catalog.view.html',
                     controllerAs: "cc"
                 })
+                .when('/user/:id/product', {
+                    controller: 'NewProductController',
+                    templateUrl: 'views/product/new.product.view.html',
+                    controllerAs: "pc"
+                })
+                .when('/user/:id/product/:prodId', {
+                    controller: 'ShowProductController',
+                    templateUrl: 'views/product/show.product.view.html',
+                    controllerAs: "model"
+                })
+                .when('/user/:id/catalog/:catId/product', {
+                    controller: 'NewProductController',
+                    templateUrl: 'views/product/new.product.view.html',
+                    controllerAs: "pc"
+                })
                 .when('/user/:id/catalog/:catId/edit', {
                     controller: 'EditCatalogController',
                     templateUrl: 'views/catalog/edit/edit.catalog.view.html',

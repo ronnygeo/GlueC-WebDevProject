@@ -235,6 +235,7 @@ module.exports = function (q, uuid, request) {
 
 
     function findAllProductsByCatalogId(catId) {
+        console.log(catId);
         var collection = [];
         var deferred = q.defer();
         for (var i in products) {

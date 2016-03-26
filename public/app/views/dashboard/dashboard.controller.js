@@ -22,8 +22,18 @@
 
         CatalogService.findAllCatalogsByUser(userId).then(function (data) {
             vm.catalogs = data.data;
+            for (c in vm.catalogs) {
+                console.log(c);
+                ProductService.findAllProductsByCatalogId(vm.catalogs[c]._id).then(function (data) {
+                    console.log(data.data);
+                    vm.catalogs[c].products = data.data;
+                });
+            }
         });
 
+        ProductService.findAllProductsByUserId(userId).then(function (data) {
+            vm.products = data.data;
+        })
     }
 
 })();
