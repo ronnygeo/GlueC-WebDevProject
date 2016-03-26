@@ -5,7 +5,7 @@
 (function () {
     angular
         .module('GluecApp')
-        .config(function ($routeProvider, $httpProvider) {
+        .config(function ($routeProvider, $httpProvider, ChartJsProvider) {
             $routeProvider
                 .when('/', {
                     controller: 'HomeController',
@@ -72,5 +72,14 @@
             $httpProvider.defaults.useXDomain = true;
             delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
+            // Configure all charts
+            ChartJsProvider.setOptions({
+                colours: ['#FF5252', '#FF8A80'],
+                responsive: false
+            });
+            // Configure all line charts
+            ChartJsProvider.setOptions('Line', {
+                datasetFill: false
+            });
         });
 })();
