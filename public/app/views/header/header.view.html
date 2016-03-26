@@ -4,6 +4,7 @@
             <ul class="right hide-on-med-and-down">
                 <li ng-show="user && user._id" ng-class="{active: $location.url() == '/profile'}"><a href="#/profile"><i class="material-icons left">perm_identity</i>Welcome
                     {{user.firstName}}</a></li>
+                {{user.roles}}
                 <li ng-show="user && user._id && user.roles !== undefined && user.roles.indexOf('admin') !== -1" ng-class="{active: $location.url() == '/admin'}"><a href="#/admin"><i class="material-icons left">perm_identity</i>Admin</a></li>
                 <li ng-show="user"><a href="#/dashboard"><i class="material-icons left">dashboard</i>Dashboard</a></li>
                 <li><a href="#/new-listing"><i class="material-icons left">shopping_cart</i>Sell</a></li>
