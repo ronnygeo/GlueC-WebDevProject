@@ -14,8 +14,8 @@ module.exports = function (q, uuid, request) {
 
     var api = {
         product: {
-            findProductByUserId: findProductByUserId,
-            findProductByCatalogId: findProductByCatalogId,
+            // findProductByUserId: findProductByUserId,
+            // findProductByCatalogId: findProductByCatalogId,
             findProductById: findProductById,
             findAllProductsByUserId: findAllProductsByUserId,
             findAllProductsByCatalogId: findAllProductsByCatalogId,

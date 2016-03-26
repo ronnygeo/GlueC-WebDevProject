@@ -14,7 +14,8 @@
 
         var api = {
             findItemsAdvanced: findItemsAdvanced,
-            getSingleItem: getSingleItem
+            getSingleItem: getSingleItem,
+            
         };
         return api;
 

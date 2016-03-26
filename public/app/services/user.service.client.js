@@ -52,7 +52,7 @@
         // whose username and password match the parameters
         //Calls bac k with user found or null otherwise
         function findUserByCredentials(username, password) {
-            console.log(username, password);
+            // console.log(username, password);
             return $http.get("/api/user?username="+username+"&password="+password);
         }
 
@@ -68,7 +68,7 @@
         //Adds the new user to local array of users
         //Calls back with new user
         function createUser(user) {
-            console.log(user);
+            // console.log(user);
             return $http.post("/api/user", user);
         }
 
