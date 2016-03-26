@@ -70,6 +70,7 @@ footer {
 .card .pdp-image img {
     height: 100%;
     width: auto;
+    margin: auto !important;
 }
 }
 
