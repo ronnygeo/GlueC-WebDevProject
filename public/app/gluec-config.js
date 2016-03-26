@@ -55,6 +55,11 @@
                     templateUrl: 'views/catalog/show/show.catalog.view.html',
                     controllerAs: "cc"
                 })
+                .when('/user/:id', {
+                    controller: 'ShowUserController',
+                    templateUrl: 'views/users/show.user.view.html',
+                    controllerAs: "model"
+                })
                 .when('/user/:id/catalog', {
                     controller: 'NewCatalogController',
                     templateUrl: 'views/catalog/new/new.catalog.view.html',
