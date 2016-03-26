@@ -13,14 +13,21 @@
     function CategoryService($http) {
 
         var api = {
-                getTopLevelCategories: getTopLevelCategories
+            getTopLevelCategories: getTopLevelCategories,
+            getSubCategories: getSubCategories
         };
         return api;
 
+        function getSubCategories(providerId, parentCategoryId) {
+            console.log("Calling Server getSubCategories");
+            var url = "/api/getSubCategories/"+providerId+"/" + parentCategoryId;
+            console.log(url);
+            return $http.get(url);
+        }
 
-        function getTopLevelCategories(prviderId) {
-            console.log("Calling Server Service");
-            var url = "/api/getTopLevelCategories/" + prviderId;
+        function getTopLevelCategories(providerId) {
+            console.log("Calling Server getTopLevelCategories");
+            var url = "/api/getTopLevelCategories/" + providerId;
             return $http.get(url);
         }
     }
