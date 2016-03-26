@@ -9,7 +9,7 @@
 
     function HeaderController($location, $scope, $rootScope) {
         if ($rootScope.user)
-            console.log($rootScope.user.roles);
+            // console.log($rootScope.user.roles);
         $scope.$location = $location;
 
         //Event Handler Deceleration

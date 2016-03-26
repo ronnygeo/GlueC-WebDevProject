@@ -16,12 +16,15 @@
             UserService.findUserByCredentials($scope.user.username, $scope.user.password).then(render);
 
             function render(response) {
-                if (response != null) {
+                if (response.data != null) {
                     // console.log(response.data);
                     //Storing the user in the Root Scope
                     $rootScope.user = response.data;
                     // Navigating to the Profile Page of this particular User
                     $location.url("/");
+                }
+                else {
+                    $('#login-alert').show();
                 }
             }
         };
