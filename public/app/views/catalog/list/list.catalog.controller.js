@@ -6,7 +6,7 @@
 (function () {
     angular
         .module('GluecApp')
-        .controller("ShowAllCatalogController", CatalogController);
+        .controller("ListCatalogController", CatalogController);
 
     CatalogController.$inject = ['CatalogService', '$scope', '$routeParams', '$location'];
 

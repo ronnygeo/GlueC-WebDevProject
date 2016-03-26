@@ -51,23 +51,23 @@
                     controllerAs: 'admin'
                 })
                 .when('/admin/catalogs', {
-                    controller: 'ShowAllCatalogController',
-                    templateUrl: 'views/catalog/showall.catalog.view.html',
+                    controller: 'ListCatalogController',
+                    templateUrl: 'views/catalog/list/list.catalog.view.html',
                     controllerAs: "cc"
                 })
                 .when('/user/:id/catalog/:catId', {
                     controller: 'ShowCatalogController',
-                    templateUrl: 'views/catalog/show.catalog.view.html',
+                    templateUrl: 'views/catalog/show/show.catalog.view.html',
                     controllerAs: "cc"
                 })
                 .when('/user/:id/catalog/new', {
                     controller: 'CreateCatalogController',
-                    templateUrl: 'views/catalog/create.catalog.view.html',
+                    templateUrl: 'views/catalog/create/create.catalog.view.html',
                     controllerAs: "cc"
                 })
                 .when('/user/:id/catalog/:catId/edit', {
                     controller: 'EditCatalogController',
-                    templateUrl: 'views/catalog/edit.catalog.view.html',
+                    templateUrl: 'views/catalog/edit/edit.catalog.view.html',
                     controllerAs: "cc"
                 })
                 .otherwise({

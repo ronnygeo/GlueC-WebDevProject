@@ -13,12 +13,12 @@
                 <div class="card-action">
                     <!--<li><button ng-click="cc.goToUpdate(catalog)">Update</button></li>-->
                     <!--<li><button ng-click="cc.deleteCatalog(catalog._id)">Delete</button></li>-->
-
-                    <a href="#">Go To {{catalog.merchantId}} Profile</a>
-                    <a href="#">See Products in this catalog</a>
-                    <a href="#" ng-click="cc.deleteCatalog(catalog._id)">Delete</a>
-                    {{catalog.productIds}}
-                </div>
+                    <a href="#">{{catalog.merchantId}} Profile</a>
+                            <a href="#">See Products</a>
+                            <a href="#/user/{{user._id}}/catalog/{{catalog._id}}/edit">Update</a>
+                            <a href="#" ng-click="cc.deleteCatalog(catalog._id)">Delete</a>
+                            {{catalog.productIds}}
+                    </div>
             </div>
         </div>
     </div>
