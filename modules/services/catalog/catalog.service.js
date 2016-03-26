@@ -65,8 +65,10 @@ module.exports = function (app, catalogModel) {
     function createCatalog(req, res) {
         var userId = req.params["id"];
         var data = req.body;
+        console.log(userId)
         // console.log(data);
         catalogModel.createCatalog(userId, data).then(function (data) {
+            console.log(data);
                 res.json(data);
             },
             function (err) {

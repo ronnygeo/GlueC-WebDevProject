@@ -46,7 +46,7 @@
             //Adds the new user to local array of users
             //Calls back with new user
             function createCatalog(userId, catalog) {
-                // console.log(user);
+                console.log(userId);
                 return $http.post("/api/user/"+userId+"/catalog", catalog);
             }
 

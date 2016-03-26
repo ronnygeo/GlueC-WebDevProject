@@ -74,16 +74,16 @@
                 <td><input type="text" ng-model="admin.catalog.name" id="adminNewCatalogName" class="validate" placeholder="Name"></td>
                 <td><input type="text" ng-model="admin.catalog.description" id="adminNewCatalogDesc" class="validate" placeholder="Description"></td>
                 <td>
-                    <input type="email" ng-model="admin.catalog.merchantId" id="adminNewCatalogMerchantId" class="validate" placeholder="Merchant ID">
+                    <input type="text" ng-model="admin.catalog.merchantId" id="adminNewCatalogMerchantId" class="validate" placeholder="Merchant ID">
                 </td>
                 <td>
                     <input type="text" ng-model="admin.catalog.productIds" id="adminNewCatalogProducts" class="validate" placeholder="Product IDs">
                 </td>
                 <td style="white-space: nowrap">
-                    <button ng-click="admin.updateUser()" class="btn green">
+                    <button ng-click="admin.updateCatalog()" class="btn green">
                         <i class="fa fa-thumbs-up fa-2x"></i>
                     </button>
-                    <button ng-click="admin.addUser()" class="btn blue"><i class="fa fa-plus-square fa-2x"></i>
+                    <button ng-click="admin.addCatalog()" class="btn blue"><i class="fa fa-plus-square fa-2x"></i>
                     </button>
                     </button>
                 </td>
