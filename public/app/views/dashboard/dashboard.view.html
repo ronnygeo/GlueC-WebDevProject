@@ -1,17 +1,30 @@
 <h1>Your Catalogs</h1>
 
 <div ng-repeat="catalog in cc.catalogs">
-    <ul>
-        <li><a href="/user/{{user._id}}/catalog/{{catalog._id}}">{{catalog.name}}</a></li>
-        <li>{{catalog.merchantId}}</li>
-        <li>{{catalog.productIds}}</li>
-        <li><button ng-click="cc.goToUpdate(catalog)">Update</button></li>
-        <li><button ng-click="cc.deleteCatalog(catalog._id)">Delete</button></li>
-    </ul>
+    <!--<li><a href="/user/{{user._id}}/catalog/{{catalog._id}}">{{catalog.name}}</a></li>-->
+
+    <div class="row">
+        <div class="col s12 m4">
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title">{{catalog.name}}</span>
+                    <p>{{catalog.description}}</p>
+                </div>
+                <div class="card-action">
+                    <!--<li><button ng-click="cc.goToUpdate(catalog)">Update</button></li>-->
+                    <!--<li><button ng-click="cc.deleteCatalog(catalog._id)">Delete</button></li>-->
+
+                    <a href="#">Go To {{catalog.merchantId}} Profile</a>
+                    <a href="#">See Products in this catalog</a>
+                    <a href="#" ng-click="cc.deleteCatalog(catalog._id)">Delete</a>
+                    {{catalog.productIds}}
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <h1>Your Products</h1>
-
 <div ng-repeat="catalog in cc.catalogs">
     <ul>
         <li>{{catalog.name}}</li>

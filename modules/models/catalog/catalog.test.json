@@ -1,11 +1,13 @@
 [
     {"_id": 87,
       "name": "watch",
+      "description": "This is a description for my watch catalog",
       "merchantId": 234,
       "productIds": [100,101]
     },
     {"_id": 90,
       "name": "laptop",
+      "description": "This is a description for my laptop catalog",
       "merchantId": 234,
       "productIds": [201,202]}
 ]

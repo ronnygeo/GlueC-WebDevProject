@@ -16,7 +16,7 @@ module.exports = function (app, userModel) {
             res.json(data);
         },
         function (err) {
-            res.statusCode(404).send(err);
+            res.status(404).send(err);
         });
     }
     function findUserById(req, res) {
@@ -26,7 +26,7 @@ module.exports = function (app, userModel) {
             res.json(data);
         },
             function (err) {
-                res.statusCode(404).send(err);
+                res.status(404).send(err);
             });
     }
 
@@ -52,7 +52,7 @@ module.exports = function (app, userModel) {
                 res.json(data);
             },
             function (err) {
-                res.statusCode(404).send(err);
+                res.status(404).send(err);
             });
     }
 
@@ -64,7 +64,7 @@ module.exports = function (app, userModel) {
             res.json(data);
             },
             function (err) {
-                res.statusCode(404).send(err);
+                res.status(404).send(err);
             });
     }
 };
