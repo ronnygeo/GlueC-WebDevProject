@@ -9,8 +9,7 @@
             <div class="input-field col s12">
                 <label for="inputDesc">Catalog Description</label>
         <textarea id="inputDesc" ng-model="cc.catalog.description" class="materialize-textarea validate"></textarea>
-                <input type="hidden" ng-model="cc.catalog.merchantId" value="cc.user._id" required>
-
+                <input type="hidden" ng-model="cc.catalog.merchantId" value="{{cc.user._id}}" required>
             </div>
         </div>
         <br>

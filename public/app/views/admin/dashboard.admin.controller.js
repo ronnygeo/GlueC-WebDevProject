@@ -40,7 +40,7 @@
         }
 
         function addUser() {
-            UserService.createUser(userId, vm.user).then(function(data){
+            UserService.createUser(vm.user).then(function(data){
                 vm.users.push(data.data);
                 vm.user = {};
             });

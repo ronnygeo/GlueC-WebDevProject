@@ -2,8 +2,8 @@
  * Created by ronnygeo on 3/25/16.
  */
 
-"use strict";
 (function () {
+    "use strict";
     angular
         .module('GluecApp')
         .controller("NewCatalogController", NewCatalogController);
@@ -15,16 +15,14 @@
         //$scope.search = search;
         var vm = this;
         vm.$location = $location;
-
         var userId = $routeParams.id;
         console.log(userId);
 
        vm.createCatalog = createCatalog;
 
         function createCatalog(){
-            console.log(vm.catalog);
             CatalogService.createCatalog(userId, vm.catalog).then(function (data){
-                vm.catalogs = data;
+                $location.url('/dashboard');
             });
        }
     }

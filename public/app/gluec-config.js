@@ -50,17 +50,12 @@
                     templateUrl: 'views/admin/dashboard.admin.view.html',
                     controllerAs: 'admin'
                 })
-                .when('/admin/catalogs', {
-                    controller: 'ListCatalogController',
-                    templateUrl: 'views/catalog/list/list.catalog.view.html',
-                    controllerAs: "cc"
-                })
                 .when('/user/:id/catalog/:catId', {
                     controller: 'ShowCatalogController',
                     templateUrl: 'views/catalog/show/show.catalog.view.html',
                     controllerAs: "cc"
                 })
-                .when('/user/:id/catalog/new', {
+                .when('/user/:id/catalog', {
                     controller: 'NewCatalogController',
                     templateUrl: 'views/catalog/new/new.catalog.view.html',
                     controllerAs: "cc"
