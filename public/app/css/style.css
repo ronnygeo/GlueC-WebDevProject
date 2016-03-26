@@ -55,10 +55,6 @@ footer {
     min-height: 10vh !important;
     margin-top: 10vh;
 }
-.div-5{
-    min-height: 5vh !important;
-    margin-top: 5vh;
-}
 .card .card-title{
 
     font-size: 15px;
@@ -89,6 +85,12 @@ footer {
     text-shadow: .04em .04em 0 #fff,.08em .08em 0 #aaa;
     -webkit-text-shadow: .04em .04em 0 #fff, .08em .08em 0 #aaa;
 
+}
+.margin-5{
+    margin:5px;
+}
+.margin-10{
+    margin:10px;
 }
 /*# sourceMappingURL=style.css.map */
 
