@@ -52,7 +52,7 @@
              }
          }
          if (found == 0)
-         deferred.reject();
+         deferred.reject("user not found.");
         return deferred.promise;
      }
 

@@ -87,3 +87,7 @@ footer {
 
 }
 /*# sourceMappingURL=style.css.map */
+
+#login-alert {
+    display:none;
+}

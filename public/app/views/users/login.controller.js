@@ -13,7 +13,12 @@
 
         //Event Handlers Implementations
         function Login() {
-            UserService.findUserByCredentials($scope.user.username, $scope.user.password).then(render);
+            UserService.findUserByCredentials($scope.user.username, $scope.user.password).then(render, function (err) {
+                console.log(err);
+                angular.element(document).ready(function () {
+                    $('#login-alert').show();
+                });
+            });
 
             function render(response) {
                 if (response.data != null) {
@@ -23,11 +28,14 @@
                     // Navigating to the Profile Page of this particular User
                     $location.url("/");
                 }
-                else {
-                    $('#login-alert').show();
-                }
+                // else {
+                //     console.log(response.data);
+                //     angular.element(document).ready(function () {
+                //         $('#login-alert').show();
+                //     });
+                // }
             }
-        };
+        }
 
 
     };
