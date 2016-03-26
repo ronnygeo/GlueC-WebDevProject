@@ -20,7 +20,7 @@ module.exports = function (app, catalogModel) {
                     res.json(data);
                 },
                 function (err) {
-                    res.statusCode(404).send(err);
+                    res.status(404).send(err);
                 });
     }
 
@@ -32,7 +32,7 @@ module.exports = function (app, catalogModel) {
                 res.json(data);
             },
             function (err) {
-                res.statusCode(404).send(err);
+                res.status(404).send(err);
             });
     }
 
@@ -44,7 +44,7 @@ module.exports = function (app, catalogModel) {
                 res.json(data);
             },
             function (err) {
-                res.statusCode(404).send(err);
+                res.status(404).send(err);
             });
     }
 
@@ -57,7 +57,7 @@ module.exports = function (app, catalogModel) {
                 res.json(data);
             },
             function (err) {
-                res.statusCode(404).send(err);
+                res.status(404).send(err);
             });
     }
 
@@ -70,7 +70,7 @@ module.exports = function (app, catalogModel) {
                 res.json(data);
             },
             function (err) {
-                res.statusCode(404).send(err);
+                res.status(404).send(err);
             });
     }
 
@@ -82,7 +82,7 @@ module.exports = function (app, catalogModel) {
                 res.json(data);
             },
             function (err) {
-                res.statusCode(404).send(err);
+                res.status(404).send(err);
             });
     }
 };
