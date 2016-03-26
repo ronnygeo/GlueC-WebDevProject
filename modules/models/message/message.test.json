@@ -1,0 +1,19 @@
+[
+  {"_id": 1000,
+  "from": 123,
+  "to": 125,
+  "subject":"Hey!",
+  "message": "Yo! How are you?"},
+  {
+    "_id": 1001,
+    "from": "125",
+    "to": "123",
+    "subject":"Re: Hey!",
+    "message": "I'm fine!"},
+  {
+    "_id": 1002,
+    "from": "234",
+    "to": "240",
+    "subject":"Sale!",
+    "message": "Hey Alice! I have some products on sale!"}
+]

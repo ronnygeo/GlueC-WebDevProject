@@ -11,4 +11,7 @@ module.exports = function (app, request, q, uuid) {
 
     var categoryModel = require("./models/category/category.model.js")(q, uuid, request);
     require("./services/category/category.service.server")(app, categoryModel);
+
+    var MessageModel = require("./models/message/message.model.js")(q, uuid);
+    require("./services/message/message.service.js")(app, MessageModel);
 };
