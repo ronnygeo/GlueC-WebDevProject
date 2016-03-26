@@ -8,8 +8,51 @@
         </ul>
     </div>
 <div id="test1" class="col s12">
+
 <h2>Manage Users:</h2>
-<div ng-repeat="user in admin.users">
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th><span class="glyphicon glyphicon-triangle-bottom"></span> Username</th>
+                <th><span class="glyphicon glyphicon-triangle-bottom"></span> Password</th>
+                <th><span class="glyphicon glyphicon-triangle-bottom"></span> Role</th>
+                <th><span class="glyphicon glyphicon-triangle-bottom"></span> Actions</th>
+            </tr>
+            <tr>
+                <td><input type="text" ng-model="admin.user.username" id="adminNewUsername" class="form-control" placeholder="Username"></td>
+                <td><input type="text" ng-model="admin.user.password" id="adminNewPassword" class="form-control" placeholder="Password"></td>
+                <td>
+                    <input type="text" ng-model="admin.user.roles" id="adminNewUserRole" class="form-control" placeholder="Role">
+                </td>
+                <td style="white-space: nowrap">
+                    <button ng-click="admin.updateUser()" class="btn btn-success">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </button>
+                    <button ng-click="admin.addUser()" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                </td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="u in admin.users">
+                <td>{{u.username}}</td>
+                <td>{{u.password}}</td>
+                <td>{{u.roles}}</td>
+                <td>
+                    <button ng-click="admin.selectUser($index)" class="btn btn-warning">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+                    <button ng-click="admin.removeUser($index)" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div ng-repeat="user in admin.users">
     <ul>
         <li>First Name: {{user.firstName}}</li>
         <li>Last Name: {{user.lastName}}</li>

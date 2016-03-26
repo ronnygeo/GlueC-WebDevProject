@@ -47,7 +47,7 @@
             //Calls back with new user
             function createCatalog(userId, catalog) {
                 // console.log(user);
-                return $http.post("/api/user/"+userId+"/catalog/", catalog);
+                return $http.post("/api/user/"+userId+"/catalog", catalog);
             }
 
             //Accepts parameters user id and callback function
@@ -65,6 +65,7 @@
             //If found, updates user with new user properties
             //Calls back with updated user
             function updateCatalog(userId, catId, catalog) {
+                console.log(userId, catId, catalog);
                 return $http.put("/api/user/"+userId+"/catalog/"+catId, catalog);
             }
         }

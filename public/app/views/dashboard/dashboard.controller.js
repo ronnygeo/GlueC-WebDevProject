@@ -15,12 +15,6 @@
             vm.catalogs = data.data;
         });
 
-        vm.goToCatalog = goToCatalog;
-
-        function goToCatalog(catId) {
-            $location.url("/api/user/"+userId+"/catalog/"+catId);
-        }
-
     }
 
 })();

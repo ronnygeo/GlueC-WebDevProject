@@ -26,15 +26,15 @@
 
         vm.updateCatalog = updateCatalog;
 
-        function updateCatalog(catId){
-            CatalogService.updateCatalog(userId, catId).then(function (res) {
+        function updateCatalog(){
+            CatalogService.updateCatalog(userId, catId, vm.catalog).then(function (res) {
                 for (var i in vm.catalogs){
                     if (vm.catalogs[i]._id == catId)
                         vm.catalogs[i] = res.data;
 
                 }
             });
-            $location.url("/user/"+userId+"/catalog/"+catId);
+            $location.url("/dashboard");
         }
     }
 })();

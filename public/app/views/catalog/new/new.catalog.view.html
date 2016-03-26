@@ -1,0 +1,19 @@
+<div class="row">
+    <form class="col s12">
+        <h2>Create Catalog</h2>
+        <div class="row">
+            <div class="input-field col s12">
+                <label for="inputCatName">Catalog Name</label>
+                <input type="text" id="inputCatName" ng-model="cc.catalog.name" class="validate">
+            </div>
+            <div class="input-field col s12">
+                <label for="inputDesc">Catalog Description</label>
+        <textarea id="inputDesc" ng-model="cc.catalog.description" class="materialize-textarea validate"></textarea>
+                <input type="hidden" ng-model="cc.catalog.merchantId" value="cc.user._id" required>
+
+            </div>
+        </div>
+        <br>
+        <button class="btn btn-lg btn-primary btn-block" ng-click="cc.createCatalog()">Create</button>
+    </form>
+</div>

@@ -61,8 +61,8 @@
                     controllerAs: "cc"
                 })
                 .when('/user/:id/catalog/new', {
-                    controller: 'CreateCatalogController',
-                    templateUrl: 'views/catalog/create/create.catalog.view.html',
+                    controller: 'NewCatalogController',
+                    templateUrl: 'views/catalog/new/new.catalog.view.html',
                     controllerAs: "cc"
                 })
                 .when('/user/:id/catalog/:catId/edit', {
