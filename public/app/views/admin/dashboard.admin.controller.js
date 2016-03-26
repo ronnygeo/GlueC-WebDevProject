@@ -22,10 +22,10 @@
         vm.deleteCatalog = deleteCatalog;
         vm.addCatalog = addCatalog;
         vm.updateCatalog = updateCatalog;
-        // vm.selectProduct = selectProduct;
-        // vm.deleteProduct = deleteProduct;
-        // vm.addProduct = addProduct;
-        // vm.updateProduct = updateProduct;
+        vm.selectProduct = selectProduct;
+        vm.deleteProduct = deleteProduct;
+        vm.addProduct = addProduct;
+        vm.updateProduct = updateProduct;
 
         function addUser() {
             UserService.createUser(vm.user).then(function(data){
@@ -78,30 +78,29 @@
             });
         }
 
-        // function addProduct() {
-        //     ProductService.createProduct(vm.user).then(function(data){
-        //         vm.catalogs.push(data.data);
-        //         vm.catalogs = {};
-        //     });
-        // }
-        //
-        // function updateProduct() {
-        //     console.log(vm.user);
-        //     ProductService.updateUser(vm.user._id, vm.user).then(function(){
-        //         vm.user = {};
-        //     });
-        // }
-        //
-        // //Add to the edit boxes.
-        // function selectProduct(index) {
-        //     vm.user = vm.users[index];
-        // }
-        //
-        // function deleteProduct(index) {
-        //     ProductService.deleteUserById(vm.users[index]._id).then(function(data){
-        //         vm.users = data.data;
-        //     });
-        // }
+        function addProduct() {
+            ProductService.createProduct(userId, vm.product).then(function(data){
+                vm.products.push(data.data);
+                vm.products = {};
+            });
+        }
+
+        function updateProduct() {
+            ProductService.updateProduct(vm.user._id, vm.product._id, vm.product).then(function(){
+                vm.product = {};
+            });
+        }
+
+        //Add to the edit boxes.
+        function selectProduct(index) {
+            vm.product = vm.products[index];
+        }
+
+        function deleteProduct(index) {
+            ProductService.deleteProduct(vm.products[index]._id).then(function(data){
+                vm.products = data.data;
+            });
+        }
 
         angular.element(document).ready(function () {
             vm.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
@@ -172,8 +171,7 @@
             var myDoughnutChart3 = new Chart(ctx).Doughnut(vm.data, vm.options);
 
         });
-
-
+        
         UserService.findAllUsers().then(function (data) {
             vm.users = [];
             vm.users = data.data;
@@ -183,6 +181,12 @@
         CatalogService.findAllCatalogs().then(function (data) {
             vm.catalogs = data.data;
             vm.catalog = {};
+            // console.log(data.data);
+        })
+
+        ProductService.findAllProducts().then(function (data) {
+            vm.products = data.data;
+            vm.product = {};
             // console.log(data.data);
         })
 
