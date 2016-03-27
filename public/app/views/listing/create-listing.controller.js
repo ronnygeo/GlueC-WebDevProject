@@ -27,6 +27,8 @@
             if(cardType=="parentCategory"){
                 CreateListingController.listing.parentCategory = data;
                 addSubCategoryCard(data);
+            }else if(cardType =="subCatergory"){
+
             }
         }
 
