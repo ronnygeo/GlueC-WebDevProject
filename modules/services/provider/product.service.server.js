@@ -12,7 +12,7 @@ module.exports = function (app, ProductModel) {
                 .then(success_callback, error_callback);
 
             function success_callback(response) {
-                console.log(response);
+                // console.log(response);
                 res.json(response);
             }
 
@@ -37,7 +37,12 @@ module.exports = function (app, ProductModel) {
 
         function success_callback(response) {
             //console.log(response);
-            res.send(response);
+            ProductModel.amazon.findItemsByKeywords(req.params.keyword).then(function (data) {
+                // console.log(data);
+                response.push(data);
+                response.sort();
+                res.send(response);
+            })
         }
 
         function error_callback(error) {

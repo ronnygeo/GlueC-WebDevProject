@@ -4,6 +4,7 @@
 
 module.exports = function (q, uuid, request) {
 
+    var aws = require("aws-lib");
     var products = require('./product.local.test.json');
     var EBAY = {
         APP_ID: "BhanuJai-Gluec-PRD-d38ccaf50-a1104f30",
@@ -29,9 +30,11 @@ module.exports = function (q, uuid, request) {
             findItemsAdvanced: findItemsAdvanced,
             findItemsByProduct: findItemsByProduct,
             getSingleItem: getSingleItem
+        },
+        amazon: {
+            findItemsByKeywords: amazonFindItemsByKeywords
         }
     };
-
     return api;
 
     function getSingleItem(itemId) {
@@ -142,23 +145,41 @@ module.exports = function (q, uuid, request) {
     }
 
     function mapFindEbayToGluecProduct(ebayProduct) {
+        var title, extId, desc, providerId, imageURL, providerURL;
+
+        if (ebayProduct.hasOwnProperty("ASIN")) {
+            // console.log(ebayProduct.ImageSets.ImageSet[0].MediumImage.URL);
+            title = ebayProduct.ItemAttributes.Title;
+            extId = ebayProduct.ASIN;
+            desc = ebayProduct.ItemAttributes.Feature[0];
+            providerId = 10002;
+            imageURL = ebayProduct.ImageSets.ImageSet[0].MediumImage.URL;
+            providerURL = ebayProduct.DetailPageURL;
+        } else {
+            title = ebayProduct.title;
+            extId = ebayProduct.itemId[0];
+            desc = "";
+            providerId = 10002;
+            imageURL = ebayProduct.galleryURL[0];
+            providerURL = "";
+        }
+
         var product = {
             "_id": uuid.v1(),
             //"externalProductId": ebayProduct.productId[0].__value__,
-            "externalItemId": ebayProduct.itemId[0],
-            "title": ebayProduct.title,
+            "externalItemId": extId,
+            "title": title,
             "name": "",
             "manufacturer": "",
-            "description": "",
+            "description": desc,
             "categories": [],
             "price": "",
             "discount": "",
-            "providerId": 10001,
+            "providerId": providerId,
             "catalogId": "",
             "merchantId": "",
-            "imageUrl": ebayProduct.galleryURL[0],
-            "providerUrl": ""
-
+            "imageUrl": imageURL,
+            "providerUrl": providerURL
         };
         return product;
     }
@@ -316,6 +337,27 @@ module.exports = function (q, uuid, request) {
         return deferred.promise;
     }
 
+    function amazonFindItemsByKeywords (keyword) {
+        var deferred = q.defer();
+        // console.log(keyword);
+        var prodAdv = aws.createProdAdvClient("AKIAJIAF55AX5MUBCQYQ", "6WAxZ3AS8xvoKFjSfjwUJhjgq9jP7kQ5xlb+Ub+G", "glueclabs-20");
+        var options = {SearchIndex: "All", Keywords: keyword, ResponseGroup: "Images,ItemAttributes,ItemIds"}
+        prodAdv.call("ItemSearch", options, function(err, result) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                var items = result.Items.Item;
+                // console.log(I);
+                // console.log(I.MediumImage.URL)
+                // console.log(I.DetailPageURL)
+                // console.log(I.ItemAttributes.Title)
+                // console.log(I.ItemAttributes.Feature[0])
+                // console.log(I.ASIN)
+                deferred.resolve(mapFindEbayToGluecProducts(items));
+            }
+        });
+        return deferred.promise;
+    }
 
 
 
