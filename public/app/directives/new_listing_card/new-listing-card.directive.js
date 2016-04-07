@@ -18,14 +18,14 @@
             controller: "NewListingDirectiveController",
             controllerAs: "model",
             link: function (scope, element, attrs) {
-                scope.applyOperation = function (operationId) {
-                    console.log("Apply Operation in Directive");
+                scope.apply = function (cardType, data) {
+                    console.log("Apply in Directive");
                     $(".collapsible-header").removeClass("active");
-                    scope.$parent.model.applyOperation(operationId);
+                    scope.$parent.model.apply(cardType, data);
                 };
-                scope.removeOperation = function (operation,event) {
-                    console.log("Operaiton Type "+operation.type);
-                    if( operation.type == "FILTER"){
+                scope.removeOperation = function (operation, event) {
+                    console.log("Operaiton Type " + operation.type);
+                    if (operation.type == "FILTER") {
                         scope.$parent.model.removeOperation(operation.id);
                     }
 

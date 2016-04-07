@@ -14,29 +14,36 @@
 
         function init() {
             ProgressBarFactory.showProgressBar();
-            initCategoryCard();
+            initNewListing();
+            addCategoryCard();
         }
 
         init();
 
-        function initCategoryCard() {
-            var cardType = "category";
-            var newListing = {
-                category: "",
-                cards: [
-                    {
-                        type: cardType,
-                        data: []
-                    }
-                ]
-            };
+        /*Event Handler Decelerations*/
+        CreateListingController.apply = apply;
 
+        function apply(cardType, data){
+            if(cardType=="parentCategory"){
+                CreateListingController.listing.parentCategory = data;
+                addSubCategoryCard(data);
+            }else if(cardType =="subCatergory"){
+
+            }
+        }
+
+        function addSubCategoryCard(parentCategoryId){
+            var providerId = 10001;//Ebay
+            var subCategoryCard ={
+                type:"subCategory",
+                data:[]
+            };
             CategoryService
-                .getTopLevelCategories(10001)
+                .getSubCategories(providerId ,parentCategoryId)
                 .then(success_callback, error_callback);
             function success_callback(response) {
                 console.log(response.data);
-                newListing.cards[0].data = response.data;
+                subCategoryCard.data = response.data;
                 ProgressBarFactory.hideProgressBar();
             }
 
@@ -45,44 +52,41 @@
                 ProgressBarFactory.hideProgressBar();
             }
 
-            console.log(newListing);
+            console.log(subCategoryCard);
+            CreateListingController.listing.cards.push(subCategoryCard);
+        }
+
+        function initNewListing(){
+            var newListing = {
+                parentCategory: "",
+                subCategory:"",
+                cards: []
+            };
             CreateListingController.listing = newListing;
         }
 
-        function creteNewCard(cardType) {
-            var card =
-                {
-                    type: cardType,
-                    data: getCardData(cardType)
-                }
-                ;
-            CreateListingController.newListing.cards.push(card);
-        }
-
-
-        function getCardData(cardType) {
-            if (cardType == "category") {
-                return getCategoryData();
+        function addCategoryCard() {
+            var providerId = 10001;//Ebay
+            var categoryCard ={
+                type:"parentCategory",
+                data:[]
+            };
+            CategoryService
+                .getTopLevelCategories(providerId)
+                .then(success_callback, error_callback);
+            function success_callback(response) {
+                console.log(response.data);
+                categoryCard.data = response.data;
+                ProgressBarFactory.hideProgressBar();
             }
-        }
 
-        function getCategoryData() {
-            //getEbayCategories()
-            var categories = [{
-                "_id": 87,
-                "parentId": 123,
-                "level": 1,
-                "name": "Samrtphone"
-            },
-                {
-                    "_id": 90,
-                    "parentId": 123,
-                    "level": 1,
-                    "name": "Laptop"
-                }
-            ]
+            function error_callback(error) {
+                console.log(error);
+                ProgressBarFactory.hideProgressBar();
+            }
 
-            return categories;
+            console.log(categoryCard);
+            CreateListingController.listing.cards.push(categoryCard);
         }
 
 
