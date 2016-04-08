@@ -15,5 +15,6 @@
     "from": "234",
     "to": "240",
     "subject":"Sale!",
-    "message": "Hey Alice! I have some products on sale!"}
+    "message": "Hey Alice! I have some products on sale!",
+  "unread": true}
 ]

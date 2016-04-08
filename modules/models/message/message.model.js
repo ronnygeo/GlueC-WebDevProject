@@ -19,7 +19,7 @@ module.exports = function (q, uuid) {
         var collection = [];
         var deferred = q.defer();
         for (var m in messages) {
-            if (messages[m].from == userId || messages[m].to == userId) {
+            if (messages[m].to == userId) {
                 console.log(userId);
                 collection.push(messages[m]);
             }

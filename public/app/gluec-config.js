@@ -65,6 +65,11 @@
                     templateUrl: 'views/users/show.user.view.html',
                     controllerAs: "model"
                 })
+                .when('/user/:id/messages', {
+                    controller: 'MessageController',
+                    templateUrl: 'views/messages/list.messages.view.html',
+                    controllerAs: "mc"
+                })
                 .when('/user/:id/catalog', {
                     controller: 'NewCatalogController',
                     templateUrl: 'views/catalog/new/new.catalog.view.html',
