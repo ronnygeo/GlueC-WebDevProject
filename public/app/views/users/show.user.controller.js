@@ -5,89 +5,41 @@
     angular.module('GluecApp')
         .controller('ShowUserController', ShowUserController);
 
-    ShowUserController.$inject = ['UserService', 'ProductService', '$routeParams', '$rootScope', '$uibModal'];
-    function ShowUserController (UserService, ProductService, $routeParams, $rootScope, $uibModal) {
+    ShowUserController.$inject = ['UserService', 'ProductService', '$routeParams', '$rootScope', 'MessageService'];
+    function ShowUserController (UserService, ProductService, $routeParams, $rootScope, MessageService) {
 
         var vm  = this;
         vm.user = {};
         var toUserId = $routeParams.id;
-
-        var fromUserId = $rootScope
-        vm.message = {};
-        vm.message.from = $rootScope.user._id;
-        vm.message.to = userId;
+        var fromUserId = $rootScope.user._id;
 
 
-        vm.newMessage = newMessage;
-        vm.createMessage = createMessage;
-
-        function newMessage() {
-            // $dialog.dialog({}).open('modalContent.html');
-            // If the field type is a Single Line of Text the popup should allow users to enter:
-            //     Label
-            // Placeholder
-            // If the field type is a Multi Line Text field, the popup should allow users to enter:
-            //     Label
-            // Placeholder
-            // If the field type is a Dropdown field, the popup should allow users to enter:
-            //     Label
-            // Options
-            // These can be entered in a textarea, one option per line
-            // You can use the following format: LABEL:VALUE
-            // If the field type is a Checkbox field, the popup should allow users to enter:
-            //     Label
-            // Options
-            // These can be entered in a textarea, one option per line
-            // You can use the following format: LABEL:VALUE
-            // console.log(field);
-            var modalInstance = $uibModal.open({
-                animation: vm.animationsEnabled,
-                controller: 'MessageController',
-                controllerAs: 'mc',
-                templateUrl: './views/forms/dialogContent.html',
-                size: 'lg',
-                resolve: {
-                    message: function (){
-                        return message;
-                    }
-                }
+        angular.element(document).ready(function () {
+            $('.modal-trigger').leanModal({
+                dismissible: true, // Modal can be dismissed by clicking outside of the modal
+                opacity: .5, // Opacity of modal background
+                in_duration: 300, // Transition in duration
+                out_duration: 200, // Transition out duration
+                ready: function() {
+                    vm.message = {};
+                    vm.message.from = fromUserId;
+                    vm.message.to = toUserId;
+                }, // Callback for Modal open
+                complete: function() {
+                    MessageService.createMessage(toUserId, vm.message).then(function(data) {
+                    });} // Callback for Modal close
             });
+        });
 
-            modalInstance.result.then(function (optionsData){
-                if (optionsData) {
-                    options = [];
-                    opt = optionsData.split('\n');
-                    for (var i in opt){
-                        o = opt[i];
-                        data = o.split(':');
-                        label = data[0];
-                        value = data[1];
-                        options.push({"label": label, "value": value});
-                    }
-                    field.options = options;
-                }
-
-                MessageService.createMessage(user._id, vm.message).then(function (data) {
-
-                });
-
-            });
-        }
-
-
-        function createMessage() {
-
-        }
-
-        UserService.findUserById(userId).then(function (data) {
+        UserService.findUserById(toUserId).then(function (data) {
             vm.user = data.data;
+            // console.log(vm.user);
 
-        if (vm.user.roles.indexOf('merchant') !== -1) {
-            ProductService.findAllProductsByUserId(userId).then(function (data) {
-                vm.user.products = data.data;
-                vm.message.to = vm.user._id;
-            });
-        }
+            if (vm.user.roles.indexOf('merchant') !== -1) {
+                ProductService.findAllProductsByUserId(toUserId).then(function (data) {
+                    vm.user.products = data.data;
+                });
+            }
         });
     }
 })();

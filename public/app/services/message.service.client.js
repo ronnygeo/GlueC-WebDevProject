@@ -4,7 +4,7 @@
 
 (function () {
     angular.module('GluecApp')
-        .controller('MessageService', MessageService);
+        .factory('MessageService', MessageService);
 
     MessageService.$inject = ['$http'];
     function MessageService($http) {

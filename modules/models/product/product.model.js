@@ -151,9 +151,9 @@ module.exports = function (q, uuid, request) {
             // console.log(ebayProduct.ImageSets.ImageSet[0].MediumImage.URL);
             title = ebayProduct.ItemAttributes.Title;
             extId = ebayProduct.ASIN;
-            desc = ebayProduct.ItemAttributes.Feature[0];
+            // desc = ebayProduct.ItemAttributes.Feature[0];
             providerId = 10002;
-            imageURL = ebayProduct.ImageSets.ImageSet[0].MediumImage.URL;
+            // imageURL = ebayProduct.ImageSets.ImageSet[0].MediumImage.URL;
             providerURL = ebayProduct.DetailPageURL;
         } else {
             title = ebayProduct.title;

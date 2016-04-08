@@ -7,7 +7,7 @@
             </div>
         </div>
         <div class="row">
-            <div ng-click="newMessage()" class="btn blue">Message {{model.user.firstName}}</div>
+            <div class="btn blue modal-trigger" data-target="message-modal">Message {{model.user.firstName}}</div>
         </div>
     </div>
     <div class="section">
@@ -23,10 +23,27 @@
                             <p>{{product.price}}</p>
                         </div>
                         <div class="card-action">
-                            <a href="#/user/{{user._id}}/product/{{product._id}}">See {{product.name}}</a>
+                            <a href="#/user/{{model.user._id}}/product/{{product._id}}">See {{product.name}}</a>
                         </div>
                     </div>
                 </div>
         </div>
+    </div>
+</div>
+
+
+<!-- Modal Structure -->
+<div id="message-modal" class="modal bottom-sheet">
+    <div class="modal-content">
+        <h4>Message to {{model.user.firstName}}</h4>
+        <div class="row">
+            <div class="input-field col s12">
+                <textarea id="message" class="materialize-textarea" ng-model="model.message.text"></textarea>
+                <label for="message">Message</label>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Send</a>
     </div>
 </div>

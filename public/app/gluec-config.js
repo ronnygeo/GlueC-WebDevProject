@@ -35,6 +35,11 @@
                     templateUrl: 'views/dashboard/dashboard.view.html',
                     controllerAs: 'cc'
                 })
+                .when('/userdash', {
+                    controller: 'UserDashboardController',
+                    templateUrl: 'views/dashboard/dashboard.user.view.html',
+                    controllerAs: 'cc'
+                })
                 .when('/item/:providerId/:productId', {
                     controller: 'PDPController',
                     templateUrl: 'views/product/pdp.view.html',

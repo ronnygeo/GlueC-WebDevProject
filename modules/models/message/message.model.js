@@ -34,6 +34,7 @@ module.exports = function (q, uuid) {
         for (var m in messages) {
             if (messages[m]._id == msgId) {
                 found = 1;
+                messages[m].unread = false;
                 deferred.resolve(messages[m]);
             }
         }
@@ -44,10 +45,11 @@ module.exports = function (q, uuid) {
     }
 
     function createMessage(userId, msg) {
+        var deferred = q.defer();
         msg._id = uuid.v1();
+        msg.unread = true;
         messages.push(msg);
         deferred.resolve(msg);
-
         return deferred.promise;
     }
 

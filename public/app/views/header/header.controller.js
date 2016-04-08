@@ -12,10 +12,10 @@
         function init() {
             angular.element(document).ready(function () {
                 $('.button-collapse').sideNav();
-                if ($rootScope.user)
-                // console.log($rootScope.user.roles);
-                    $scope.$location = $location;
-            });
+                if ($rootScope.user){
+                   $scope.$location = $location;
+                }
+                });
         }
 
         init();
