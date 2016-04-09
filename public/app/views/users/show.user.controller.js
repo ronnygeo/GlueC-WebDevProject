@@ -23,6 +23,7 @@
                 ready: function() {
                     vm.message = {};
                     vm.message.from = fromUserId;
+                    vm.message.subject = "";
                     vm.message.to = toUserId;
                 }, // Callback for Modal open
                 complete: function() {

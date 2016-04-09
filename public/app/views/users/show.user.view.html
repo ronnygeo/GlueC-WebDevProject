@@ -30,13 +30,15 @@
         </div>
     </div>
 </div>
-
-
 <!-- Modal Structure -->
 <div id="message-modal" class="modal bottom-sheet">
     <div class="modal-content">
-        <h4>Message to {{model.user.firstName}}</h4>
+        <!--<h6>Message to {{model.user.firstName}}</h6>-->
         <div class="row">
+            <div class="input-field col s12">
+                <input placeholder="Subject" id="subject" ng-model="model.message.subject" type="text" class="validate">
+                <label for="subject">Subject</label>
+            </div>
             <div class="input-field col s12">
                 <textarea id="message" class="materialize-textarea" ng-model="model.message.message"></textarea>
                 <label for="message">Message</label>
