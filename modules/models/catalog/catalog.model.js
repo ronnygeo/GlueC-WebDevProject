@@ -2,8 +2,7 @@
  * Created by ronnygeo on 3/25/16.
  */
 
-module.exports = function (uuid) {
-    var q = require("q");
+module.exports = function (q, uuid) {
     var catalogs = require("./catalog.test.json");
     
     return {
