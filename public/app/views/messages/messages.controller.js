@@ -17,7 +17,7 @@
         });
         MessageService.findMessagesByUser(userId).then(function (data) {
             vm.messages = data.data;
-            console.log(vm.messages);
+            // console.log(vm.messages);
         });
     }
 })();

@@ -67,7 +67,7 @@
                 })
                 .when('/user/:id/messages', {
                     controller: 'MessageController',
-                    templateUrl: 'views/messages/list.messages.view.html',
+                    templateUrl: 'views/messages/messages.view.html',
                     controllerAs: "mc"
                 })
                 .when('/user/:id/catalog', {
