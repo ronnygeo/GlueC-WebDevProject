@@ -6,6 +6,8 @@ module.exports = function (mongoose) {
         //    default: "USED",
         //    enum: ['NEW', 'USED', 'OTHER']
         //},
+        parentCategory: String,
+        subCategory: String,
         itemCondition: String,
         listingType: String,
         paymentMethod: String,

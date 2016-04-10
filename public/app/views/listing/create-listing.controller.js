@@ -13,7 +13,7 @@
         var CreateListingController = this;
 
         function init() {
-            if(!$rootScope.user){
+            if (!$rootScope.user) {
                 $location.url("/login");
                 return
             }
@@ -30,10 +30,10 @@
         function apply(card) {
             console.log(card);
             if (card.type == "parentCategory") {
-                CreateListingController.listing.parentCategory = card.selectedData;
+                CreateListingController.listing.ebay_parentCategory = card.selectedData;
                 addSubCategoryCard(card.selectedData);
             } else if (card.type == "subCategory") {
-                CreateListingController.listing.subCategory = card.selectedData;
+                CreateListingController.listing.ebay_subCategory = card.selectedData;
                 addUploadImageCard();
 
             } else if (card.type == "uploadImage") {
@@ -64,10 +64,18 @@
                 image: CreateListingController.listing.image,
                 providerId: CreateListingController.listing.providerId,
                 userId: CreateListingController.listing.userId,
-                title: CreateListingController.title,
-                description: CreateListingController.description,
-                model: CreateListingController.model,
-                ebay: CreateListingController.ebay
+                title: CreateListingController.listing.title,
+                description: CreateListingController.listing.description,
+                model: CreateListingController.listing.model,
+                mpn: CreateListingController.listing.mpn,
+                ebay_ebayListingId: CreateListingController.listing.ebay_ebayListingId,
+                ebay_listingType: CreateListingController.listing.ebay_listingType,
+                ebay_paymentMethod: CreateListingController.listing.ebay_paymentMethod,
+                ebay_returnPolicyEnabled: CreateListingController.listing.ebay_returnPolicyEnabled,
+                ebay_listingDuration: CreateListingController.listing.ebay_listingDuration,
+                ebay_parentCategory: CreateListingController.listing.ebay_parentCategory,
+                ebay_subCategory: CreateListingController.listing.ebay_subCategory,
+                ebay_itemCondition: CreateListingController.listing.itemCondition
             };
             ListingService
                 .getNewListingTemplate(newListing)
@@ -122,16 +130,16 @@
                 title: "",
                 description: "",
                 model: "",
-                ebay: {
-                    ebayListingId: "",
-                    itemCondition: "",
-                    listingType: "",
-                    paymentMethod: "",
-                    returnPolicyEnabled: "",
-                    listingDuration: ""
-                }
-
+                ebay_ebayListingId: "",
+                ebay_itemCondition: "",
+                ebay_listingType: "",
+                ebay_paymentMethod: "",
+                ebay_returnPolicyEnabled: "",
+                ebay_listingDuration: "",
+                ebay_parentCategory: "",
+                ebay_subCategory: ""
             };
+            console.log(newListing);
             CreateListingController.listing = newListing;
         }
 

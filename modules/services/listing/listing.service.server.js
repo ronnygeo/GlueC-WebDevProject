@@ -12,11 +12,12 @@ module.exports = function (app, listingModel, categoryModel, ebayAPIClient, uplo
         console.log("Inside ListingService.getNewListingTemplate");
         var listing = req.body;
         listing['images'] = [req.file.path];
+        console.log("Incoming Listing");
         console.log(listing);
 
         if (listing.providerId == "10001") {
             //TODO: Step1: Create New Listing
-            listingModel.ebay.createNewListing(listing)
+            listingModel.ebay.createNewListing(mapListing(listing))
                 .then(function (response) {
                     console.log(response);
                     var newListing = response.data;
@@ -77,6 +78,35 @@ module.exports = function (app, listingModel, categoryModel, ebayAPIClient, uplo
          res.statusCode(404).send(err);
          }*/
 
+    }
+
+    function mapListing(listing) {
+
+        var newListing = {
+            userId: listing.userId,
+            parentCategory: listing.parentCategory,
+            subCategory: listing.subCategory,
+            providerId: listing.providerId,
+            title: listing.title,
+            description: listing.description,
+            images: [listing.image],
+            ebay: {
+                ebayListingId: listing.ebay_ebayListingId,
+                parentCategory: listing.ebay_parentCategory,
+                subCategory: listing.ebay_subCategory,
+                itemCondition: listing.ebay_itemCondition,
+                listingType: listing.ebay_listingType,
+                paymentMethod: listing.ebay_paymentMethod,
+                returnPolicyEnabled: listing.ebay_returnPolicyEnabled,
+                listingDuration: listing.ebay_listingDuration
+            },
+            model: listing.model,
+            mpn: listing.mpn
+        };
+
+        console.log("Mapped Listing");
+        console.log(newListing);
+        return newListing
     }
 
     function uploadImageToEbay(localImageUrl, imageName) {
