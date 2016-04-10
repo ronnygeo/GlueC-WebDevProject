@@ -15,11 +15,12 @@ var AUTH_TOKEN = "AgAAAA**AQAAAA**aAAAAA**c7T2Vg**nY+sHZ2PrBmdj6" +
     "TujQku1ySZT5w1qON6rIJB/hIPLzX6XMVefwZWD31VEaXotxpUxqSWL6x6Zj3MBB4s1LjEWXr9jH2A1ukPR+cdRrX6Q3vKQRy19" +
     "rwuQPB/7qQpdr4Hn61ByLnr9bXpAPChqNmAlD";
 
-module.exports = function () {
+module.exports = function (q) {
     var api = {
         trading: {
             function: trading,
-            AUTH_TOKEN: AUTH_TOKEN
+            AUTH_TOKEN: AUTH_TOKEN,
+            uploadImage:uploadImage
         }
     };
     return api;
@@ -38,6 +39,56 @@ module.exports = function () {
                 "X-EBAY-API-CALL-NAME": functionToCall
             },
             data: requestData,
+            requestConfig: {
+                timeout: 1000, //request timeout in milliseconds
+                noDelay: true, //Enable/disable the Nagle algorithm
+                keepAlive: true, //Enable/disable keep-alive functionalityidle socket.
+                keepAliveDelay: 1000 //and optionally set the initial delay before the first keepalive probe is sent
+            },
+            responseConfig: {
+                timeout: 1000 //response timeout
+            },
+            mimetypes: {
+                xml: ["application/xml", "application/xml;charset=utf-8"]
+            }
+        };
+        client.post("https://api.sandbox.ebay.com/ws/api.dll", args, function (data, response) {
+            if (Buffer.isBuffer(data)) {
+                data = data.toString('utf8');
+                console.log(data);
+                parseString(data, function (err, result) {
+                    console.log(result);
+                    deferred.resolve(result);
+                });
+            }
+        }).on('error', function (err) {
+            console.log('something went wrong on the request ' + err.request.options);
+            deferred.reject(err);
+        });
+
+        client.on('error', function (err) {
+            console.error('Something went wrong on the client ' + err);
+            deferred.reject(err);
+        });
+
+        return deferred.promise;
+    }
+
+
+    function uploadImage(imageFile, xml_payload) {
+        console.log("Calling Ebay Trading API for [ UploadSiteHostedPictures ]");
+        var deferred = q.defer();
+        var client = new Client();
+        var args = {
+            headers: {
+                "X-EBAY-API-COMPATIBILITY-LEVEL": 909,
+                "X-EBAY-API-DEV-NAME": "b4800ef5-265c-4b24-863e-99bdc92c3ec5",
+                "X-EBAY-API-APP-NAME": "BhanuJai-Gluec-SBX-c38c4f481-f1f53a35",
+                "X-EBAY-API-CERT-NAME": "SBX-38c4f481ab0e-b034-4a34-8a55-317e",
+                "X-EBAY-API-SITEID": 0,
+                "X-EBAY-API-CALL-NAME": 'UploadSiteHostedPictures'
+            },
+            data: {"xml_payload":xml_payload, "file_payload":imageFile},
             requestConfig: {
                 timeout: 1000, //request timeout in milliseconds
                 noDelay: true, //Enable/disable the Nagle algorithm

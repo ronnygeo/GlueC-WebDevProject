@@ -17,13 +17,14 @@ module.exports = function (app, request, q, uuid, upload, mongoose) {
     require("./services/message/message.service.js")(app, MessageModel);
 
     /*EBAY API CLIENT*/
-    var ebayAPIClient =  require("./services/ebay/ebay.api.server")();
+    var ebayAPIClient =  require("./services/api_clients/ebay.api.client")(q);
+    var amazonAPIClient =  require("./services/api_clients/amazon.api.client")(q);
 
     var listingSchema = require("./models/listing/listing.schema.server")(mongoose);
     var ebayListingSchema = require("./models/listing/ebay.listing.schema.server")(mongoose);
     var ebayListingDB = mongoose.model("EbayListing", ebayListingSchema);
     var listingDB = mongoose.model("Listing", listingSchema);
     var listingModel = require("./models/listing/listing.model")(listingDB,ebayListingDB);
-    require("./services/listing/listing.service.server")(app, listingModel, categoryModel, ebayAPIClient,upload);
+    require("./services/listing/listing.service.server")(app, listingModel, categoryModel, ebayAPIClient,upload, amazonAPIClient);
 
 };

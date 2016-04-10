@@ -12,6 +12,7 @@ var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 var mongoose = require("mongoose");
 
+
 app.use(bodyParser.json({limit: "50mb"}));
 app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit: 50000}));
 
@@ -27,6 +28,17 @@ var storage = multer.diskStorage({ //multers disk storage settings
 
 var upload = multer({ //multer settings
     storage: storage
+    //storage: s3({
+    //    dirname: '/',
+    //    bucket: 'gluec-listing-images',
+    //    accessKeyId: 'AKIAJGLCCC33Q36BY4EA',
+    //    secretAccessKey: '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',
+    //    region: 'us-east-1',
+    //    key: function (req, file, cb) {
+    //        var datetimestamp = Date.now();
+    //        cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1])
+    //    }
+    //})
 });
 // create a default connection string
 var connectionString = 'mongodb://127.0.0.1:27017/Gluec';
