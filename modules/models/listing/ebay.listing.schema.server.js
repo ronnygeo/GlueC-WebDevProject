@@ -12,6 +12,18 @@ module.exports = function (mongoose) {
         listingType: String,
         paymentMethod: String,
         returnPolicyEnabled: String,
-        listingDuration: String
+        listingDuration: String,
+        siteHostedPictureDetails: [{
+            PictureSet: String,
+            PictureFormat: String,
+            FullURL: String,
+            BaseURL: String,
+            PictureSetMember: [{
+                MemberURL: String,
+                PictureHeight: String,
+                PictureWidth: String
+            }],
+            ExternalPictureURL: String
+        }]
     })
 };

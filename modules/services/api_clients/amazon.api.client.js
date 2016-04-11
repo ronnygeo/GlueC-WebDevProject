@@ -1,65 +1,38 @@
 /**
  * Created by Bhanu on 09/04/2016.
  */
-var s3Upload = require('s3-uploader');
-
+var fs = require('fs'),
+    S3FS = require('s3fs'),	//abstraction over Amazon S3's SDK
+    s3fsImpl = new S3FS('gluec-listing-images', {
+        accessKeyId: 'AKIAJGLCCC33Q36BY4EA',
+        secretAccessKey: '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'
+    }),
+    AMAZON_S3_BUCKET_ADDRESS = "http://s3.amazonaws.com/gluec-listing-images/";
 module.exports = function (q) {
 
     var api = {
-        s3: {
-            imageUpload: imageUpload
-        }
+        uploadToAmazonS3: uploadToAmazonS3,
+        AMAZON_S3_BUCKET_ADDRESS: AMAZON_S3_BUCKET_ADDRESS
     };
     return api;
 
-
-    function imageUpload() {
-        return new s3Upload('gluec-listing-images', {
-            aws: {
-                path: 'images/',
-                region: 'us-east-1',
-                acl: 'public-read',
-                accessKeyId : 'AKIAJGLCCC33Q36BY4EA',
-                secretAccessKey : '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'
-            },
-
-            cleanup: {
-                versions: true,
-                original: false
-            },
-
-            original: {
-                awsImageAcl: 'private'
-            },
-
-            versions: [{
-                maxHeight: 1040,
-                maxWidth: 1040,
-                format: 'jpg',
-                suffix: '-large',
-                quality: 80,
-                awsImageExpires: 31536000,
-                awsImageMaxAge: 31536000
-            }, {
-                maxWidth: 780,
-                aspect: '3:2!h',
-                suffix: '-medium'
-            }, {
-                maxWidth: 320,
-                aspect: '16:9!h',
-                suffix: '-small'
-            }, {
-                maxHeight: 100,
-                aspect: '1:1',
-                format: 'png',
-                suffix: '-thumb1'
-            }, {
-                maxHeight: 250,
-                maxWidth: 250,
-                aspect: '1:1',
-                suffix: '-thumb2'
-            }]
+    function uploadToAmazonS3(file) {
+        var deferred = q.defer();
+        console.log(file);
+        var stream = fs.createReadStream(file.path);
+        console.log(stream);
+        //writeFile calls putObject behind the scenes
+        s3fsImpl.writeFile(file.filename, stream).then(function () {
+            fs.unlink(file.path, function (err) {
+                if (err) {
+                    console.error(err);
+                    deferred.reject(err)
+                } else {
+                    deferred.resolve(true);
+                }
+            });
         });
+        return deferred.promise;
     }
 
 };

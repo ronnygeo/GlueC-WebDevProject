@@ -1,26 +1,19 @@
 /**
  * Created by Bhanu on 26/03/2016.
  */
-var s3Upload = require('s3-uploader'),
-    fs = require('fs'),
-    S3FS = require('s3fs'),	//abstraction over Amazon S3's SDK
-    s3fsImpl = new S3FS('gluec-listing-images', {
-        accessKeyId: 'AKIAJGLCCC33Q36BY4EA',
-        secretAccessKey: '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'
-    });
+var fs = require('fs');
+module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, upload, amazonAPIClient) {
 
-module.exports = function (app, listingModel, categoryModel, ebayAPIClient, upload, amazonAPIClient) {
-
+    /*WEB Service API*/
     app.post("/api/listing/", upload.single('image'), createNewListing);
-    //app.post("/api/listing/", createNewListing);
 
     function createNewListing(req, res) {
-
         console.log("Inside ListingService.getNewListingTemplate");
         var listing = req.body;
         listing['images'] = [req.file.path];
         console.log("Incoming Listing");
         console.log(listing);
+        var newDbListing;
 
         if (listing.providerId == "10001") {
             //TODO: Step1: Create New Listing
@@ -28,12 +21,12 @@ module.exports = function (app, listingModel, categoryModel, ebayAPIClient, uplo
                 .then(function (response) {
                     console.log("Step One Completed");
                     console.log(response);
-                    var listing = response;
-
+                    newDbListing = response;
                     //TODO: Step2: Save Image and Ebay Url In Database
-                    uploadToAmazon(req.file)
+                    uploadImageToEbay(req.file)
                         .then(function (response) {
                             console.log(response);
+                            newDbListing.ebay.siteHostedPictureDetails = response;
 
                             //TODO: Step5: Get Other Features For Category
                             listingModel.ebay
@@ -106,111 +99,46 @@ module.exports = function (app, listingModel, categoryModel, ebayAPIClient, uplo
         return newListing
     }
 
-    function uploadImageToEbay(imageLocation, imageName) {
+
+    function uploadImageToEbay(file) {
         console.log("Inside ListingService.uploadImageToEbay");
+        var deferred = q.defer();
+        /*Upload File To Amazon S3*/
+        amazonAPIClient.uploadToAmazonS3(file)
+            .then(
+                function (response) {
+                    /*Upload File from Amazon to Ebay*/
+                    if (response) {
+                        var imageLocation = amazonAPIClient.AMAZON_S3_BUCKET_ADDRESS + file.filename;
+                        var functionToCall = 'UploadSiteHostedPictures';
+                        var requestData = '<?xml version="1.0" encoding="utf-8"?>' +
+                            '<UploadSiteHostedPicturesRequest xmlns="urn:ebay:apis:eBLBaseComponents">' +
+                            '<RequesterCredentials>' +
+                            '<eBayAuthToken>' +
+                            ebayAPIClient.trading.AUTH_TOKEN +
+                            '</eBayAuthToken>' +
+                            '</RequesterCredentials>' +
+                            '<WarningLevel>High</WarningLevel>' +
+                            '<ExternalPictureURL>' + imageLocation + '</ExternalPictureURL>' +
+                            '</UploadSiteHostedPicturesRequest>';
+                        ebayAPIClient.trading.function(functionToCall, requestData)
+                            .then(function (response) {
+                                console.log(response.UploadSiteHostedPicturesResponse.SiteHostedPictureDetails[0]);
+                                deferred.resolve(response.UploadSiteHostedPicturesResponse.SiteHostedPictureDetails[0]);
+                            }, function (err) {
+                                console.log(err);
+                                deferred.reject(err);
+                            });
+                    } else {
+                        console.log("Error Uploading File to Amazon S3");
+                        deferred.reject("Error Uploading File to Amazon S3");
+                    }
+                },
+                function (err) {
+                    console.log(err);
+                    deferred.reject(err);
 
-        fs.readFile(imageLocation, function (err, data) {
-            //var imageBinaryData = new Buffer(data).toString('base64');
-            console.log(data);
-            var functionToCall = 'UploadSiteHostedPictures';
-            var requestData = '<?xml version="1.0" encoding="utf-8"?>' +
-                '<UploadSiteHostedPicturesRequest xmlns="urn:ebay:apis:eBLBaseComponents">' +
-                '<RequesterCredentials>' +
-                '<eBayAuthToken>' +
-                ebayAPIClient.trading.AUTH_TOKEN +
-                '</eBayAuthToken>' +
-                '</RequesterCredentials>' +
-                '<WarningLevel>High</WarningLevel>' +
-                '<PictureName>' + imageName + '</PictureName>' +
-                '</UploadSiteHostedPicturesRequest>';
-
-            ebayAPIClient.trading.uploadImage(data, requestData)
-                .then(function (response) {
-
-                }, function (error) {
                 });
-        });
+        return deferred.promise;
     }
-
-    /*function uploadImageToAmazon(imageLocation, imageName) {
-     console.log("uploadImageToAmazon");
-
-     var client = new s3Upload('gluec-listing-images', {
-     aws: {
-     path: 'images/',
-     region: 'us-east-1',
-     acl: 'public-read',
-     accessKeyId: 'AKIAJGLCCC33Q36BY4EA',
-     secretAccessKey: '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'
-     },
-
-     cleanup: {
-     versions: true,
-     original: false
-     },
-
-     original: {
-     awsImageAcl: 'private'
-     },
-
-     versions: [{
-     maxHeight: 1040,
-     maxWidth: 1040,
-     format: 'jpg',
-     suffix: '-large',
-     quality: 80,
-     awsImageExpires: 31536000,
-     awsImageMaxAge: 31536000
-     }, {
-     maxWidth: 780,
-     aspect: '3:2!h',
-     suffix: '-medium'
-     }, {
-     maxWidth: 320,
-     aspect: '16:9!h',
-     suffix: '-small'
-     }, {
-     maxHeight: 100,
-     aspect: '1:1',
-     format: 'png',
-     suffix: '-thumb1'
-     }, {
-     maxHeight: 250,
-     maxWidth: 250,
-     aspect: '1:1',
-     suffix: '-thumb2'
-     }]
-     });
-
-     client.upload("uploads\\image-1460256065678.jpg", {}, function (err, versions, meta) {
-     if (err) {
-     //console.log(err)
-     } else {
-     console.log("success");
-     versions.forEach(function (image) {
-     console.log(image.width, image.height, image.url);
-     // 1234 4567 https://my-bucket.s3.amazonaws.com/path/ab/cd/ef.jpg
-     });
-     }
-
-     });
-     }*/
-
-
-    function uploadToAmazon(file) {
-        console.log(file);
-
-        var stream = fs.createReadStream(file.path);
-        console.log(stream);
-        //writeFile calls putObject behind the scenes
-        s3fsImpl.writeFile(file.filename, stream).then(function () {
-            fs.unlink(file.path, function (err) {
-                if (err) {
-                    console.error(err);
-                }
-            });
-            res.status(200).end();
-        });
-    }
-
 };
