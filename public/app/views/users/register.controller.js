@@ -7,15 +7,22 @@
         .module('GluecApp')
         .controller('RegisterController', RegisterController);
 
-    function RegisterController(UserService, $scope, $rootScope, $location) {
+    RegisterController.$inject = ['UserService', '$rootScope', '$location'];
 
+    function RegisterController(UserService, $rootScope, $location) {
+        var vm = this;
+
+        vm.user = {};
         //Event Handlers Decelerations
-        $scope.register = Register;
+        vm.register = Register;
 
+        // angular.element(document).ready(function() {
+        //     $('select').material_select('destroy');
+        // });
         //Event Handlers Implementations
-        function Register(form_user) {
-
-            UserService.createUser(form_user).then(function (response) {
+        function Register() {
+            console.log(vm.user);
+            UserService.createUser(vm.user).then(function (response) {
                     if (response.data != null) {
                         //Storing the user in the Root Scope
                         $rootScope.user = response.data;

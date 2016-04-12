@@ -1,10 +1,11 @@
 /**
  * Created by ronnygeo on 3/25/16.
  */
+module.exports = function (q, mongoose) {
+   // var catalogs = require("./catalog.test.json");
+    var CatalogSchema = require("./catalog.schema.server.js")(mongoose);
+    var CatalogModel = mongoose.model('Catalog', CatalogSchema);
 
-module.exports = function (q, uuid) {
-    var catalogs = require("./catalog.test.json");
-    
     return {
         findAllCatalogs: findAllCatalogs,
         findAllCatalogsByUser: findAllCatalogsByUser,
@@ -16,19 +17,11 @@ module.exports = function (q, uuid) {
 
     function findCatalogById(catId) {
         var deferred = q.defer();
-        var found = 0;
-        for(var c in catalogs) {
-            // console.log(u);
-            if( catalogs[c]._id == catId ) {
-                found = 1;
-                deferred.resolve(catalogs[c]);
-                break;
-            }
-        }
-        // console.log(found);
-        if (found === 0) {
-            deferred.reject();
-        }
+        CatalogModel.findById(catId).then(function(data){
+            deferred.resolve(data);
+        }, function(err){
+            deferred.reject(err);
+        });
         return deferred.promise;
     }
 
@@ -37,22 +30,22 @@ module.exports = function (q, uuid) {
     // // whose username and password match the parameters
     // //Calls bac k with user found or null otherwise
     function findAllCatalogsByUser(userId) {
-        var collection = [];
         var deferred = q.defer();
-        for (var i in catalogs) {
-            var catalog = catalogs[i];
-            if (catalog.merchantId == userId) {
-                collection.push(catalog);
-             }
-        }
-        deferred.resolve(collection);
-        //deferred.reject();
+        CatalogModel.find({"merchantId": userId}).then(function (data) {
+            deferred.resolve(data);
+        }, function (err){
+            deferred.reject(err);
+        });
         return deferred.promise;
     }
 
     function findAllCatalogs() {
         var deferred = q.defer();
-        deferred.resolve(catalogs);
+        CatalogModel.find().then(function (data) {
+            deferred.resolve(data);
+        }, function (err){
+            deferred.reject(err);
+        });
         return deferred.promise;
     }
 
@@ -60,15 +53,14 @@ module.exports = function (q, uuid) {
     // //Adds property called _id with unique value to the user object parameter.
     // //Adds the new user to local array of users
     // //Calls back with new user
-    function createCatalog(userId, data) {
+    function createCatalog(userId, cat) {
         var deferred = q.defer();
-        data._id = uuid.v1();
-        data.merchantId = userId;
-        if (catalogs.push(data)) {
+        cat.merchantId = userId;
+        CatalogModel.create(cat).then(function (data) {
             deferred.resolve(data);
-        } else {
-            deferred.reject();
-        }
+        }, function (err){
+            deferred.reject(err);
+        });
         return deferred.promise;
     }
 
@@ -77,24 +69,13 @@ module.exports = function (q, uuid) {
     // // object whose user id is equal to parameter user id
     // //If found, updates user with new user properties
     // //Calls back with updated user
-    function updateCatalog(catId, data) {
+    function updateCatalog(catId, cat) {
         var deferred = q.defer();
-        var found = 0;
-        for(var c in catalogs) {
-            // console.log(u);
-            if( catalogs[c]._id == catId ) {
-                catalog = catalogs[c];
-                for (var key in data) {
-                    catalog[key] = data[key];
-                }
-                found = 1;
-                deferred.resolve(catalog);
-                break;
-            }
-        }
-        
-        if (found === 0)
-            deferred.reject();
+        CatalogModel.update({ _id: catId}, cat).then(function (data) {
+            deferred.resolve(data);
+        }, function (err){
+            deferred.reject(err);
+        });
         return deferred.promise;
     }
 
@@ -105,14 +86,11 @@ module.exports = function (q, uuid) {
     // //Calls back with remaining array of all users
     function deleteCatalog(catId) {
         var deferred = q.defer();
-        for (var i = 0; i < catalogs.length; i++){
-            if (catId == catalogs[i]._id)
-            {
-                catalogs.splice(i, 1);
-                break;
-            }
-        }
-        deferred.resolve(catalogs);
+        CatalogModel.remove({_id: catId}).then(function (data) {
+            deferred.resolve(data);
+        }, function (err){
+            deferred.reject(err);
+        });
         return deferred.promise;
     }
 };

@@ -4,7 +4,7 @@
             <ul class="right hide-on-med-and-down">
                 <li ng-show="user && user._id" ng-class="{active: $location.url() == '/profile'}"><a href="#/profile"><i class="material-icons left">perm_identity</i>Welcome
                     {{user.firstName}}</a></li>
-                <li ng-show="user && user._id" ng-class="{active: $location.url() == '/profile'}"><a ng-click="goToMessages()"><i class="material-icons left">perm_identity</i> Messages</a></li>
+                <li ng-show="user && user._id" ng-class="{active: $location.url() == '/profile'}"><a ng-click="goToMessages()"><i class="fa fa-comments-o" aria-hidden="true"></i> Messages</a></li>
                 <li ng-show="user && user._id && user.roles !== undefined && user.roles.indexOf('admin') !== -1" ng-class="{active: $location.url() == '/admin'}"><a href="#/admin"><i class="material-icons left">perm_identity</i>Admin</a></li>
                 <li ng-show="user && user.roles !== undefined && user.roles.indexOf('merchant') !== -1"><a href="#/dashboard"><i class="material-icons left">dashboard</i>Dashboard</a></li>
                 <li ng-show="user && user.roles == undefined || user.roles.indexOf('merchant') == -1"><a href="#/userdash"><i class="material-icons left">dashboard</i>User Dashboard</a></li>
@@ -17,7 +17,7 @@
             <ul id="nav-mobile" class="side-nav">
                 <li ng-show="user && user._id" ng-class="{active: $location.url() == '/profile'}"><a href="#/profile"><i class="material-icons left">perm_identity</i>Welcome
                     {{user.firstName}}</a></li>
-                <li ng-show="user && user._id" ng-class="{active: $location.url() == '/profile'}"><a ng-click="goToMessages()"><i class="material-icons left">perm_identity</i> Messages</a></li>
+                <li ng-show="user && user._id" ng-class="{active: $location.url() == '/profile'}"><a ng-click="goToMessages()"><i class="fa fa-comments-o" aria-hidden="true"></i> Messages</a></li>
                 <li ng-show="user && user.roles == undefined || user.roles.indexOf('merchant') == -1"><a href="#/userdash"><i class="material-icons left">dashboard</i>User Dashboard</a></li>
 
                 <li ng-show="user && user._id && user.roles !== undefined && user.roles.indexOf('admin') !== -1" ng-class="{active: $location.url() == '/admin'}"><a href="#/admin"><i class="material-icons left">perm_identity</i>Admin</a></li>

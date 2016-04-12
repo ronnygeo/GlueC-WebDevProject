@@ -3,7 +3,7 @@
  */
 var Client = require('node-rest-client').Client;
 var parseString = require('xml2js').parseString;
-module.exports = function (q, uuid, request) {
+module.exports = function (q, uuid, request, mongoose) {
 
     var api = {
         ebay: {
