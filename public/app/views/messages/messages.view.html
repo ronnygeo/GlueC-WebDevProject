@@ -4,16 +4,40 @@
         <div class="col offset-s1 s10">
             <h2>Inbox</h2>
             <ul class="collection collapsible popout">
-    <li class="collection-item avatar" style="color: black" ng-repeat="message in mc.messages" data-collapsible="accordion">
+    <li class="collection-item avatar grey" style="color: black" ng-repeat="message in mc.messages" data-collapsible="accordion">
         <div class="collapsible-header white darken">
             <i class="material-icons circle blue">insert_chart</i>
         <span class="title">{{message.from}}</span>
         <p>{{message.subject}}</p>
         <!--<a ng-show="message.unread" class="secondary-content"><i class="material-icons">grade</i></a>-->
         </div>
-        <div class="collapsible-body white darken" style="color: black"><p>{{message.message}}</p></div>
+        <div class="collapsible-body white darken" style="color: black"><p>{{message.message}}</p>
+            <div class="row">
+                <div class="btn blue modal-trigger" data-target="message-modal">reply</div>
+            </div>
+        </div>
     </li>
 </ul>
         </div>
+    </div>
+</div>
+
+<!-- Modal Structure -->
+<div id="message-modal" class="modal bottom-sheet">
+    <div class="modal-content">
+        <!--<h6>Message to {{model.user.firstName}}</h6>-->
+        <div class="row">
+            <div class="input-field col s12">
+                <input placeholder="Subject" id="subject" ng-model="mc.message.subject" type="text" class="validate">
+                <label for="subject">Subject</label>
+            </div>
+            <div class="input-field col s12">
+                <textarea id="message" class="materialize-textarea" ng-model="mc.message.message"></textarea>
+                <label for="message">Message</label>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Send</a>
     </div>
 </div>
