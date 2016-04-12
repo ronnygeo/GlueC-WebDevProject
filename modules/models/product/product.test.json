@@ -14,7 +14,7 @@
     "discount": 10,
     "providerId": 10001,
     "catalogId": 1,
-    "merchantId": 234,
+    "merchantId": "570d5b02c7606815014bb8ce",
     "imageUrl": "static/images/products/101.jpg",
     "providerUrl": ""
   },
@@ -32,7 +32,7 @@
     "price": 500,
     "discount": 10,
     "providerId": 10001,
-    "merchantId": 234,
+    "merchantId": "570d5b02c7606815014bb8ce",
     "catalogId": 1,
     "imageUrl": "static/images/products/102.jpg",
     "providerUrl": ""
@@ -51,7 +51,7 @@
     "price": 1000,
     "discount": 10,
     "providerId": 10001,
-    "merchantId": 234,
+    "merchantId": "570d5b02c7606815014bb8ce",
     "catalogId": 2,
     "imageUrl": "static/images/products/201.jpg",
     "providerUrl": ""
@@ -71,7 +71,7 @@
     "discount": 10,
     "providerId": 10001,
     "catalogId": 2,
-    "merchantId": 234,
+    "merchantId": "570d5b02c7606815014bb8ce",
     "imageUrl": "static/images/products/202.jpg",
     "providerUrl": ""
   }

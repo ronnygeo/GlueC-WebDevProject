@@ -1,8 +1,8 @@
-module.exports = function (app, request, q, uuid, mongoose, db) {
+module.exports = function (app, request, q, uuid, upload, mongoose, db) {
     var userModel = require("./models/user/user.model.js")(mongoose);
     require("./services/user/user.service.js")(app, userModel);
 
-    var catalogModel = require('./models/catalog/catalog.model.js')(uuid);
+    var catalogModel = require('./models/catalog/catalog.model.js')(q, uuid);
     require("./services/catalog/catalog.service.js")(app, catalogModel);
 
     var productModel = require("./models/product/product.model.js")(q, uuid, request);
@@ -12,7 +12,7 @@ module.exports = function (app, request, q, uuid, mongoose, db) {
     var categoryModel = require("./models/category/category.model.js")(q, uuid, request);
     require("./services/category/category.service.server")(app, categoryModel);
 
-    var MessageModel = require("./models/message/message.model.js")(q, uuid);
+    var MessageModel = require("./models/message/message.model.js")(q, mongoose);
     require("./services/message/message.service.js")(app, MessageModel);
 
     /*EBAY API CLIENT*/

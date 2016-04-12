@@ -53,7 +53,7 @@ if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
         process.env.OPENSHIFT_APP_NAME;
 }
 // connect to the database
-var db = mongoose.connect(connectionString);
+var db = mongoose.createConnection(connectionString);
 
 app.use(express.static(__dirname + '/public'));
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
@@ -66,10 +66,5 @@ app.get('/hello', function (req, res) {
 var db = mongoose.connect(connectionString);
 
 /*Injecting Server App*/
-<<<<<<< HEAD
-require("./modules/app.js")(app, request, q, uuid, mongoose, db);
-=======
-require("./modules/app.js")(app, request, q, uuid, upload, mongoose);
->>>>>>> 5b832861f57f7247af28b73609924534c17887c7
-
+require("./modules/app.js")(app, request, q, uuid, upload, mongoose, db);
 app.listen(port, ipaddress);

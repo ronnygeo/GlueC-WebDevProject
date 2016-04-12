@@ -2,9 +2,10 @@
  * Created by ronnygeo on 3/26/16.
  */
 
-module.exports = function (q, uuid) {
-
-    var messages = require("./message.test.json");
+module.exports = function (q, mongoose) {
+    //var messages = require("./message.test.json");
+    var MessageSchema = require("./message.schema.server.js")(mongoose);
+    var MessageModel = mongoose.model('Message', MessageSchema);
 
     var api = {
         findMessagesByUser: findMessagesByUser,
@@ -16,57 +17,42 @@ module.exports = function (q, uuid) {
     return api;
 
     function findMessagesByUser(userId) {
-        var collection = [];
         var deferred = q.defer();
-        for (var m in messages) {
-            if (messages[m].to == userId) {
-                console.log(userId);
-                collection.push(messages[m]);
-            }
-        }
-        deferred.resolve(collection);
+        MessageModel.find({"to": userId}).then(function (data) {
+            deferred.resolve(data);
+        }, function (err){
+            deferred.reject(err);
+        });
         return deferred.promise;
     }
 
     function findMessageById(msgId) {
         var deferred = q.defer();
-        var found = 0;
-        for (var m in messages) {
-            if (messages[m]._id == msgId) {
-                found = 1;
-                messages[m].unread = false;
-                deferred.resolve(messages[m]);
-            }
-        }
-        if (found == 0) {
-            deferred.reject();
-        }
+        MessageModel.findById(msgId).then(function(data){
+            deferred.resolve(data);
+        }, function(err){
+            deferred.reject(err);
+        });
         return deferred.promise;
     }
 
     function createMessage(userId, msg) {
         var deferred = q.defer();
-        msg._id = uuid.v1();
-        msg.unread = true;
-        messages.push(msg);
-        deferred.resolve(msg);
+        MessageModel.create(msg).then(function (data) {
+            deferred.resolve(data);
+        }, function (err){
+            deferred.reject(err);
+        });
         return deferred.promise;
     }
 
     function deleteMessage(msgId) {
         var deferred = q.defer();
-        var found = 0;
-        for (var m in messages) {
-            if (messages[m]._id == msgId) {
-                found = 1;
-                messages.splice(m, 1);
-                deferred.resolve(messages);
-            }
-        }
-        if (found == 0) {
-            deferred.reject();
-        }
+        MessageModel.remove({_id: msgId}).then(function (data) {
+            deferred.resolve(data);
+        }, function (err){
+            deferred.reject(err);
+        });
         return deferred.promise;
-
     }
 };
