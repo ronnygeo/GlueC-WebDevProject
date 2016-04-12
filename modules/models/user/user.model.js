@@ -1,7 +1,7 @@
 /**
  * Created by ronnygeo on 3/24/16.
  */
- module.exports = function (uuid, mongoose) {
+ module.exports = function (mongoose) {
      var q = require("q");
      //var users = require("./user.test.json");
 

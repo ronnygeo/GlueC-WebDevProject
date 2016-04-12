@@ -10,5 +10,6 @@
             "gluec.directives",
             "ngProgress",
             'chart.js'
+            //'flow'
         ]);
 })();
