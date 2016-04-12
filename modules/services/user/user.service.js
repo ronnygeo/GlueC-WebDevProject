@@ -34,7 +34,7 @@ module.exports = function (app, userModel) {
     function findUserByCredentials(req, res) {
         var username = req.query.username;
         var password = req.query.password;
-        console.log(username, password);
+        // console.log(username, password);
         userModel.findUserByCredentials(username, password).then(function (data) {
                 // console.log(data);
                 res.json(data);
@@ -61,7 +61,7 @@ module.exports = function (app, userModel) {
         var userId = req.params['id'];
         data = req.body;
         userModel.updateUser(userId, data).then(function (data) {
-            console.log(data);
+            // console.log(data);
             res.json(data);
             },
             function (err) {

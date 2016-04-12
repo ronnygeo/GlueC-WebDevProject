@@ -6,18 +6,17 @@
     angular.module('GluecApp')
         .controller('LoginController', LoginController);
 
-    function LoginController(UserService, $scope, $location, $rootScope) {
+    LoginController.$inject = ['UserService', '$location', '$rootScope'];
 
+    function LoginController(UserService, $location, $rootScope) {
+        var vm = this;
         //Event Handlers Decelerations
-        $scope.login = Login;
+        vm.login = Login;
 
         //Event Handlers Implementations
         function Login() {
-            UserService.findUserByCredentials($scope.user.username, $scope.user.password).then(render, function (err) {
-                console.log(err);
-                angular.element(document).ready(function () {
+            UserService.findUserByCredentials(vm.user.username, vm.user.password).then(render, function (err) {
                     $('#login-alert').show();
-                });
             });
 
             function render(response) {
@@ -27,6 +26,8 @@
                     $rootScope.user = response.data;
                     // Navigating to the Profile Page of this particular User
                     $location.url("/");
+                } else {
+                    $('#login-alert').show();
                 }
                 // else {
                 //     console.log(response.data);

@@ -36,24 +36,21 @@
      // //Calls bac k with user found or null otherwise
      function findUserByCredentials(username, password) {
          var deferred = q.defer();
-         UserModel.findOne({username: username, password: password}, function (err, data) {
-             if (err) {
+         // console.log(username, password);
+         UserModel.findOne({username: username, password: password}).then(function(data){
+             deferred.resolve(data);
+         }, function (err) {
                  deferred.reject(err);
-             } else {
-                 deferred.resolve(data);
-             }
          });
         return deferred.promise;
      }
 
      function findAllUsers() {
          var deferred = q.defer();
-         UserModel.find(function (err, data) {
-             if (err) {
-                 deferred.reject(err);
-             } else {
-                 deferred.resolve(data);
-             }
+         UserModel.find().then(function(data){
+             deferred.resolve(data);
+         }, function (err) {
+             deferred.reject(err);
          });
          return deferred.promise;
      }
@@ -64,12 +61,10 @@
      // //Calls back with new user
      function register(user) {
          var deferred = q.defer();
-         UserModel.create(user, function (err, data){
-             if (err) {
-                 deferred.reject(err);
-             } else {
-                 deferred.resolve(data);
-             }
+         UserModel.create(user).then(function(data){
+             deferred.resolve(data);
+         }, function (err) {
+             deferred.reject(err);
          });
          return deferred.promise;
      }
@@ -81,14 +76,11 @@
      // //Calls back with updated user
      function updateUser(userId, data) {
          var deferred = q.defer();
-         UserModel.update({ _id: userId}, data,
-             function (err, data) {
-                 if (err) {
-                     deferred.reject(err);
-                 } else {
-                     deferred.resolve(data);
-                 }
-             });
+         UserModel.update({ _id: userId}, data).then(function(data){
+             deferred.resolve(data);
+         }, function (err) {
+             deferred.reject(err);
+         });
          return deferred.promise;
      }
 
@@ -99,11 +91,10 @@
      // //Calls back with remaining array of all users
      function deleteUser(userId) {
          var deferred = q.defer();
-         UserModel.remove({_id: userId}, function (err, data) {
-             if (err) {
-                 deferred.reject(err);
-             }
+         UserModel.remove({_id: userId}).then(function(data){
              deferred.resolve(data);
+         }, function (err) {
+             deferred.reject(err);
          });
          return deferred.promise;
      }

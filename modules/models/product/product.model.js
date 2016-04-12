@@ -2,10 +2,15 @@
  * Created by Bhanu on 25/03/2016.
  */
 
-module.exports = function (q, uuid, request) {
+module.exports = function (q, request, mongoose) {
 
     var aws = require("aws-lib");
-    var products = require('./product.local.test.json');
+
+    var ProductSchema = require("./product.schema.server.js")(mongoose);
+    var ProductModel = mongoose.model('Product', ProductSchema);
+
+    // var products = require('./product.local.test.json');
+
     var EBAY = {
         APP_ID: "BhanuJai-Gluec-PRD-d38ccaf50-a1104f30",
         FIND_API: "http://svcs.ebay.com/services/search/FindingService/v1",
@@ -225,55 +230,43 @@ module.exports = function (q, uuid, request) {
     //Functions for our product
     function findProductById(prodId) {
         var deferred = q.defer();
-        var found = 0;
-        for(var p in products) {
-            // console.log(u);
-            if( products[p]._id == prodId ) {
-                found = 1;
-                deferred.resolve(products[p]);
-                break;
-            }
-        }
-        // console.log(found);
-        if (found === 0) {
-            deferred.reject();
-        }
+        ProductModel.findById(prodId).then(function(data){
+            deferred.resolve(data);
+        }, function(err){
+            deferred.reject(err);
+        });
         return deferred.promise;
     }
 
     function findAllProductsByUserId(userId) {
-        var collection = [];
         var deferred = q.defer();
-        for (var i in products) {
-            if (products[i].merchantId == userId) {
-                collection.push(products[i]);
-            }
-        }
-        deferred.resolve(collection);
-        //deferred.reject();
+        ProductModel.find({"merchantId": userId}).then(function (data) {
+            deferred.resolve(data);
+        }, function (err){
+            deferred.reject(err);
+        });
         return deferred.promise;
     }
 
 
     function findAllProductsByCatalogId(catId) {
-        console.log(catId);
-        var collection = [];
         var deferred = q.defer();
-        for (var i in products) {
-            if (products[i].catalogId == catId) {
-                collection.push(products[i]);
-            }
-        }
-        deferred.resolve(collection);
-        //deferred.reject();
+        ProductModel.find({"catalogId": catId}).then(function (data) {
+            deferred.resolve(data);
+        }, function (err){
+            deferred.reject(err);
+        });
         return deferred.promise;
-
     }
 
 
     function findAllProducts() {
         var deferred = q.defer();
-        deferred.resolve(products);
+        ProductModel.find().then(function (data) {
+            deferred.resolve(data);
+        }, function (err){
+            deferred.reject(err);
+        });
         return deferred.promise;
     }
 
@@ -281,15 +274,14 @@ module.exports = function (q, uuid, request) {
     // //Adds property called _id with unique value to the user object parameter.
     // //Adds the new user to local array of users
     // //Calls back with new user
-    function createProduct(userId, data) {
+    function createProduct(userId, prod) {
         var deferred = q.defer();
-        data._id = uuid.v1();
-        data.merchantId = userId;
-        if (products.push(data)) {
+        prod.merchantId = userId;
+        ProductModel.create(prod).then(function (data) {
             deferred.resolve(data);
-        } else {
-            deferred.reject();
-        }
+        }, function (err){
+            deferred.reject(err);
+        });
         return deferred.promise;
     }
 
@@ -298,24 +290,13 @@ module.exports = function (q, uuid, request) {
     // // object whose user id is equal to parameter user id
     // //If found, updates user with new user properties
     // //Calls back with updated user
-    function updateProduct(prodId, data) {
+    function updateProduct(prodId, prod) {
         var deferred = q.defer();
-        var found = 0;
-        for(var p in products) {
-            // console.log(u);
-            if( products[p]._id == prodId ) {
-                product = products[p];
-                for (var key in data) {
-                    product[key] = data[key];
-                }
-                found = 1;
-                deferred.resolve(product);
-                break;
-            }
-        }
-
-        if (found === 0)
-            deferred.reject();
+        ProductModel.update({ _id: prodId}, prod).then(function (data) {
+            deferred.resolve(data);
+        }, function (err){
+            deferred.reject(err);
+        });
         return deferred.promise;
     }
 
@@ -326,14 +307,11 @@ module.exports = function (q, uuid, request) {
     // //Calls back with remaining array of all users
     function deleteProduct(prodId) {
         var deferred = q.defer();
-        for (var i = 0; i < products.length; i++){
-            if (prodId == products[i]._id)
-            {
-                products.splice(i, 1);
-                break;
-            }
-        }
-        deferred.resolve(products);
+        ProductModel.remove({_id: prodId}).then(function (data) {
+            deferred.resolve(data);
+        }, function (err){
+            deferred.reject(err);
+        });
         return deferred.promise;
     }
 

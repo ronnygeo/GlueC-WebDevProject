@@ -1,11 +1,11 @@
-module.exports = function (app, request, q, uuid, upload, mongoose) {
+module.exports = function (app, request, q, upload, mongoose) {
     var userModel = require("./models/user/user.model.js")(mongoose);
     require("./services/user/user.service.js")(app, userModel);
 
     var catalogModel = require('./models/catalog/catalog.model.js')(q, mongoose);
     require("./services/catalog/catalog.service.js")(app, catalogModel);
 
-    var productModel = require("./models/product/product.model.js")(q, uuid, request);
+    var productModel = require("./models/product/product.model.js")(q, request, mongoose);
     require("./services/provider/product.service.server.js")(app, productModel);
     require("./services/product/product.service.js")(app, productModel);
 

@@ -14,7 +14,8 @@
                 })
                 .when('/login', {
                     controller: 'LoginController',
-                    templateUrl: 'views/users/login.view.html'
+                    templateUrl: 'views/users/login.view.html',
+                    controllerAs: 'lc'
                 })
                 .when('/register', {
                     controller: 'RegisterController',
