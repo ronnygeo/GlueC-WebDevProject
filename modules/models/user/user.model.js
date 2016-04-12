@@ -1,9 +1,13 @@
 /**
  * Created by ronnygeo on 3/24/16.
  */
- module.exports = function (uuid) {
+ module.exports = function (uuid, mongoose) {
      var q = require("q");
-     var users = require("./user.test.json");
+     //var users = require("./user.test.json");
+
+     // load user schema
+     var UserSchema = require("./user.schema.server.js")(mongoose);
+     var UserModel = mongoose.model('User', UserSchema);
 
      return {
          findUserById: findUserById,
@@ -16,21 +20,13 @@
 
      function findUserById(userId) {
          var deferred = q.defer();
-         var found = 0;
-         for(var u in users) {
-             // console.log(u);
-             if( users[u]._id == userId ) {
-                 // console.log(users[u]);
-                 found = 1;
-                 deferred.resolve(users[u]);
-                 break;
+         UserModel.findById(userId, function(err, data) {
+             if (err) {
+                 deferred.reject(err);
+             } else {
+                 deferred.resolve(data);
              }
-         }
-         console.log(found);
-         if (found == 0) {
-             deferred.reject();
-            found = 0;
-         }
+         });
          return deferred.promise;
      }
 
@@ -39,27 +35,26 @@
      // // whose username and password match the parameters
      // //Calls bac k with user found or null otherwise
      function findUserByCredentials(username, password) {
-         var found = 0;
          var deferred = q.defer();
-         for (var i in users) {
-             var user = users[i];
-             if (user.username === username && user.password === password) {
-                 console.log(username, password);
-                 console.log(user);
-                 found = 1;
-                 deferred.resolve(user);
-                 break;
+         UserModel.findOne({username: username, password: password}, function (err, data) {
+             if (err) {
+                 deferred.reject(err);
+             } else {
+                 deferred.resolve(data);
              }
-         }
-         if (found == 0)
-         deferred.reject("user not found.");
+         });
         return deferred.promise;
      }
 
      function findAllUsers() {
          var deferred = q.defer();
-
-         deferred.resolve(users);
+         UserModel.find(function (err, data) {
+             if (err) {
+                 deferred.reject(err);
+             } else {
+                 deferred.resolve(data);
+             }
+         });
          return deferred.promise;
      }
 
@@ -69,12 +64,13 @@
      // //Calls back with new user
      function register(user) {
          var deferred = q.defer();
-         user._id = uuid.v1();
-         if (users.push(user)) {
-             deferred.resolve(user);
-         } else {
-             deferred.reject();
-         }
+         UserModel.create(user, function (err, data){
+             if (err) {
+                 deferred.reject(err);
+             } else {
+                 deferred.resolve(data);
+             }
+         });
          return deferred.promise;
      }
 
@@ -85,22 +81,14 @@
      // //Calls back with updated user
      function updateUser(userId, data) {
          var deferred = q.defer();
-         var found = 0;
-         for(var u in users) {
-             // console.log(u);
-             if( users[u]._id == userId ) {
-                 user = users[u];
-                 // console.log(users[u]);
-                 for (var key in data) {
-                     console.log(key);
-                     user[key] = data[key];
+         UserModel.update({ _id: userId}, data,
+             function (err, data) {
+                 if (err) {
+                     deferred.reject(err);
+                 } else {
+                     deferred.resolve(data);
                  }
-                found = 1;
-                 deferred.resolve(user);
-             }
-         }
-         if (found === 0)
-             deferred.reject();
+             });
          return deferred.promise;
      }
 
@@ -111,18 +99,12 @@
      // //Calls back with remaining array of all users
      function deleteUser(userId) {
          var deferred = q.defer();
-         var found = 0;
-         for (var i = 0; i < users.length; i++){
-             if (userId == users[i]._id)
-             {
-                 found =1;
-                 users.splice(i, 1);
-                 deferred.resolve(users);
-                 break;
+         UserModel.remove({_id: userId}, function (err, data) {
+             if (err) {
+                 deferred.reject(err);
              }
-         }
-        if (found == 0)
-            deferred.reject();
+             deferred.resolve(data);
+         });
          return deferred.promise;
      }
  };

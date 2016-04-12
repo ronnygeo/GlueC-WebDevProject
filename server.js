@@ -36,7 +36,10 @@ app.get('/hello', function (req, res) {
     res.send('hello world');
 });
 
+// connect to the database
+var db = mongoose.connect(connectionString);
+
 /*Injecting Server App*/
-require("./modules/app.js")(app, request, q, uuid);
+require("./modules/app.js")(app, request, q, uuid, mongoose, db);
 
 app.listen(port, ipaddress);
