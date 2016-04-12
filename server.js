@@ -66,5 +66,5 @@ app.get('/hello', function (req, res) {
 var db = mongoose.connect(connectionString);
 
 /*Injecting Server App*/
-require("./modules/app.js")(app, request, q, uuid, upload, mongoose, db);
+require("./modules/app.js")(app, request, q, uuid, upload, mongoose);
 app.listen(port, ipaddress);

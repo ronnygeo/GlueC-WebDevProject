@@ -1,4 +1,4 @@
-module.exports = function (app, request, q, uuid, upload, mongoose, db) {
+module.exports = function (app, request, q, uuid, upload, mongoose) {
     var userModel = require("./models/user/user.model.js")(mongoose);
     require("./services/user/user.service.js")(app, userModel);
 
@@ -9,7 +9,7 @@ module.exports = function (app, request, q, uuid, upload, mongoose, db) {
     require("./services/provider/product.service.server.js")(app, productModel);
     require("./services/product/product.service.js")(app, productModel);
 
-    var categoryModel = require("./models/category/category.model.js")(q, uuid, request, mongoose);
+    var categoryModel = require("./models/category/category.model.js")(q, request, mongoose);
     require("./services/category/category.service.server")(app, categoryModel);
 
     var MessageModel = require("./models/message/message.model.js")(q, mongoose);

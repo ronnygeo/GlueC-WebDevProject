@@ -12,6 +12,7 @@
     </div>
     <div class="section">
         <div class="row">
+            <h2>{{model.user.firstName | uppercase}}'s Products</h2>
             <div class="col s6 m4" ng-repeat="product in model.user.products">
                     <div class="card grey darken-3">
                         <div class="card-image">
