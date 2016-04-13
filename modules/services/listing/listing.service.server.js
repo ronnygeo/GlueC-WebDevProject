@@ -16,26 +16,27 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
         var newDbListing;
 
         if (listing.providerId == "10001") {
-            //TODO: Step1: Create New Listing
+            //Step1: Create New Listing
             listingModel.ebay.createNewListing(mapListing(listing))
                 .then(function (response) {
                     console.log("Step One Completed");
                     console.log(response);
                     newDbListing = response;
-                    //TODO: Step2: Save Image and Ebay Url In Database
+                    //Step2: Save Image and Ebay Url In Database
                     uploadImageToEbay(req.file)
                         .then(function (response) {
                             console.log(response);
                             newDbListing.ebay.siteHostedPictureDetails = response;
 
-                            //TODO: Step3: Get Other Features For Category
+                            //Step3: Get Other Features For Category
                             getFeaturesForCategory(newDbListing.ebay.parentCategory)
                                 .then(function (response) {
                                     console.log(response);
                                     //Sending New Listing Back to the Client.4
                                     newDbListing.ebay.categoryDetails = response;
                                     console.log(newDbListing);
-                                    //TODO: Step 4 Save the listing to DB
+
+                                    //Step 4: Save the listing to DB
                                     listingModel.ebay.saveListing(newDbListing)
                                         .then(function (response) {
                                             console.log("Saved Response Received");
