@@ -27,13 +27,29 @@
                 ProductService.findAllProductsByCatalogId(vm.catalogs[c]._id).then(function (data) {
                     console.log(data.data);
                     vm.catalogs[c].products = data.data;
+                    $scope.apply();
                 });
             }
         });
 
         ProductService.findAllProductsByUserId(userId).then(function (data) {
             vm.products = data.data;
+        });
+
+        //View Other Catalogs
+        CatalogService.findAllCatalogs().then(function (data) {
+            vm.othercatalogs = data.data;
+            for (c in vm.othercatalogs) {
+                ProductService.findAllProductsByCatalogId(vm.othercatalogs[c]._id).then(function (data) {
+                    console.log(data.data);
+                    vm.othercatalogs[c].products = data.data;
+                    $scope.apply();
+                });
+            }
+        });
+
+        ProductService.findAllProducts().then(function (data) {
+            vm.otherproducts = data.data;
         })
     }
-
 })();

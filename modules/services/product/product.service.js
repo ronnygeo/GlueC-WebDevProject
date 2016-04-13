@@ -40,7 +40,7 @@ module.exports = function (app, productModel) {
     function findAllProductsByCatalogId(req, res) {
         var catId = req.params['catId'];
         productModel.product.findAllProductsByCatalogId(catId).then(function (data) {
-                console.log(data);
+                // console.log(data);
                 res.json(data);
             },
             function (err){

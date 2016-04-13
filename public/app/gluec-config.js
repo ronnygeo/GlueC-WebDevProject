@@ -87,6 +87,11 @@
                     templateUrl: 'views/product/show.product.view.html',
                     controllerAs: "model"
                 })
+                .when('/user/:id/product/:prodId/edit', {
+                    controller: 'EditProductController',
+                    templateUrl: 'views/product/edit.product.view.html',
+                    controllerAs: "pc"
+                })
                 .when('/user/:id/catalog/:catId/product', {
                     controller: 'NewProductController',
                     templateUrl: 'views/product/new.product.view.html',

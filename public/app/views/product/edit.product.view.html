@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="row">
+        <form class="col s12">
+            <h2>Create Product</h2>
+            <div class="row">
+                <div class="input-field col s12">
+                    <label class="active" for="inputProductName">Product Name</label>
+                    <input type="text" id="inputProductName" ng-model="pc.product.name" class="validate" />
+                </div>
+                <div class="input-field col s12">
+                    <label class="active" for="inputDesc">Product Description</label>
+                    <textarea id="inputDesc" ng-model="pc.product.description" class="materialize-textarea validate"></textarea>
+                </div>
+                <div class="input-field col s12">
+                    <label class="active" for="inputProductManufacturer">Manufacturer</label>
+                    <input type="text" id="inputProductManufacturer" ng-model="pc.product.manufacturer" class="validate">
+                </div>
+                <div class="input-field col s12">
+                    <label class="active" for="inputProductPrice">Price</label>
+                    <input type="text" id="inputProductPrice" ng-model="pc.product.price" class="validate">
+                </div>
+                <div class="input-field col s12">
+                    <label class="active" for="inputProductDiscount">Discount</label>
+                    <input type="text" id="inputProductDiscount" ng-model="pc.product.discount" class="validate">
+                </div>
+                <div class="row">
+                    <div class="active" class="col s12 m6">
+                        <img src="{{pc.product.imageUrl}}" width="50%" />
+                    </div>
+                    <div class="input-field col s12 m6">
+                        <label class="active" for="inputProductImage">Image</label>
+                        <input type="text" id="inputProductImage" ng-model="pc.product.imageUrl" class="validate">
+                    </div>
+                </div>
+            </div>
+            <br>
+            <button class="btn btn-lg btn-primary btn-block" ng-click="pc.updateProduct()">Update</button>
+        </form>
+    </div>
+</div>

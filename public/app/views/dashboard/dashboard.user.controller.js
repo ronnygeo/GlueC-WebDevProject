@@ -25,6 +25,6 @@
 
         ProductService.findAllProducts().then(function (data) {
             vm.products = data.data;
-        })
+        });
     }
 })();
