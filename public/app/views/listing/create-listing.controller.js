@@ -47,7 +47,8 @@
             var uploadImageCard = {
                 type: "uploadImage",
                 data: [],
-                selectedData: ""
+                selectedData: "",
+                listing: ""
             };
             CreateListingController.listing.cards.push(uploadImageCard);
         }
@@ -83,6 +84,7 @@
             function success_callback(response) {
                 console.log(response.data);
                 newListingCard.data = response.data;
+                newListingCard.listing = newListing;
                 ProgressBarFactory.hideProgressBar();
             }
 
@@ -93,6 +95,8 @@
 
             console.log(newListingCard);
             CreateListingController.listing.cards.push(newListingCard);
+
+
         }
 
         function addSubCategoryCard(parentCategoryId) {
@@ -108,6 +112,8 @@
                 console.log(response.data);
                 subCategoryCard.data = response.data;
                 ProgressBarFactory.hideProgressBar();
+                console.log(subCategoryCard);
+                CreateListingController.listing.cards.push(subCategoryCard);
             }
 
             function error_callback(error) {
@@ -115,8 +121,7 @@
                 ProgressBarFactory.hideProgressBar();
             }
 
-            console.log(subCategoryCard);
-            CreateListingController.listing.cards.push(subCategoryCard);
+
         }
 
         function initNewListing() {
@@ -156,6 +161,8 @@
                 console.log(response.data);
                 categoryCard.data = response.data;
                 ProgressBarFactory.hideProgressBar();
+                console.log(categoryCard);
+                CreateListingController.listing.cards.push(categoryCard);
             }
 
             function error_callback(error) {
@@ -163,8 +170,7 @@
                 ProgressBarFactory.hideProgressBar();
             }
 
-            console.log(categoryCard);
-            CreateListingController.listing.cards.push(categoryCard);
+
         }
 
 

@@ -28,14 +28,23 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
                             console.log(response);
                             newDbListing.ebay.siteHostedPictureDetails = response;
 
-                            //TODO: Step5: Get Other Features For Category
-                            listingModel.ebay
-                                .populateFeatures(newListing._id)
+                            //TODO: Step3: Get Other Features For Category
+                            getFeaturesForCategory(newDbListing.ebay.parentCategory)
                                 .then(function (response) {
                                     console.log(response);
-                                    //Sending New Listing Back to the Client.
-                                    res.json(response);
-
+                                    //Sending New Listing Back to the Client.4
+                                    newDbListing.ebay.categoryDetails = response;
+                                    console.log(newDbListing);
+                                    //TODO: Step 4 Save the listing to DB
+                                    listingModel.ebay.saveListing(newDbListing)
+                                        .then(function (response) {
+                                            console.log("Saved Response Received");
+                                            console.log(response);
+                                            res.json(response);
+                                        }, function (err) {
+                                            console.log(err);
+                                            res.statusCode(404).send(err);
+                                        })
                                 }, function (error) {
                                     console.log(error);
                                     res.statusCode(404).send(err);
@@ -44,34 +53,59 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
                             console.log(error);
                             res.statusCode(404).send(err);
                         });
-
                 }, function (error) {
                     console.log(error);
                     res.statusCode(404).send(err);
                 });
         }
 
-        /*/!*Getting the mandatory features for the category*!/
-         var categoryFeatures = CategoryModel
-         .ebay.getFeaturesForCategory(subCategotyId)
-         .then(success_callback, error_callback);
+    }
 
-         function success_callback(response) {
-         console.log(response);
-         //res.json(response);
-
-         /!*Uploading Image to the Ebay Server*!/
-         }
-
-         function error_callback(error) {
-         console.log(error);
-         res.statusCode(404).send(err);
-         }*/
+    function getFeaturesForCategory(subCategoryId) {
+        var deferred = q.defer();
+        var functionToCall = "GetCategoryFeatures";
+        var requestData = '<?xml version="1.0" encoding="utf-8"?>' +
+            '<GetCategoryFeaturesRequest  xmlns="urn:ebay:apis:eBLBaseComponents">' +
+            '<RequesterCredentials>' +
+            '<eBayAuthToken>' +
+            ebayAPIClient.trading.AUTH_TOKEN +
+            '</eBayAuthToken>' +
+            '</RequesterCredentials>' +
+            '<WarningLevel>High</WarningLevel>' +
+            '<CategoryID>' + subCategoryId + '</CategoryID>' +
+            '<DetailLevel>ReturnAll</DetailLevel>' +
+            '<ViewAllNodes >True</ViewAllNodes >' +
+            '<AllFeaturesForCategory >True</AllFeaturesForCategory >' +
+            '</GetCategoryFeaturesRequest>';
+        ebayAPIClient.trading.function(functionToCall, requestData)
+            .then(function (response) {
+                console.log(response.GetCategoryFeaturesResponse.Category[0]);
+                var categoryDetails = response.GetCategoryFeaturesResponse.Category[0];
+                categoryDetails.ListingDuration = mapListingDuration(categoryDetails.ListingDuration);
+                deferred.resolve(categoryDetails);
+            }, function (err) {
+                console.log(err);
+                deferred.reject(err);
+            });
+        return deferred.promise;
 
     }
 
-    function mapListing(listing) {
+    function mapListingDuration(listingDuration) {
+        console.log(listingDuration);
+        var newListingDuration = [];
+        for (var index in listingDuration) {
+            var dur = listingDuration[index]._;
+            console.log(dur);
+            newListingDuration.push(dur)
+        }
+        console.log(newListingDuration);
+        return newListingDuration;
 
+    }
+
+
+    function mapListing(listing) {
         var newListing = {
             userId: listing.userId,
             parentCategory: listing.parentCategory,
