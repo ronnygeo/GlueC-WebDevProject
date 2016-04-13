@@ -23,7 +23,7 @@ module.exports = function (app, request, q, upload, mongoose) {
     var ebayListingSchema = require("./models/listing/ebay.listing.schema.server")(mongoose);
     var ebayListingDB = mongoose.model("EbayListing", ebayListingSchema);
     var listingDB = mongoose.model("Listing", listingSchema);
-    var listingModel = require("./models/listing/listing.model")(listingDB,ebayListingDB);
+    var listingModel = require("./models/listing/listing.model")(listingDB,ebayListingDB,q);
     require("./services/listing/listing.service.server")(app,q, listingModel, categoryModel, ebayAPIClient,upload, amazonAPIClient);
 
 };
