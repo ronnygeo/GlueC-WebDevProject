@@ -11,7 +11,8 @@ var app = express();
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 var mongoose = require("mongoose");
-
+var passport = require('passport')
+    , LocalStrategy = require('passport-local').Strategy;
 
 app.use(bodyParser.json({limit: "50mb"}));
 app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit: 50000}));
@@ -25,6 +26,9 @@ var storage = multer.diskStorage({ //multers disk storage settings
         cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1])
     }
 });
+
+multer();
+app.use(multer());
 
 var upload = multer({ //multer settings
     storage: storage
@@ -40,6 +44,18 @@ var upload = multer({ //multer settings
     //    }
     //})
 });
+
+//Security
+app.use(session({
+    secret: 'this is our little secret',
+    resave: true,
+    saveUninitialized: true
+}));
+app.use(cookieParser());
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 // create a default connection string
 var connectionString = 'mongodb://127.0.0.1:27017/Gluec';
 
