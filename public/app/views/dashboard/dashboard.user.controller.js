@@ -14,10 +14,8 @@
 
         CatalogService.findAllCatalogs().then(function (data) {
             vm.catalogs = data.data;
-            for (c in vm.catalogs) {
-                console.log(c);
+            for (var c in vm.catalogs) {
                 ProductService.findAllProductsByCatalogId(vm.catalogs[c]._id).then(function (data) {
-                    console.log(data.data);
                     vm.catalogs[c].products = data.data;
                 });
             }

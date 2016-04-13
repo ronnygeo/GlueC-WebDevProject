@@ -1,0 +1,20 @@
+<div class="container">
+    <h2>Advertise your Product</h2>
+    <p>Let us help you begin your selling process.</p>
+    <div class="row">
+        <div class="col s10 m8 l8 offset-s1 offset-m2 offset-l2">
+            <div class="input-field">
+                <input class="center-align"
+                       ng-model="lc.query"
+                       id="search"
+                       placeholder="Enter product name with details.."
+                       type="text"
+                       ng-keypress="($event.which == 13 || $event.keyCode== 13)? lc.search():return" >
+                <!--<label for="search">Search Products, Buyers, Listings, Reviews..</label>-->
+            </div>
+        </div>
+    </div>
+
+    {{lc.initial}}
+
+</div>

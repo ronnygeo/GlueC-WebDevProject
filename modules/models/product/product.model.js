@@ -73,7 +73,6 @@ module.exports = function (q, request, mongoose) {
 
     function mapEbaySingleFindToGluecProduct(ebayProduct) {
         var product = {
-            "_id": uuid.v1(),
             //"externalProductId": ebayProduct.productId[0].__value__,
             "externalItemId": ebayProduct.ItemID,
             "title": ebayProduct.Title,
@@ -170,7 +169,6 @@ module.exports = function (q, request, mongoose) {
         }
 
         var product = {
-            "_id": uuid.v1(),
             //"externalProductId": ebayProduct.productId[0].__value__,
             "externalItemId": extId,
             "title": title,
@@ -251,8 +249,8 @@ module.exports = function (q, request, mongoose) {
 
     function findAllProductsByCatalogId(catId) {
         var deferred = q.defer();
-        ProductModel.find({"catalogId": catId}).then(function (data) {
-            deferred.resolve(data);
+        ProductModel.find({"catalogId": catId}).then(function (prod) {
+            deferred.resolve(prod);
         }, function (err){
             deferred.reject(err);
         });

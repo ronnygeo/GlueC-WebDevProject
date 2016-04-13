@@ -7,8 +7,8 @@
     angular.module("GluecApp")
         .controller('DashboardController', DashboardController);
 
-    DashboardController.$inject = ['$rootScope', 'CatalogService', 'ProductService'];
-    function DashboardController($rootScope, CatalogService, ProductService) {
+    DashboardController.$inject = ['$rootScope', 'CatalogService', 'ProductService', '$scope'];
+    function DashboardController($rootScope, CatalogService, ProductService, $scope) {
         var vm = this;
         var userId = $rootScope.user._id;
 
@@ -22,12 +22,11 @@
 
         CatalogService.findAllCatalogsByUser(userId).then(function (data) {
             vm.catalogs = data.data;
-            for (c in vm.catalogs) {
-                console.log(c);
+            for (var c in vm.catalogs) {
+                //console.log(c);
                 ProductService.findAllProductsByCatalogId(vm.catalogs[c]._id).then(function (data) {
-                    console.log(data.data);
                     vm.catalogs[c].products = data.data;
-                    $scope.apply();
+                    //$scope.$apply();
                 });
             }
         });
@@ -39,13 +38,12 @@
         //View Other Catalogs
         CatalogService.findAllCatalogs().then(function (data) {
             vm.othercatalogs = data.data;
-            for (c in vm.othercatalogs) {
+            for (var c in vm.othercatalogs) {
                 ProductService.findAllProductsByCatalogId(vm.othercatalogs[c]._id).then(function (data) {
-                    console.log(data.data);
+                    console.log(data);
                     vm.othercatalogs[c].products = data.data;
-                    $scope.apply();
-                });
-            }
+                    });
+                }
         });
 
         ProductService.findAllProducts().then(function (data) {

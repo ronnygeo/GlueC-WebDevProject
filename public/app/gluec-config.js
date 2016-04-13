@@ -52,6 +52,11 @@
                     templateUrl: 'views/listing/create-listing.view.html',
                     controllerAs: "model"
                 })
+                .when('/listing/interactive', {
+                    controller: 'InteractiveListingController',
+                    templateUrl: 'views/listing/interactive.listing.view.html',
+                    controllerAs: "lc"
+                })
                 .when('/admin', {
                     controller: 'AdminDashboardController',
                     templateUrl: 'views/admin/dashboard.admin.view.html',
