@@ -36,7 +36,7 @@ module.exports = function (listingDB, ebayListingDB, q) {
         );
     }
 
-    function saveListing(listingDoc) {
+    function    saveListing(listingDoc) {
         var deferred = q.defer();
         listingDoc.save(function (err, data) {
             if (err) {

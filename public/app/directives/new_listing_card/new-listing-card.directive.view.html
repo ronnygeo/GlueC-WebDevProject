@@ -77,13 +77,42 @@
             <div class="margin-10">
                 <div class="row">
                     <form class="col s12">
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <label for="condition">Condition</label>
-                                <select id="condition" ng-model="select"
-                                        ng-options="option as option.label for option in field.options">
-                                </select>
-                            </div>
+                        <div class="input-field col s12">
+                            <input placeholder="Manufacture Part Number"
+                                   id="mpn"
+                                   type="text"
+                                   ng-model="card.listing.mpn">
+                            <label for="mpn">MPN</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input placeholder="Model"
+                                   id="model"
+                                   type="text"
+                                   ng-model="card.listing.model">
+                            <label for="model">Model</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <select
+                                    ng-model="card.listing.ebay.itemCondition"
+                                    ng-options="option.DisplayName for option in card.listing.ebay.categoryDetails.ConditionValues">
+                            </select>
+                            <label>Condition</label>
+                            {{card.listing.itemCondition}}
+                        </div>
+                        <div class="input-field col s12">
+                            <input placeholder="Payment Method"
+                                   id="payment_method"
+                                   type="text"
+                                   ng-model="card.listing.ebay.paymentMethod">
+                            <label for="payment_method">Payment Method</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <p>
+                                <input type="checkbox"
+                                       id="return"
+                                       ng-model="card.listing.ebay.returnPolicyEnabled"/>
+                                <label for="return">Returns Accepted</label>
+                            </p>
                         </div>
                     </form>
                 </div>

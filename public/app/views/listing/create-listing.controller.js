@@ -8,7 +8,7 @@
         .module("GluecApp")
         .controller("CreateListingController", CreateListingController);
 
-    function CreateListingController(CategoryService, ProgressBarFactory, ListingService, $rootScope, $location) {
+    function CreateListingController(CategoryService, ProgressBarFactory, ListingService, $rootScope, $location, $timeout) {
 
         var CreateListingController = this;
 
@@ -17,7 +17,6 @@
                 $location.url("/login");
                 return
             }
-            ProgressBarFactory.showProgressBar();
             initNewListing();
             addCategoryCard();
         }
@@ -43,6 +42,7 @@
         }
 
         function addUploadImageCard(image) {
+            ProgressBarFactory.showProgressBar();
             var providerId = 10001;//Ebay
             var uploadImageCard = {
                 type: "uploadImage",
@@ -51,9 +51,11 @@
                 listing: ""
             };
             CreateListingController.listing.cards.push(uploadImageCard);
+            ProgressBarFactory.hideProgressBar();
         }
 
         function addNewListingCard() {
+            ProgressBarFactory.showProgressBar();
             var newListingCard = {
                 type: "newListing",
                 data: [],
@@ -83,9 +85,10 @@
                 .then(success_callback, error_callback);
             function success_callback(response) {
                 console.log(response.data);
-                newListingCard.data = response.data;
-                newListingCard.listing = newListing;
+                newListingCard.listing = response.data;
                 ProgressBarFactory.hideProgressBar();
+                console.log(newListingCard);
+                CreateListingController.listing.cards.push(newListingCard);
             }
 
             function error_callback(error) {
@@ -93,13 +96,11 @@
                 ProgressBarFactory.hideProgressBar();
             }
 
-            console.log(newListingCard);
-            CreateListingController.listing.cards.push(newListingCard);
-
 
         }
 
         function addSubCategoryCard(parentCategoryId) {
+            ProgressBarFactory.showProgressBar();
             var subCategoryCard = {
                 type: "subCategory",
                 data: [],
@@ -149,6 +150,7 @@
         }
 
         function addCategoryCard() {
+            ProgressBarFactory.showProgressBar();
             var categoryCard = {
                 type: "parentCategory",
                 data: [],
