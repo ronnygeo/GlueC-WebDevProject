@@ -52,6 +52,11 @@
                     templateUrl: 'views/listing/create-listing.view.html',
                     controllerAs: "model"
                 })
+                .when('/listing/interactive', {
+                    controller: 'InteractiveListingController',
+                    templateUrl: 'views/listing/interactive.listing.view.html',
+                    controllerAs: "lc"
+                })
                 .when('/admin', {
                     controller: 'AdminDashboardController',
                     templateUrl: 'views/admin/dashboard.admin.view.html',
@@ -111,7 +116,7 @@
 
             // Configure all charts
             ChartJsProvider.setOptions({
-                colours: ['#FF5252', '#FF8A80'],
+                colours: [ '#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360'],
                 responsive: true
             });
         });

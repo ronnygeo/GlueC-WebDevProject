@@ -1,19 +1,18 @@
 <div class="container">
     <div class="section">
-<div class="row">
+<div class="row" ng-controller="DoughnutCtrl as dc">
     <!--<div class="col s12">-->
     <!--<canvas id="doughnut" class="chart chart-doughnut"-->
     <!--chart-data="admin.data" chart-labels="admin.labels">-->
     <!--</canvas></div>-->
 
-    <div class="col s12 m4">
-        <canvas id="myChart"></canvas>
+    <div class="col s12 m6">
+        <canvas id="doughnut1" class="chart chart-doughnut" chart-data="dc.data" chart-labels="dc.labels">
+        </canvas>
     </div>
-    <div class="col s12 m4">
-        <canvas id="myChart2"></canvas>
-    </div>
-    <div class="col s12 m4">
-        <canvas id="myChart3"></canvas>
+    <div class="col s12 m6">
+        <canvas id="doughnut2" class="chart chart-doughnut" chart-data="dc.data" chart-labels="dc.labels">
+        </canvas>
     </div>
 </div>
         <br>
