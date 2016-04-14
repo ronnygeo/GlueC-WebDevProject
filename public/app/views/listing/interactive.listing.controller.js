@@ -9,10 +9,9 @@
 
     function InteractiveListingController(ProductService, ProgressBarFactory) {
         var vm = this;
-
-        vm.initial = {};
-
-        vm.createListing = createListing();
+        
+        vm.createListing = createListing;
+        vm.uploadImage = uploadImage;
 
         function createListing() {
             ProgressBarFactory.showProgressBar();
@@ -20,10 +19,17 @@
             ProductService
                 .findItemsAdvanced(vm.query)
                 .then(function(data){
-                    vm.initial = data.data;
+                    vm.product = data.data[0];
+                    vm.product.title = vm.query;
+                    console.log(vm.product);
                     ProgressBarFactory.hideProgressBar();
                 });
         }
 
+        function uploadImage(image) {
+            console.log(image);
+            $scope.$apply();
+        }
+        
     }
 })();

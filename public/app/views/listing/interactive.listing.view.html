@@ -1,3 +1,9 @@
+<!--&lt;!&ndash; concatenated flow.js + ng-flow libraries &ndash;&gt;-->
+<!--<script src="ng-flow/dist/ng-flow-standalone.min.js"></script>-->
+<!--&lt;!&ndash; or include the files separately &ndash;&gt;-->
+<!--<script src="flow.js/dist/flow.min.js"></script>-->
+<!--<script src="ng-flow/dist/ng-flow.min.js"></script>-->
+
 <div class="container">
     <h2>Advertise your Product</h2>
     <p>Let us help you begin your selling process.</p>
@@ -6,15 +12,20 @@
             <div class="input-field">
                 <input class="center-align"
                        ng-model="lc.query"
-                       id="search"
+                       id="create-listing"
                        placeholder="Enter product name with details.."
                        type="text"
-                       ng-keypress="($event.which == 13 || $event.keyCode== 13)? lc.search():return" >
+                       ng-keypress="($event.which == 13 || $event.keyCode== 13)? lc.createListing():return" >
                 <!--<label for="search">Search Products, Buyers, Listings, Reviews..</label>-->
             </div>
         </div>
     </div>
 
-    {{lc.initial}}
+
+    {{lc.product.title}}<br>
+    {{lc.product.description}}<br>
+    {{lc.product.categories}}<br>
+    Suggested Price: {{lc.product.price}}<br>
+    {{lc.product.imageUrl}}<br>
 
 </div>
