@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var q = require("q");
 var uuid = require("node-uuid");
-var aws = require("aws-lib");
+var aws = require   ("aws-lib");
 var app = express();
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
@@ -63,6 +63,6 @@ app.get('/hello', function (req, res) {
 });
 
 /*Injecting Server App*/
-require("./modules/app.js")(app, request, q, upload, mongoose);
+require("./modules/app.js")(app, request, q, upload, mongoose, uuid);
 
 app.listen(port, ipaddress);
