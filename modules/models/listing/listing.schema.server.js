@@ -10,6 +10,8 @@ module.exports = function (mongoose) {
         images: [String],
         ebay: EbayListingSchema,
         model: String,
-        mpn: String
-    })
+        mpn: String,
+        price: String,
+        startingPrice: String
+    }, {collection: 'listing'})
 };

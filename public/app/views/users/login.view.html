@@ -6,7 +6,8 @@
                     <h4 class="grey-text">Login</h4>
                 </div>
                 <div class="row">
-                    <div class="card-panel red" id="login-alert">
+                    <div class="card-panel red"
+                         id="login-alert">
                         <span class="white-text">
                             <strong>Invalid User</strong> Username/Password combo does not exist.
                         </span>
@@ -18,30 +19,40 @@
             <form class="col s12 m10 offset-m1">
                 <div class="row">
                     <div class="input-field col s12">
-                        <input ng-model="lc.user.username" id="username" type="text" class="validate">
+                        <input ng-model="lc.user.username"
+                               id="username"
+                               type="text"
+                               class="validate">
                         <label for="username">Username</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <input ng-model="lc.user.password" id="password" type="password" class="validate">
+                        <input ng-model="lc.user.password"
+                               id="password"
+                               type="password"
+                               class="validate">
                         <label for="password">Password</label>
                     </div>
                 </div>
                 <div class="row center">
-                    <div class col s12 m6 offset-m3>
-                        <a ng-click="lc.login()" class="waves-effect waves-light btn">Login</a>
+                    <div class="col s12 m6 offset-m3">
+                        <a ng-click="lc.login()"
+                           class="waves-effect waves-light btn">Login</a>
                     </div>
                 </div>
             </form>
         </div>
         <div class="row center">
-            <a class="waves-effect btn red" href="#/register">Register</a>
-            </div>
+            <a class="waves-effect btn red"
+               href="#/register">Register</a>
+        </div>
         <div class="row center">
-            <a class="waves-effect btn blue" href="#/register"><i class="fa fa-facebook left"></i> Facebook</a>
-            </div>
-        <div class="row center"><a class="waves-effect btn amber" href="#/register"><i class="fa fa-google right"></i> Google</a>
+            <a class="waves-effect btn blue"
+               href="#/register"><i class="fa fa-facebook left"></i> Facebook</a>
+        </div>
+        <div class="row center"><a class="waves-effect btn amber"
+                                   href="#/register"><i class="fa fa-google right"></i> Google</a>
         </div>
     </div>
 </div>

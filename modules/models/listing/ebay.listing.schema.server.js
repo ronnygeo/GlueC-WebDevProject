@@ -1,11 +1,7 @@
 module.exports = function (mongoose) {
     return mongoose.Schema({
-        ebayListingId: String,
-        //itemCondition: {
-        //    type: String,
-        //    default: "USED",
-        //    enum: ['NEW', 'USED', 'OTHER']
-        //},
+        ebayListingItemId: String,
+        ebayListingUrl: String,
         parentCategory: String,
         subCategory: String,
         itemCondition: String,
@@ -14,6 +10,7 @@ module.exports = function (mongoose) {
         returnPolicyEnabled: String,
         listingDuration: String,
         categoryDetails:{},
-        siteHostedPictureDetails: {}
-    })
+        siteHostedPictureDetails: {},
+        publishDetails:{}
+    }, {collection: 'ebayListing'})
 };

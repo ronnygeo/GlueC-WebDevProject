@@ -8,11 +8,17 @@ module.exports = function (listingDB, ebayListingDB, q) {
             populateFeatures: populateFeatures,
             saveListing: saveListing,
             updateListingById: updateListingById,
-            addImageAndCategoryDetails: addImageAndCategoryDetails
+            addImageAndCategoryDetails: addImageAndCategoryDetails,
+            getListingById:getListingById
         }
 
     };
     return api;
+
+
+    function getListingById(listingId){
+        return listingDB.findById(listingId);
+    }
 
     function addImageAndCategoryDetails(listingId, listing) {
         return listingDB.findById(listingId)

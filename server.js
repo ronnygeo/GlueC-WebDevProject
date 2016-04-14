@@ -79,6 +79,6 @@ app.get('/hello', function (req, res) {
 });
 
 /*Injecting Server App*/
-require("./modules/app.js")(app, request, q, upload, mongoose);
+require("./modules/app.js")(app, request, q, upload, mongoose,uuid);
 
 app.listen(port, ipaddress);

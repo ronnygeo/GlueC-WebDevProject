@@ -9,17 +9,10 @@
         </div>
         <div class="collapsible-body">
             <div class="collection">
-                <a ng-click="apply(category._id)"
+                <a ng-click="apply(category)"
                    ng-repeat="category in card.data"
                    class="collection-item btn-flat">{{category.name}}</a>
             </div>
-            <!--Button-->
-            <!--<div class="row">
-                <div class="col s3 offset-s9 m1 offset-m11 acc-next">
-                    <a class="btn-floating" ng-click="applyOperation"><i
-                            class="material-icons">done</i></a>
-                </div>-->
-        </div>
         </div>
     </li>
     <li ng-switch-when="subCategory">
@@ -29,19 +22,11 @@
         </div>
         <div class="collapsible-body">
             <div class="collection">
-                <a ng-click="apply(category._id)"
+                <a ng-click="apply(category)"
                    ng-repeat="category in card.data"
                    class="collection-item btn-flat">{{category.name}}</a>
             </div>
-            <!--Button-->
-            <!--<div class="row">
-                <div class="col s3 offset-s9 m1 offset-m11 acc-next">
-                    <a class="btn-floating" ng-click="applyOperation"><i
-                            class="material-icons">done</i></a>
-                </div>-->
         </div>
-        </div>
-    </li>
     <li ng-switch-when="uploadImage">
         <div class="collapsible-header active">
             <i class="material-icons">filter_drama</i>
@@ -67,54 +52,90 @@
             </div>
         </div>
     </li>
-
     <li ng-switch-when="newListing">
         <div class="collapsible-header active">
             <i class="material-icons">filter_drama</i>
-            Final Check
+            Final Details
         </div>
         <div class="collapsible-body">
             <div class="margin-10">
                 <div class="row">
                     <form class="col s12">
                         <div class="input-field col s12">
+                            <input placeholder="Title"
+                                   id="title"
+                                   type="text"
+                                   ng-model="card.data.title">
+                            <label for="title">Title</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <textarea placeholder="Description"
+                                      id="description"
+                                      class="materialize-textarea"
+                                      ng-model="card.data.description"></textarea>
+                            <label for="description">Description</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input placeholder="Price"
+                                   id="price"
+                                   type="text"
+                                   ng-model="card.data.price">
+                            <label for="price">Price</label>
+                        </div>
+                        <div class="input-field col s12">
                             <input placeholder="Manufacture Part Number"
                                    id="mpn"
                                    type="text"
-                                   ng-model="card.listing.mpn">
-                            <label for="mpn">MPN</label>
+                                   ng-model="card.data.mpn">
+                            <label for="mpn">Manufacture Part Number</label>
                         </div>
                         <div class="input-field col s12">
                             <input placeholder="Model"
                                    id="model"
                                    type="text"
-                                   ng-model="card.listing.model">
+                                   ng-model="card.data.model">
                             <label for="model">Model</label>
                         </div>
                         <div class="input-field col s12">
                             <select
-                                    ng-model="card.listing.ebay.itemCondition"
-                                    ng-options="option.DisplayName for option in card.listing.ebay.categoryDetails.ConditionValues">
+                                    ng-model="card.data.ebay.itemCondition"
+                                    ng-options="option.DisplayName for option in card.data.ebay.categoryDetails.ConditionValues">
                             </select>
                             <label>Condition</label>
-                            {{card.listing.itemCondition}}
+                            {{card.data.itemCondition}}
                         </div>
                         <div class="input-field col s12">
                             <input placeholder="Payment Method"
                                    id="payment_method"
                                    type="text"
-                                   ng-model="card.listing.ebay.paymentMethod">
+                                   ng-model="card.data.ebay.paymentMethod">
                             <label for="payment_method">Payment Method</label>
                         </div>
                         <div class="input-field col s12">
-                            <p>
-                                <input type="checkbox"
-                                       id="return"
-                                       ng-model="card.listing.ebay.returnPolicyEnabled"/>
-                                <label for="return">Returns Accepted</label>
-                            </p>
+                            <input type="checkbox"
+                                   id="return"
+                                   ng-model="card.data.ebay.returnPolicyEnabled"/>
+                            <label for="return">Returns Accepted</label>
+                        </div>
+                        <div class="col s12 center">
+                            <a class="btn"
+                               ng-click="apply(card.data)"
+                               class="waves-effect waves-light btn">Publish</a>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li ng-switch-when="publishListing">
+        <div class="collapsible-header active">
+            <i class="material-icons">filter_drama</i>
+            Published
+        </div>
+        <div class="collapsible-body">
+            <div class="margin-10">
+                <div class="row">
+                    <h1>Awesome. Your Listing is Live.</h1>
                 </div>
             </div>
         </div>
