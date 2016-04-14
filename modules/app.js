@@ -1,6 +1,6 @@
 module.exports = function (app, request, q, upload, mongoose, uuid) {
     var userModel = require("./models/user/user.model.js")(mongoose);
-    require("./services/user/user.service.js")(app, userModel);
+    require("./services/user/user.service.server")(app, userModel);
 
     var catalogModel = require('./models/catalog/catalog.model.js')(q, mongoose);
     require("./services/catalog/catalog.service.js")(app, catalogModel);
