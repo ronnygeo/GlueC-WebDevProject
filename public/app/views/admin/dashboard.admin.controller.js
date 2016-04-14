@@ -5,7 +5,8 @@
 (function (){
 
     angular.module('GluecApp')
-        .controller('AdminDashboardController', AdminDashboardController);
+        .controller('AdminDashboardController', AdminDashboardController)
+        .controller("DoughnutCtrl", DoughnutCtrl);
 
     AdminDashboardController.$inject = ['$rootScope', 'UserService', 'CatalogService', 'ProductService'];
     function AdminDashboardController($rootScope, UserService, CatalogService, ProductService) {
@@ -79,6 +80,7 @@
         }
 
         function addProduct() {
+            vm.product.roles = vm.product.roles.split(',');
             ProductService.createProduct(userId, vm.product).then(function(data){
                 vm.products.push(data.data);
                 vm.products = data;
@@ -87,6 +89,7 @@
         }
 
         function updateProduct() {
+            vm.product.roles = vm.product.roles.split(',');
             ProductService.updateProduct(vm.user._id, vm.product._id, vm.product).then(function(){
                 vm.product = {};
             });
@@ -104,72 +107,9 @@
         }
 
         angular.element(document).ready(function () {
-
             $('ul.tabs').tabs();
-
-            vm.data = [
-                {
-                    value: 300,
-                    color:"#F7464A",
-                    highlight: "#FF5A5E",
-                    label: "Products"
-                },
-                {
-                    value: 50,
-                    color: "#46BFBD",
-                    highlight: "#5AD3D1",
-                    label: "Users"
-                },
-                {
-                    value: 100,
-                    color: "#FDB45C",
-                    highlight: "#FFC870",
-                    label: "Catalogs"
-                }
-            ];
-
-            vm.options = {
-                //Boolean - Whether we should show a stroke on each segment
-                segmentShowStroke : true,
-
-                //String - The colour of each segment stroke
-                segmentStrokeColor : "#fff",
-
-                //Number - The width of each segment stroke
-                segmentStrokeWidth : 2,
-
-                //Number - The percentage of the chart that we cut out of the middle
-                percentageInnerCutout : 50, // This is 0 for Pie charts
-
-                //Number - Amount of animation steps
-                animationSteps : 100,
-
-                //String - Animation easing effect
-                animationEasing : "easeOutBounce",
-
-                //Boolean - Whether we animate the rotation of the Doughnut
-                animateRotate : true,
-
-                //Boolean - Whether we animate scaling the Doughnut from the centre
-                animateScale : false,
-
-                //String - A legend template
-                legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
-
-            };
-
-            // And for a doughnut chart
-            var ctx = $("#myChart").get(0).getContext("2d");
-            var myDoughnutChart = new Chart(ctx).Doughnut(vm.data, vm.options);
-
-            var ctx = $("#myChart2").get(0).getContext("2d");
-            var myDoughnutChart2 = new Chart(ctx).Doughnut(vm.data, vm.options);
-
-            var ctx = $("#myChart3").get(0).getContext("2d");
-            var myDoughnutChart3 = new Chart(ctx).Doughnut(vm.data, vm.options);
-
         });
-        
+
         UserService.findAllUsers().then(function (data) {
             vm.users = [];
             vm.users = data.data;
@@ -186,8 +126,28 @@
             vm.products = data.data;
             vm.product = {};
             // console.log(data.data);
-        })
+        });
 
+    }
+
+    DoughnutCtrl.$inject = ['ProductService', 'CatalogService', 'UserService'];
+    function DoughnutCtrl(ProductService, CatalogService, UserService) {
+
+        var vm = this;
+        vm.labels = ["Total Users", "Total Catalogs", "Total Products"];
+        vm.data = [1, 1, 1];
+
+        UserService.findAllUsers().then(function (data) {
+            vm.data[0] = data.data.length;
+        });
+
+        CatalogService.findAllCatalogs().then(function (data) {
+            vm.data[1] = data.data.length;
+        });
+
+        ProductService.findAllProducts().then(function (data) {
+            vm.data[2] = data.data.length;
+        });
     }
 
 })();

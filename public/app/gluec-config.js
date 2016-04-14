@@ -116,7 +116,7 @@
 
             // Configure all charts
             ChartJsProvider.setOptions({
-                colours: ['#FF5252', '#FF8A80'],
+                colours: [ '#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360'],
                 responsive: true
             });
         });
