@@ -8,7 +8,7 @@
         .module("GluecApp")
         .controller("CreateListingController", CreateListingController);
 
-    function CreateListingController(CategoryService, ProgressBarFactory, ListingService, $rootScope, $location) {
+    function CreateListingController(CategoryService, ProgressBarFactory, ListingService, $rootScope, $location, $timeout) {
 
         var CreateListingController = this;
 
@@ -85,8 +85,7 @@
                 .then(success_callback, error_callback);
             function success_callback(response) {
                 console.log(response.data);
-                newListingCard.data = response.data;
-                newListingCard.listing = newListing;
+                newListingCard.listing = response.data;
                 ProgressBarFactory.hideProgressBar();
                 console.log(newListingCard);
                 CreateListingController.listing.cards.push(newListingCard);

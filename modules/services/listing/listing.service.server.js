@@ -82,8 +82,7 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
             .then(function (response) {
                 console.log(response.GetCategoryFeaturesResponse.Category[0]);
                 var categoryDetails = response.GetCategoryFeaturesResponse.Category[0];
-                categoryDetails.ListingDuration = mapListingDuration(categoryDetails.ListingDuration);
-                deferred.resolve(categoryDetails);
+                deferred.resolve(mapCategoryDetails(response.GetCategoryFeaturesResponse.Category[0]));
             }, function (err) {
                 console.log(err);
                 deferred.reject(err);
@@ -92,8 +91,10 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
 
     }
 
-    function mapListingDuration(listingDuration) {
-        console.log(listingDuration);
+    function mapCategoryDetails(categoryDetails) {
+
+        /*Map Listing Duration*/
+        var listingDuration = categoryDetails.ListingDuration;
         var newListingDuration = [];
         for (var index in listingDuration) {
             var dur = listingDuration[index]._;
@@ -101,7 +102,24 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
             newListingDuration.push(dur)
         }
         console.log(newListingDuration);
-        return newListingDuration;
+
+        /*Map Condition*/
+        var conditionArray = categoryDetails.ConditionValues[0].Condition;
+        var newConsitionArray = [];
+        for (var i in conditionArray) {
+            newConsitionArray.push(
+                {
+                    'DisplayName': conditionArray[i].DisplayName[0],
+                    'ID': conditionArray[i].ID[0]
+                }
+            )
+        }
+        console.log(newConsitionArray);
+
+        categoryDetails.ListingDuration = newListingDuration;
+        categoryDetails.ConditionValues = newConsitionArray;
+
+        return categoryDetails;
 
     }
 
