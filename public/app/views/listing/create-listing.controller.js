@@ -29,26 +29,61 @@
         function apply(card) {
             console.log(card);
             if (card.type == "parentCategory") {
-                CreateListingController.listing.ebay_parentCategory = card.selectedData;
-                addSubCategoryCard(card.selectedData);
+                CreateListingController.listing.ebay_parentCategory = card.selectedData._id;
+                addSubCategoryCard(card.selectedData._id);
             } else if (card.type == "subCategory") {
-                CreateListingController.listing.ebay_subCategory = card.selectedData;
-                addUploadImageCard();
-
-            } else if (card.type == "uploadImage") {
+                if (!card.selectedData.leaf) {
+                    console.log("Not Leaf Category.");
+                    addSubCategoryCard(card.selectedData._id)
+                } else {
+                    console.log("Leaf Category.");
+                    CreateListingController.listing.ebay_subCategory = card.selectedData._id;
+                    addUploadImageCard();
+                }
+            }else if (card.type == "uploadImage") {
                 CreateListingController.listing.image = card.selectedData;
                 addNewListingCard(card.selectedData);
             }
+            else if (card.type == "newListing") {
+                var cards = CreateListingController.listing.cards;
+                CreateListingController.listing = angular.copy(card.selectedData);
+                CreateListingController.listing['cards'] = cards;
+                postListing(card.selectedData);
+            }
         }
 
-        function addUploadImageCard(image) {
+
+        function postListing(listing) {
             ProgressBarFactory.showProgressBar();
-            var providerId = 10001;//Ebay
+            var publishListingCard = {
+                type: "publishListing",
+                data: [],
+                selectedData: ""
+            };
+
+            ListingService.publishListing(listing)
+                .then(success_callback, error_callback);
+            function success_callback(response) {
+                console.log(response.data);
+                publishListingCard.data = response.data;
+                ProgressBarFactory.hideProgressBar();
+                console.log(publishListingCard);
+                CreateListingController.listing.cards.push(publishListingCard);
+            }
+
+            function error_callback(error) {
+                console.log(error);
+                ProgressBarFactory.hideProgressBar();
+            }
+
+        }
+
+        function addUploadImageCard() {
+            ProgressBarFactory.showProgressBar();
             var uploadImageCard = {
                 type: "uploadImage",
                 data: [],
-                selectedData: "",
-                listing: ""
+                selectedData: ""
             };
             CreateListingController.listing.cards.push(uploadImageCard);
             ProgressBarFactory.hideProgressBar();
@@ -85,7 +120,7 @@
                 .then(success_callback, error_callback);
             function success_callback(response) {
                 console.log(response.data);
-                newListingCard.listing = response.data;
+                newListingCard.data = response.data;
                 ProgressBarFactory.hideProgressBar();
                 console.log(newListingCard);
                 CreateListingController.listing.cards.push(newListingCard);

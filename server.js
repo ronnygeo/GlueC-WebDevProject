@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var q = require("q");
 var uuid = require("node-uuid");
-var aws = require("aws-lib");
+var aws = require   ("aws-lib");
 var app = express();
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
@@ -17,35 +17,19 @@ var passport = require('passport')
 app.use(bodyParser.json({limit: "50mb"}));
 app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit: 50000}));
 
-var storage = multer.diskStorage({ //multers disk storage settings
+/*Multer Storage Config*/
+var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './uploads/')
+        cb(null, './uploads/listing')
     },
     filename: function (req, file, cb) {
         var datetimestamp = Date.now();
-        cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1])
+        cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1])
     }
 });
+var upload = multer({storage: storage});
 
-multer();
-app.use(multer());
-
-var upload = multer({ //multer settings
-    storage: storage
-    //storage: s3({
-    //    dirname: '/',
-    //    bucket: 'gluec-listing-images',
-    //    accessKeyId: 'AKIAJGLCCC33Q36BY4EA',
-    //    secretAccessKey: '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',
-    //    region: 'us-east-1',
-    //    key: function (req, file, cb) {
-    //        var datetimestamp = Date.now();
-    //        cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1])
-    //    }
-    //})
-});
-
-//Security
+    //Security
 app.use(session({
     secret: 'this is our little secret',
     resave: true,
@@ -79,6 +63,6 @@ app.get('/hello', function (req, res) {
 });
 
 /*Injecting Server App*/
-require("./modules/app.js")(app, request, q, upload, mongoose);
+require("./modules/app.js")(app, request, q, upload, mongoose, uuid);
 
 app.listen(port, ipaddress);

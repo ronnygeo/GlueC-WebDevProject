@@ -22,17 +22,23 @@ module.exports = function (q) {
         var stream = fs.createReadStream(file.path);
         console.log(stream);
         //writeFile calls putObject behind the scenes
-        s3fsImpl.writeFile(file.filename, stream).then(function () {
-            fs.unlink(file.path, function (err) {
-                if (err) {
+        s3fsImpl.writeFile(file.filename, stream)
+            .then(function () {
+                    /*Do Not delete the file*/
+                    //fs.unlink(file.path, function (err) {
+                    //    if (err) {
+                    //        console.error(err);
+                    //        deferred.reject(err)
+                    //    } else {
+                    //        deferred.resolve(true);
+                    //    }
+                    //});
+                    deferred.resolve(true);
+                }, function (err) {
                     console.error(err);
                     deferred.reject(err)
-                } else {
-                    deferred.resolve(true);
                 }
-            });
-        });
+            );
         return deferred.promise;
     }
-
 };

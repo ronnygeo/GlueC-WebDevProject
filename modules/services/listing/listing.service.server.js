@@ -2,13 +2,55 @@
  * Created by Bhanu on 26/03/2016.
  */
 var fs = require('fs');
-module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, upload, amazonAPIClient) {
+module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, upload, amazonAPIClient, uuid) {
 
     /*WEB Service API*/
     app.post("/api/listing/", upload.single('image'), createNewListing);
+    app.post("/api/listing/publish", publishListing);
+
+
+    function publishListing(req, res) {
+        console.log("Inside ListingService.publishListing");
+        var listing = req.body;
+        console.log(listing);
+        if (listing.providerId == "10001") {
+
+            //Step1: Publish Listing To Ebay
+            publishListingToEbay(listing)
+                .then(function (response) {
+                    console.log(response);
+                    //Step2: Get Listing From DB
+                    listingModel.ebay.getListingById(listing._id)
+                        .then(function (listingDoc) {
+                            console.log(listingDoc);
+                            //Step3: Save Publish Details to DB
+                            listingDoc.ebay.ebayListingItemId = response;
+                            listingDoc.ebay.ebayListingUrl = ebayAPIClient.trading.SANDBOX_URL + response;
+                            listingModel.ebay.saveListing(listingDoc)
+                                .then(function (response) {
+                                    console.log("Saved Response Received");
+                                    console.log(response);
+                                    res.json(response);
+                                }, function (err) {
+                                    console.log(err);
+                                    res.statusCode(404).send(err);
+                                })
+
+                        }, function (err) {
+                            console.log(err);
+                            res.statusCode(404).send(err);
+                        });
+
+
+                }, function (err) {
+                    console.log(err)
+                });
+        }
+    }
+
 
     function createNewListing(req, res) {
-        console.log("Inside ListingService.getNewListingTemplate");
+        console.log("Inside ListingService.createNewListing");
         var listing = req.body;
         listing['images'] = [req.file.path];
         console.log("Incoming Listing");
@@ -29,7 +71,7 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
                             newDbListing.ebay.siteHostedPictureDetails = response;
 
                             //Step3: Get Other Features For Category
-                            getFeaturesForCategory(newDbListing.ebay.parentCategory)
+                            getFeaturesForEbayCategory(newDbListing.ebay.parentCategory)
                                 .then(function (response) {
                                     console.log(response);
                                     //Sending New Listing Back to the Client.4
@@ -62,7 +104,7 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
 
     }
 
-    function getFeaturesForCategory(subCategoryId) {
+    function getFeaturesForEbayCategory(subCategoryId) {
         var deferred = q.defer();
         var functionToCall = "GetCategoryFeatures";
         var requestData = '<?xml version="1.0" encoding="utf-8"?>' +
@@ -192,6 +234,76 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
                     deferred.reject(err);
 
                 });
+        return deferred.promise;
+    }
+
+    function publishListingToEbay(listing) {
+        var deferred = q.defer();
+        var functionToCall = "AddItem";
+
+        var uid = uuid.v1().replace(/-/g, '');
+        console.log(uid);
+
+        var requestData = '<?xml version="1.0" encoding="utf-8"?>' +
+            '<AddItemRequest xmlns="urn:ebay:apis:eBLBaseComponents">' +
+            '<RequesterCredentials>' +
+            '<eBayAuthToken>' + ebayAPIClient.trading.AUTH_TOKEN + '</eBayAuthToken>' +
+            '</RequesterCredentials>' +
+            '<ErrorLanguage>en_US</ErrorLanguage>' +
+            '<WarningLevel>High</WarningLevel>' +
+            '<Item>' +
+            '<Title>' + listing.title + '</Title>' +
+            '<Description>' + listing.description + '</Description>' +
+            '<PrimaryCategory>' +
+            '<CategoryID>' + listing.ebay.subCategory + '</CategoryID>' +
+            '</PrimaryCategory>' +
+            '<StartPrice currencyID="USD">0.99</StartPrice>' +
+            '<BuyItNowPrice currencyID="USD">' + listing.price + '</BuyItNowPrice>' +
+            '<ConditionID>' + listing.ebay.itemCondition.ID + '</ConditionID>' +
+            '<CategoryMappingAllowed>true</CategoryMappingAllowed>' +
+            '<Country>US</Country>' +
+            '<Currency>USD</Currency>' +
+            '<DispatchTimeMax>3</DispatchTimeMax>' +
+            '<ListingDuration>Days_7</ListingDuration>' +
+            '<ListingType>Chinese</ListingType>' +
+            '<PaymentMethods>PayPal</PaymentMethods>' +
+            '<PayPalEmailAddress>' + 'test@test.com' + '</PayPalEmailAddress>' +
+            '<PictureDetails>' +
+            '<GalleryType>Gallery</GalleryType>' +
+            '<GalleryURL>' + listing.ebay.siteHostedPictureDetails.PictureSetMember[0].MemberURL + '</GalleryURL>' +
+            '<PictureURL>' + listing.ebay.siteHostedPictureDetails.PictureSetMember[1].MemberURL + '</PictureURL>' +
+            '<PictureURL>' + listing.ebay.siteHostedPictureDetails.PictureSetMember[2].MemberURL + '</PictureURL>' +
+            '</PictureDetails>' +
+            '<PostalCode>95125</PostalCode>' +
+            '<Quantity>1</Quantity>' +
+            '<ReturnPolicy>' +
+            '<ReturnsAcceptedOption>ReturnsAccepted</ReturnsAcceptedOption>' +
+            '<RefundOption>MoneyBack</RefundOption>' +
+            '<ReturnsWithinOption>Days_30</ReturnsWithinOption>' +
+            '<Description>Text description of return policy details</Description>' +
+            '<ShippingCostPaidByOption>Buyer</ShippingCostPaidByOption>' +
+            '</ReturnPolicy>' +
+            '<ShippingDetails>' +
+            '<ShippingType>Flat</ShippingType>' +
+            '<ShippingServiceOptions>' +
+            '<ShippingServicePriority>1</ShippingServicePriority>' +
+            '<ShippingService>USPSMedia</ShippingService>' +
+            '<ShippingServiceCost>2.50</ShippingServiceCost>' +
+            '</ShippingServiceOptions>' +
+            '</ShippingDetails>' +
+            '<Site>US</Site>' +
+            '<UUID>' + uid + '</UUID>' +
+            '</Item>' +
+            '</AddItemRequest>';
+
+        ebayAPIClient.trading.function(functionToCall, requestData)
+            .then(function (response) {
+                console.log(response.AddItemResponse.ItemID[0]);
+                deferred.resolve(response.AddItemResponse.ItemID[0])
+            }, function (err) {
+                console.log(err);
+                deferred.reject(err);
+            });
         return deferred.promise;
     }
 };

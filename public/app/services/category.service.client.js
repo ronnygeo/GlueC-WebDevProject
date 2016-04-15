@@ -21,6 +21,7 @@
 
         function getSubCategories(providerId, parentCategoryId) {
             console.log("Calling Server getSubCategories");
+            console.log(parentCategoryId);
             var url = "/api/getSubCategories/" + providerId + "/" + parentCategoryId;
             console.log(url);
             return $http.get(url);

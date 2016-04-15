@@ -1,6 +1,6 @@
-module.exports = function (app, request, q, upload, mongoose) {
+module.exports = function (app, request, q, upload, mongoose, uuid) {
     var userModel = require("./models/user/user.model.js")(mongoose);
-    require("./services/user/user.service.js")(app, userModel);
+    require("./services/user/user.service.server")(app, userModel);
 
     var catalogModel = require('./models/catalog/catalog.model.js')(q, mongoose);
     require("./services/catalog/catalog.service.js")(app, catalogModel);
@@ -16,16 +16,16 @@ module.exports = function (app, request, q, upload, mongoose) {
     require("./services/message/message.service.js")(app, MessageModel);
 
     /*EBAY API CLIENT*/
-    var ebayAPIClient =  require("./services/api_clients/ebay.api.client")(q);
-    var amazonAPIClient =  require("./services/api_clients/amazon.api.client")(q);
+    var ebayAPIClient = require("./services/api_clients/ebay.api.client")(q);
+    var amazonAPIClient = require("./services/api_clients/amazon.api.client")(q);
 
     var listingSchema = require("./models/listing/listing.schema.server")(mongoose);
     var ebayListingSchema = require("./models/listing/ebay.listing.schema.server")(mongoose);
     var ebayListingDB = mongoose.model("EbayListing", ebayListingSchema);
     var listingDB = mongoose.model("Listing", listingSchema);
-    var listingModel = require("./models/listing/listing.model")(listingDB,ebayListingDB,q);
-    require("./services/listing/listing.service.server")(app,q, listingModel, categoryModel, ebayAPIClient,upload, amazonAPIClient);
+    var listingModel = require("./models/listing/listing.model")(listingDB, ebayListingDB, q);
+    require("./services/listing/listing.service.server")(app, q, listingModel, categoryModel, ebayAPIClient, upload, amazonAPIClient, uuid);
 
-    require("./services/image/clarfai.image.service")();
-    
+
+    //require("./services/image/clarfai.image.service")();
 };

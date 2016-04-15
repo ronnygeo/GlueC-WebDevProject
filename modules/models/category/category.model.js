@@ -55,7 +55,7 @@ module.exports = function (q, request, mongoose) {
             '<FeatureID>MaxFlatShippingCost</FeatureID>' +
             '<FeatureID>PayPalRequired</FeatureID>' +
             '<FeatureID>BestOfferEnabled</FeatureID>' +
-            '<FeatureID>ReturnPolicyEnabled</FeatureID>'+
+            '<FeatureID>ReturnPolicyEnabled</FeatureID>' +
             '</GetCategoryFeaturesRequest>',
             requestConfig: {
                 timeout: 1000, //request timeout in milliseconds
@@ -132,7 +132,7 @@ module.exports = function (q, request, mongoose) {
             '</RequesterCredentials>' +
             '<CategoryParent>' + parentCategoryId + '</CategoryParent>' +
             '<DetailLevel>ReturnAll</DetailLevel>' +
-            '<LevelLimit>2</LevelLimit>' +
+            //'<LevelLimit>2</LevelLimit>' +
             '</GetCategoriesRequest>',
             requestConfig: {
                 timeout: 1000, //request timeout in milliseconds
@@ -258,15 +258,20 @@ module.exports = function (q, request, mongoose) {
 
 
     function mapCategories(incomingCatArray) {
-        console.log(incomingCatArray)
+        console.log(incomingCatArray);
         var categories = [];
         for (var catindex in incomingCatArray) {
+            var leafCategory = false;
+            if ('LeafCategory' in incomingCatArray[catindex]) {
+                leafCategory = true;
+            }
             var cat = {
                 "_id": incomingCatArray[catindex].CategoryID[0],
                 "parentId": incomingCatArray[catindex].CategoryParentID[0],
                 "level": incomingCatArray[catindex].CategoryLevel[0],
-                "name": incomingCatArray[catindex].CategoryName[0]
-            }
+                "name": incomingCatArray[catindex].CategoryName[0],
+                "leaf": leafCategory
+            };
             categories.push(cat);
         }
         return categories;

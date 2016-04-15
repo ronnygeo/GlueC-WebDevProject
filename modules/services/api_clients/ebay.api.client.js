@@ -20,13 +20,15 @@ module.exports = function (q) {
         trading: {
             function: trading,
             AUTH_TOKEN: AUTH_TOKEN,
-            uploadImage:uploadImage
+            uploadImage:uploadImage,
+            SANDBOX_URL: "http://cgi.sandbox.ebay.com/"
         }
     };
     return api;
 
     function trading(functionToCall, requestData) {
         console.log("Calling Ebay Trading API for [" + functionToCall + "]");
+        console.log("Request Data :: [[" +requestData+"]]");
         var deferred = q.defer();
         var client = new Client();
         var args = {

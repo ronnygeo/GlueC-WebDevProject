@@ -7,14 +7,24 @@
         .module('GluecApp')
         .controller('RegisterController', RegisterController);
 
-    RegisterController.$inject = ['UserService', '$rootScope', '$location'];
+    RegisterController.$inject = ['UserService', '$rootScope', '$location','$timeout'];
 
-    function RegisterController(UserService, $rootScope, $location) {
+    function RegisterController(UserService, $rootScope, $location, $timeout) {
         var vm = this;
 
         vm.user = {};
         //Event Handlers Decelerations
         vm.register = Register;
+
+        function init() {
+            angular.element(document).ready(function () {
+                $timeout(function () {
+                    $('select').material_select();
+                }, 0, false);
+            });
+        }
+
+        init();
 
         // angular.element(document).ready(function() {
         //     $('select').material_select('destroy');
