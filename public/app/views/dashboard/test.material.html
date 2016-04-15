@@ -2,21 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Title</title>
     <link rel="stylesheet" href="../../../bower_components/Materialize/dist/css/materialize.min.css"
           media="screen,projection">
     <link href='https://fonts.googleapis.com/css?family=Noto+Serif' rel='stylesheet' type='text/css'>
     <!--<link href='https://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic' rel='stylesheet' type='text/css'>-->
+    <!--Logo Font-->
+    <link href="https://fonts.googleapis.com/css?family=Rancho&effect=shadow-multiple" rel="stylesheet"
+          type='text/css'/>
+
+
     <!--Font Awesome-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link href="../../css/style2.css" rel="stylesheet" media="screen,projection"/>
 
 </head>
 <body style="font-family: 'Noto Serif', serif">
-
-<nav class="fix-top" style="background-color: rgba(25, 25, 25, 0.5); height: 55px !important; line-height:55px;">
+<!--<body style="">-->
+<nav class="fix-top" style="font-family:'Roboto',sans-serif;font-weight:100;background-color: rgba(25, 25, 25, 0.5); height: 55px !important; line-height:55px;">
     <div class="nav-wrapper">
-        <a href="#!" class="brand-logo" style="padding-left: 1vw;">GlueC</a>
+        <a href="#!" class="brand-logo" style="padding-left: 1vw;font-family:'Rancho','Noto Serif',serif">GlueC</a>
         <a href="#" data-activates="mobile-demo" class="button-collapse" style="padding-left: 7px;"><i class="fa fa-bars" style="font-size:2rem"></i></a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a href="sass.html">Sass</a></li>
@@ -31,6 +37,8 @@
         </ul>
     </div>
 </nav>
+
+<div style="width: 100vw; height:100%">
 <div style="background-image: url('bg.jpg'); background-size: cover; height:80vh; width:100%">
     <div style="position: absolute; top:30%;width:100%;text-shadow: 0px 2px 5px grey, 1px 1px 1px grey">
         <div class="row center-align">
@@ -52,10 +60,10 @@
 
 <div class="container">
     <div class="row">
-        <div class="col s12 offset-m1 m5">
+        <div class="col s12 m6">
             <div class="card-panel">
                 <div class="row center" style="padding-bottom: 7px; color: rgba(128, 128, 128, 0.9); border-bottom: 1px solid rgba(128, 128, 128, 0.25);">
-                    <i class="fa fa-3x fa-shopping-cart"></i>
+                    <i class="fa fa-3x fa-shopping-cart"></i> &nbsp;&nbsp;Buyers
                 </div>
                 <div class="row center-align">
               <span>I am a very simple card. I am good at containing small bits of information.
@@ -64,10 +72,10 @@
                 </div>
             </div>
         </div>
-        <div class="col s12 m5">
+        <div class="col s12 m6">
             <div class="card-panel">
                 <div class="row center" style="padding-bottom: 7px; color: rgba(128, 128, 128, 0.9); border-bottom: 1px solid rgba(128, 128, 128, 0.25);">
-                    <i class="fa fa-3x fa-flask"></i>
+                    <i class="fa fa-3x fa-flask"></i> &nbsp;&nbsp;Merchants
                 </div>
                 <div class="row center-align">
               <span>I am a very simple card. I am good at containing small bits of information.
@@ -79,6 +87,9 @@
     </div>
 </div>
 <div class="row" style="background-image: url('bg2.jpg'); background-size:cover; height:40vh;width:100%;margin-bottom:0"></div>
+
+</div>
+
 
 <footer class="page-footer" style="background-color: rgba(0, 0, 0, 0.83);margin-top:0">
     <div class="container">
@@ -93,7 +104,7 @@
             <!--</div>-->
         </div>
         <div class="row" style="color: #f7f7f7">
-            <div class="col m5 s12 left-align">
+            <div class="col m5 s12">
                 <h5>Settings</h5>
                 <ul>
                     <li><a href="#!">Home</a></li>
@@ -102,7 +113,7 @@
                     <li><a href="#!">Profile</a></li>
                 </ul>
             </div>
-            <div class="col m5 offset-m2 s12 right-align">
+            <div class="col m5 s12 push-m5">
                 <h5 class="">Connect</h5>
                 <ul>
                     <li><a href="#!">Facebook</a></li>

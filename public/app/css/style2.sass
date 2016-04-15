@@ -2,9 +2,30 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
   border-bottom: 1px solid #2E7EE0
   box-shadow: 0 1px 0 0 #2E7EE0
 
+.card-action a
+  color: #2E7EE0 !important
+
+
 footer a
   color: #F7F7F7
 
 .fix-top
   position: fixed
+  z-index: 5
 //@media all and (min-width: 640px)
+
+#side-links
+  li
+    padding-left: 10px
+    transition: all 0.5s ease-in-out
+    color: #E4E4E4
+
+  li:hover
+    padding-left: 10px
+    background-color: #0b3e6f
+
+  li
+    a
+      color: #F7F7F7
+      //border-bottom: 1px solid grey
+      padding: 0 10px 0 10px
