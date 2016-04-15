@@ -8,7 +8,7 @@
         .module('GluecApp')
         .controller("SellController", SellController);
 
-    SearchController.$inject = ['ProductService', '$scope', '$routeParams', '$location', 'ProgressBarFactory'];
+    SellController.$inject = ['ProductService', '$scope', '$routeParams', '$location', 'ProgressBarFactory'];
 
     function SellController(ProductService, $scope, $routeParams, $location, ProgressBarFactory) {
 
