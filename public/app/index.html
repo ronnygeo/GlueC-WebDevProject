@@ -1,36 +1,49 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="GluecApp">
+<html lang="en"
+      ng-app="GluecApp">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="theme-color" content="#FFAB00">
+    <meta http-equiv="Content-Type"
+          content="text/html; charset=UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1"/>
+    <meta name="theme-color"
+          content="#FFAB00">
     <title>GlueC</title>
 
     <!--Import Google Icon Font-->
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
 
     <!--Import materialize.css-->
     <!--<link rel="css" href="http  s://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">-->
-    <link rel="stylesheet" href="../bower_components/Materialize/dist/css/materialize.min.css"
+    <link rel="stylesheet"
+          href="../bower_components/Materialize/dist/css/materialize.min.css"
           media="screen,projection">
 
 
-    <link rel="stylesheet" href="../bower_components/angular-chart.js/dist/angular-chart.css">
+    <link rel="stylesheet"
+          href="../bower_components/angular-chart.js/dist/angular-chart.css">
 
     <!--Angular Material CSS-->
     <!--<link rel="stylesheet" href="../bower_components/angular-material/angular-material.css">-->
 
     <!--NG Progress StyleSheet-->
-    <link rel="stylesheet" href="../bower_components/ngprogress/ngProgress.css" media="screen,projection"/>
-    <link href="css/style.css" rel="stylesheet" media="screen,projection"/>
+    <link rel="stylesheet"
+          href="../bower_components/ngprogress/ngProgress.css"
+          media="screen,projection"/>
+    <link href="css/style.css"
+          rel="stylesheet"
+          media="screen,projection"/>
 
     <!--Font Awesome-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
     <!--<link rel="stylesheet" href="js/angular-chart.js/angular-chart.css">-->
 
     <!--Logo Font-->
-    <link href="https://fonts.googleapis.com/css?family=Rancho&effect=shadow-multiple" rel="stylesheet"
+    <link href="https://fonts.googleapis.com/css?family=Rancho&effect=shadow-multiple"
+          rel="stylesheet"
           type='text/css'/>
 
 </head>
@@ -42,7 +55,8 @@
 </div>
 
 <!--Main Content-->
-<div ng-view ng-class="{'navbar-padding-fix': $location.url() != '/'}"></div>
+<div ng-view
+     ng-class="{'navbar-padding-fix': $location.url() != '/'}"></div>
 
 <!--Footer-->
 <div ng-include="'views/footer/footer.view.html'"></div>
@@ -106,6 +120,7 @@
 <script src="views/catalog/new/new.catalog.controller.js"></script>
 <script src="views/product/new.product.controller.js"></script>
 <script src="views/admin/dashboard.admin.controller.js"></script>
+<script src="views/sell/sell.controller.js"></script>
 <script src="directives/new_listing_card/new-listing-card.directive.controller.js"></script>
 
 
