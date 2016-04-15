@@ -1,0 +1,18 @@
+<div class="row">
+    <div class="col s12">
+        <div class="card white darken-1">
+            <div class="card-content black-text">
+                <span class="card-title">Contents</span>
+                <div class="row" ng-if="dc.isUserAdmin()"> <!-- ng-view -->
+                    <h5>Admin</h5>
+                    <p>I am a very simple card. I am good at containing small bits of information.
+                        I am convenient because I require little markup to use effectively.</p>
+                    <br>
+                </div>
+                <div class="row" ng-if="dc.isUserMerchant() || dc.isUserAdmin()">
+                    <h5>Catalogs and Products</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
