@@ -178,10 +178,16 @@
                         <img ng-src="{{card.data.ebay.siteHostedPictureDetails.FullURL[0]}}"
                              alt="Product Image">
                     </a>
-                    <span class="card-title">{{card.data.title}}</span>
                 </div>
                 <div class="card-content">
                     <ul class="collection">
+                        <li class="collection-item avatar">
+                            <i class="fa fa-bullhorn circle"
+                               aria-hidden="true"></i>
+                            <span class="title">Title</span>
+                            <p>{{card.data.title}}
+                            </p>
+                        </li>
                         <li class="collection-item avatar">
                             <i class="fa fa-puzzle-piece circle"
                                aria-hidden="true"></i>
