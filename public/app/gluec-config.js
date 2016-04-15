@@ -132,7 +132,7 @@
                 })
                 .when('/sell', {
                     controller: 'SellController',
-                    templateUrl: 'views/sell/sell.controller.js',
+                    templateUrl: 'views/sell/sell.view.html',
                     controllerAs: "model"
                 })
                 .otherwise({
