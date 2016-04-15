@@ -21,7 +21,7 @@
         <i class="fa fa-2x fa-angle-double-down arrow-icon" aria-hidden="true" style=""></i>
     </div>
 
-    <div class="container">
+    <div class="container" ng-class="{'hide-content': !model.isLoggedIn()}">
         <div id="home-cards" class="row" style="">
             <div class="col s12 m6">
                 <div class="card-panel">
@@ -51,7 +51,7 @@
             </div>
         </div>
     </div>
-    <div class="row" id="image-near-footer" style=""></div>
+    <div class="row" id="image-near-footer" ng-class="{'hide-content': !model.isLoggedIn()}" style=""></div>
 </div>
 
 <!--<div class="center main-content">-->

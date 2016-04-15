@@ -47,7 +47,7 @@
 </div>
 
 <!--Main Content-->
-<div ng-view></div>
+<div ng-view ng-class="{'navbar-padding-fix': $location.url() != '/' && $location.url() != '/dashboard'}"></div>
 
 <!--Footer-->
 <div ng-if="$location.url() != '/'" ng-include="'views/footer/footer.view.html'"></div>
