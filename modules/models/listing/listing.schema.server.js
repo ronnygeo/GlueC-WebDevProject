@@ -12,6 +12,10 @@ module.exports = function (mongoose) {
         model: String,
         mpn: String,
         price: String,
-        startingPrice: String
+        startingPrice: String,
+        isComplete: {
+            type: Boolean,
+            default: false
+        }
     }, {collection: 'listing'})
 };
