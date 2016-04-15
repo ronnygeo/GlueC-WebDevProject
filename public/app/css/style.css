@@ -1,9 +1,8 @@
 .main-content {
-    min-height: 85vh !important;
+    min-height: 90vh !important;
     /*padding-top: 60px;}*/
 }
 
-/*width: 100vw; */
 .icon-block {
     padding: 0 15px;
 }
