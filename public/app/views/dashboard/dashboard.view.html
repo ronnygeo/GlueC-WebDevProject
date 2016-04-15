@@ -4,12 +4,14 @@
             <div class="row" style="padding: 0 10px 0 10px;">
                 <div class="card-panel grey lighten-5 z-depth-1">
                     <div class="row valign-wrapper">
-                        <div class="col s2">
-                            <img src="../../media/yuna.jpg" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
+                        <div class="col s4">
+                            <img src="{{dc.user.imageUrl}}" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
                         </div>
-                        <div class="col s10">
+                        <div class="col s8">
               <span class="black-text">
-                This is a square image. Add the "circle" class to it to make it appear circular.
+                {{dc.user.firstName}} {{dc.user.lastName}}
+                  <br>
+                  <a>Edit Profile</a>
               </span>
                         </div>
                     </div>
@@ -19,33 +21,98 @@
             <div class="divider grey"></div>
             <div id="side-links" class="row">
                 <div class="col s12" style="padding:0">
-                    <ul class="" style="line-height:2.5rem">
+                    <!-- Dropdown Trigger -->
+                    <a id="dashboard-dropdown-button" class='dropdown-button btn hide-on-med-and-up' data-beloworigin="true" data-activates='dropdown-options' style="width:100%">Menu</a>
+                    <ul id="dropdown-options" class="dropdown-content">
                         <li><a>Users</a></li>
                         <li><a>Catalogs</a></li>
                         <li><a>Products</a></li>
                         <li><a>Providers</a></li>
                         <li><a>Profile</a></li>
                     </ul>
+                    <ul class="hide-on-small-only" style="">
+                        <li><a>Users</a></li>
+                        <li><a>Catalogs</a></li>
+                        <li><a>Products</a></li>
+                        <li><a>Providers</a></li>
+                    </ul>
                 </div>
             </div>
-
         </div>
 
         <div id="dashboard-main-container" class="col s12 m9" style="padding:0;box-shadow: 0 1px 1px black, 1px 1px 1px black;">
-            <div class="section" style="background-color: grey; width:100%; height:100%; padding-top:1rem;padding-left:1.5rem;padding-bottom:2rem">
-                <div class="row">
-                    <h5>Dashboard</h5>
+            <div class="section" id="dashboard-content-container" style="">
+                <nav>
+                    <div class="nav-wrapper">
+                        <div class="col s12">
+                            <a href="#/dashboard" class="breadcrumb">Home</a>
+                            <a href="#!" class="breadcrumb">Product</a>
+                            <a href="#!" class="breadcrumb">List</a>
+                        </div>
+                    </div>
+                </nav>
+                <div class="section">
+                <h5>Dashboard</h5>
+                <div class="row" id="dashboard-view">
                 </div>
                 <div class="row">
-                    <div class="col s12">
+                    <div class="col s6">
                         <div class="card white darken-1">
-                            <div class="card-content black-text">
-                                <span class="card-title">Card Title</span>
-                                <p>I am a very simple card. I am good at containing small bits of information.
-                                    I am convenient because I require little markup to use effectively.</p>
+                            <div class="card-content black-text" ng-controller="DoughnutCtrl as dc">
+                                <span class="card-title">Overview</span>
+                                <div class="card-content"><canvas id="doughnut1" class="chart chart-doughnut" chart-data="dc.data" chart-labels="dc.labels"></canvas></div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s6">
+                                <div class="card white darken-1">
+                                    <div class="card-content center-align black-text">
+                                        <span class="card-title">Add Catalog</span><br><br>
+                                        <i class="fa fa-3x fa-plus-circle"></i></i></div>
+                                </div>
+                            </div>
+                            <div class="col s6">
+                                <div class="card white darken-1">
+                                    <div class="card-content center-align black-text">
+                                        <span class="card-title">Add Product</span><br><br>
+                                        <i class="fa fa-3x fa-plus-circle"></i></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col s6">
+                        <div class="row">
+                            <div class="col s6">
+                            <div class="card white darken-1">
+                                <div class="card-content center-align black-text">
+                                    <span class="card-title">Add Provider</span><br><br>
+                                    <i class="fa fa-3x fa-plus-circle" aria-hidden="true"></i></i>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="col s6">
+                                <div class="card white darken-1">
+                                    <div class="card-content center-align black-text">
+                                        <span class="card-title">Add Listing</span><br><br>
+                                        <i class="fa fa-3x fa-plus-circle" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="card white darken-1">
+                                <div class="card-content center-align black-text">
+                                    <span class="card-title">Edit Profile</span><br><br>
+                                    <i class="fa fa-3x fa-pencil-square-o" aria-hidden="true"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
 
                 <div class="row">
@@ -53,7 +120,7 @@
                         <div class="card white darken-1">
                             <div class="card-content black-text">
                                 <div> <!-- ng-view -->
-                                    <span class="card-title">Card Title</span>
+                                    <span class="card-title">Main Contents</span>
                                     <p>I am a very simple card. I am good at containing small bits of information.
                                         I am convenient because I require little markup to use effectively.</p>
                                     <br>
@@ -65,6 +132,18 @@
                     </div>
                 </div>
             </div>
+            </div>
         </div>
     </div>
+</div>
+
+<div class="fixed-action-btn horizontal">
+    <a class="btn-floating btn-large blue">
+        <i class="large material-icons">mode_edit</i>
+    </a>
+    <ul>
+        <li><a class="btn-floating red" href="#/profile"><i class="material-icons left">perm_identity</i></a></li>
+        <li><a class="btn-floating yellow darken-1"><i class="material-icons left">perm_identity</i></a></li>
+        <li><a class="btn-floating green darken-1" href="#/admin"><i class="material-icons left">perm_identity</i></a></li>
+    </ul>
 </div>

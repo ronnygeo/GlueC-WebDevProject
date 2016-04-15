@@ -51,21 +51,3 @@
             <li ng-show="user"><a ng-click="logout()">Logout</a></li>
         </ul>
     </div>
-
-<!--<div class="fixed-action-btn horizontal">-->
-<!--<a class="btn-floating btn-large red">-->
-<!--<i class="large material-icons">mode_edit</i>-->
-<!--</a>-->
-<!--<ul>-->
-<!--<li ng-show="user && user._id" ng-class="{active: $location.url() == '/profile'}"><a class="btn-floating red" href="#/profile"><i class="material-icons left">perm_identity</i></li>-->
-<!--<li ng-show="user && user._id" ng-class="{active: $location.url() == '/profile'}"><a  class="btn-floating yellow darken-1" ng-click="goToMessages()"><i class="material-icons left">perm_identity</i></a></li>-->
-<!--<li ng-show="user && user._id && user.roles !== undefined && user.roles.indexOf('admin') !== -1" ng-class="{active: $location.url() == '/admin'}"><a href="#/admin"><i class="material-icons left">perm_identity</i></a></li>-->
-<!--<li ng-show="user && user.roles !== undefined && user.roles.indexOf('merchant') !== -1"><a class="btn-floating green" href="#/dashboard"><i class="material-icons left">dashboard</i></a></li>-->
-<!--<li ng-show="user && user.roles == undefined || user.roles.indexOf('merchant') == -1"><a   class="btn-floating blue" href="#/userdash"><i class="material-icons left">dashboard</i>U</a></li>-->
-<!--<li><a class="btn-floating blue" href="#/listing/create"><i class="material-icons left">shopping_cart</i></a></li>-->
-<!--<li ng-hide="user" ng-class="{active: $location.url() == '/register'}"><a class="btn-floating green" href="#/register"></a>-->
-<!--</li>-->
-<!--<li ng-hide="user" ng-class="{active: $location.url() == '/login'}"><a class="btn-floating amber" href="#/login"></a></li>-->
-<!--<li ng-show="user"><a  class="btn-floating green" ng-click="logout()">Exit</a></li>-->
-<!--</ul>-->
-<!--</div>-->

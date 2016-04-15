@@ -35,7 +35,7 @@
                 .when('/dashboard', {
                     controller: 'DashboardController',
                     templateUrl: 'views/dashboard/dashboard.view.html',
-                    controllerAs: 'cc'
+                    controllerAs: 'dc'
                 })
                 .when('/userdash', {
                     controller: 'UserDashboardController',
@@ -119,7 +119,7 @@
 
             // Configure all charts
             ChartJsProvider.setOptions({
-                colours: [ '#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360'],
+                colours: [ '#DD0000', '#DDAA00', '#0000BB', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360'],
                 responsive: true
             });
         });

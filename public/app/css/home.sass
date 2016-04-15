@@ -1,6 +1,7 @@
 #splash-image
   background-image: url('../media/images/bg.jpg')
   background-size: cover
+  background-position-y: -15vh
   height: 80vh
   width: 100%
 
@@ -74,3 +75,10 @@
 
 .div-15
   min-height: 15vh
+
+@media all and (max-width: 640px)
+  #splash-image
+    background-image: url('../media/images/mobile-bg.jpg')
+    background-size: cover
+    background-position-x: -5vw
+    background-position-y: 0px !important

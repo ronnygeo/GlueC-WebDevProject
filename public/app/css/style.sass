@@ -11,6 +11,9 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
   border-bottom: 1px solid $PRIMARY-GLUEC-COLOR
   box-shadow: 0 1px 0 0 lighten( $PRIMARY-GLUEC-COLOR, 10% )
 
+body
+  background-color: $PRIMARY-BG-COLOR
+
 .card-action a
   color: $PRIMARY-GLUEC-COLOR !important
 
@@ -18,7 +21,7 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
   background-color: $PRIMARY-GLUEC-COLOR
 
 .btn:hover
-  background-color: lighten($PRIMARY-GLUEC-COLOR, 20%)
+  background-color: darken($PRIMARY-GLUEC-COLOR, 10%)
 
 // Custom Styles
 #login-alert
