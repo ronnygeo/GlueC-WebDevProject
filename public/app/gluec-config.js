@@ -107,6 +107,9 @@
                     templateUrl: 'views/catalog/edit/edit.catalog.view.html',
                     controllerAs: "cc"
                 })
+                .when('/test', {
+                    templateUrl: 'views/dashboard/test.material.html'
+                })
                 .otherwise({
                     redirectTo: '/'
                 });
