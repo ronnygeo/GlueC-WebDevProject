@@ -34,10 +34,11 @@
         function addImageAndCategory(listing) {
             console.log("Calling Server addImageAndCateogry");
             console.log(listing);
+            var flatListing = flat(listing);
             var fd = new FormData();
-            for (var key in listing) {
-                if (listing[key]) {
-                    fd.append(key, listing[key]);
+            for (var key in flatListing) {
+                if (flatListing[key]) {
+                    fd.append(key, flatListing[key]);
                 }
             }
             var url = "/api/listing/";
@@ -53,7 +54,16 @@
             );
         }
 
+        function flat(listing) {
+            var flatListing = {};
+            flatListing['_id'] = listing._id;
+            flatListing['providerId'] = listing.providerId;
+            flatListing['selectedParentCategory'] = listing.ebay.parentCategory;
+            flatListing['selectedSubCategory'] = listing.ebay.subCategory;
+            flatListing['image'] = listing.image;
+            return flatListing;
+        }
+
+
     }
-
-
 })();

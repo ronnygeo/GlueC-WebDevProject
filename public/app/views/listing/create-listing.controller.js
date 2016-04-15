@@ -28,7 +28,7 @@
         function apply(card) {
             console.log(card);
             if (card.type == "parentCategory") {
-                CreateListingController.listing.ebay_parentCategory = card.selectedData._id;
+                CreateListingController.listing.ebay.parentCategory = card.selectedData._id;
                 clearOtherCards(card.type);
                 addSubCategoryCard(card.selectedData._id);
             } else if (card.type == "subCategory") {
@@ -38,16 +38,16 @@
                     addSubCategoryCard(card.selectedData._id)
                 } else {
                     console.log("Leaf Category.");
-                    CreateListingController.listing.ebay_subCategory = card.selectedData._id;
+                    CreateListingController.listing.ebay.subCategory = card.selectedData._id;
                     clearOtherCards(card.type);
                     addUploadImageCard();
                 }
             } else if (card.type == "uploadImage") {
                 CreateListingController.listing.image = card.selectedData;
                 clearOtherCards(card.type);
-                addNewListingCard(card.selectedData);
+                addOtherDetailsCard(card.selectedData);
             }
-            else if (card.type == "newListing") {
+            else if (card.type == "otherDetails") {
                 CreateListingController.listing = angular.copy(card.selectedData);
                 clearOtherCards(card.type);
                 postListing(card.selectedData);
@@ -78,12 +78,12 @@
                     }
                 }
             }
-            else if (cardType == "newListing") {
+            else if (cardType == "otherDetails") {
                 for (var i in cards) {
                     if (cards[i].type == 'parentCategory'
                         || cards[i].type == 'subCategory'
                         || cards[i].type == 'uploadImage'
-                        || cards[i].type == 'newListing') {
+                        || cards[i].type == 'otherDetails') {
                         newCards.push(cards[i]);
                     }
                 }
@@ -130,42 +130,23 @@
             ProgressBarFactory.hideProgressBar();
         }
 
-        function addNewListingCard() {
+        function addOtherDetailsCard() {
             ProgressBarFactory.showProgressBar();
-            var newListingCard = {
-                type: "newListing",
+            var otherDetailsCard = {
+                type: "otherDetails",
                 data: [],
                 selectedData: "",
                 header: ""
             };
-            var newListing = {
-                parentCategory: CreateListingController.listing.parentCategory,
-                subCategory: CreateListingController.listing.subCategory,
-                image: CreateListingController.listing.image,
-                providerId: CreateListingController.listing.providerId,
-                userId: CreateListingController.listing.userId,
-                title: CreateListingController.listing.title,
-                description: CreateListingController.listing.description,
-                model: CreateListingController.listing.model,
-                mpn: CreateListingController.listing.mpn,
-                ebay_ebayListingId: CreateListingController.listing.ebay_ebayListingId,
-                ebay_listingType: CreateListingController.listing.ebay_listingType,
-                ebay_paymentMethod: CreateListingController.listing.ebay_paymentMethod,
-                ebay_returnPolicyEnabled: CreateListingController.listing.ebay_returnPolicyEnabled,
-                ebay_listingDuration: CreateListingController.listing.ebay_listingDuration,
-                ebay_parentCategory: CreateListingController.listing.ebay_parentCategory,
-                ebay_subCategory: CreateListingController.listing.ebay_subCategory,
-                ebay_itemCondition: CreateListingController.listing.itemCondition
-            };
             ListingService
-                .getNewListingTemplate(newListing)
+                .addImageAndCategory(CreateListingController.listing)
                 .then(success_callback, error_callback);
             function success_callback(response) {
                 console.log(response.data);
-                newListingCard.data = response.data;
+                otherDetailsCard.data = response.data;
                 ProgressBarFactory.hideProgressBar();
-                console.log(newListingCard);
-                CreateListingController.cards.push(newListingCard);
+                console.log(otherDetailsCard);
+                CreateListingController.cards.push(otherDetailsCard);
             }
 
             function error_callback(error) {
@@ -242,21 +223,6 @@
                 ProgressBarFactory.hideProgressBar();
             }
 
-
-        }
-
-        function getEbayCategories() {
-            console.log("Calling Client Service");
-            CategoryService
-                .getTopLevelCategories(CreateListingController.listing.providerId)
-                .then(success_callback, error_callback);
-            function success_callback(response) {
-                console.log(response.data);
-            }
-
-            function error_callback(error) {
-                console.log(error);
-            }
 
         }
 

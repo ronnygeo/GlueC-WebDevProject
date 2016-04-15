@@ -21,25 +21,38 @@
                 scope.apply = function (selectedData) {
                     console.log("Apply operation [" + scope.card.type + "] in directive");
                     console.log("Selected Data [" + selectedData + "] in directive");
-                    upadateHeader(scope, selectedData);
+                    processList(scope, selectedData);
                     scope.card.selectedData = selectedData;
                     scope.$parent.model.apply(scope.card);
                 };
             }
         };
 
-        function upadateHeader(scope, selectedData) {
-            console.log("Updating Header");
+        function processList(scope, selectedData) {
+            console.log("processList");
             if (scope.card.type == "parentCategory") {
+                //Update Header
                 scope.card.header = selectedData.name;
+                // remove previously selected active
+                if (scope.card.selectedData) {
+                    $('#catgory_' + scope.card.selectedData._id).removeClass("active");
+                }
+                // add active to current selected row
                 $('#catgory_' + selectedData._id).addClass("active");
             } else if (scope.card.type == "subCategory") {
+                //Update Header
                 scope.card.header = selectedData.name;
+                // remove previously selected active
+                if (scope.card.selectedData) {
+                    $('#catgory_' + scope.card.selectedData._id).removeClass("active");
+                }
+                // add active to current selected row
                 $('#catgory_' + selectedData._id).addClass("active");
             } else if (scope.card.type == "uploadImage") {
-                console.log(selectedData);
+                //Update Header
                 scope.card.header = selectedData.name;
             }
+            //Closing current accordion
             angular.element(document).ready(function () {
                 $timeout(function () {
                     $("#card_" + scope.card.type + " .collapsible-header").removeClass("active");

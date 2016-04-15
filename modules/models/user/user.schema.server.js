@@ -11,7 +11,6 @@ module.exports = function (mongoose) {
         email: String,
         roles: [String],
         imageUrl: String,
-        // imdb ids of movies this user likes
         phone: String
     }, {collection: 'user'});
     return UserSchema;

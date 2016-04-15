@@ -2,7 +2,7 @@
  * Created by Bhanu on 26/03/2016.
  */
 var fs = require('fs');
-module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, upload, amazonAPIClient, uuid) {
+module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, upload, amazonAPIClient, uuid, categoryService) {
 
     /*WEB Service API*/
     app.post("/api/listing/", upload.single('image'), addImageAndCateogry);
@@ -18,6 +18,7 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
             listingModel.ebay.createNewListing(mapListing(listing))
                 .then(function (listingDoc) {
                     console.log(listingDoc);
+
                     res.json(listingDoc);
                 }, function (err) {
                     console.log(err);
@@ -77,11 +78,15 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
 
         if (listing.providerId == "10001") {
             //Step1: Create New Listing
-            listingModel.ebay.createNewListing(mapListing(listing))
+            listingModel.ebay.getListingById(listing._id)
                 .then(function (response) {
-                    console.log("Step One Completed");
                     console.log(response);
                     newDbListing = response;
+
+                    //Add Categories
+                    newDbListing.ebay.parentCategory = listing.selectedParentCategory;
+                    newDbListing.ebay.subCategory = listing.selectedSubCategory;
+
                     //Step2: Save Image and Ebay Url In Database
                     uploadImageToEbay(req.file)
                         .then(function (response) {
@@ -89,10 +94,11 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
                             newDbListing.ebay.siteHostedPictureDetails = response;
 
                             //Step3: Get Other Features For Category
-                            getFeaturesForEbayCategory(newDbListing.ebay.parentCategory)
+                            categoryService.ebay.fetchCategoryDetails(newDbListing.ebay.subCategory)
                                 .then(function (response) {
                                     console.log(response);
-                                    //Sending New Listing Back to the Client.4
+
+                                    //Sending New Listing Back to the Client
                                     newDbListing.ebay.categoryDetails = response;
                                     console.log(newDbListing);
 
@@ -121,68 +127,6 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
         }
 
     }
-
-    function getFeaturesForEbayCategory(subCategoryId) {
-        var deferred = q.defer();
-        var functionToCall = "GetCategoryFeatures";
-        var requestData = '<?xml version="1.0" encoding="utf-8"?>' +
-            '<GetCategoryFeaturesRequest  xmlns="urn:ebay:apis:eBLBaseComponents">' +
-            '<RequesterCredentials>' +
-            '<eBayAuthToken>' +
-            ebayAPIClient.trading.AUTH_TOKEN +
-            '</eBayAuthToken>' +
-            '</RequesterCredentials>' +
-            '<WarningLevel>High</WarningLevel>' +
-            '<CategoryID>' + subCategoryId + '</CategoryID>' +
-            '<DetailLevel>ReturnAll</DetailLevel>' +
-            '<ViewAllNodes >True</ViewAllNodes >' +
-            '<AllFeaturesForCategory >True</AllFeaturesForCategory >' +
-            '</GetCategoryFeaturesRequest>';
-        ebayAPIClient.trading.function(functionToCall, requestData)
-            .then(function (response) {
-                console.log(response.GetCategoryFeaturesResponse.Category[0]);
-                var categoryDetails = response.GetCategoryFeaturesResponse.Category[0];
-                deferred.resolve(mapCategoryDetails(response.GetCategoryFeaturesResponse.Category[0]));
-            }, function (err) {
-                console.log(err);
-                deferred.reject(err);
-            });
-        return deferred.promise;
-
-    }
-
-    function mapCategoryDetails(categoryDetails) {
-
-        /*Map Listing Duration*/
-        var listingDuration = categoryDetails.ListingDuration;
-        var newListingDuration = [];
-        for (var index in listingDuration) {
-            var dur = listingDuration[index]._;
-            console.log(dur);
-            newListingDuration.push(dur)
-        }
-        console.log(newListingDuration);
-
-        /*Map Condition*/
-        var conditionArray = categoryDetails.ConditionValues[0].Condition;
-        var newConsitionArray = [];
-        for (var i in conditionArray) {
-            newConsitionArray.push(
-                {
-                    'DisplayName': conditionArray[i].DisplayName[0],
-                    'ID': conditionArray[i].ID[0]
-                }
-            )
-        }
-        console.log(newConsitionArray);
-
-        categoryDetails.ListingDuration = newListingDuration;
-        categoryDetails.ConditionValues = newConsitionArray;
-
-        return categoryDetails;
-
-    }
-
 
     function mapListing(listing) {
         var newListing = {
