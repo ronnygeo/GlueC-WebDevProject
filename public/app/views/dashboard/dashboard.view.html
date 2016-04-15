@@ -46,92 +46,42 @@
                     <div class="nav-wrapper">
                         <div class="col s12">
                             <a href="#/dashboard" class="breadcrumb">Home</a>
-                            <a href="#!" class="breadcrumb">Product</a>
-                            <a href="#!" class="breadcrumb">List</a>
+                            <a href="#/dashboard/profile" class="breadcrumb">Profile</a>
+                            <a href="#/dashboard/catalogs" class="breadcrumb">Catalogs</a>
+                            <a href="#/dashboard/catalogs/list" class="breadcrumb">List</a>
+                            <a href="#/dashboard/catalogs/new" class="breadcrumb">New</a>
+                            <a href="#/dashboard/catalogs/edit" class="breadcrumb">Edit</a>
+                            <a href="#/dashboard/products" class="breadcrumb">Products</a>
+                            <a href="#/dashboard/products/list" class="breadcrumb">List</a>
+                            <a href="#/dashboard/products/new" class="breadcrumb">New</a>
+                            <a href="#/dashboard/products/edit" class="breadcrumb">Edit</a>
                         </div>
                     </div>
                 </nav>
                 <div class="section">
-                <h5>Dashboard</h5>
-                <div class="row" id="dashboard-view">
-                </div>
-                <div class="row">
-                    <div class="col s6">
-                        <div class="card white darken-1">
-                            <div class="card-content black-text" ng-controller="DoughnutCtrl as dc">
-                                <span class="card-title">Overview</span>
-                                <div class="card-content"><canvas id="doughnut1" class="chart chart-doughnut" chart-data="dc.data" chart-labels="dc.labels"></canvas></div>
-                            </div>
-                        </div>
-                        </div>
-                        <div class="row">
-                            <div class="col s6">
-                                <div class="card white darken-1">
-                                    <div class="card-content center-align black-text">
-                                        <span class="card-title">Add Catalog</span><br><br>
-                                        <i class="fa fa-3x fa-plus-circle"></i></i></div>
-                                </div>
-                            </div>
-                            <div class="col s6">
-                                <div class="card white darken-1">
-                                    <div class="card-content center-align black-text">
-                                        <span class="card-title">Add Product</span><br><br>
-                                        <i class="fa fa-3x fa-plus-circle"></i></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col s6">
-                        <div class="row">
-                            <div class="col s6">
-                            <div class="card white darken-1">
-                                <div class="card-content center-align black-text">
-                                    <span class="card-title">Add Provider</span><br><br>
-                                    <i class="fa fa-3x fa-plus-circle" aria-hidden="true"></i></i>
-                                </div>
-                            </div>
-                        </div>
-                            <div class="col s6">
-                                <div class="card white darken-1">
-                                    <div class="card-content center-align black-text">
-                                        <span class="card-title">Add Listing</span><br><br>
-                                        <i class="fa fa-3x fa-plus-circle" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="card white darken-1">
-                                <div class="card-content center-align black-text">
-                                    <span class="card-title">Edit Profile</span><br><br>
-                                    <i class="fa fa-3x fa-pencil-square-o" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                    <h5>Dashboard</h5>
+                    <div class="row" id="dashboard-view">
+                        <div ng-include="'views/header/header.view.html'"></div>
                 </div>
 
                 <div class="row">
                     <div class="col s12">
                         <div class="card white darken-1">
                             <div class="card-content black-text">
-                                <div> <!-- ng-view -->
-                                    <span class="card-title">Main Contents</span>
+                                <span class="card-title">Contents</span>
+                                <div class="row" ng-if="dc.isUserAdmin()"> <!-- ng-view -->
+                                    <h5>Admin</h5>
                                     <p>I am a very simple card. I am good at containing small bits of information.
                                         I am convenient because I require little markup to use effectively.</p>
                                     <br>
-                                    <br><br><br>
-
+                                </div>
+                                <div class="row" ng-if="dc.isUserMerchant() || dc.isUserAdmin()">
+                                    <h5>Catalogs and Products</h5>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
             </div>
         </div>
     </div>

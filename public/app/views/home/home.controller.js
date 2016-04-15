@@ -9,7 +9,7 @@
 
     function HomeController(ProductService, $location, $scope, $rootScope, ngProgressFactory) {
 
-        var HomeController = this;
+        var vm = this;
 
         function init() {
 
@@ -18,11 +18,21 @@
 
         init();
 
-        HomeController.search = search;
+        vm.search = search;
+        vm.isLoggedIn = isLoggedIn
 
         function search() {
             console.log("Got KeyEvent Enter");
             $location.url("/search/q/" + HomeController.search_input);
+        }
+
+        function isLoggedIn() {
+            console.log($rootScope.user);
+            if ($rootScope.user == 'undefined') {
+                return false;
+            } else {
+                return true;
+            }
         }
 
     }

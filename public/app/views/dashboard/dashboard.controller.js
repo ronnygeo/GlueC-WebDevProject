@@ -11,6 +11,17 @@
         vm.user = $rootScope.user;
         // var userId = user._id;
 
+        vm.isUserAdmin = isUserAdmin;
+        vm.isUserMerchant = isUserMerchant;
+
+        function isUserAdmin() {
+            return vm.user.roles.indexOf('admin') != -1
+        }
+
+        function isUserMerchant() {
+            return vm.user.roles.indexOf('merchant') != -1
+        }
+
 
     }
 })();
