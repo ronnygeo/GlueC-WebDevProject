@@ -18,7 +18,6 @@
                 return
             }
             initNewListing();
-            addCategoryCard();
         }
 
         init();
@@ -30,26 +29,66 @@
             console.log(card);
             if (card.type == "parentCategory") {
                 CreateListingController.listing.ebay_parentCategory = card.selectedData._id;
+                clearOtherCards(card.type);
                 addSubCategoryCard(card.selectedData._id);
             } else if (card.type == "subCategory") {
                 if (!card.selectedData.leaf) {
                     console.log("Not Leaf Category.");
+                    clearOtherCards(card.type);
                     addSubCategoryCard(card.selectedData._id)
                 } else {
                     console.log("Leaf Category.");
                     CreateListingController.listing.ebay_subCategory = card.selectedData._id;
+                    clearOtherCards(card.type);
                     addUploadImageCard();
                 }
-            }else if (card.type == "uploadImage") {
+            } else if (card.type == "uploadImage") {
                 CreateListingController.listing.image = card.selectedData;
+                clearOtherCards(card.type);
                 addNewListingCard(card.selectedData);
             }
             else if (card.type == "newListing") {
-                var cards = CreateListingController.listing.cards;
                 CreateListingController.listing = angular.copy(card.selectedData);
-                CreateListingController.listing['cards'] = cards;
+                clearOtherCards(card.type);
                 postListing(card.selectedData);
             }
+        }
+
+        function clearOtherCards(cardType) {
+            var cards = CreateListingController.cards;
+            var newCards = [];
+            if (cardType == "parentCategory") {
+                for (var i in cards) {
+                    if (cards[i].type == 'parentCategory') {
+                        newCards.push(cards[i]);
+                    }
+                }
+            } else if (cardType == "subCategory") {
+                for (var i in cards) {
+                    if (cards[i].type == 'parentCategory' || cards[i].type == 'subCategory') {
+                        newCards.push(cards[i]);
+                    }
+                }
+            } else if (cardType == "uploadImage") {
+                for (var i in cards) {
+                    if (cards[i].type == 'parentCategory'
+                        || cards[i].type == 'subCategory'
+                        || cards[i].type == 'uploadImage') {
+                        newCards.push(cards[i]);
+                    }
+                }
+            }
+            else if (cardType == "newListing") {
+                for (var i in cards) {
+                    if (cards[i].type == 'parentCategory'
+                        || cards[i].type == 'subCategory'
+                        || cards[i].type == 'uploadImage'
+                        || cards[i].type == 'newListing') {
+                        newCards.push(cards[i]);
+                    }
+                }
+            }
+            CreateListingController.cards = newCards;
         }
 
 
@@ -58,7 +97,8 @@
             var publishListingCard = {
                 type: "publishListing",
                 data: [],
-                selectedData: ""
+                selectedData: "",
+                header: ""
             };
 
             ListingService.publishListing(listing)
@@ -68,7 +108,7 @@
                 publishListingCard.data = response.data;
                 ProgressBarFactory.hideProgressBar();
                 console.log(publishListingCard);
-                CreateListingController.listing.cards.push(publishListingCard);
+                CreateListingController.cards.push(publishListingCard);
             }
 
             function error_callback(error) {
@@ -83,9 +123,10 @@
             var uploadImageCard = {
                 type: "uploadImage",
                 data: [],
-                selectedData: ""
+                selectedData: "",
+                header: ""
             };
-            CreateListingController.listing.cards.push(uploadImageCard);
+            CreateListingController.cards.push(uploadImageCard);
             ProgressBarFactory.hideProgressBar();
         }
 
@@ -94,7 +135,8 @@
             var newListingCard = {
                 type: "newListing",
                 data: [],
-                selectedData: ""
+                selectedData: "",
+                header: ""
             };
             var newListing = {
                 parentCategory: CreateListingController.listing.parentCategory,
@@ -123,7 +165,7 @@
                 newListingCard.data = response.data;
                 ProgressBarFactory.hideProgressBar();
                 console.log(newListingCard);
-                CreateListingController.listing.cards.push(newListingCard);
+                CreateListingController.cards.push(newListingCard);
             }
 
             function error_callback(error) {
@@ -139,7 +181,8 @@
             var subCategoryCard = {
                 type: "subCategory",
                 data: [],
-                selectedData: ""
+                selectedData: "",
+                header: ""
             };
             CategoryService
                 .getSubCategories(CreateListingController.listing.providerId, parentCategoryId)
@@ -149,7 +192,7 @@
                 subCategoryCard.data = response.data;
                 ProgressBarFactory.hideProgressBar();
                 console.log(subCategoryCard);
-                CreateListingController.listing.cards.push(subCategoryCard);
+                CreateListingController.cards.push(subCategoryCard);
             }
 
             function error_callback(error) {
@@ -161,35 +204,27 @@
         }
 
         function initNewListing() {
+            ProgressBarFactory.showProgressBar();
             var newListing = {
-                parentCategory: "",
-                subCategory: "",
-                image: "",
-                providerId: "10001",//Ebay
-                cards: [],
-                userId: $rootScope.user._id,
-                title: "",
-                description: "",
-                model: "",
-                ebay_ebayListingId: "",
-                ebay_itemCondition: "",
-                ebay_listingType: "",
-                ebay_paymentMethod: "",
-                ebay_returnPolicyEnabled: "",
-                ebay_listingDuration: "",
-                ebay_parentCategory: "",
-                ebay_subCategory: ""
+                providerId: "10001"//Ebay
             };
-            console.log(newListing);
-            CreateListingController.listing = newListing;
+            //Getting New Listing Template
+            ListingService.getNewListingTemplate(newListing)
+                .then(function (response) {
+                    console.log(response.data);
+                    CreateListingController.listing = response.data;
+                    addCategoryCard();
+                }, function (err) {
+                    console.log(err);
+                });
         }
 
         function addCategoryCard() {
-            ProgressBarFactory.showProgressBar();
             var categoryCard = {
                 type: "parentCategory",
                 data: [],
-                selectedData: ""
+                selectedData: "",
+                header: ""
             };
             CategoryService
                 .getTopLevelCategories(CreateListingController.listing.providerId)
@@ -199,7 +234,7 @@
                 categoryCard.data = response.data;
                 ProgressBarFactory.hideProgressBar();
                 console.log(categoryCard);
-                CreateListingController.listing.cards.push(categoryCard);
+                CreateListingController.cards = [categoryCard];
             }
 
             function error_callback(error) {
@@ -209,7 +244,6 @@
 
 
         }
-
 
         function getEbayCategories() {
             console.log("Calling Client Service");

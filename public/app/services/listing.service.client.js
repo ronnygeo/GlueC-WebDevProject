@@ -11,10 +11,18 @@
 
     function ListingService($http) {
         var api = {
-            getNewListingTemplate: getNewListingTemplate,
-            publishListing: publishListing
+            addImageAndCategory: addImageAndCategory,
+            publishListing: publishListing,
+            getNewListingTemplate: getNewListingTemplate
         };
         return api;
+
+        function getNewListingTemplate(listing) {
+            console.log("Calling Server getNewListingTemplate");
+            console.log(listing);
+            var url = "/api/listing/template";
+            return $http.post(url, listing);
+        }
 
         function publishListing(listing) {
             console.log("Calling Server publishListing");
@@ -23,8 +31,8 @@
             return $http.post(url, listing);
         }
 
-        function getNewListingTemplate(listing) {
-            console.log("Calling Server getNewListingTemplate");
+        function addImageAndCategory(listing) {
+            console.log("Calling Server addImageAndCateogry");
             console.log(listing);
             var fd = new FormData();
             for (var key in listing) {

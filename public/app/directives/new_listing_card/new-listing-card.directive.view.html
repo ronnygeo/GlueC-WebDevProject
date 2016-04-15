@@ -3,34 +3,54 @@
     class="collapsible popout"
     data-collapsible="accordion">
     <li ng-switch-when="parentCategory">
-        <div class="collapsible-header active">
+        <div ng-if="card.header==''"
+             class="collapsible-header active">
             <i class="material-icons">filter_drama</i>
             Select a Category
         </div>
+        <div ng-if="card.header!=''"
+             class="collapsible-header active">
+            <i class="material-icons">filter_drama</i>
+            {{card.header}}
+        </div>
         <div class="collapsible-body">
             <div class="collection">
-                <a ng-click="apply(category)"
+                <a id="{{'catgory_'+category._id}}"
+                   ng-click="apply(category)"
                    ng-repeat="category in card.data"
                    class="collection-item btn-flat">{{category.name}}</a>
             </div>
         </div>
     </li>
     <li ng-switch-when="subCategory">
-        <div class="collapsible-header active">
+        <div ng-if="card.header==''"
+             class="collapsible-header active">
             <i class="material-icons">filter_drama</i>
             Select a Sub Category
         </div>
+        <div ng-if="card.header!=''"
+             class="collapsible-header active">
+            <i class="material-icons">filter_drama</i>
+            {{card.header}}
+        </div>
         <div class="collapsible-body">
             <div class="collection">
-                <a ng-click="apply(category)"
+                <a id="{{'catgory_'+category._id}}"
+                   ng-click="apply(category)"
                    ng-repeat="category in card.data"
                    class="collection-item btn-flat">{{category.name}}</a>
             </div>
         </div>
     <li ng-switch-when="uploadImage">
-        <div class="collapsible-header active">
+        <div ng-if="card.header==''"
+             class="collapsible-header active">
             <i class="material-icons">filter_drama</i>
             Add Image
+        </div>
+        <div ng-if="card.header!=''"
+             class="collapsible-header active">
+            <i class="material-icons">filter_drama</i>
+            {{card.header}}
         </div>
         <div class="collapsible-body">
             <div class="margin-10">

@@ -5,9 +5,26 @@ var fs = require('fs');
 module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, upload, amazonAPIClient, uuid) {
 
     /*WEB Service API*/
-    app.post("/api/listing/", upload.single('image'), createNewListing);
+    app.post("/api/listing/", upload.single('image'), addImageAndCateogry);
     app.post("/api/listing/publish", publishListing);
+    app.post("/api/listing/template", getNewListingTemplate);
 
+
+    function getNewListingTemplate(req, res) {
+        console.log("Inside ListingService.getNewListingTemplate");
+        var listing = req.body;
+        console.log(listing);
+        if (listing.providerId == "10001") {
+            listingModel.ebay.createNewListing(mapListing(listing))
+                .then(function (listingDoc) {
+                    console.log(listingDoc);
+                    res.json(listingDoc);
+                }, function (err) {
+                    console.log(err);
+                    res.statusCode(404).send(err);
+                });
+        }
+    }
 
     function publishListing(req, res) {
         console.log("Inside ListingService.publishListing");
@@ -24,6 +41,7 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
                         .then(function (listingDoc) {
                             console.log(listingDoc);
                             //Step3: Save Publish Details to DB
+                            listingModel.isComplete = true;
                             listingDoc.ebay.ebayListingItemId = response;
                             listingDoc.ebay.ebayListingUrl = ebayAPIClient.trading.SANDBOX_URL + response;
                             listingModel.ebay.saveListing(listingDoc)
@@ -49,8 +67,8 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
     }
 
 
-    function createNewListing(req, res) {
-        console.log("Inside ListingService.createNewListing");
+    function addImageAndCateogry(req, res) {
+        console.log("Inside ListingService.addImageAndCateogry");
         var listing = req.body;
         listing['images'] = [req.file.path];
         console.log("Incoming Listing");
