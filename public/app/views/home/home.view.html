@@ -1,31 +1,87 @@
-<div class="center main-content">
-    <div class="container">
-        <div class="row div-40 main-search-div">
-             <!--style="background-image: none; background-color: rgba(100, 100, 100, 0.14); box-shadow: 1px 1px 5px grey">-->
-            <br>
-            <!--<h1 class="landing-logo">GlueC</h1>-->
-        </div>
-        <div class="row">
-            <div class="row">
-                <div class="col s10 m8 l8 offset-s1 offset-m2 offset-l2">
-                    <div class="input-field">
-                        <input class="center-align"
-                               ng-model="model.search_input"
-                               id="search"
-                               placeholder="Search Products, Buyers, Listings, Reviews.."
-                               type="text"
-                               ng-keypress="($event.which ==13 || $event.keyCode==13)? model.search():return">
-                        <!--<label for="search">Search Products, Buyers, Listings, Reviews..</label>-->
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s10 m8 l8 offset-s1 offset-m2 offset-l2">
-                    <a href="#/search/q/{{model.search_input}}"
-                       class="waves-effect waves-light btn">
-                        <i class="material-icons left">search</i>Search</a>
+<div class="content-wrapper">
+    <div id="splash-image" style="">
+        <div id="inside-splash-container" style="">
+            <div id="splash-text" class="row center-align" style="">
+                <div class="col s12">
+                    <h2 class="white-text">GlueC</h2>
+                    <h5 class="white-text">Single solution to all your eCommerce worries</h5>
                 </div>
             </div>
         </div>
     </div>
+    <div class="row div-15">
+        <div class="input-field col s12 offset-m1 m10">
+            <!--<i class="fa fa-search prefix"></i>-->
+            <input placeholder="Start by searching for a product.." id="home-search" ng-model="model.search_input" ng-keypress="($event.which ==13 || $event.keyCode==13)? model.search():return" type="text" class="validate">
+            <!--<label for="first_name">First Name</label>-->
+        </div>
+    </div>
+
+    <div id="scroll-arrow" class="arrow bounce">
+        <i class="fa fa-2x fa-angle-double-down arrow-icon" aria-hidden="true" style=""></i>
+    </div>
+
+    <div class="container">
+        <div id="home-cards" class="row" style="">
+            <div class="col s12 m6">
+                <div class="card-panel">
+                    <div class="row center home-card-header" style="">
+                        <i class="fa fa-3x fa-shopping-cart"></i>
+                        <h6>Buyers</h6>
+                    </div>
+                    <div class="row center-align">
+              <span>I am a very simple card. I am good at containing small bits of information.
+              I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
+              </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m6">
+                <div class="card-panel">
+                    <div class="row center home-card-header" style="">
+                        <i class="fa fa-3x fa-flask"></i>
+                        <h6>Merchants</h6>
+                    </div>
+                    <div class="row center-align">
+              <span>I am a very simple card. I am good at containing small bits of information.
+              I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
+              </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" id="image-near-footer" style=""></div>
 </div>
+
+<!--<div class="center main-content">-->
+    <!--<div class="container">-->
+        <!--<div class="row div-40 main-search-div">-->
+             <!--&lt;!&ndash;style="background-image: none; background-color: rgba(100, 100, 100, 0.14); box-shadow: 1px 1px 5px grey">&ndash;&gt;-->
+            <!--<br>-->
+            <!--&lt;!&ndash;<h1 class="landing-logo">GlueC</h1>&ndash;&gt;-->
+        <!--</div>-->
+        <!--<div class="row">-->
+            <!--<div class="row">-->
+                <!--<div class="col s10 m8 l8 offset-s1 offset-m2 offset-l2">-->
+                    <!--<div class="input-field">-->
+                        <!--<input class="center-align"-->
+                               <!--ng-model="model.search_input"-->
+                               <!--id="search"-->
+                               <!--placeholder="Search Products, Buyers, Listings, Reviews.."-->
+                               <!--type="text"-->
+                               <!--ng-keypress="($event.which ==13 || $event.keyCode==13)? model.search():return">-->
+                        <!--<label for="search">Search Products, Buyers, Listings, Reviews..</label>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row">-->
+                <!--<div class="col s10 m8 l8 offset-s1 offset-m2 offset-l2">-->
+                    <!--<a href="#/search/q/{{model.search_input}}"-->
+                       <!--class="waves-effect waves-light btn">-->
+                        <!--<i class="material-icons left">search</i>Search</a>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->

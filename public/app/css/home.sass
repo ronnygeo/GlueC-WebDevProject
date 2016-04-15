@@ -1,0 +1,76 @@
+#splash-image
+  background-image: url('../media/images/bg.jpg')
+  background-size: cover
+  height: 80vh
+  width: 100%
+
+#inside-splash-container
+  position: absolute
+  top: 30%
+  width: 100%
+  text-shadow: 0px 2px 3px grey, 1px 1px 1px grey
+
+#splash-text
+  font-family: 'Noto Serif', serif
+.content-wrapper
+  width: 100vw
+  height: 100%
+
+
+#home-search
+  text-align: center
+
+#home-cards
+  font-family: 'Raleway', sans-serif
+
+.home-card-header
+  padding-bottom: 7px
+  color: rgba(128, 128, 128, 0.9)
+  border-bottom: 1px solid rgba(128, 128, 128, 0.25)
+  transition: color 0.75s ease-in-out
+
+.home-card-header:hover
+  color: $PRIMARY-GLUEC-COLOR
+
+#image-near-footer
+  background-image: url('../media/images/bg3.jpg')
+  background-size: cover
+  height: 50vh
+  width: 100%
+  margin-bottom: 0
+
+
+#scroll-arrow
+  position: absolute
+  bottom: 0
+  left: auto
+  right: 0
+  width: 40px
+  height: 40px
+  animation: bounce 1s linear
+
+.arrow-icon
+  color: #CCCCCC
+  position: absolute
+  bottom: 0
+  right: 10px
+
+@keyframes bounce
+  0%, 20%, 50%, 80%, 100%
+    transform: translateY(0)
+    background-color: rgba(255,255,255,1)
+  40%
+    transform: translateY(-30px)
+
+  60%
+    transform: translateY(-15px)
+    background-color: rgba(255,255,255,0)
+
+.fix-top
+  position: fixed
+  z-index: 5
+  top: 0
+//@media all and (min-width: 640px)
+
+.div-15
+  min-height: 15vh

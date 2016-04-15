@@ -1,13 +1,7 @@
-nav {
-  background-color: #000000; }
-
 .main-content {
   min-height: 80vh !important; }
 
 /*width: 100vw; */
-footer {
-  background-color: #000000 !important; }
-
 .icon-block {
   padding: 0 15px; }
 
@@ -28,21 +22,6 @@ footer {
   width: auto;
   height: auto; }
 
-.main-search-div {
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-image: url("../media/photo-1451186859696-371d9477be93.jpg"); }
-
-.landing-logo {
-  font-family: Rancho;
-  font-style: normal;
-  font-weight: 300;
-  font-size: 18vw;
-  color: rgba(255, 134, 0, 0.72);
-  text-shadow: 0.01em 0.01em 0 #fff, 0.05em 0.05em 0 #d7d7d7;
-  -webkit-text-shadow: 0.01em 0.01em 0 #fff, 0.05em 0.05em 0 #d7d7d7; }
-
 .div-40 {
   min-height: 40vh !important;
   margin-top: 10vh; }
@@ -56,7 +35,7 @@ footer {
   margin-top: 10vh; }
 
 .card .card-title {
-  font-size: 15px; }
+  font-size: 1em; }
 
 .card .card-content .card-title {
   line-height: 0; }
@@ -68,34 +47,152 @@ footer {
   font-size: 1.5rem;
   font-weight: 400; }
 
-.brand-logo {
-  font-family: Rancho;
-  font-style: normal;
-  text-shadow: 0.04em 0.04em 0 #fff, 0.08em 0.08em 0 #aaa;
-  -webkit-text-shadow: 0.04em 0.04em 0 #fff, 0.08em 0.08em 0 #aaa; }
-
 .margin-5 {
   margin: 5px; }
 
 .margin-10 {
   margin: 10px; }
 
-#login-alert {
-  display: none; }
-
-.btn {
-  background-color: #00838F; }
-
-.btn-large {
-  background-color: #00838F; }
-
-.btn:hover {
-  background-color: #009fab; }
-
 @media only screen and (min-width: 992px) {
   .card .pdp-image img {
     height: 100%;
     width: auto;
     margin: auto !important; } }
+#splash-image {
+  background-image: url("../media/images/bg.jpg");
+  background-size: cover;
+  height: 80vh;
+  width: 100%; }
+
+#inside-splash-container {
+  position: absolute;
+  top: 30%;
+  width: 100%;
+  text-shadow: 0px 2px 3px grey, 1px 1px 1px grey; }
+
+#splash-text {
+  font-family: "Noto Serif", serif; }
+
+.content-wrapper {
+  width: 100vw;
+  height: 100%; }
+
+#home-search {
+  text-align: center; }
+
+#home-cards {
+  font-family: "Raleway", sans-serif; }
+
+.home-card-header {
+  padding-bottom: 7px;
+  color: rgba(128, 128, 128, 0.9);
+  border-bottom: 1px solid rgba(128, 128, 128, 0.25);
+  transition: color 0.75s ease-in-out; }
+
+.home-card-header:hover {
+  color: #00838f; }
+
+#image-near-footer {
+  background-image: url("../media/images/bg3.jpg");
+  background-size: cover;
+  height: 50vh;
+  width: 100%;
+  margin-bottom: 0; }
+
+#scroll-arrow {
+  position: absolute;
+  bottom: 0;
+  left: auto;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  animation: bounce 1s linear; }
+
+.arrow-icon {
+  color: #CCCCCC;
+  position: absolute;
+  bottom: 0;
+  right: 10px; }
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+    background-color: white; }
+  40% {
+    transform: translateY(-30px); }
+  60% {
+    transform: translateY(-15px);
+    background-color: rgba(255, 255, 255, 0); } }
+.fix-top {
+  position: fixed;
+  z-index: 5;
+  top: 0; }
+
+.div-15 {
+  min-height: 15vh; }
+
+nav {
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  background-color: #00838f;
+  height: 55px !important;
+  line-height: 55px; }
+
+.nav-home {
+  background-color: rgba(25, 25, 25, 0.5); }
+
+.brand-logo {
+  padding-left: 1vw !important;
+  font-family: "Rancho", "Noto Serif", serif; }
+
+.button-collapse {
+  padding-left: 7px; }
+
+.page-footer {
+  background-color: rgba(0, 0, 0, 0.83) !important;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  color: #f7f7f7 !important; }
+
+#footer-company-info {
+  font-family: "Raleway", sans-serif;
+  padding: 40px;
+  color: #F7F7F7;
+  margin-bottom: 0;
+  border-bottom: 1px solid grey;
+  margin-bottom: 20px; }
+
+footer a {
+  color: #F7F7F7; }
+
+#side-menu-icon {
+  font-size: 2rem; }
+
+#side-links li {
+  padding-left: 10px;
+  transition: all 0.5s ease-in-out;
+  color: #E4E4E4; }
+#side-links li:hover {
+  padding-left: 10px;
+  background-color: #0b3e6f; }
+#side-links li a {
+  color: #F7F7F7;
+  padding: 0 10px 0 10px; }
+
+input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly]), input[type=url]:focus:not([readonly]), input[type=time]:focus:not([readonly]), input[type=date]:focus:not([readonly]), input[type=datetime-local]:focus:not([readonly]), input[type=tel]:focus:not([readonly]), input[type=number]:focus:not([readonly]), input[type=search]:focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid #00838f;
+  box-shadow: 0 1px 0 0 #00b2c2; }
+
+.card-action a {
+  color: #00838f !important; }
+
+.btn .btn-large {
+  background-color: #00838f; }
+
+.btn:hover {
+  background-color: #00e0f5; }
+
+#login-alert {
+  display: none; }
 
 /*# sourceMappingURL=style.css.map */

@@ -55,7 +55,7 @@ if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
 // connect to the database
 mongoose.connect(connectionString);
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public/app'));
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
 
 app.get('/hello', function (req, res) {

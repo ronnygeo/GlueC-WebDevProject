@@ -1,67 +1,56 @@
-<div class="navbar-fixed"
-     ng-controller="HeaderController">
-    <nav class="cyan darken-3"
-         role="navigation">
-        <div class="nav-wrapper container"><a id="logo-container"
-                                              href="#/home"
-                                              class="brand-logo">GlueC</a>
-            <ul class="right hide-on-med-and-down">
-                <li ng-show="user && user._id"
-                    ng-class="{active: $location.url() == '/profile'}"><a href="#/profile">
-                    <i class="material-icons left">perm_identity</i>Welcome
-                                                                    {{user.firstName}}</a></li>
-                <li ng-show="user && user._id"
-                    ng-class="{active: $location.url() == '/profile'}"><a ng-click="goToMessages()">
-                    <i class="fa fa-comments-o"
-                       aria-hidden="true"></i> Messages</a></li>
-                <li ng-show="user && user._id && user.roles !== undefined && user.roles.indexOf('admin') !== -1"
-                    ng-class="{active: $location.url() == '/admin'}"><a href="#/admin"><i class="material-icons left">perm_identity</i>Admin
-                </a></li>
-                <li ng-show="user && user.roles !== undefined && user.roles.indexOf('merchant') !== -1">
-                    <a href="#/dashboard"><i class="material-icons left">dashboard</i>Dashboard</a></li>
-                <li ng-show="user && user.roles == undefined || user.roles.indexOf('merchant') == -1">
-                    <a href="#/userdash"><i class="material-icons left">dashboard</i>User Dashboard</a></li>
-                <li><a href="#/listing/create"><i class="material-icons left">shopping_cart</i>Sell</a></li>
-                <li ng-hide="user"
-                    ng-class="{active: $location.url() == '/register'}"><a href="#/register">Register</a>
-                </li>
-                <li ng-hide="user"
-                    ng-class="{active: $location.url() == '/login'}"><a href="#/login">Login</a></li>
-                <li ng-show="user"><a ng-click="logout()">Logout</a></li>
-            </ul>
-            <ul id="nav-mobile"
-                class="side-nav">
-                <li ng-show="user && user._id"
-                    ng-class="{active: $location.url() == '/profile'}"><a href="#/profile">
-                    <i class="material-icons left">perm_identity</i>Welcome
-                                                                    {{user.firstName}}</a></li>
-                <li ng-show="user && user._id"
-                    ng-class="{active: $location.url() == '/profile'}"><a ng-click="goToMessages()">
-                    <i class="fa fa-comments-o"
-                       aria-hidden="true"></i> Messages</a></li>
-                <li ng-show="user && user.roles == undefined || user.roles.indexOf('merchant') == -1">
-                    <a href="#/userdash"><i class="material-icons left">dashboard</i>User Dashboard</a></li>
+<nav class="fix-top" ng-class="{'nav-home': $location.url() == '/'}" role="navigation" ng-controller="HeaderController">
+    <div class="nav-wrapper">
+        <a href="#/" class="brand-logo">GlueC</a>
+        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="fa fa-bars" id="side-menu-icon"></i></a>
+        <ul id="nav-med-up" class="right hide-on-med-and-down">
+            <li ng-show="user && user._id"
+                ng-class="{'active': $location.url() == '/profile'}"><a href="#/profile">
+                <i class="material-icons left">perm_identity</i>Welcome
+                {{user.firstName}}</a></li>
+            <li ng-show="user && user._id"
+                ng-class="{'active': $location.url() == '/profile'}"><a ng-click="goToMessages()">
+                <i class="fa fa-comments-o"
+                   aria-hidden="true"></i> Messages</a></li>
+            <li ng-show="user && user._id && user.roles !== undefined && user.roles.indexOf('admin') !== -1"
+                ng-class="{'active': $location.url() == '/admin'}"><a href="#/admin"><i class="material-icons left">perm_identity</i>Admin
+            </a></li>
+            <li ng-show="user && user.roles !== undefined && user.roles.indexOf('merchant') !== -1">
+                <a href="#/dashboard"><i class="material-icons left">dashboard</i>Dashboard</a></li>
+            <li ng-show="user && user.roles == undefined || user.roles.indexOf('merchant') == -1">
+                <a href="#/userdash"><i class="material-icons left">dashboard</i>User Dashboard</a></li>
+            <li><a href="#/listing/create"><i class="material-icons left">shopping_cart</i>Sell</a></li>
+            <li ng-hide="user"
+                ng-class="{'active': $location.url() == '/register'}"><a href="#/register">Register</a>
+            </li>
+            <li ng-hide="user"
+                ng-class="{'active': $location.url() == '/login'}"><a href="#/login">Login</a></li>
+            <li ng-show="user"><a ng-click="logout()">Logout</a></li>
+        </ul>
+        <ul class="side-nav" id="mobile-demo">
+            <li ng-show="user && user._id"
+                ng-class="{'active': $location.url() == '/profile'}"><a href="#/profile">
+                <i class="material-icons left">perm_identity</i>Welcome
+                {{user.firstName}}</a></li>
+            <li ng-show="user && user._id"
+                ng-class="{'active': $location.url() == '/profile'}"><a ng-click="goToMessages()">
+                <i class="fa fa-comments-o"
+                   aria-hidden="true"></i> Messages</a></li>
+            <li ng-show="user && user.roles == undefined || user.roles.indexOf('merchant') == -1">
+                <a href="#/userdash"><i class="material-icons left">dashboard</i>User Dashboard</a></li>
 
-                <li ng-show="user && user._id && user.roles !== undefined && user.roles.indexOf('admin') !== -1"
-                    ng-class="{active: $location.url() == '/admin'}"><a href="#/admin"><i class="material-icons left">perm_identity</i>Admin
-                </a></li>
-                <li ng-show="user"><a href="#/dashboard"><i class="material-icons left">dashboard</i>Dashboard</a></li>
-                <li><a href="#/listing/create"><i class="material-icons left">shopping_cart</i>Sell</a></li>
-                <li ng-hide="user"
-                    ng-class="{active: $location.url() == '/register'}"><a href="#/register">Register</a>
-                </li>
-                <li ng-hide="user"
-                    ng-class="{active: $location.url() == '/login'}"><a href="#/login">Login</a></li>
-                <li ng-show="user"><a ng-click="logout()">Logout</a></li>
-            </ul>
-            <a href="#"
-               mobile-nav
-               data-activates="nav-mobile"
-               class="button-collapse"><i
-                    class="material-icons">menu</i></a>
-        </div>
-    </nav>
-</div>
+            <li ng-show="user && user._id && user.roles !== undefined && user.roles.indexOf('admin') !== -1"
+                ng-class="{'active': $location.url() == '/admin'}"><a href="#/admin"><i class="material-icons left">perm_identity</i>Admin
+            </a></li>
+            <li ng-show="user"><a href="#/dashboard"><i class="material-icons left">dashboard</i>Dashboard</a></li>
+            <li><a href="#/listing/create"><i class="material-icons left">shopping_cart</i>Sell</a></li>
+            <li ng-hide="user"
+                ng-class="{'active': $location.url() == '/register'}"><a href="#/register">Register</a>
+            </li>
+            <li ng-hide="user"
+                ng-class="{'active': $location.url() == '/login'}"><a href="#/login">Login</a></li>
+            <li ng-show="user"><a ng-click="logout()">Logout</a></li>
+        </ul>
+    </div>
 
 <!--<div class="fixed-action-btn horizontal">-->
 <!--<a class="btn-floating btn-large red">-->
