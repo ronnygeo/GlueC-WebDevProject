@@ -54,7 +54,7 @@
   margin: 10px; }
 
 .navbar-padding-fix {
-  padding-top: 60px; }
+  padding-top: 55px; }
 
 .hide-content {
   display: none; }
@@ -146,7 +146,7 @@
     background-position-y: 0px !important; } }
 nav {
   font-family: "Roboto", sans-serif;
-  font-weight: 100;
+  font-weight: normal;
   background-color: #00838f;
   height: 55px !important;
   line-height: 55px; }
@@ -184,7 +184,6 @@ footer a {
 .dashboard-wrapper {
   width: 100%;
   height: 100%;
-  padding-top: 55px;
   color: white; }
 
 #main-dashboard-wrapper {
@@ -238,33 +237,4 @@ body {
 #login-alert {
   display: none; }
 
-.publishListingCard .col {
-  padding-right: 0px;
-!important;
-
-}
-
-.publishListingCard .row {
-  margin: 0px;
-!important;
-
-}
-
-.publishListingCard .card {
-  margin: 10vh 0px 0px 0px;
-  box-shadow: none;
-}
-
-.publishListingCard .card .card-content {
-  padding-left: 0px;
-  padding-right: 0px;
-}
-
-.publishListingCard .card .card-content .collection-item {
-  border-top: 1px solid #e0e0e0;
-}
-
-.publishListingCard .card .card-content .collection-item p {
-  margin: 0px;
-  padding: 0px;
-}
+/*# sourceMappingURL=style.css.map */

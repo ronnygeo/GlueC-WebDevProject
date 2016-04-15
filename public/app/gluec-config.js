@@ -37,11 +37,31 @@
                     templateUrl: 'views/dashboard/dashboard.view.html',
                     controllerAs: 'dc'
                 })
-                .when('/userdash', {
-                    controller: 'UserDashboardController',
-                    templateUrl: 'views/dashboard/dashboard.user.view.html',
-                    controllerAs: 'cc'
+                .when('/dashboard/users', {
+                    controller: 'DashboardController',
+                    templateUrl: 'views/dashboard/dashboard.view.html',
+                    controllerAs: 'dc'
                 })
+                .when('/dashboard/catalogs', {
+                    controller: 'DashboardController',
+                    templateUrl: 'views/dashboard/dashboard.view.html',
+                    controllerAs: 'dc'
+                })
+                .when('/dashboard/products', {
+                    controller: 'DashboardController',
+                    templateUrl: 'views/dashboard/dashboard.view.html',
+                    controllerAs: 'dc'
+                })
+                .when('/dashboard/profile', {
+                    controller: 'DashboardController',
+                    templateUrl: 'views/dashboard/dashboard.view.html',
+                    controllerAs: 'dc'
+                })
+                // .when('/userdash', {
+                //     controller: 'UserDashboardController',
+                //     templateUrl: 'views/dashboard/dashboard.user.view.html',
+                //     controllerAs: 'cc'
+                // })
                 .when('/item/:providerId/:productId', {
                     controller: 'PDPController',
                     templateUrl: 'views/product/pdp.view.html',
