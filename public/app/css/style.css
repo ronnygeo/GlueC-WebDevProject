@@ -231,4 +231,33 @@ body {
 #login-alert {
   display: none; }
 
-/*# sourceMappingURL=style.css.map */
+.publishListingCard .col {
+  padding-right: 0px;
+!important;
+
+}
+
+.publishListingCard .row {
+  margin: 0px;
+!important;
+
+}
+
+.publishListingCard .card {
+  margin: 10vh 0px 0px 0px;
+  box-shadow: none;
+}
+
+.publishListingCard .card .card-content {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.publishListingCard .card .card-content .collection-item {
+  border-top: 1px solid #e0e0e0;
+}
+
+.publishListingCard .card .card-content .collection-item p {
+  margin: 0px;
+  padding: 0px;
+}

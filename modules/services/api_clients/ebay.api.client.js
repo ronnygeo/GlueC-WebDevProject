@@ -20,7 +20,7 @@ module.exports = function (q) {
         trading: {
             function: trading,
             AUTH_TOKEN: AUTH_TOKEN,
-            uploadImage:uploadImage,
+            uploadImage: uploadImage,
             SANDBOX_URL: "http://cgi.sandbox.ebay.com/"
         }
     };
@@ -28,7 +28,7 @@ module.exports = function (q) {
 
     function trading(functionToCall, requestData) {
         console.log("Calling Ebay Trading API for [" + functionToCall + "]");
-        console.log("Request Data :: [[" +requestData+"]]");
+        console.log("Request Data :: [[" + requestData + "]]");
         var deferred = q.defer();
         var client = new Client();
         var args = {
@@ -58,7 +58,7 @@ module.exports = function (q) {
             if (Buffer.isBuffer(data)) {
                 data = data.toString('utf8');
                 console.log(data);
-                parseString(data, function (err, result) {
+                parseString(data, {attrkey: '@'}, function (err, result) {
                     console.log(result);
                     deferred.resolve(result);
                 });
@@ -90,7 +90,7 @@ module.exports = function (q) {
                 "X-EBAY-API-SITEID": 0,
                 "X-EBAY-API-CALL-NAME": 'UploadSiteHostedPictures'
             },
-            data: {"xml_payload":xml_payload, "file_payload":imageFile},
+            data: {"xml_payload": xml_payload, "file_payload": imageFile},
             requestConfig: {
                 timeout: 1000, //request timeout in milliseconds
                 noDelay: true, //Enable/disable the Nagle algorithm

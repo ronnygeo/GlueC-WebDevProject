@@ -4,7 +4,7 @@ module.exports = function (mongoose) {
         ebayListingUrl: String,
         parentCategory: String,
         subCategory: String,
-        itemCondition: String,
+        itemCondition: {},
         listingType: String,
         paymentMethod: String,
         returnPolicyEnabled: String,
