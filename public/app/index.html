@@ -33,11 +33,6 @@
     <link href="https://fonts.googleapis.com/css?family=Rancho&effect=shadow-multiple" rel="stylesheet"
           type='text/css'/>
 
-    <!--Home Fonts-->
-    <link href='https://fonts.googleapis.com/css?family=Noto+Serif' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Raleway:400,300' rel='stylesheet' type='text/css'>
-
-
 </head>
 <body ng-controller="MainController">
 <!--Header-->
@@ -50,8 +45,7 @@
 <div ng-view ng-class="{'navbar-padding-fix': $location.url() != '/' && $location.url() != '/dashboard'}"></div>
 
 <!--Footer-->
-<div ng-if="$location.url() != '/'" ng-include="'views/footer/footer.view.html'"></div>
-<div ng-if="$location.url() == '/'" ng-include="'views/footer/footer.home.view.html'"></div>
+<div ng-include="'views/footer/footer.view.html'"></div>
 
 <!--Import jQuery before materialize.js-->
 <!--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>-->

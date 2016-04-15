@@ -2,7 +2,8 @@
     ng-switch="card.type"
     class="collapsible popout"
     data-collapsible="accordion">
-    <li ng-switch-when="parentCategory">
+    <li ng-switch-when="parentCategory"
+        class="white">
         <div ng-if="card.header==''"
              class="collapsible-header active">
             <i class="fa fa-sitemap"
@@ -25,7 +26,8 @@
             </div>
         </div>
     </li>
-    <li ng-switch-when="subCategory">
+    <li ng-switch-when="subCategory"
+        class="white">
         <div ng-if="card.header==''"
              class="collapsible-header active">
             <i class="fa fa-sitemap"
@@ -47,7 +49,8 @@
                    class="collection-item btn-flat">{{category.name}}</a>
             </div>
         </div>
-    <li ng-switch-when="uploadImage">
+    <li ng-switch-when="uploadImage"
+        class="white">
         <div ng-if="card.header==''"
              class="collapsible-header active">
             <i class="fa fa-picture-o"
@@ -81,7 +84,8 @@
             </div>
         </div>
     </li>
-    <li ng-switch-when="otherDetails">
+    <li ng-switch-when="otherDetails"
+        class="white">
         <div class="collapsible-header active">
             <!--<i class="material-icons">filter_drama</i>-->
             <i class="fa fa-list-alt"
@@ -157,7 +161,8 @@
             </div>
         </div>
     </li>
-    <li ng-switch-when="publishListing">
+    <li ng-switch-when="publishListing"
+        class="publishListingCard white">
         <div class="collapsible-header active">
             <!--<i class="material-icons">filter_drama</i>-->
             <i class="fa fa-check-square-o"
@@ -165,14 +170,46 @@
             Published
         </div>
         <div class="collapsible-body">
-            <div class="margin-10">
-                <div class="row">
-                    <div class="col s12">
-                        <h5>Awesome. Your Listing is Live.</h5>
-                        <a href="{{card.data.ebay.ebayListingUrl}}">{{card.data.ebay.ebayListingUrl}}</a>
-                    </div>
+            <div class="card">
+                <col>
+                <div class="card-image pdp-image center-align">
+                    <a target="_blank"
+                       href="{{card.data.ebay.ebayListingUrl}}">
+                        <img ng-src="{{card.data.ebay.siteHostedPictureDetails.FullURL[0]}}"
+                             alt="Product Image">
+                    </a>
+                    <span class="card-title">{{card.data.title}}</span>
+                </div>
+                <div class="card-content">
+                    <ul class="collection">
+                        <li class="collection-item avatar">
+                            <i class="fa fa-puzzle-piece circle"
+                               aria-hidden="true"></i>
+                            <span class="title">Model</span>
+                            <p>{{card.data.model}}
+                            </p>
+                        </li>
+                        <li class="collection-item avatar">
+                            <i class="fa fa-usd circle"
+                               aria-hidden="true"></i>
+                            <span class="title">Price</span>
+                            <p>{{card.data.price}}
+                            </p>
+                        </li>
+                        <li class="collection-item avatar">
+                            <i class="fa fa-list-alt circle"
+                               aria-hidden="true"></i>
+                            <span class="title">Description</span>
+                            <p>{{card.data.description}}
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-action center-align">
+                    <a href="#/dashboard">Goto Dashboard</a>
+                    <a target="_blank"
+                       href="{{card.data.ebay.ebayListingUrl}}">See on Ebay</a>
                 </div>
             </div>
-        </div>
     </li>
 </ul>

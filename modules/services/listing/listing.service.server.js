@@ -42,7 +42,13 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
                         .then(function (listingDoc) {
                             console.log(listingDoc);
                             //Step3: Save Publish Details to DB
-                            listingModel.isComplete = true;
+                            listingDoc.isComplete = true;
+                            listingDoc.title = listing.title;
+                            listingDoc.description = listing.description;
+                            listingDoc.price = listing.price;
+                            listingDoc.mpn = listing.mpn;
+                            listingDoc.model = listing.model;
+                            listingDoc.ebay.itemCondition = listing.ebay.itemCondition;
                             listingDoc.ebay.ebayListingItemId = response;
                             listingDoc.ebay.ebayListingUrl = ebayAPIClient.trading.SANDBOX_URL + response;
                             listingModel.ebay.saveListing(listingDoc)
