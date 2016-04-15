@@ -18,6 +18,7 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
             listingModel.ebay.createNewListing(mapListing(listing))
                 .then(function (listingDoc) {
                     console.log(listingDoc);
+
                     res.json(listingDoc);
                 }, function (err) {
                     console.log(err);
@@ -77,11 +78,15 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
 
         if (listing.providerId == "10001") {
             //Step1: Create New Listing
-            listingModel.ebay.createNewListing(mapListing(listing))
+            listingModel.ebay.getListingById(listing._id)
                 .then(function (response) {
-                    console.log("Step One Completed");
                     console.log(response);
                     newDbListing = response;
+
+                    //Add Categories
+                    newDbListing.ebay.parentCategory = listing.selectedParentCategory;
+                    newDbListing.ebay.subCategory = listing.selectedSubCategory;
+
                     //Step2: Save Image and Ebay Url In Database
                     uploadImageToEbay(req.file)
                         .then(function (response) {
@@ -92,7 +97,8 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
                             getFeaturesForEbayCategory(newDbListing.ebay.parentCategory)
                                 .then(function (response) {
                                     console.log(response);
-                                    //Sending New Listing Back to the Client.4
+
+                                    //Sending New Listing Back to the Client
                                     newDbListing.ebay.categoryDetails = response;
                                     console.log(newDbListing);
 

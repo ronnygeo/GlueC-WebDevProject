@@ -5,12 +5,15 @@
     <li ng-switch-when="parentCategory">
         <div ng-if="card.header==''"
              class="collapsible-header active">
-            <i class="material-icons">filter_drama</i>
+            <i class="fa fa-sitemap"
+               aria-hidden="true"></i>
+            <!--<i class="material-icons">filter_drama</i>-->
             Select a Category
         </div>
         <div ng-if="card.header!=''"
              class="collapsible-header active">
-            <i class="material-icons">filter_drama</i>
+            <i class="fa fa-sitemap"
+               aria-hidden="true"></i>
             {{card.header}}
         </div>
         <div class="collapsible-body">
@@ -25,12 +28,15 @@
     <li ng-switch-when="subCategory">
         <div ng-if="card.header==''"
              class="collapsible-header active">
-            <i class="material-icons">filter_drama</i>
+            <i class="fa fa-sitemap"
+               aria-hidden="true"></i>
+            <!--<i class="material-icons">filter_drama</i>-->
             Select a Sub Category
         </div>
         <div ng-if="card.header!=''"
              class="collapsible-header active">
-            <i class="material-icons">filter_drama</i>
+            <i class="fa fa-sitemap"
+               aria-hidden="true"></i>
             {{card.header}}
         </div>
         <div class="collapsible-body">
@@ -44,12 +50,15 @@
     <li ng-switch-when="uploadImage">
         <div ng-if="card.header==''"
              class="collapsible-header active">
-            <i class="material-icons">filter_drama</i>
+            <i class="fa fa-picture-o"
+               aria-hidden="true"></i>
+            <!--<i class="material-icons">filter_drama</i>-->
             Add Image
         </div>
         <div ng-if="card.header!=''"
              class="collapsible-header active">
-            <i class="material-icons">filter_drama</i>
+            <i class="fa fa-picture-o"
+               aria-hidden="true"></i>
             {{card.header}}
         </div>
         <div class="collapsible-body">
@@ -72,9 +81,11 @@
             </div>
         </div>
     </li>
-    <li ng-switch-when="newListing">
+    <li ng-switch-when="otherDetails">
         <div class="collapsible-header active">
-            <i class="material-icons">filter_drama</i>
+            <!--<i class="material-icons">filter_drama</i>-->
+            <i class="fa fa-list-alt"
+               aria-hidden="true"></i>
             Final Details
         </div>
         <div class="collapsible-body">
@@ -148,7 +159,9 @@
     </li>
     <li ng-switch-when="publishListing">
         <div class="collapsible-header active">
-            <i class="material-icons">filter_drama</i>
+            <!--<i class="material-icons">filter_drama</i>-->
+            <i class="fa fa-check-square-o"
+               aria-hidden="true"></i>
             Published
         </div>
         <div class="collapsible-body">
