@@ -26,7 +26,7 @@ module.exports = function (app, request, q, upload, mongoose, uuid) {
     var ebayListingDB = mongoose.model("EbayListing", ebayListingSchema);
     var listingDB = mongoose.model("Listing", listingSchema);
     var listingModel = require("./models/listing/listing.model")(listingDB, ebayListingDB, q);
-    require("./services/listing/listing.service.server")(app, q, listingModel, categoryModel, ebayAPIClient, upload, amazonAPIClient, uuid);
+    require("./services/listing/listing.service.server")(app, q, listingModel, categoryModel, ebayAPIClient, upload, amazonAPIClient, uuid, categoryService);
 
 
     //require("./services/image/clarfai.image.service")();

@@ -12,20 +12,21 @@ module.exports = function (app, categoryModel, q, ebayAPIClient) {
     var api = {
         ebay: {
             fetchTopCategories: fetchTopCategoriesFromEbay,
-            fetchSubCategories: fetchSubCategoriesFromEbay
+            fetchSubCategories: fetchSubCategoriesFromEbay,
+            fetchCategoryDetails: fetchCategoryDetailsFromEbay
         }
     };
     return api;
+
+
 
     function getFeaturesForCategory(req, res) {
         console.log("Inside CategoryService.getFeaturesForCategory");
         var subCategoryId = req.params.subCategoryId;
 
         if (req.params.providerId == "10001") {
-            categoryModel.ebay
-                .getFeaturesForCategory(subCategoryId)
+            fetchCategoryDetailsFromEbay(subCategoryId)
                 .then(success_callback, error_callback);
-
             function success_callback(response) {
                 console.log(response);
                 res.json(response);
@@ -145,5 +146,67 @@ module.exports = function (app, categoryModel, q, ebayAPIClient) {
         }
         return categories;
     }
+
+
+    function fetchCategoryDetailsFromEbay(subCategoryId) {
+        var deferred = q.defer();
+        var functionToCall = "GetCategoryFeatures";
+        var requestData = '<?xml version="1.0" encoding="utf-8"?>' +
+            '<GetCategoryFeaturesRequest  xmlns="urn:ebay:apis:eBLBaseComponents">' +
+            '<RequesterCredentials>' +
+            '<eBayAuthToken>' +
+            ebayAPIClient.trading.AUTH_TOKEN +
+            '</eBayAuthToken>' +
+            '</RequesterCredentials>' +
+            '<WarningLevel>High</WarningLevel>' +
+            '<CategoryID>' + subCategoryId + '</CategoryID>' +
+            '<DetailLevel>ReturnAll</DetailLevel>' +
+            '<ViewAllNodes >True</ViewAllNodes >' +
+            '<AllFeaturesForCategory >True</AllFeaturesForCategory >' +
+            '</GetCategoryFeaturesRequest>';
+        ebayAPIClient.trading.function(functionToCall, requestData)
+            .then(function (response) {
+                console.log(response.GetCategoryFeaturesResponse.Category[0]);
+                deferred.resolve(mapCategoryDetails(response.GetCategoryFeaturesResponse.Category[0]));
+            }, function (err) {
+                console.log(err);
+                deferred.reject(err);
+            });
+        return deferred.promise;
+
+    }
+
+    function mapCategoryDetails(categoryDetails) {
+
+        /*Map Listing Duration*/
+        var listingDuration = categoryDetails.ListingDuration;
+        var newListingDuration = [];
+        for (var index in listingDuration) {
+            var dur = listingDuration[index]._;
+            console.log(dur);
+            newListingDuration.push(dur)
+        }
+        console.log(newListingDuration);
+
+        /*Map Condition*/
+        var conditionArray = categoryDetails.ConditionValues[0].Condition;
+        var newConsitionArray = [];
+        for (var i in conditionArray) {
+            newConsitionArray.push(
+                {
+                    'DisplayName': conditionArray[i].DisplayName[0],
+                    'ID': conditionArray[i].ID[0]
+                }
+            )
+        }
+        console.log(newConsitionArray);
+
+        categoryDetails.ListingDuration = newListingDuration;
+        categoryDetails.ConditionValues = newConsitionArray;
+
+        return categoryDetails;
+
+    }
+
 
 };
