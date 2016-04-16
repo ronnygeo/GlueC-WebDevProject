@@ -1,25 +1,43 @@
-<br>
-<div class="container">
+<div class="main-content">
     <div class="row">
         <div class="col offset-s1 s10">
-            <h2>Inbox</h2>
-            <ul class="collection collapsible popout">
-    <li class="collection-item avatar grey" style="color: black" ng-repeat="message in mc.messages" data-collapsible="accordion">
-        <div class="collapsible-header white darken">
-            <i class="material-icons circle blue">insert_chart</i>
-        <span class="title">{{message.from}}</span>
-        <p>{{message.subject}}</p>
-        <!--<a ng-show="message.unread" class="secondary-content"><i class="material-icons">grade</i></a>-->
-        </div>
-        <div class="collapsible-body white darken" style="color: black"><p>{{message.message}}</p>
-            <div class="row">
-                <div class="modal-trigger btn blue" data-target="message-modal">reply</div>
-            </div>
-        </div>
-    </li>
-</ul>
+            <h5>Messages</h5>
+            <br>
+            <ul class="collection collapsible" data-collapsible="accordion">
+                <li ng-repeat="message in mc.messages">
+                    <div class="collapsible-header collection-item avatar">
+                        <img src="{{message.imageUrl}}" alt="" class="circle">
+                        <span class="title">{{message.from}}</span>
+                        <p>{{message.subject}}</p>
+                        <a href="#!" class="secondary-content" ng-click="mc.deleteMessage($index)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                    </div>
+                    <div class="collapsible-body">
+                        <p>{{message.message}}</p>
+                    <button ng-click="mc.reply($index)" class="waves-effect waves-light btn modal-trigger">Reply</button>
+                    </div>
+                    <br>
+                </li>
+                </ul>
         </div>
     </div>
+<div class="row">
+    <div class="card">
+        <div class="card-content">
+            <div class="row">
+                <h5>New Message</h5>
+
+                <div class="col s12">
+                    <label for="catalog">Select User</label>
+                    <select name="catalog" id="catalog" ng-model="mc.message.to">
+                        <option ng-repeat="user in mc.users" value="{{user._id}}">{{user.firstName}} {{user.lastName}}</option>
+                    </select>
+                </div>
+
+                <button data-target="message-modal" class="btn waves-effect modal-trigger">Message</button>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 
 <!-- Modal Structure -->

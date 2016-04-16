@@ -15,6 +15,8 @@
         var api = {
             findUserByCredentials: findUserByCredentials,
             findUserById: findUserById,
+            findUserByIdMinimal: findUserByIdMinimal,
+            findAllUsersAdmin: findAllUsersAdmin,
             findAllUsers: findAllUsers,
             createUser: createUser,
             deleteUserById: deleteUserById,
@@ -25,6 +27,11 @@
         function findUserById(userId) {
             return $http.get("/api/user/"+userId);
         }
+
+        function findUserByIdMinimal(userId) {
+            return $http.get("/api/user/"+userId+"/min");
+        }
+
         //Accepts parameters username, password, and callback function
         //Iterates over the array of current users looking for user object
         // whose username and password match the parameters
@@ -37,8 +44,15 @@
         //findAllUsers(callback)
         //Accepts parameter callback function
         //Calls back with array of all u
-        function findAllUsers() {
+        function findAllUsersAdmin() {
             return $http.get("/api/users");
+        }
+
+        //findAllUsers(callback)
+        //Accepts parameter callback function
+        //Calls back with array of all u
+        function findAllUsers() {
+            return $http.get("/api/user/users");
         }
 
         //Accepts parameters user object and callback function

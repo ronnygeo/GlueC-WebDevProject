@@ -23,16 +23,11 @@
 
         //Event Handler Deceleration
         $scope.logout = logout;
-        $scope.goToMessages = goToMessages;
 
         //Event Handler Implementation
         function logout() {
             delete $rootScope.user;
             $location.url("/login");
-        }
-
-        function goToMessages() {
-            $location.url('/user/'+$rootScope.user._id+'/messages');
         }
     }
 })();

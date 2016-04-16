@@ -5,7 +5,7 @@
         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="fa fa-bars" id="side-menu-icon"></i></a>
         <ul id="nav-med-up" class="right hide-on-med-and-down">
             <li ng-show="user && user._id"
-                ng-class="{'active': $location.url() == '/profile'}"><a ng-click="goToMessages()">Messages</a></li>
+                ng-class="{'active': $location.url() == '/profile'}"><a href="#/messages">Messages</a></li>
             <li ng-show="user">
                 <a href="#/dashboard">Dashboard</a></li>
             <li><a href="#/sell">Sell</a></li>
@@ -18,7 +18,7 @@
         </ul>
         <ul class="side-nav" id="mobile-demo">
             <li ng-show="user && user._id"
-                ng-class="{'active': $location.url() == '/profile'}"><a ng-click="goToMessages()">Messages</a></li>
+                ng-class="{'active': $location.url() == '/profile'}"><a href="#/messages">Messages</a></li>
             <li ng-show="user"><a href="#/dashboard">Dashboard</a></li>
             <li><a href="#/sell">Sell</a></li>
             <li ng-hide="user"

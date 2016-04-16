@@ -2,14 +2,16 @@
  * Created by ronnygeo on 3/24/16.
  */
 module.exports = function (app, userModel) {
-    app.get("/api/users", findAllUsers);
+    app.get("/api/users", findAllUsersAdmin);
+    app.get("/api/user/users", findAllUsers);
     app.get("/api/user/:id", findUserById);
+    app.get("/api/user/:id/min", findUserByIdMinimal);
     app.get("/api/user", findUserByCredentials);
     app.post("/api/user", registerUser);
     app.put("/api/user/:id", updateUser);
     app.delete("/api/user/:id", deleteUser);
 
-    function findAllUsers(req, res) {
+    function findAllUsersAdmin(req, res) {
         userModel
             .findAllUsers()
             .then(function(data){
@@ -20,12 +22,37 @@ module.exports = function (app, userModel) {
             res.status(404).send(err);
         });
     }
+
+    function findAllUsers(req, res) {
+        userModel
+            .findAllUsers()
+            .then(function(data){
+                delete data.password;
+                    // console.log(data);
+                    res.json(data);
+                },
+                function (err) {
+                    res.status(404).send(err);
+                });
+    }
+
     function findUserById(req, res) {
         var userId = req.params['id'];
         userModel.findUserById(userId).then(function (data) {
             // console.log(data);
             res.json(data);
         },
+            function (err) {
+                res.status(404).send(err);
+            });
+    }
+
+    function findUserByIdMinimal(req, res) {
+        var userId = req.params['id'];
+        userModel.findUserById(userId).then(function (data) {
+                delete data.password;
+                res.json(data);
+            },
             function (err) {
                 res.status(404).send(err);
             });

@@ -19,7 +19,7 @@
                 $('select').material_select();
         });
 
-        UserService.findAllUsers().then(function (data) {
+        UserService.findAllUsersAdmin().then(function (data) {
             vm.users = [];
             vm.users = data.data;
             vm.user = {};
