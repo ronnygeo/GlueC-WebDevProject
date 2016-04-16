@@ -24,7 +24,7 @@
 
         init();
         function sellDirect() {
-            $location.url("/listing/create");
+            $location.url("/listing/direct/create");
         }
 
         function sellSearch() {

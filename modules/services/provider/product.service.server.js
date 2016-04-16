@@ -1,13 +1,47 @@
-module.exports = function (app, ProductModel) {
+/**
+ * Created by Bhanu on 15/04/2016.
+ */
+module.exports = function (app, productModel, providerModel) {
 
     app.get("/api/getSingleItem/:providerId/:itemId", getSingleItem);
     app.get("/api/getItems/:keyword", findItemsAdvanced);
+    app.get("/api/providers/", getProvidersForUser);
+    app.post("/api/providers/", addProviderForUser);
+
+    function getProvidersForUser(req, res) {
+        console.log("Server getProvidersForUser");
+        var userId = req.params.userId;
+        console.log(userId);
+        providerModel.getProvidersForUser(userId)
+            .then(function (response) {
+                console.log(response);
+                res.json(response);
+            }, function (err) {
+                console.log(err);
+                res.statusCode(404).send(err);
+            })
+
+
+    }
+
+    function addProviderForUser(req, res) {
+        console.log("Server getProvidersForUser");
+        var provider = req.body;
+        providerModel.addProviderForUser(provider)
+            .then(function (response) {
+                console.log(response);
+                res.json(response);
+            }, function (err) {
+                console.log(err);
+                res.statusCode(404).send(err);
+            })
+    }
 
     function getSingleItem(req, res) {
 
         /*Getting Single Item from Ebay*/
         if (req.params.providerId == "10001") {
-            ProductModel.ebay
+            productModel.ebay
                 .getSingleItem(req.params.itemId)
                 .then(success_callback, error_callback);
 
@@ -31,13 +65,13 @@ module.exports = function (app, ProductModel) {
         /*Get Items from all the providers*/
 
         /*Getting the items from ebay*/
-        ProductModel
+        productModel
             .ebay.findItemsAdvanced(req.params.keyword)
             .then(success_callback, error_callback);
 
         function success_callback(response) {
             //console.log(response);
-            ProductModel.amazon.findItemsByKeywords(req.params.keyword).then(function (data) {
+            productModel.amazon.findItemsByKeywords(req.params.keyword).then(function (data) {
                 // console.log(data);
                 response.push(data);
                 response.sort();

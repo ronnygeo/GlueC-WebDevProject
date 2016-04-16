@@ -78,9 +78,9 @@
                     templateUrl: 'views/product/pdp.view.html',
                     controllerAs: "model"
                 })
-                .when('/listing/create', {
+                .when('/listing/direct/create', {
                     controller: 'CreateListingController',
-                    templateUrl: 'views/listing/create-listing.view.html',
+                    templateUrl: 'views/listing/direct/create-listing.view.html',
                     controllerAs: "model"
                 })
                 .when('/listing/interactive', {

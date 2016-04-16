@@ -11,28 +11,6 @@
     UserService.$inject = ['$http'];
     function UserService($http) {
 
-        // var current_users = [
-        //     {
-        //         "_id": 123, "firstName": "Alice", "lastName": "Wonderland",
-        //         "username": "alice", "password": "alice", "roles": ["basic"], "email": "alice@test.com"
-        //     },
-        //     {
-        //         "_id": 234, "firstName": "Bob", "lastName": "Hope",
-        //         "username": "bob", "password": "bob", "roles": ["admin"], "email": "bob@test.com"
-        //     },
-        //     {
-        //         "_id": 345, "firstName": "Charlie", "lastName": "Brown",
-        //         "username": "charlie", "password": "charlie", "roles": ["pro"], "email": "charlie@test.com"
-        //     },
-        //     {
-        //         "_id": 456, "firstName": "Dan", "lastName": "Craig",
-        //         "username": "dan", "password": "dan", "roles": ["admin"], "email": "craig@test.com"
-        //     },
-        //     {
-        //         "_id": 567, "firstName": "Edward", "lastName": "Norton",
-        //         "username": "ed", "password": "ed", "roles": ["basic"], "email": "edward@test.com"
-        //     }
-        // ];
 
         var api = {
             findUserByCredentials: findUserByCredentials,

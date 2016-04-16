@@ -200,6 +200,15 @@
                 });
         }
 
+        function addProviderCard(){
+            var categoryCard = {
+                type: "provider",
+                data: [],
+                selectedData: "",
+                header: ""
+            };
+        }
+
         function addCategoryCard() {
             var categoryCard = {
                 type: "parentCategory",
