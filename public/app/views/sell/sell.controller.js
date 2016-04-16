@@ -14,11 +14,26 @@
 
         var SellController = this;
 
+        SellController.sellImage = sellImage;
+        SellController.sellSearch = sellSearch;
+        SellController.sellDirect = sellDirect;
+
         function init() {
 
         }
 
         init();
+        function sellDirect() {
+            $location.url("/listing/create");
+        }
+
+        function sellSearch() {
+
+        }
+
+        function sellImage() {
+
+        }
 
     }
 })();
