@@ -21,7 +21,5 @@
         function isUserMerchant() {
             return vm.user.roles.indexOf('merchant') != -1
         }
-
-
     }
 })();

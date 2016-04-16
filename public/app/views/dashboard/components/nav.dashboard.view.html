@@ -22,19 +22,19 @@
             <!-- Dropdown Trigger -->
             <a id="dashboard-dropdown-button" class='dropdown-button btn hide-on-med-and-up' data-beloworigin="true" data-activates='dropdown-options' style="width:100%">Menu</a>
             <ul id="dropdown-options" class="dropdown-content">
-                <li><a href="#/dashboard/users">Users</a></li>
-                <li><a href="#/dashboard/catalogs">Catalogs</a></li>
-                <li><a href="#/dashboard/products">Products</a></li>
-                <li disabled><a>Listings</a></li>
-                <li disabled><a>Providers</a></li>
+                <li><a href="#/dashboard/users" ng-show="dc.isUserAdmin()">Users</a></li>
+                <li><a href="#/dashboard/catalogs" ng-show="dc.isUserAdmin() || dc.isUserMerchant()">Catalogs</a></li>
+                <li><a href="#/dashboard/products" ng-show="dc.isUserAdmin() || dc.isUserMerchant()">Products</a></li>
+                <li ng-show="dc.isUserAdmin() || dc.isUserMerchant()" disabled><a>Listings</a></li>
+                <li ng-show="dc.isUserAdmin() || dc.isUserMerchant()" disabled><a>Providers</a></li>
                 <li href="#/dashboard/profile"><a>Profile</a></li>
             </ul>
             <ul class="hide-on-small-only" style="">
-                <a href="#/dashboard/users"><li>Users</li></a>
-                <a href="#/dashboard/catalogs"><li>Catalogs</li></a>
-                <a href="#/dashboard/products"><li>Products</li></a>
-                <a href="#/dashboard/listings"><li>Listings</li></a>
-                <a disabled><li disabled>Providers</li></a>
+                <a href="#/dashboard/users" ng-show="dc.isUserAdmin()"><li>Users</li></a>
+                <a href="#/dashboard/catalogs" ng-show="dc.isUserAdmin() || dc.isUserMerchant()"><li>Catalogs</li></a>
+                <a href="#/dashboard/products" ng-show="dc.isUserAdmin() || dc.isUserMerchant()"><li>Products</li></a>
+                <a ng-show="dc.isUserAdmin() || dc.isUserMerchant()" disabled><li>Listings</li></a>
+                <a disabled><li  ng-show="dc.isUserAdmin() || dc.isUserMerchant()"disabled>Providers</li></a>
                 <a href="#/dashboard/profile"><li>Profile</li><a>
             </ul>
         </div>

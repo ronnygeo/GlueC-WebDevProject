@@ -41,7 +41,7 @@
         }
 
         function goToUpdate(catalog) {
-            $location.url("/user/"+userId+"/catalog/"+catalog._id+"/edit");
+            $location.url("/dashboard/catalog/"+catalog._id+"/edit");
         }
 
         function updateCatalog(catId){

@@ -47,6 +47,11 @@
                     templateUrl: 'views/dashboard/dashboard.view.html',
                     controllerAs: 'dc'
                 })
+                .when('/dashboard/catalog/:catId/edit', {
+                    controller: 'DashboardController',
+                    templateUrl: 'views/dashboard/dashboard.view.html',
+                    controllerAs: 'dc'
+                })
                 .when('/dashboard/products', {
                     controller: 'DashboardController',
                     templateUrl: 'views/dashboard/dashboard.view.html',
@@ -88,51 +93,51 @@
                 //     templateUrl: 'views/admin/dashboard.admin.view.html',
                 //     controllerAs: 'admin'
                 // })
-                .when('/user/:id/catalog/:catId', {
-                    controller: 'ShowCatalogController',
-                    templateUrl: 'views/catalog/show/show.catalog.view.html',
-                    controllerAs: "cc"
-                })
-                .when('/user/:id', {
-                    controller: 'ShowUserController',
-                    templateUrl: 'views/users/show.user.view.html',
-                    controllerAs: "model"
-                })
+                // .when('/user/:id/catalog/:catId', {
+                //     controller: 'ShowCatalogController',
+                //     templateUrl: 'views/catalog/show/show.catalog.view.html',
+                //     controllerAs: "cc"
+                // })
+                // .when('/user/:id', {
+                //     controller: 'ShowUserController',
+                //     templateUrl: 'views/users/show.user.view.html',
+                //     controllerAs: "model"
+                // })
                 .when('/user/:id/messages', {
                     controller: 'MessageController',
                     templateUrl: 'views/messages/messages.view.html',
                     controllerAs: "mc"
                 })
-                .when('/user/:id/catalog', {
-                    controller: 'NewCatalogController',
-                    templateUrl: 'views/catalog/new/new.catalog.view.html',
-                    controllerAs: "cc"
-                })
-                .when('/user/:id/product', {
-                    controller: 'NewProductController',
-                    templateUrl: 'views/product/new.product.view.html',
-                    controllerAs: "pc"
-                })
-                .when('/user/:id/product/:prodId', {
-                    controller: 'ShowProductController',
-                    templateUrl: 'views/product/show.product.view.html',
-                    controllerAs: "model"
-                })
-                .when('/user/:id/product/:prodId/edit', {
-                    controller: 'EditProductController',
-                    templateUrl: 'views/product/edit.product.view.html',
-                    controllerAs: "pc"
-                })
-                .when('/user/:id/catalog/:catId/product', {
-                    controller: 'NewProductController',
-                    templateUrl: 'views/product/new.product.view.html',
-                    controllerAs: "pc"
-                })
-                .when('/user/:id/catalog/:catId/edit', {
-                    controller: 'EditCatalogController',
-                    templateUrl: 'views/catalog/edit/edit.catalog.view.html',
-                    controllerAs: "cc"
-                })
+                // .when('/user/:id/catalog', {
+                //     controller: 'NewCatalogController',
+                //     templateUrl: 'views/catalog/new/new.catalog.view.html',
+                //     controllerAs: "cc"
+                // })
+                // .when('/user/:id/product', {
+                //     controller: 'NewProductController',
+                //     templateUrl: 'views/product/new.product.view.html',
+                //     controllerAs: "pc"
+                // })
+                // .when('/user/:id/product/:prodId', {
+                //     controller: 'ShowProductController',
+                //     templateUrl: 'views/product/show.product.view.html',
+                //     controllerAs: "model"
+                // })
+                // .when('/user/:id/product/:prodId/edit', {
+                //     controller: 'EditProductController',
+                //     templateUrl: 'views/product/edit.product.view.html',
+                //     controllerAs: "pc"
+                // })
+                // .when('/user/:id/catalog/:catId/product', {
+                //     controller: 'NewProductController',
+                //     templateUrl: 'views/product/new.product.view.html',
+                //     controllerAs: "pc"
+                // })
+                // .when('/user/:id/catalog/:catId/edit', {
+                //     controller: 'EditCatalogController',
+                //     templateUrl: 'views/catalog/edit/edit.catalog.view.html',
+                //     controllerAs: "cc"
+                // })
                 .when('/test', {
                     templateUrl: 'views/dashboard/test.material.html'
                 })
