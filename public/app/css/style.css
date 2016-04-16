@@ -68,7 +68,6 @@
 #splash-image {
   background-image: url("../media/images/black-and-white-city-skyline-buildings.jpg");
   background-size: cover;
-  background-position-y: -15vh;
   height: 80vh;
   width: 100%; }
 
@@ -83,7 +82,8 @@
 
 .content-wrapper {
   width: 100vw;
-  height: 100%; }
+  height: 100%;
+  margin-top: -55px; }
 
 #home-search {
   text-align: center; }
@@ -117,7 +117,6 @@
   animation: bounce 1s linear; }
 
 .arrow-icon {
-  color: #CCCCCC;
   position: absolute;
   bottom: 0;
   right: 10px; }
@@ -147,10 +146,11 @@
     background-position-y: 0px !important; } }
 nav {
   font-family: "Roboto", sans-serif;
-  font-weight: normal;
+  font-weight: 100;
   background-color: #00838f;
   height: 55px !important;
-  line-height: 55px; }
+  line-height: 55px;
+  width: 100vw !important; }
 
 .nav-home {
   background-color: rgba(0, 0, 0, 0.3); }
@@ -228,7 +228,11 @@ input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]),
 
 body {
   background-color: #ebebeb;
-  color: #484848; }
+  color: #484848;
+  width: 100vw; }
+
+.main-outer-wrapper {
+  overflow-x: hidden; }
 
 .card-action a {
   color: white; }
@@ -241,5 +245,8 @@ body {
 
 #login-alert {
   display: none; }
+
+.navbar-fixed {
+  height: 55px; }
 
 /*# sourceMappingURL=style.css.map */
