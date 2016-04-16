@@ -27,7 +27,7 @@
         }
 
         function isLoggedIn() {
-            console.log($rootScope.user);
+            // console.log($rootScope.user);
             if ($rootScope.user == 'undefined') {
                 return false;
             } else {

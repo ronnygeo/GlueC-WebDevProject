@@ -1,19 +1,25 @@
 <div class="row" ng-controller="ProfileController as pc">
-    <div class="col s12">
-                <h5>Profile</h5>
-                <div class="row" ng-if="dc.user !== undefined">
-                    <div class="col s12 m10 offset-m1">
-                        Username: {{dc.user.username}}
-                        FirstName: {{dc.user.firstName}}
-                        Last Name: {{dc.user.lastName}}
-                        Email Address: {{dc.user.email}}
-                        You are a {{dc.user.roles}}
-                        <img src="{{dc.user.imageUrl}}" width="100%"/>
-
-                        <div class="row center">
-                            <a class="waves-effect waves-light btn" ng-click="pc.edit()">Edit</a>
-                        </div>
-                    </div>
-                </div>
+    <div class="card-content">
+        <div class="row">
+            <div class="col s12 m6">
+                <img src="{{dc.user.imageUrl}}" class="img-responsive"/>
+            </div>
+            <div class="col s6">
+                <table class="table">
+                    <thead>
+                    <h5>{{dc.user.firstName}} {{dc.user.lastName}}</h5>
+                    </thead>
+                    <tr></tr>
+                    <tr><td>Username</td><td>{{dc.user.username}}</td></tr>
+                    <tr><td>Email Address</td><td>{{dc.user.email}}</td></tr>
+                    <tr><td>Roles</td><td>{{dc.user.roles}}</td></tr>
+                </table>
             </div>
         </div>
+    </div>
+<div class="card-action">
+    <a class="waves-effect waves-light btn" ng-click="pc.edit()">Edit</a>
+</div>
+</div>
+
+

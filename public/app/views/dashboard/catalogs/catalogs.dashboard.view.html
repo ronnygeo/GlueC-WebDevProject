@@ -1,14 +1,23 @@
-<div ng-controller="ListCatalogController as cc">
-<div ng-repeat="catalog in cc.catalogs">
-    <ul>
-        <li>{{catalog.name}}</li>
-        <li>{{catalog.merchantId}}</li>
-        <li>{{catalog.productIds}}</li>
-        <li><button ng-click="cc.goToUpdate(catalog)">Update</button></li>
-        <li><button ng-click="cc.deleteCatalog(catalog._id)">Delete</button></li>
-    </ul>
+<div class="row" ng-if="dc.isUserMerchant() || dc.isUserAdmin()">
+    <div ng-controller="ListCatalogController as cc">
+        <div class="col s6">
+            <div class="card grey" ng-repeat="catalog in cc.catalogs">
+                <div class="card-content white-text">
+                    <span class="card-title">{{catalog.name}}</span>
+                    <p>{{catalog.productIds}}</p>
+                    <!--<h6>{{product.price}}</h6>-->
+                </div>
+                <div class="card-action">
+                    <a href="" ng-click="cc.goToUpdate(catalog)">Update</a>
+                    <a href= "" ng-click="cc.deleteCatalog(catalog._id)">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
+
+
+
 <div class="card-action center">
     <a class="btn waves-effect" href="#/dashboard/catalog/new">Add Catalog</a>
 </div>
