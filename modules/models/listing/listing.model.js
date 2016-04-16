@@ -2,21 +2,21 @@ module.exports = function (listingDB, ebayListingDB, q) {
 
 
     var api = {
+        createNewListing: createNewListing,
         ebay: {
-            createNewListing: createNewListing,
             addImageToListing: addImageToListing,
             populateFeatures: populateFeatures,
             saveListing: saveListing,
             updateListingById: updateListingById,
             addImageAndCategoryDetails: addImageAndCategoryDetails,
-            getListingById:getListingById
+            getListingById: getListingById
         }
 
     };
     return api;
 
 
-    function getListingById(listingId){
+    function getListingById(listingId) {
         return listingDB.findById(listingId);
     }
 
@@ -42,7 +42,7 @@ module.exports = function (listingDB, ebayListingDB, q) {
         );
     }
 
-    function    saveListing(listingDoc) {
+    function saveListing(listingDoc) {
         var deferred = q.defer();
         listingDoc.save(function (err, data) {
             if (err) {

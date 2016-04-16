@@ -67,7 +67,6 @@
                     templateUrl: 'views/dashboard/dashboard.view.html',
                     controllerAs: 'dc'
                 })
-
                 // .when('/userdash', {
                 //     controller: 'UserDashboardController',
                 //     templateUrl: 'views/dashboard/dashboard.user.view.html',
@@ -94,7 +93,7 @@
                 //     controllerAs: 'admin'
                 // })
                 // .when('/user/:id/catalog/:catId', {
-                //     controller: 'ShowCatalogController',
+                //     controlle    r: 'ShowCatalogController',
                 //     templateUrl: 'views/catalog/show/show.catalog.view.html',
                 //     controllerAs: "cc"
                 // })

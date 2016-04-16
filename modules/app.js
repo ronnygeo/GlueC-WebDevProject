@@ -9,19 +9,22 @@ module.exports = function (app, request, q, upload, mongoose, uuid) {
     require("./services/user/user.service.server")(app, userModel);
 
     var catalogModel = require('./models/catalog/catalog.model.js')(q, mongoose);
-    require("./services/catalog/catalog.service.js")(app, catalogModel);
+    require("./services/catalog/catalog.service.server.js")(app, catalogModel);
 
     var productModel = require("./models/product/product.model.js")(q, request, mongoose);
-    require("./services/product/product.service.js")(app, productModel);
+    require("./services/product/product.service.server.js")(app, productModel);
 
-    var providerModel = require("./models/provider/provider.schema.server")(mongoose);
-    require("./services/provider/product.service.server.js")(app, productModel, providerModel);
+    /*Provider*/
+    var providerSchema = require("./models/provider/provider.schema.server")(mongoose);
+    var providerDB = mongoose.model("Provider", providerSchema);
+    var providerModel = require("./models/provider/provider.model")(providerDB);
+    require("./services/provider/provider.service.server.js")(app, productModel, providerModel);
 
     var categoryModel = require("./models/category/category.model.js")(q, request, mongoose);
     var categoryService = require("./services/category/category.service.server")(app, categoryModel, q, ebayAPIClient);
 
     var MessageModel = require("./models/message/message.model.js")(q, mongoose);
-    require("./services/message/message.service.js")(app, MessageModel);
+    require("./services/message/message.service.server.js")(app, MessageModel);
 
     var listingSchema = require("./models/listing/listing.schema.server")(mongoose);
     var ebayListingSchema = require("./models/listing/ebay.listing.schema.server")(mongoose);

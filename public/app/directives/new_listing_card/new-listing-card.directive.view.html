@@ -2,6 +2,32 @@
     ng-switch="card.type"
     class="collapsible popout"
     data-collapsible="accordion">
+    <li ng-switch-when="provider"
+        class="white">
+        <div ng-if="card.header==''"
+             class="collapsible-header active">
+            <i class="fa fa-shopping-cart"
+               aria-hidden="true"></i>
+            <!--<i class="material-icons">filter_drama</i>-->
+            Select a Provider
+        </div>
+        <div ng-if="card.header!=''"
+             class="collapsible-header active">
+            <i class="fa fa-shopping-cart"
+               aria-hidden="true"></i>
+            {{card.header}}
+        </div>
+        <div class="collapsible-body">
+            <div class="card-content">
+                <div class="collection">
+                    <a id="{{'provider_'+provider._id}}"
+                       ng-click="apply(provider)"
+                       ng-repeat="provider in card.data"
+                       class="collection-item btn-flat">{{provider.name}}</a>
+                </div>
+            </div>
+        </div>
+    </li>
     <li ng-switch-when="parentCategory"
         class="white">
         <div ng-if="card.header==''"

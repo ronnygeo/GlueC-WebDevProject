@@ -1,7 +1,7 @@
 /**
  * Created by Bhanu on 15/04/2016.
  */
-module.exports = function (providerModel) {
+module.exports = function (providerDB) {
 
     var api = {
         getProvidersForUser: getProvidersForUser,
@@ -11,11 +11,11 @@ module.exports = function (providerModel) {
 
     function addProviderForUser(provider) {
         console.log("Server ProviderModel addProviderForUser");
-        return providerModel.create(provider);
+        return providerDB.create(provider);
     }
 
     function getProvidersForUser(userId) {
         console.log("Server ProviderModel getProvidersForUser");
-        return providerModel.find({userId: userId});
+        return providerDB.find({userId: userId});
     }
 };

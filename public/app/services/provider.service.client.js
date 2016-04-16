@@ -27,7 +27,7 @@
         function getProvidersForUser(userId) {
             console.log("Client getProvidersForUser");
             console.log(userId);
-            var url = "/api/providers/?userId=" + userId;
+            var url = "/api/providers/" + userId;
             return $http.get(url);
         }
 
