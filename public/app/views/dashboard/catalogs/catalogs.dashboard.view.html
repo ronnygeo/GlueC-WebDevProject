@@ -1,6 +1,6 @@
 <div class="row" ng-if="dc.isUserMerchant() || dc.isUserAdmin()">
     <div ng-controller="CatalogController as cc">
-        <div class="col offset-s3 s6">
+        <div class="col s12 offset-m3 m6">
             <div class="card grey" ng-repeat="catalog in cc.catalogs">
                 <div class="card-content white-text">
                     <span class="card-title">{{catalog.name}}</span>

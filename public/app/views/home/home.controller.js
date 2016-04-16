@@ -23,7 +23,7 @@
 
         function search() {
             console.log("Got KeyEvent Enter");
-            $location.url("/search/q/" + HomeController.search_input);
+            $location.url("/search/q/" + vm.search_input);
         }
 
         function isLoggedIn() {

@@ -1,10 +1,10 @@
-<div class="dashboard-wrapper" style="">
+<div class="dashboard-wrapper">
     <div id="main-dashboard-wrapper" class="row">
         <div ng-include="'./views/dashboard/components/nav.dashboard.view.html'"></div>
         <div id="dashboard-main-container" class="col s12 m9">
             <div class="section" id="dashboard-content-container">
                 <div ng-include src="'./views/dashboard/components/crumps.dashboard.view.html'"></div>
-                <div class="section main-content">
+                <div class="section height-80-div">
                     <h5>Dashboard</h5>
                     <div class="row" id="dashboard-view">
                         <div ng-include src="'views/dashboard/home/home.dashboard.view.html'" ng-if="$location.url() == '/dashboard'"></div>
@@ -31,5 +31,4 @@
         </div>
     </div>
 </div>
-
-
+<div ng-include src="'views/dashboard/components/bar.dashboard.view.html'"></div>

@@ -1,5 +1,5 @@
-<div id="dashboard-sidebar" class="col s12 m3" style="padding:25px 0 5px 0; height:100%;">
-    <div class="row" style="padding: 0 10px 0 10px;">
+<div id="dashboard-sidebar" class="col s12 m3">
+    <div class="row">
         <div class="card-panel grey lighten-5 z-depth-1">
             <div class="row valign-wrapper">
                 <div class="col s4">
@@ -18,19 +18,19 @@
 
     <div class="divider grey"></div>
     <div id="side-links" class="row">
-        <div class="col s12" style="padding:0">
+        <div class="col s12">
             <!-- Dropdown Trigger -->
-            <a id="dashboard-dropdown-button" class='dropdown-button btn hide-on-med-and-up' data-beloworigin="true" data-activates='dropdown-options' style="width:100%">Menu</a>
+            <a id="dashboard-dropdown-button" class='dropdown-button btn hide-on-med-and-up' data-beloworigin="true" data-activates='dropdown-options'>Menu</a>
             <ul id="dropdown-options" class="dropdown-content">
-                <li><a href="#/dashboard">Home</a></li>
-                <li><a href="#/dashboard/users" ng-show="dc.isUserAdmin()">Users</a></li>
-                <li><a href="#/dashboard/catalogs" ng-show="dc.isUserAdmin() || dc.isUserMerchant()">Catalogs</a></li>
-                <li><a href="#/dashboard/products" ng-show="dc.isUserAdmin() || dc.isUserMerchant()">Products</a></li>
-                <li ng-show="dc.isUserAdmin() || dc.isUserMerchant()" disabled><a>Listings</a></li>
-                <li ng-show="dc.isUserAdmin() || dc.isUserMerchant()" disabled><a>Providers</a></li>
-                <li href="#/dashboard/profile"><a>Profile</a></li>
+                <a href="#/dashboard"><li>Home</li></a>
+                <a href="#/dashboard/users" ng-show="dc.isUserAdmin()"><li class="center-align">Users</li></a>
+                <a href="#/dashboard/catalogs" ng-show="dc.isUserAdmin() || dc.isUserMerchant()"><li>Catalogs</li></a>
+                <a href="#/dashboard/products" ng-show="dc.isUserAdmin() || dc.isUserMerchant()"><li>Products</li></a>
+                <a ng-show="dc.isUserAdmin() || dc.isUserMerchant()" disabled><li>Listings</li></a>
+                <a disabled><li  ng-show="dc.isUserAdmin() || dc.isUserMerchant()"disabled>Providers</li></a>
+                <a href="#/dashboard/profile"><li>Profile</li><a>
             </ul>
-            <ul class="hide-on-small-only" style="">
+            <ul class="hide-on-small-only">
                 <a href="#/dashboard"><li>Home</li></a>
                 <a href="#/dashboard/users" ng-show="dc.isUserAdmin()"><li>Users</li></a>
                 <a href="#/dashboard/catalogs" ng-show="dc.isUserAdmin() || dc.isUserMerchant()"><li>Catalogs</li></a>
