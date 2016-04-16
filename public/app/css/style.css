@@ -84,7 +84,7 @@
 }
 
 #splash-image {
-    background-image: url("../media/images/bg.jpg");
+    background-image: url("../media/images/pexels-photo-66997.jpeg");
     background-size: cover;
     background-position-y: -15vh;
     height: 80vh;
@@ -99,9 +99,17 @@
 }
 
 #splash-text {
-    font-family: "Noto Serif", serif;
+    /*font-family: "Noto Serif", serif;*/
+    /*background-color: #0a0a0a;*/
+    /*opacity: 0.6;*/
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight: 300;
+
 }
 
+#splash-text h2{
+    text-transform: uppercase;
+}
 .content-wrapper {
     width: 100vw;
     height: 100%;
