@@ -22,11 +22,11 @@
                     templateUrl: 'views/users/register.view.html',
                     controllerAs: "user"
                 })
-                .when('/profile', {
-                    controller: "ProfileController",
-                    templateUrl: 'views/users/profile.view.html',
-                    controllerAs: "user"
-                })
+                // .when('/profile', {
+                //     controller: "ProfileController",
+                //     templateUrl: 'views/users/profile.view.html',
+                //     controllerAs: "user"
+                // })
                 .when('/search/q/:keyword', {
                     controller: 'SearchController',
                     templateUrl: 'views/search/search.view.html',
@@ -57,6 +57,12 @@
                     templateUrl: 'views/dashboard/dashboard.view.html',
                     controllerAs: 'dc'
                 })
+                .when('/dashboard/profile/edit', {
+                    controller: 'DashboardController',
+                    templateUrl: 'views/dashboard/dashboard.view.html',
+                    controllerAs: 'dc'
+                })
+
                 // .when('/userdash', {
                 //     controller: 'UserDashboardController',
                 //     templateUrl: 'views/dashboard/dashboard.user.view.html',
@@ -77,11 +83,11 @@
                     templateUrl: 'views/listing/interactive.listing.view.html',
                     controllerAs: "lc"
                 })
-                .when('/admin', {
-                    controller: 'AdminDashboardController',
-                    templateUrl: 'views/admin/dashboard.admin.view.html',
-                    controllerAs: 'admin'
-                })
+                // .when('/admin', {
+                //     controller: 'AdminDashboardController',
+                //     templateUrl: 'views/admin/dashboard.admin.view.html',
+                //     controllerAs: 'admin'
+                // })
                 .when('/user/:id/catalog/:catId', {
                     controller: 'ShowCatalogController',
                     templateUrl: 'views/catalog/show/show.catalog.view.html',

@@ -1,80 +1,32 @@
 <div class="dashboard-wrapper" style="">
     <div id="main-dashboard-wrapper" class="row">
-        <div id="dashboard-sidebar" class="col s12 m3" style="padding:25px 0 5px 0; height:100%;">
-            <div class="row" style="padding: 0 10px 0 10px;">
-                <div class="card-panel grey lighten-5 z-depth-1">
-                    <div class="row valign-wrapper">
-                        <div class="col s4">
-                            <img src="{{dc.user.imageUrl}}" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
-                        </div>
-                        <div class="col s8">
-              <span class="black-text">
-                {{dc.user.firstName}} {{dc.user.lastName}}
-                  <br>
-                  <a>Edit Profile</a>
-              </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="divider grey"></div>
-            <div id="side-links" class="row">
-                <div class="col s12" style="padding:0">
-                    <!-- Dropdown Trigger -->
-                    <a id="dashboard-dropdown-button" class='dropdown-button btn hide-on-med-and-up' data-beloworigin="true" data-activates='dropdown-options' style="width:100%">Menu</a>
-                    <ul id="dropdown-options" class="dropdown-content">
-                        <li><a>Users</a></li>
-                        <li><a>Catalogs</a></li>
-                        <li><a>Products</a></li>
-                        <li><a>Providers</a></li>
-                        <li><a>Profile</a></li>
-                    </ul>
-                    <ul class="hide-on-small-only" style="">
-                        <li><a>Users</a></li>
-                        <li><a>Catalogs</a></li>
-                        <li><a>Products</a></li>
-                        <li><a>Providers</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
+        <div ng-include="'./views/dashboard/components/nav.dashboard.view.html'"></div>
         <div id="dashboard-main-container" class="col s12 m9" style="padding:0;box-shadow: 0 1px 1px black, 1px 1px 1px black;">
             <div class="section" id="dashboard-content-container" style="">
-                <nav>
-                    <div class="nav-wrapper">
-                        <div class="col s12">
-                            <a href="#/dashboard" class="breadcrumb">Home</a>
-                            <a href="#/dashboard/profile" class="breadcrumb">Profile</a>
-                            <a href="#/dashboard/catalogs" class="breadcrumb">Catalogs</a>
-                            <a href="#/dashboard/catalogs/list" class="breadcrumb">List</a>
-                            <a href="#/dashboard/catalogs/new" class="breadcrumb">New</a>
-                            <a href="#/dashboard/catalogs/edit" class="breadcrumb">Edit</a>
-                            <a href="#/dashboard/products" class="breadcrumb">Products</a>
-                            <a href="#/dashboard/products/list" class="breadcrumb">List</a>
-                            <a href="#/dashboard/products/new" class="breadcrumb">New</a>
-                            <a href="#/dashboard/products/edit" class="breadcrumb">Edit</a>
-                        </div>
-                    </div>
-                </nav>
+                <div ng-include src="'./views/dashboard/components/crumps.dashboard.view.html'"></div>
                 <div class="section">
                     <h5>Dashboard</h5>
                     <div class="row" id="dashboard-view">
-                        <div ng-include src="'views/dashboard/home.dashboard.view.html'"></div>
+                        <div ng-include src="'views/dashboard/home/home.dashboard.view.html'" ng-if="$location.url() == '/dashboard'"></div>
+                        <div class="card white darken-1" ng-if="$location.url() !== '/dashboard'">
+                            <div class="card-content black-text">
+                                <div ng-include src="'views/dashboard/profile/view.profile.dashboard.view.html'" ng-if="$location.url() == '/dashboard/profile'"></div>
+                                <div ng-include src="'views/dashboard/profile/edit.profile.dashboard.view.html'" ng-if="$location.url() == '/dashboard/profile/edit'"></div>
+                                <div ng-include src="'views/dashboard/users/users.dashboard.view.html'" ng-if="$location.url() == '/dashboard/users'"></div>
+                                <div ng-include src="'views/dashboard/catalogs/catalogs.dashboard.view.html'" ng-if="$location.url() == '/dashboard/catalogs'"></div>
+                                <div ng-include src="'views/dashboard/catalogs/add.catalogs.dashboard.view.html'" ng-if="$location.url() == '/dashboard/catalogs/add'"></div>
+                                <div ng-include src="'views/dashboard/catalogs/edit.catalogs.dashboard.view.html'" ng-if="$location.url() == '/dashboard/catalogs/edit'"></div>
+                                <div ng-include src="'views/dashboard/products/products.dashboard.view.html'" ng-if="$location.url() == '/dashboard/products'"></div>
+                                <div ng-include src="'views/dashboard/products/add.products.dashboard.view.html'" ng-if="$location.url() == '/dashboard/products/add'"></div>
+                                <div ng-include src="'views/dashboard/products/edit.products.dashboard.view.html'" ng-if="$location.url() == '/dashboard/products/edit'"></div>
+                                <div ng-include src="'views/dashboard/listings/listings.dashboard.view.html'" ng-if="$location.url() == '/dashboard/listings'"></div>
+                                <div ng-include src="'views/dashboard/listings/add.listings.dashboard.view.html'" ng-if="$location.url() == '/dashboard/listings/add'"></div>
+                                <div ng-include src="'views/dashboard/listings/edit.listings.dashboard.view.html'" ng-if="$location.url() == '/dashboard/listings/edit'"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
-<div class="fixed-action-btn horizontal">
-    <a class="btn-floating btn-large blue">
-        <i class="large material-icons">mode_edit</i>
-    </a>
-    <ul>
-        <li><a class="btn-floating red" href="#/profile"><i class="material-icons left">perm_identity</i></a></li>
-        <li><a class="btn-floating yellow darken-1"><i class="material-icons left">perm_identity</i></a></li>
-        <li><a class="btn-floating green darken-1" href="#/admin"><i class="material-icons left">perm_identity</i></a></li>
-    </ul>
 </div>

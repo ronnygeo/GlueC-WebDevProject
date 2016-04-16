@@ -1,3 +1,4 @@
+<div ng-controller="ListCatalogController as cc">
 <div ng-repeat="catalog in cc.catalogs">
     <ul>
         <li>{{catalog.name}}</li>
@@ -7,5 +8,7 @@
         <li><button ng-click="cc.deleteCatalog(catalog._id)">Delete</button></li>
     </ul>
 </div>
-
-<a ng-click="cc.goToCreate()">Create Catalog</a>
+</div>
+<div class="card-action center">
+    <a class="btn waves-effect" href="#/dashboard/catalog/new">Add Catalog</a>
+</div>

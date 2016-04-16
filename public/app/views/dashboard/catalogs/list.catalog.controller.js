@@ -2,23 +2,25 @@
  * Created by ronnygeo on 3/25/16.
  */
 
-"use strict";
 (function () {
+    "use strict";
     angular
         .module('GluecApp')
         .controller("ListCatalogController", CatalogController);
 
-    CatalogController.$inject = ['CatalogService', '$scope', '$routeParams', '$location'];
+    CatalogController.$inject = ['CatalogService', '$rootScope', '$routeParams', '$location'];
 
-    function CatalogController(CatalogService, $scope, $routeParams, $location) {
+    function CatalogController(CatalogService, $rootScope, $routeParams, $location) {
 
-        $scope.$location = $location;
         //$scope.search = search;
         var vm = this;
-        var userId = $routeParams.id;
+        vm.$location = $location;
+        var userId = $rootScope.user._id;
         var catId = $routeParams.catId;
 
-        CatalogService.findAllCatalogs().then(function (res) {
+        console.log(userId);
+        CatalogService.findAllCatalogsByUser(userId).then(function (res) {
+            console.log(res);
             vm.catalogs = res.data;
         });
 

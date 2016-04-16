@@ -1,0 +1,42 @@
+<div id="dashboard-sidebar" class="col s12 m3" style="padding:25px 0 5px 0; height:100%;">
+    <div class="row" style="padding: 0 10px 0 10px;">
+        <div class="card-panel grey lighten-5 z-depth-1">
+            <div class="row valign-wrapper">
+                <div class="col s4">
+                    <img src="{{dc.user.imageUrl}}" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
+                </div>
+                <div class="col s8">
+              <span class="black-text">
+                {{dc.user.firstName}} {{dc.user.lastName}}
+                  <br>
+                  <a href="#/dashboard/profile/edit">Edit Profile</a>
+              </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="divider grey"></div>
+    <div id="side-links" class="row">
+        <div class="col s12" style="padding:0">
+            <!-- Dropdown Trigger -->
+            <a id="dashboard-dropdown-button" class='dropdown-button btn hide-on-med-and-up' data-beloworigin="true" data-activates='dropdown-options' style="width:100%">Menu</a>
+            <ul id="dropdown-options" class="dropdown-content">
+                <li><a href="#/dashboard/users">Users</a></li>
+                <li><a href="#/dashboard/catalogs">Catalogs</a></li>
+                <li><a href="#/dashboard/products">Products</a></li>
+                <li disabled><a>Listings</a></li>
+                <li disabled><a>Providers</a></li>
+                <li href="#/dashboard/profile"><a>Profile</a></li>
+            </ul>
+            <ul class="hide-on-small-only" style="">
+                <a href="#/dashboard/users"><li>Users</li></a>
+                <a href="#/dashboard/catalogs"><li>Catalogs</li></a>
+                <a href="#/dashboard/products"><li>Products</li></a>
+                <a href="#/dashboard/listings"><li>Listings</li></a>
+                <a disabled><li disabled>Providers</li></a>
+                <a href="#/dashboard/profile"><li>Profile</li><a>
+            </ul>
+        </div>
+    </div>
+</div>

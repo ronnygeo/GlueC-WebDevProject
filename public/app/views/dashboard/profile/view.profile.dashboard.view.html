@@ -1,0 +1,19 @@
+<div class="row" ng-controller="ProfileController as pc">
+    <div class="col s12">
+                <h5>Profile</h5>
+                <div class="row" ng-if="dc.user !== undefined">
+                    <div class="col s12 m10 offset-m1">
+                        Username: {{dc.user.username}}
+                        FirstName: {{dc.user.firstName}}
+                        Last Name: {{dc.user.lastName}}
+                        Email Address: {{dc.user.email}}
+                        You are a {{dc.user.roles}}
+                        <img src="{{dc.user.imageUrl}}" width="100%"/>
+
+                        <div class="row center">
+                            <a class="waves-effect waves-light btn" ng-click="pc.edit()">Edit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>

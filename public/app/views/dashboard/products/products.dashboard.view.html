@@ -1,0 +1,22 @@
+<div class="row" ng-if="dc.isUserMerchant() || dc.isUserAdmin()">
+    <div ng-controller="ProductController as prodc">
+    <div class="col s6" ng-repeat="product in prodc.products">
+        <div class="card grey darken-3">
+            <div class="card-image">
+                <img ng-src="{{product.imageUrl}}" />
+                <span class="card-title">{{product.name}}</span>
+            </div>
+            <div class="card-content white-text">
+                <p>{{product.description}}</p>
+                <p>{{product.price}}</p>
+            </div>
+            <div class="card-action">
+                <a href="#/user/{{user._id}}/product/{{product._id}}">See {{product.name}}</a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="card-action center">
+    <a class="btn waves-effect" href="#/dashboard/product/new">Add Product</a>
+</div>

@@ -6,7 +6,7 @@
         .controller("DoughnutCtrl", DoughnutCtrl);
 
     DoughnutCtrl.$inject = ['ProductService', 'CatalogService', 'UserService', '$rootScope'];
-    function DoughnutCtrl(ProductService, CatalogService, UserService) {
+    function DoughnutCtrl(ProductService, CatalogService, UserService, $rootScope) {
         var vm = this;
         vm.labels = ["Total Users", "Total Catalogs", "Total Products"];
         vm.data = [1, 2, 3];

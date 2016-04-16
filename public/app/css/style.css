@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css?family=Noto+Serif);
 .main-content {
   min-height: 80vh !important; }
 
@@ -226,7 +227,7 @@ body {
   color: #484848; }
 
 .card-action a {
-  color: #00838f !important; }
+  color: white; }
 
 .btn .btn-large {
   background-color: #00838f; }
