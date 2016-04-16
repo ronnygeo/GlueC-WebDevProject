@@ -16,7 +16,7 @@
         vm.update = update;
 
         angular.element(document).ready(function() {
-            $('select').material_select('destroy');
+            $('select').material_select(vm.user.roles[0]);
         });
 
         function update() {

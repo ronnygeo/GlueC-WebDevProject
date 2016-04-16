@@ -47,12 +47,32 @@
                     templateUrl: 'views/dashboard/dashboard.view.html',
                     controllerAs: 'dc'
                 })
+                .when('/dashboard/catalog/new', {
+                    controller: 'DashboardController',
+                    templateUrl: 'views/dashboard/dashboard.view.html',
+                    controllerAs: 'dc'
+                })
                 .when('/dashboard/catalog/:catId/edit', {
                     controller: 'DashboardController',
                     templateUrl: 'views/dashboard/dashboard.view.html',
                     controllerAs: 'dc'
                 })
                 .when('/dashboard/products', {
+                    controller: 'DashboardController',
+                    templateUrl: 'views/dashboard/dashboard.view.html',
+                    controllerAs: 'dc'
+                })
+                .when('/dashboard/product/new', {
+                    controller: 'DashboardController',
+                    templateUrl: 'views/dashboard/dashboard.view.html',
+                    controllerAs: 'dc'
+                })
+                .when('/dashboard/product/:prodId/edit', {
+                    controller: 'DashboardController',
+                    templateUrl: 'views/dashboard/dashboard.view.html',
+                    controllerAs: 'dc'
+                })
+                .when('/dashboard/product/:prodId/view', {
                     controller: 'DashboardController',
                     templateUrl: 'views/dashboard/dashboard.view.html',
                     controllerAs: 'dc'
@@ -138,9 +158,6 @@
                 //     templateUrl: 'views/catalog/edit/edit.catalog.view.html',
                 //     controllerAs: "cc"
                 // })
-                .when('/test', {
-                    templateUrl: 'views/dashboard/test.material.html'
-                })
                 .when('/sell', {
                     controller: 'SellController',
                     templateUrl: 'views/sell/sell.view.html',

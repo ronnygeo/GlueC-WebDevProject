@@ -211,6 +211,10 @@ footer a {
   width: 100%;
   background-color: #00838f; }
 
+#dashboard-main-container {
+  padding: 0;
+  box-shadow: 0 1px 1px black, 1px 1px 1px black; }
+
 #dashboard-content-container {
   background-color: #ebebeb;
   color: #484848;

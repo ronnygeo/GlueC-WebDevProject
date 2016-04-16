@@ -4,12 +4,13 @@
             <a href="#/dashboard" class="breadcrumb">Home</a>
             <a href="#/dashboard/profile" class="breadcrumb" ng-show="$location.url()=='/dashboard/profile'">Profile</a>
             <a href="#/dashboard/profile/edit" class="breadcrumb" ng-show="$location.url()=='/dashboard/profile/edit'">Edit</a>
-            <a href="#/dashboard/catalogs" class="breadcrumb" ng-show="$location.url()=='/dashboard/catalogs'">Catalogs</a>
-            <a href="#/dashboard/catalogs/new" class="breadcrumb" ng-show="$location.url()=='/dashboard/catalogs/new'">New</a>
-            <a href="#/dashboard/catalogs/edit" class="breadcrumb" ng-show="$location.url()=='/dashboard/catalogs/edit'">Edit</a>
-            <a href="#/dashboard/products" class="breadcrumb" ng-show="$location.url()=='/dashboard/products'">Products</a>
-            <a href="#/dashboard/products/new" class="breadcrumb" ng-show="$location.url()=='/dashboard/products/new'">New</a>
-            <a href="#/dashboard/products/edit" class="breadcrumb" ng-show="$location.url()=='/dashboard/products/edit'">Edit</a>
+            <a href="#/dashboard/users" class="breadcrumb" ng-show="$location.url()=='/dashboard/users'">Users</a>
+            <a href="#/dashboard/catalogs" class="breadcrumb" ng-show="$location.url().includes('catalog')">Catalogs</a>
+            <a href="#/dashboard/products" class="breadcrumb" ng-show="$location.url().includes('product')">Products</a>
+            <a class="breadcrumb" ng-show="$location.url().includes('new')">New</a>
+            <a class="breadcrumb" ng-show="$location.url().includes('edit')">Edit</a>
+            <a class="breadcrumb" ng-show="$location.url().includes('View')">View</a>
+
         </div>
     </div>
 </nav>

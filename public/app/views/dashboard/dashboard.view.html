@@ -1,10 +1,10 @@
 <div class="dashboard-wrapper" style="">
     <div id="main-dashboard-wrapper" class="row">
         <div ng-include="'./views/dashboard/components/nav.dashboard.view.html'"></div>
-        <div id="dashboard-main-container" class="col s12 m9" style="padding:0;box-shadow: 0 1px 1px black, 1px 1px 1px black;">
-            <div class="section" id="dashboard-content-container" style="">
+        <div id="dashboard-main-container" class="col s12 m9">
+            <div class="section" id="dashboard-content-container">
                 <div ng-include src="'./views/dashboard/components/crumps.dashboard.view.html'"></div>
-                <div class="section">
+                <div class="section main-content">
                     <h5>Dashboard</h5>
                     <div class="row" id="dashboard-view">
                         <div ng-include src="'views/dashboard/home/home.dashboard.view.html'" ng-if="$location.url() == '/dashboard'"></div>
@@ -14,11 +14,12 @@
                                 <div ng-include src="'views/dashboard/profile/edit.profile.dashboard.view.html'" ng-if="$location.url() == '/dashboard/profile/edit'"></div>
                                 <div ng-include src="'views/dashboard/users/users.dashboard.view.html'" ng-if="$location.url() == '/dashboard/users'"></div>
                                 <div ng-include src="'views/dashboard/catalogs/catalogs.dashboard.view.html'" ng-if="$location.url() == '/dashboard/catalogs'"></div>
-                                <div ng-include src="'views/dashboard/catalogs/add.catalogs.dashboard.view.html'" ng-if="$location.url() == '/dashboard/catalogs/add'"></div>
-                                <div ng-include src="'views/dashboard/catalogs/edit.catalogs.dashboard.view.html'" ng-if="$location.url() == '/dashboard/catalogs/edit'"></div>
+                                <div ng-include src="'views/dashboard/catalogs/new/new.catalog.view.html'" ng-if="$location.url() == '/dashboard/catalog/new'"></div>
+                                <div ng-include src="'views/dashboard/catalogs/edit/edit.catalog.view.html'" ng-if="$location.url().includes('catalog') &&  $location.url().includes('edit')"></div>
                                 <div ng-include src="'views/dashboard/products/products.dashboard.view.html'" ng-if="$location.url() == '/dashboard/products'"></div>
-                                <div ng-include src="'views/dashboard/products/add.products.dashboard.view.html'" ng-if="$location.url() == '/dashboard/products/add'"></div>
-                                <div ng-include src="'views/dashboard/products/edit.products.dashboard.view.html'" ng-if="$location.url() == '/dashboard/products/edit'"></div>
+                                <div ng-include src="'views/dashboard/products/new/new.product.view.html'" ng-if="$location.url() == '/dashboard/product/new'"></div>
+                                <div ng-include src="'views/dashboard/products/edit/edit.product.view.html'" ng-if="$location.url().includes('product') &&  $location.url().includes('edit')"></div>
+                                <div ng-include src="'views/dashboard/products/view/view.product.view.html'"ng-if="$location.url().includes('product') &&  $location.url().includes('view')"></div>
                                 <div ng-include src="'views/dashboard/listings/listings.dashboard.view.html'" ng-if="$location.url() == '/dashboard/listings'"></div>
                                 <div ng-include src="'views/dashboard/listings/add.listings.dashboard.view.html'" ng-if="$location.url() == '/dashboard/listings/add'"></div>
                                 <div ng-include src="'views/dashboard/listings/edit.listings.dashboard.view.html'" ng-if="$location.url() == '/dashboard/listings/edit'"></div>
@@ -30,3 +31,5 @@
         </div>
     </div>
 </div>
+
+

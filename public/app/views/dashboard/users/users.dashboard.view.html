@@ -7,12 +7,16 @@
                 <td><input type="text" ng-model="admin.user.username" id="adminNewUsername" class="validate"
                            placeholder="Username"></td>
                 <td>
-                    <input type="email" ng-model="admin.user.email" id="adminNewEmail" class="validate"
-                           placeholder="Email">
+                    <input type="password" ng-model="admin.user.password" id="adminNewPassword" class="validate"
+                           placeholder="Password">
                 </td>
+               <td>
+                   <input type="email" ng-model="admin.user.email" id="adminNewEmail" class="validate"
+                          placeholder="Email">
+               </td>
                 <td>
-                    <input type="text" ng-model="admin.user.roles" id="adminNewUserRole" class="validate"
-                           placeholder="Role">
+                    <input type="text" ng-model="admin.user.roles" id="adminNewRoles" class="validate"
+                           placeholder="merchant, admin">
                 </td>
                 <td style="white-space: nowrap">
                     <button ng-click="admin.updateUser()" class="btn green">
@@ -26,6 +30,7 @@
             <tbody>
             <tr ng-repeat="u in admin.users">
                 <td>{{u.username}}</td>
+                <td></td>
                 <td>{{u.email}}</td>
                 <td>{{u.roles}}</td>
                 <td>
