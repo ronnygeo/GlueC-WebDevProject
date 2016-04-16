@@ -13,7 +13,7 @@
             <div class="card-action">
                 <a href="#/dashboard/product/{{product._id}}/view">See {{product.name}}</a>
                 <a href="#/dashboard/product/{{product._id}}/edit">Edit</a>
-                <a href="">Delete</a>
+                <a href="" ng-click="prodc.deleteProduct(product._id)">Delete</a>
             </div>
         </div>
     </div>

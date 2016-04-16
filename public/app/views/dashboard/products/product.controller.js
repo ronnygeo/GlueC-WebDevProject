@@ -13,10 +13,21 @@
         vm.user = $rootScope.user;
         var userId = vm.user._id;
 
+        vm.deleteProduct = deleteProduct;
+
         ProductService.findAllProductsByUserId(userId).then(function (data) {
             // console.log(data.data);
             vm.products = data.data;
         });
-    }
 
+
+    function deleteProduct(prodId) {
+        ProductService.deleteProduct(userId, prodId).then(function () {
+            for (var i in vm.products) {
+                if (vm.products[i]._id == prodId)
+                    vm.products.splice(i,1);
+            }
+        });
+    }
+    }
 })();

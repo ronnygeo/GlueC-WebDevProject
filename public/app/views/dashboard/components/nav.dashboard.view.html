@@ -22,6 +22,7 @@
             <!-- Dropdown Trigger -->
             <a id="dashboard-dropdown-button" class='dropdown-button btn hide-on-med-and-up' data-beloworigin="true" data-activates='dropdown-options' style="width:100%">Menu</a>
             <ul id="dropdown-options" class="dropdown-content">
+                <li><a href="#/dashboard">Home</a></li>
                 <li><a href="#/dashboard/users" ng-show="dc.isUserAdmin()">Users</a></li>
                 <li><a href="#/dashboard/catalogs" ng-show="dc.isUserAdmin() || dc.isUserMerchant()">Catalogs</a></li>
                 <li><a href="#/dashboard/products" ng-show="dc.isUserAdmin() || dc.isUserMerchant()">Products</a></li>
@@ -30,6 +31,7 @@
                 <li href="#/dashboard/profile"><a>Profile</a></li>
             </ul>
             <ul class="hide-on-small-only" style="">
+                <a href="#/dashboard"><li>Home</li></a>
                 <a href="#/dashboard/users" ng-show="dc.isUserAdmin()"><li>Users</li></a>
                 <a href="#/dashboard/catalogs" ng-show="dc.isUserAdmin() || dc.isUserMerchant()"><li>Catalogs</li></a>
                 <a href="#/dashboard/products" ng-show="dc.isUserAdmin() || dc.isUserMerchant()"><li>Products</li></a>

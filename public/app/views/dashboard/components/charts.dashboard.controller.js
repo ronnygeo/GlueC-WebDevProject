@@ -13,7 +13,7 @@
         var user = $rootScope.user;
         var userId = user._id;
 
-        if (user.roles.indexOf('admin') != -1) {
+        if (user.roles.indexOf('admin') !== -1) {
             UserService.findAllUsers().then(function (data) {
                 vm.data[0] = data.data.length;
             });
@@ -26,7 +26,7 @@
             vm.data[2] = data.data.length;
         });
         }
-        else if (user.roles.indexOf('merchant') != -1) {
+        else if (user.roles.indexOf('merchant') !== -1) {
             vm.labels = ["Total Catalogs", "Total Products", "Views"];
             vm.data = [20, 10, 500];
             CatalogService.findAllCatalogsByUser(userId).then(function (data) {
@@ -39,13 +39,6 @@
         } else {
             vm.labels = ["Purchased", "Wish list", "Gifts"];
             vm.data = [20, 10, 5];
-            // CatalogService.findAllCatalogs().then(function (data) {
-            //     vm.data[1] = data.data.length;
-            // });
-            //
-            // ProductService.findAllProducts().then(function (data) {
-            //     vm.data[2] = data.data.length;
-            // });
         }
     }
 })();

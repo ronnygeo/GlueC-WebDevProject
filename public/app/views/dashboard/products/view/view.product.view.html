@@ -1,4 +1,4 @@
-<div class="card-image waves-effect waves-block waves-light center-align" ng-controller="ViewProductController as model">
+<div ng-controller="ViewProductController as model"><div class="card-image waves-effect waves-block waves-light center-align">
     <img ng-src="{{model.product.imageUrl}}" alt="Product Image" class="responsive-img" />
     <!--<span class="card-title">{{model.product.title[0] | removeDoubleQuotes}}</span>-->
 </div>
@@ -9,9 +9,10 @@
     <p>
         {{model.product.description}}
     </p>
-    <h5>{{model.product.price}}</h5>
+    <h5>{{model.product.price | currency}}</h5>
 </div>
 <div class="card-action">
     <a href="#/dashboard/product/{{model.product._id}}/edit">Edit</a>
     <a href="">Delete</a>
+</div>
 </div>

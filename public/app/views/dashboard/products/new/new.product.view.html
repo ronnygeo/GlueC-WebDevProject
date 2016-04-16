@@ -1,35 +1,53 @@
     <div class="row" ng-controller="NewProductController as pc">
         <form class="col s12">
             <h5>Create Product</h5>
+            <br>
             <div class="row">
                 <div class="input-field col s12">
                     <label for="inputProductName">Product Name</label>
                     <input type="text" id="inputProductName" ng-model="pc.product.name" class="validate" />
                 </div>
+                </div>
+            <div class="row">
                 <div class="input-field col s12">
                     <label for="inputDesc">Product Description</label>
                     <textarea id="inputDesc" ng-model="pc.product.description" class="materialize-textarea validate"></textarea>
                 </div>
+                </div>
+            <div class="row">
                 <div class="input-field col s12">
                     <label for="inputProductManufacturer">Manufacturer</label>
                     <input type="text" id="inputProductManufacturer" ng-model="pc.product.manufacturer" class="validate">
                 </div>
+                </div>
+            <div class="row">
                 <div class="input-field col s12">
                     <label for="inputProductPrice">Price</label>
                     <input type="text" id="inputProductPrice" ng-model="pc.product.price" class="validate">
                 </div>
+                </div>
+            <div class="row">
                 <div class="input-field col s12">
                     <label for="inputProductDiscount">Discount</label>
                     <input type="text" id="inputProductDiscount" ng-model="pc.product.discount" class="validate">
                 </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <label for="catalog">Catalog</label>
+                        <select name="catalog" id="catalog" ng-model="pc.product.catalogId">
+                            <option value="" disabled selected>Choose your Catalog</option>
+                            <option ng-repeat="cat in pc.catalogs" value="{{cat._id}}">{{cat.name}}</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="row">
                 <div class="col s12 m6">
-                    <img src="{{pc.product.imageUrl}}" width="50%" />
+                    <img ng-src="{{pc.product.imageUrl}}" class="responsive-img" />
                 </div>
                     <div class="input-field col s12 m6">
                     <label for="inputProductImage">Image</label>
                     <input type="text" id="inputProductImage" ng-model="pc.product.imageUrl" class="validate">
-                </div>
                 </div>
             </div>
             <br>

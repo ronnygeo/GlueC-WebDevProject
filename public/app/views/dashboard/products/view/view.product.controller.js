@@ -7,10 +7,9 @@
     function ViewProductController(ProductService, $routeParams) {
         var vm = this;
         var prodId = $routeParams.prodId;
-
-        console.log(prodId);
-
+        
         ProductService.findProductById(prodId).then(function (data) {
+            console.log(data.data);
             vm.product = data.data;
         });
     }
