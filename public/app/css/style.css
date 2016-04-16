@@ -87,7 +87,7 @@
     background-image: url("../media/images/pexels-photo-66997.jpeg");
     background-size: cover;
     background-position-y: -15vh;
-    height: 80vh;
+    height: 100vh;
     width: 100%;
 }
 
@@ -98,6 +98,13 @@
     text-shadow: 0px 2px 3px grey, 1px 1px 1px grey;
 }
 
+#inside-splash-container .search-bar input[type="text"]{
+    position: relative;
+    margin-top: 20vh;
+    border-radius: 30px 30px 30px 30px;
+    border:3px solid whitesmoke;
+
+}
 #splash-text {
     /*font-family: "Noto Serif", serif;*/
     /*background-color: #0a0a0a;*/
@@ -308,7 +315,8 @@ body {
 }
 
 .btn:hover {
-    background-color: #00545c;
+    /*Keeping the original  hover effect as it diminishes the waves effect */
+    /*background-color: #00545c;*/
 }
 
 #login-alert {
