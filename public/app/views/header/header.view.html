@@ -7,6 +7,7 @@
                 ng-class="{'active': $location.url() == '/profile'}"><a ng-click="goToMessages()">Messages</a></li>
             <li ng-show="user">
                 <a href="#/dashboard">Dashboard</a></li>
+            <li><a href="#/sell"><i class="material-icons left">shopping_cart</i>Sell</a></li>
             <li ng-hide="user"
                 ng-class="{'active': $location.url() == '/register'}"><a href="#/register">Register</a>
             </li>
@@ -19,6 +20,7 @@
                 ng-class="{'active': $location.url() == '/profile'}"><a ng-click="goToMessages()">Messages</a></li>
             <li ng-show="user"><a href="#/dashboard">Dashboard</a></li>
             <li><a href="#/sell">Sell</a></li>
+            <li><a href="#/sell"><i class="material-icons left">shopping_cart</i>Sell</a></li>
             <li ng-hide="user"
                 ng-class="{'active': $location.url() == '/register'}"><a href="#/register">Register</a>
             </li>
