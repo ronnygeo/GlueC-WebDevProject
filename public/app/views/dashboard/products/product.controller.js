@@ -14,7 +14,7 @@
         var userId = vm.user._id;
 
         ProductService.findAllProductsByUserId(userId).then(function (data) {
-            console.log(data.data);
+            // console.log(data.data);
             vm.products = data.data;
         });
     }

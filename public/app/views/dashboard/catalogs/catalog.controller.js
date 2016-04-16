@@ -54,10 +54,10 @@
         //     })
         // }
         function deleteCatalog(catId){
-            CatalogService.deleteCatalog(userId, catId).then(function (data){
+            CatalogService.deleteCatalog(userId, catId).then(function (){
                 for (var i in vm.catalogs) {
                     if (vm.catalogs[i]._id == catId)
-                        delete vm.catalogs[i];
+                        vm.catalogs.splice(i,1);
                 }
             });
         }

@@ -34,7 +34,7 @@
 
                 }
             });
-            $location.url("/dashboard");
+            $location.url("/dashboard/catalogs");
         }
     }
 })();
