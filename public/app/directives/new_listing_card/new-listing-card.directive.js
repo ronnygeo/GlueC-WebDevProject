@@ -19,6 +19,10 @@
             controllerAs: "model",
             link: function (scope, element, attrs) {
                 scope.apply = function (selectedData) {
+                    if (!selectedData) {
+                        console.log("No Data Selected");
+                        return;
+                    }
                     console.log("Apply operation [" + scope.card.type + "] in directive");
                     console.log("Selected Data [" + selectedData + "] in directive");
                     processList(scope, selectedData);

@@ -136,6 +136,11 @@
                 .when('/test', {
                     templateUrl: 'views/dashboard/test.material.html'
                 })
+                .when('/sell', {
+                    controller: 'SellController',
+                    templateUrl: 'views/sell/sell.view.html',
+                    controllerAs: "model"
+                })
                 .otherwise({
                     redirectTo: '/'
                 });

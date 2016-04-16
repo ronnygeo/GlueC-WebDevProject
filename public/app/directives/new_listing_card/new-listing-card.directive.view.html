@@ -67,20 +67,41 @@
         <div class="collapsible-body">
             <div class="margin-10">
                 <div class="row">
-                    <form class="col s12">
-                        <div class="row">
-                            <div class="input-field col s6">
-                                <input placeholder="Select A File"
+                    <div class="col s10 m6 offset-s1 offset-m3">
+                        <div class="row center-align margin-10">
+                            <div class="file-field input-field">
+                                <input type="file"
+                                       placeholder="Select A File"
                                        id="uploadImage"
-                                       type="file"
-                                       class="validate"
                                        file-model="card.selectedData">
+                                <div class="file-path-wrapper">
+                                    <input class="file-path validate"
+                                           type="text"
+                                           placeholder="Upload one or more files">
+                                </div>
                             </div>
+                        </div>
+                        <div class="row center-align margin-10">
                             <a class="btn"
                                ng-click="apply(card.selectedData)">Upload</a>
                         </div>
-                    </form>
+                    </div>
+
                 </div>
+
+
+                <!--<div class="input-field col s6">-->
+                <!--<input placeholder="Select A File"-->
+                <!--id="uploadImage"-->
+                <!--type="file"-->
+                <!--class="validate"-->
+                <!--file-model="card.selectedData">-->
+                <!--</div>-->
+                <!--<a class="btn"-->
+                <!--ng-click="apply(card.selectedData)">Upload</a>-->
+                <!--</div>-->
+                <!--</form>-->
+                <!--</div>-->
             </div>
         </div>
     </li>
