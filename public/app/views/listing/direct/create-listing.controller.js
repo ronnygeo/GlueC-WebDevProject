@@ -8,7 +8,7 @@
         .module("GluecApp")
         .controller("CreateListingController", CreateListingController);
 
-    function CreateListingController(CategoryService, ProgressBarFactory, ListingService, $rootScope, $location, $timeout) {
+    function CreateListingController(CategoryService, ProgressBarFactory, ListingService, $rootScope, $location, $timeout, ProviderService) {
 
         var CreateListingController = this;
 
@@ -27,7 +27,12 @@
 
         function apply(card) {
             console.log(card);
-            if (card.type == "parentCategory") {
+            if (card.type == "provider") {
+                CreateListingController.listing.providerId = card.selectedData.code;
+                clearOtherCards(card.type);
+                addCategoryCard();
+            }
+            else if (card.type == "parentCategory") {
                 CreateListingController.listing.ebay.parentCategory = card.selectedData._id;
                 clearOtherCards(card.type);
                 addSubCategoryCard(card.selectedData._id);
@@ -57,21 +62,31 @@
         function clearOtherCards(cardType) {
             var cards = CreateListingController.cards;
             var newCards = [];
-            if (cardType == "parentCategory") {
+            if (cardType == "provider") {
                 for (var i in cards) {
-                    if (cards[i].type == 'parentCategory') {
+                    if (cards[i].type == 'provider') {
+                        newCards.push(cards[i]);
+                    }
+                }
+            }
+            else if (cardType == "parentCategory") {
+                for (var i in cards) {
+                    if (cards[i].type == 'provider' || cards[i].type == 'parentCategory') {
                         newCards.push(cards[i]);
                     }
                 }
             } else if (cardType == "subCategory") {
                 for (var i in cards) {
-                    if (cards[i].type == 'parentCategory' || cards[i].type == 'subCategory') {
+                    if (cards[i].type == 'provider' ||
+                        cards[i].type == 'parentCategory' ||
+                        cards[i].type == 'subCategory') {
                         newCards.push(cards[i]);
                     }
                 }
             } else if (cardType == "uploadImage") {
                 for (var i in cards) {
-                    if (cards[i].type == 'parentCategory'
+                    if (cards[i].type == 'provider'
+                        || cards[i].type == 'parentCategory'
                         || cards[i].type == 'subCategory'
                         || cards[i].type == 'uploadImage') {
                         newCards.push(cards[i]);
@@ -80,7 +95,8 @@
             }
             else if (cardType == "otherDetails") {
                 for (var i in cards) {
-                    if (cards[i].type == 'parentCategory'
+                    if (cards[i].type == 'provider'
+                        || cards[i].type == 'parentCategory'
                         || cards[i].type == 'subCategory'
                         || cards[i].type == 'uploadImage'
                         || cards[i].type == 'otherDetails') {
@@ -187,20 +203,42 @@
         function initNewListing() {
             ProgressBarFactory.showProgressBar();
             var newListing = {
-                providerId: "10001"//Ebay
+                userId: $rootScope.user._id
             };
             //Getting New Listing Template
             ListingService.getNewListingTemplate(newListing)
                 .then(function (response) {
                     console.log(response.data);
                     CreateListingController.listing = response.data;
-                    addCategoryCard();
+                    addProviderCard();
                 }, function (err) {
                     console.log(err);
                 });
         }
 
+        function addProviderCard() {
+            var providerCard = {
+                type: "provider",
+                data: [],
+                selectedData: "",
+                header: ""
+            };
+            ProviderService.getProvidersForUser($rootScope.user._id)
+                .then(function (response) {
+                        console.log(response);
+                        providerCard.data = response.data;
+                        ProgressBarFactory.hideProgressBar();
+                        console.log(providerCard);
+                        CreateListingController.cards = [providerCard];
+                    }, function (err) {
+                        console.log(err)
+                    }
+                )
+            ;
+        }
+
         function addCategoryCard() {
+            ProgressBarFactory.showProgressBar();
             var categoryCard = {
                 type: "parentCategory",
                 data: [],
@@ -215,7 +253,7 @@
                 categoryCard.data = response.data;
                 ProgressBarFactory.hideProgressBar();
                 console.log(categoryCard);
-                CreateListingController.cards = [categoryCard];
+                CreateListingController.cards.push(categoryCard);
             }
 
             function error_callback(error) {

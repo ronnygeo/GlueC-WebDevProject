@@ -1,11 +1,63 @@
-<div class="container">
+<div class="container sell-page">
     <div class="section main-content white card">
-        <div class="row">
-            <div class="row center div-10">
-                <h4 class="grey-text">Start Selling</h4>
+        <!--Page Header-->
+        <!--<div class="row center div-10">-->
+        <!--<h4 class="grey-text">Start Selling</h4>-->
+        <!--</div>-->
+
+        <div class="card-image">
+            <img src="../../media/photo-1451186859696-371d9477be93.jpg">
+        </div>
+        <!--Page Content-->
+        <div class="row card-content grey-text">
+            <div class="col s12 l4">
+                <div class="row center-align sell-flow-nav"
+                     ng-click="model.sellImage()">
+                    <div class="col s4 sell-flow-nav-image">
+                        <i class="fa fa-5x fa-picture-o"></i>
+                    </div>
+                    <div class="col s8 sell-flow-nav-text">
+                        <h5>Image</h5>
+                        <h6>Upload an Image of what you want to sell.</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 l4">
+                <div class="row center-align sell-flow-nav  "
+                     ng-click="model.sellSearch()">
+                    <div class="col s4 sell-flow-nav-image">
+                        <i class="fa fa-5x fa-search"></i>
+                    </div>
+                    <div class="col s8 sell-flow-nav-text">
+                        <h5>Search</h5>
+                        <h6>Search for similar products before selling.</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 l4">
+                <div class="row center-align sell-flow-nav last-one"
+                     ng-click="model.sellDirect()">
+                    <div class="col s4 sell-flow-nav-image">
+                        <i class="fa fa-5x fa-shopping-cart"></i>
+                    </div>
+                    <div class="col s8 sell-flow-nav-text">
+                        <h5>Direct</h5>
+                        <h6>Directly create a listing for a provider.</h6>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row">
+        <div class="analytics card grey-text">
+            <h5>Top Selling Products</h5>
+        </div>
+        <div class="analytics card grey-text">
+            <h5>Top Selling Categories</h5>
+        </div>
+        <div class="analytics card grey-text">
+            <h5>Top Selling Providers</h5>
+        </div>
+        <div class="analytics card grey-text">
+            <h5>Live Listings</h5>
         </div>
     </div>
 </div>

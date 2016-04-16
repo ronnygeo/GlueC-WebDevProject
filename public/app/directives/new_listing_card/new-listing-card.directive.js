@@ -34,9 +34,19 @@
 
         function processList(scope, selectedData) {
             console.log("processList");
-            if (scope.card.type == "parentCategory") {
+            if (scope.card.type == "provider") {
                 //Update Header
-                scope.card.header = selectedData.name;
+                scope.card.header = "Provider - " + selectedData.name;
+                // remove previously selected active
+                if (scope.card.selectedData) {
+                    $('#provider_' + scope.card.selectedData._id).removeClass("active");
+                }
+                // add active to current selected row
+                $('#provider_' + selectedData._id).addClass("active");
+            }
+            else if (scope.card.type == "parentCategory") {
+                //Update Header
+                scope.card.header = "Top Category - " + selectedData.name;
                 // remove previously selected active
                 if (scope.card.selectedData) {
                     $('#catgory_' + scope.card.selectedData._id).removeClass("active");
@@ -45,7 +55,7 @@
                 $('#catgory_' + selectedData._id).addClass("active");
             } else if (scope.card.type == "subCategory") {
                 //Update Header
-                scope.card.header = selectedData.name;
+                scope.card.header = "Sub Category - " + selectedData.name;
                 // remove previously selected active
                 if (scope.card.selectedData) {
                     $('#catgory_' + scope.card.selectedData._id).removeClass("active");
@@ -54,7 +64,7 @@
                 $('#catgory_' + selectedData._id).addClass("active");
             } else if (scope.card.type == "uploadImage") {
                 //Update Header
-                scope.card.header = selectedData.name;
+                scope.card.header = "Image - " + selectedData.name;
             }
             //Closing current accordion
             angular.element(document).ready(function () {

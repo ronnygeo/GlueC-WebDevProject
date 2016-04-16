@@ -87,7 +87,6 @@
                     templateUrl: 'views/dashboard/dashboard.view.html',
                     controllerAs: 'dc'
                 })
-
                 // .when('/userdash', {
                 //     controller: 'UserDashboardController',
                 //     templateUrl: 'views/dashboard/dashboard.user.view.html',
@@ -98,9 +97,9 @@
                     templateUrl: 'views/product/pdp.view.html',
                     controllerAs: "model"
                 })
-                .when('/listing/create', {
+                .when('/listing/direct/create', {
                     controller: 'CreateListingController',
-                    templateUrl: 'views/listing/create-listing.view.html',
+                    templateUrl: 'views/listing/direct/create-listing.view.html',
                     controllerAs: "model"
                 })
                 .when('/listing/interactive', {
@@ -114,7 +113,7 @@
                 //     controllerAs: 'admin'
                 // })
                 // .when('/user/:id/catalog/:catId', {
-                //     controller: 'ShowCatalogController',
+                //     controlle    r: 'ShowCatalogController',
                 //     templateUrl: 'views/catalog/show/show.catalog.view.html',
                 //     controllerAs: "cc"
                 // })
