@@ -1,16 +1,17 @@
-<div class="card-image waves-effect waves-block waves-light center-align">
-    <img ng-src="{{model.product.imageUrl}}" alt="Product Image">
+<div class="card-image waves-effect waves-block waves-light center-align" ng-controller="ViewProductController as model">
+    <img ng-src="{{model.product.imageUrl}}" alt="Product Image" class="responsive-img" />
     <!--<span class="card-title">{{model.product.title[0] | removeDoubleQuotes}}</span>-->
 </div>
 <div class="card-content">
     <span class="card-title">
-        {{model.product.title}}
+        {{model.product.name}}
     </span>
     <p>
         {{model.product.description}}
     </p>
+    <h5>{{model.product.price}}</h5>
 </div>
 <div class="card-action">
-    <a href="#/dashboard/product/{{product._id}}/edit">Edit</a>
+    <a href="#/dashboard/product/{{model.product._id}}/edit">Edit</a>
     <a href="">Delete</a>
 </div>

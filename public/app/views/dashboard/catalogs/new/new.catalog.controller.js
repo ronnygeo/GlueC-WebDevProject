@@ -8,22 +8,21 @@
         .module('GluecApp')
         .controller("NewCatalogController", NewCatalogController);
 
-    NewCatalogController.$inject = ['CatalogService', '$routeParams', '$location', '$rootScope'];
+    NewCatalogController.$inject = ['CatalogService', '$location', '$rootScope'];
 
-    function NewCatalogController(CatalogService, $routeParams, $location, $rootScope) {
+    function NewCatalogController(CatalogService, $location, $rootScope) {
 
         //$scope.search = search;
         var vm = this;
         vm.$location = $location;
-        var userId = $routeParams.id;
-        console.log(userId);
+        var userId = $rootScope.user._id;
 
        vm.createCatalog = createCatalog;
 
         function createCatalog(){
             vm.catalog.merchantName = $rootScope.user.firstName;
-            CatalogService.createCatalog(userId, vm.catalog).then(function (data){
-                $location.url('/dashboard');
+            CatalogService.createCatalog(userId, vm.catalog).then(function (){
+                $location.url('/dashboard/catalogs');
             });
        }
     }
