@@ -19,6 +19,15 @@
         SellController.sellDirect = sellDirect;
 
         function init() {
+            angular.element(document).ready(function () {
+                //$("#sell-search").hover(function () {
+                //    $('#sell-search-bar').show("slow");
+                //    $('#sell-search-text').hide();
+                //}, function() {
+                //    //$('#sell-search-bar').hide();
+                //    //$('#sell-search-text').show("slow");
+                //})
+            });
 
         }
 
@@ -28,12 +37,14 @@
         }
 
         function sellSearch() {
-
+            console.log("Got KeyEvent Enter");
+            $location.url("/search/q/" + SellController.search_input);
         }
 
         function sellImage() {
 
         }
+
 
     }
 })();

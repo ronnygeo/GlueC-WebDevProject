@@ -4,15 +4,13 @@
         <!--<div class="row center div-10">-->
         <!--<h4 class="grey-text">Start Selling</h4>-->
         <!--</div>-->
-
-        <div class="card-image">
-            <img src="../../media/photo-1451186859696-371d9477be93.jpg">
+        <div class="sell-card-image">
+            <div class="card-image">
+                <img src="../../media/photo-1451186859696-371d9477be93.jpg">
+            </div>
         </div>
         <!--Page Content-->
-        <div class="card-content">
-
-        </div>
-            <div class="row card-content grey-text">
+        <div class="row card-content grey-text">
             <div class="col s12 l4">
                 <div class="row center-align sell-flow-nav"
                      ng-click="model.sellImage()">
@@ -26,14 +24,28 @@
                 </div>
             </div>
             <div class="col s12 l4">
-                <div class="row center-align sell-flow-nav  "
-                     ng-click="model.sellSearch()">
-                    <div class="col s4 sell-flow-nav-image">
+                <div class="row center-align sell-flow-nav sell-flow-nav-border">
+                    <div class="col s3 sell-flow-nav-image"
+                         id="sell-search-icon">
                         <i class="fa fa-5x fa-search"></i>
                     </div>
-                    <div class="col s8 sell-flow-nav-text">
+                    <div class="col s8 sell-flow-nav-text"
+                         id="sell-search-text">
                         <h5>Search</h5>
                         <h6>Search for similar products before selling.</h6>
+                        <div class="col s10">
+                            <input placeholder="Search for similar products"
+                                   id="sell-search"
+                                   ng-model="model.search_input"
+                                   ng-keypress="($event.which ==13 || $event.keyCode==13)? model.sellSearch():return"
+                                   type="text"
+                                   class="validate">
+                        </div>
+                        <div class="col s2"
+                             ng-click="model.sellSearch()">
+                            <i class="fa fa-3x fa-angle-right sell-search-btn"></i>
+                        </div>
+
                     </div>
                 </div>
             </div>

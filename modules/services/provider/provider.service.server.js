@@ -58,7 +58,7 @@ module.exports = function (app, productModel, providerModel) {
     }
 
     function findItemsAdvanced(req, res) {
-
+        var items= [];
         /*Step1: Get Providers*/
 
         /*Get Items from all the providers*/
@@ -69,13 +69,14 @@ module.exports = function (app, productModel, providerModel) {
             .then(success_callback, error_callback);
 
         function success_callback(response) {
-            console.log(response);
+            //console.log(response);
             productModel.amazon.findItemsByKeywords(req.params.keyword)
                 .then(function (data) {
-                    console.log(data);
-                    response.push(data);
-                    response.sort();
-                    res.send(response);
+                    //console.log(data);
+                    items = response.concat(data);
+                    //response.sort();
+                    console.log(items );
+                    res.json(items );
                 }, function (error) {
                     console.log(error);
                     res.statusCode(404).send(error);

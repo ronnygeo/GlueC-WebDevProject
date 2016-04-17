@@ -1,5 +1,9 @@
 @import url(https://fonts.googleapis.com/css?family=Noto+Serif);
 
+.container {
+    padding-top: 10vh;
+}
+
 .main-content {
     min-height: 90vh !important;
     margin-top: -40px;
@@ -381,9 +385,14 @@ body {
 }
 
 .sell-page .sell-flow-nav {
-    border-right: 1px solid #e0e0e0;
     margin-top: 30px;
     padding: 10px;
+    border-right: 1px solid #e0e0e0;
+    border-left: 0;
+    border-top: 0;
+    border-bottom: 0;
+    min-height: 20vh;
+
 }
 
 .sell-page .sell-flow-nav-image {
@@ -396,9 +405,12 @@ body {
 
 @media all and (max-width: 992px) {
     .sell-page .sell-flow-nav {
-        border-bottom: 1px solid #e0e0e0;
-        border-right: 0px;
         padding-bottom: 30px;
+        border-bottom: 1px solid #e0e0e0;
+        border-top: 0;
+        border-left: 0;
+        border-right: 0;
+        min-height: 20vh;
     }
 }
 
@@ -410,6 +422,9 @@ body {
     color: #2e2e2e;
 }
 
+.sell-page .first-one {
+    border-top: 0px !important;
+}
 .sell-page .analytics {
     padding: 1rem;
     position: relative;
@@ -418,8 +433,11 @@ body {
     box-shadow: none;
 }
 
-.container {
-    padding-top: 10vh;
+.sell-page .sell-card-image {
+    max-height: 50vh;
+    overflow: hidden;
+}
+.sell-page .sell-search-btn{
+    cursor: pointer;
 }
 
-/*# sourceMappingURL=style.css.map */
