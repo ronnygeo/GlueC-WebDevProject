@@ -1,65 +1,67 @@
 <div class="container">
-    <div class="section main-content card white">
-        <div class="row">
-            <div class="col s10 offset-s1">
-                <div class="row center div-10">
-                    <h4 class="grey-text">Login</h4>
-                </div>
-                <div class="row">
-                    <div class="card-panel red"
-                         id="login-alert">
+    <div class="section main-content">
+        <div class="card white">
+            <div class="row">
+                <div class="col s10 offset-s1">
+                    <div class="row center div-10">
+                        <h4 class="grey-text">Login</h4>
+                    </div>
+                    <div class="row">
+                        <div class="card-panel red"
+                             id="login-alert">
                         <span class="white-text">
                             <strong>Invalid User</strong> Username/Password combo does not exist.
                         </span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <form class="col s10 offset-s1">
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input ng-model="lc.user.username"
-                               id="username"
-                               type="text"
-                               class="validate">
-                        <label for="username">Username</label>
+            <div class="row">
+                <form class="col s10 offset-s1">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input ng-model="lc.user.username"
+                                   id="username"
+                                   type="text"
+                                   class="validate">
+                            <label for="username">Username</label>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input ng-model="lc.user.password"
-                               id="password"
-                               type="password"
-                               class="validate">
-                        <label for="password">Password</label>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input ng-model="lc.user.password"
+                                   id="password"
+                                   type="password"
+                                   class="validate">
+                            <label for="password">Password</label>
+                        </div>
                     </div>
-                </div>
-                <div class="row center margin-top-10">
-                    <div class="col s11 m6 offset-m3">
-                        <a ng-click="lc.login()"
-                           class="waves-effect waves-light btn">Login</a>
+                    <div class="row center margin-top-10">
+                        <div class="col s11 m6 offset-m3">
+                            <a ng-click="lc.login()"
+                               class="waves-effect waves-light btn">Login</a>
+                        </div>
                     </div>
-                </div>
-                <div class="row center">
-                    <div class="col s11 m6 offset-m3">
-                        <a class="waves-effect btn red"
-                           href="#/register">Register</a>
+                    <div class="row center">
+                        <div class="col s11 m6 offset-m3">
+                            <a class="waves-effect btn red"
+                               href="#/register">Register</a>
+                        </div>
                     </div>
-                </div>
-                <div class="row center">
-                    <div class="col s11 m6 offset-m3">
-                        <a class="waves-effect btn blue"
-                           href="#/register"><i class="fa fa-facebook left"></i> Facebook</a>
+                    <div class="row center">
+                        <div class="col s11 m6 offset-m3">
+                            <a class="waves-effect btn blue"
+                               href="#/register"><i class="fa fa-facebook left"></i> Facebook</a>
+                        </div>
                     </div>
-                </div>
-                <div class="row center">
-                    <div class="col s11 m6 offset-m3">
-                        <a class="waves-effect btn amber"
-                           href="#/register"><i class="fa fa-google right"></i> Google</a>
+                    <div class="row center">
+                        <div class="col s11 m6 offset-m3">
+                            <a class="waves-effect btn amber"
+                               href="#/register"><i class="fa fa-google right"></i> Google</a>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 </div>

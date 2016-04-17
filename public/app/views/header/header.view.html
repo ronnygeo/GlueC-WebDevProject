@@ -1,32 +1,49 @@
 <div class="navbar-fixed">
-<nav ng-class="{'nav-home': $location.url() == '/'}" role="navigation" ng-controller="HeaderController">
-    <div class="nav-wrapper">
-        <a href="#/" class="brand-logo">GlueC</a>
-        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="fa fa-bars" id="side-menu-icon"></i></a>
-        <ul id="nav-med-up" class="right hide-on-med-and-down">
-            <li ng-show="user && user._id"
-                ng-class="{'active': $location.url() == '/profile'}"><a href="#/messages">Messages</a></li>
-            <li ng-show="user">
-                <a href="#/dashboard">Dashboard</a></li>
-            <li><a href="#/sell">Sell</a></li>
-            <li ng-hide="user"
-                ng-class="{'active': $location.url() == '/register'}"><a href="#/register">Register</a>
-            </li>
-            <li ng-hide="user"
-                ng-class="{'active': $location.url() == '/login'}"><a href="#/login">Login</a></li>
-            <li ng-show="user"><a ng-click="logout()">Logout</a></li>
-        </ul>
-        <ul class="side-nav" id="mobile-demo">
-            <li ng-show="user && user._id"
-                ng-class="{'active': $location.url() == '/profile'}"><a href="#/messages">Messages</a></li>
-            <li ng-show="user"><a href="#/dashboard">Dashboard</a></li>
-            <li><a href="#/sell">Sell</a></li>
-            <li ng-hide="user"
-                ng-class="{'active': $location.url() == '/register'}"><a href="#/register">Register</a>
-            </li>
-            <li ng-hide="user"
-                ng-class="{'active': $location.url() == '/login'}"><a href="#/login">Login</a></li>
-            <li ng-show="user"><a ng-click="logout()">Logout</a></li>
-        </ul>
-    </div>
-</nav></div>
+    <nav ng-class="{'nav-home': $location.url() == '/'}"
+         role="navigation"
+         ng-controller="HeaderController">
+        <div class="nav-wrapper">
+            <a href="#/"
+               class="brand-logo">GlueC</a>
+            <a href="#"
+               data-activates="mobile-demo"
+               class="button-collapse"><i class="fa fa-bars"
+                                          id="side-menu-icon"></i></a>
+            <ul id="nav-med-up"
+                class="right hide-on-med-and-down">
+                <li ng-show="user && user._id">
+                    <i class="material-icons left">perm_identity</i>Welcome {{user.firstName}}
+                </li>
+                <li ng-show="user && user._id"
+                    ng-class="{'active': $location.url() == '/profile'}">
+                    <a href="#/messages"><i class="material-icons left">message</i>Messages</a></li>
+                <li ng-show="user">
+                    <a href="#/dashboard"><i class="material-icons left">dashboard</i>Dashboard</a></li>
+                <li><a href="#/sell"><i class="material-icons left">shopping_cart</i>Sell</a></li>
+                <li ng-hide="user"
+                    ng-class="{'active': $location.url() == '/register'}"><a href="#/register">Register</a>
+                </li>
+                <li ng-hide="user"
+                    ng-class="{'active': $location.url() == '/login'}"><a href="#/login">Login</a></li>
+                <li ng-show="user"><a ng-click="logout()">Logout</a></li>
+            </ul>
+            <ul class="side-nav"
+                id="mobile-demo">
+                <li ng-show="user && user._id">
+                    <i class="material-icons left">perm_identity</i>Welcome {{user.firstName}}
+                </li>
+                <li ng-show="user && user._id"
+                    ng-class="{'active': $location.url() == '/profile'}">
+                    <a href="#/messages"><i class="material-icons left">message</i>Messages</a></li>
+                <li ng-show="user"><a href="#/dashboard"><i class="material-icons left">dashboard</i>Dashboard</a></li>
+                <li><a href="#/sell"><i class="material-icons left">shopping_cart</i>Sell</a></li>
+                <li ng-hide="user"
+                    ng-class="{'active': $location.url() == '/register'}"><a href="#/register">Register</a>
+                </li>
+                <li ng-hide="user"
+                    ng-class="{'active': $location.url() == '/login'}"><a href="#/login">Login</a></li>
+                <li ng-show="user"><a ng-click="logout()">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>

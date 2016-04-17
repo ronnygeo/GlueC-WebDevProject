@@ -1,67 +1,107 @@
 <div class="container">
-    <div class="section main-content card white">
-        <div class="row center div-10">
-            <h4 class="grey-text">Register</h4>
-        </div>
-        <div class="row">
-            <form class="col s10 offset-s1">
-                <div class="row">
-                    <div class="input-field col s6">
-                        <input ng-model="user.user.firstName" id="first_name" type="text" class="validate">
-                        <label for="first_name">First Name</label>
+    <div class="section main-content">
+        <div class="card white">
+            <div class="row">
+                <div class="col s10 offset-s1">
+                    <div class="row center div-10">
+                        <h4 class="grey-text">Register</h4>
                     </div>
-                    <div class="input-field col s6">
-                        <input ng-model="user.user.lastName" id="last_name" type="text" class="validate">
-                        <label for="last_name">Last Name</label>
-                    </div>
+                    <!--Error Div-->
+                    <!--<div class="row">-->
+                        <!--<div class="card-panel red">-->
+                        <!--<span class="white-text">-->
+
+                        <!--</span>-->
+                        <!--</div>-->
+                    <!--</div>-->
                 </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input ng-model="user.user.username" id="username" type="text" class="validate">
-                        <label for="username">User Name</label>
+            </div>
+            <div class="row">
+                <form class="col s10 offset-s1">
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input ng-model="user.user.firstName"
+                                   id="first_name"
+                                   type="text"
+                                   class="validate">
+                            <label for="first_name">First Name</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input ng-model="user.user.lastName"
+                                   id="last_name"
+                                   type="text"
+                                   class="validate">
+                            <label for="last_name">Last Name</label>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s6">
-                        <input ng-model="user.user.password" id="password" type="password" class="validate">
-                        <label for="password">Password</label>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input ng-model="user.user.username"
+                                   id="username"
+                                   type="text"
+                                   class="validate">
+                            <label for="username">User Name</label>
+                        </div>
                     </div>
-                    <div class="input-field col s6">
-                        <input id="repeat-password" type="password" class="validate">
-                        <label for="repeat-password">Repeat Password</label>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input ng-model="user.user.password"
+                                   id="password"
+                                   type="password"
+                                   class="validate">
+                            <label for="password">Password</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input id="repeat-password"
+                                   type="password"
+                                   class="validate">
+                            <label for="repeat-password">Repeat Password</label>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input ng-model="user.user.email" id="email" type="email" class="validate">
-                        <label for="email">Email</label>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input ng-model="user.user.email"
+                                   id="email"
+                                   type="email"
+                                   class="validate">
+                            <label for="email">Email</label>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col s12">
-                        <label for="roles">Role</label>
-                            <select name="roles" id="roles" ng-model="user.user.roles">
-                            <!--<option value="" disabled selected>Choose your option</option>-->
-                            <option value="customer">Customer</option>
-                            <option value="merchant">Merchant</option>
-                        </select>
+                    <div class="row">
+                        <div class="col s12">
+                            <label for="roles">Role</label>
+                            <select name="roles"
+                                    id="roles"
+                                    ng-model="user.user.roles">
+                                <!--<option value="" disabled selected>Choose your option</option>-->
+                                <option value="customer">Customer</option>
+                                <option value="merchant">Merchant</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col s12 m6">
-                        <img ng-show="user.user.imageUrl !== undefined" src={{user.user.imageUrl}} width="100%" />
+                    <div class="row">
+                        <div class="col s12 m6">
+                            <img ng-show="user.user.imageUrl !== undefined"
+                                 src={{user.user.imageUrl}}
+                                 width="100%"/>
+                        </div>
+                        <div class="col s12 m6">
+                            <input ng-model="user.user.imageUrl"
+                                   id="imageUrl"
+                                   type="text">
+                            <label for="imageUrl">Avatar</label>
+                        </div>
                     </div>
-                    <div class="col s12 m6">
-                        <input ng-model="user.user.imageUrl" id="imageUrl" type="text">
-                        <label for="imageUrl">Avatar</label>
+                    <div class="row center">
+                        <div class
+                             col
+                             s12>
+                            <a ng-click="user.register()"
+                               class="waves-effect waves-light btn">Register</a>
+                        </div>
                     </div>
-                </div>
-                <div class="row center">
-                    <div class col s12>
-                        <a ng-click="user.register()" class="waves-effect waves-light btn">Register</a>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 </div>
