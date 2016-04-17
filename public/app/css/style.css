@@ -381,39 +381,46 @@ body {
 }
 
 .sell-page .card-content {
-    padding: 0px;
-    margin: 0px;
+    padding: 5px;
+    margin: 5px;
 }
 
 .sell-page .sell-flow-nav {
-    margin-top: 30px;
-    margin-left: auto;
+    margin: 30px 0px 0px 10px;
     padding: 10px;
     border-right: 1px solid #e0e0e0;
     border-left: 0;
     border-top: 0;
     border-bottom: 0;
-    height: 18vh;
-
+    min-height: 18vh;
 }
 
 .sell-page .sell-flow-nav-image {
     text-align: right;
-}
-
-.sell-page .sell-flow-nav-text {
-    text-align: left;
+    /*margin: 0.82rem 0 0.656rem 0;*/
+    font-size: 3em;
 }
 
 @media all and (max-width: 992px) {
+    .sell-page .sell-flow-nav-image {
+        text-align: right;
+        margin: 0.82rem 0 0.656rem 0;
+        font-size: 4em;
+    }
     .sell-page .sell-flow-nav {
-        padding-bottom: 30px;
+        padding: 20px;
+        margin: 10px;
         border-bottom: 1px solid #e0e0e0;
         border-top: 0;
         border-left: 0;
         border-right: 0;
         height: 25vh;
     }
+
+}
+
+.sell-page .sell-flow-nav-text {
+    text-align: left;
 }
 
 .sell-page .last-one {
@@ -427,6 +434,7 @@ body {
 .sell-page .first-one {
     border-top: 0px !important;
 }
+
 .sell-page .analytics {
     padding: 1rem;
     position: relative;
@@ -439,6 +447,7 @@ body {
     max-height: 80vh;
     overflow: hidden;
 }
-.sell-page .sell-search-btn{
+
+.sell-page .sell-search-btn {
     cursor: pointer;
 }
