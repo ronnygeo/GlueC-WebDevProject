@@ -6,7 +6,7 @@
             <ul class="collection collapsible" data-collapsible="accordion">
                 <li ng-repeat="message in mc.messages">
                     <div class="collapsible-header collection-item avatar">
-                        <img src="{{message.imageUrl}}" alt="" class="circle">
+                        <img ng-src="{{message.user.imageUrl}}" alt="" class="circle">
                         <span class="title">{{message.from}}</span>
                         <p>{{message.subject}}</p>
                         <a class="secondary-content" ng-click="mc.deleteMessage($index)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>

@@ -2,9 +2,9 @@
     angular.module("GluecApp")
         .controller('MessageController', MessageController);
 
-    MessageController.$inject = ['$routeParams', 'MessageService', '$rootScope', '$timeout', 'UserService'];
+    MessageController.$inject = ['$scope', 'MessageService', '$rootScope', '$timeout', 'UserService'];
 
-    function MessageController($routeParams, MessageService, $rootScope, $timeout, UserService) {
+    function MessageController($scope, MessageService, $rootScope, $timeout, UserService) {
         var vm = this;
         var fromUserId = $rootScope.user._id;
         vm.message = {};
@@ -68,9 +68,9 @@
             vm.messages = data.data;
             for (m in vm.messages) {
                 UserService.findUserByIdMinimal(vm.messages[m].from).then(function (data) {
-                    vm.messages[m].firstName = data.data.firstName;
-                    vm.messages[m].lastName = data.data.lastName;
-                    vm.messages[m].imageUrl = data.data.imageUrl;
+                    // $scope.$apply(function () {
+                        vm.messages[m].user = data.data;
+                    // });
                 });
             }
             console.log(vm.messages);
