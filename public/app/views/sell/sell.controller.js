@@ -8,9 +8,9 @@
         .module('GluecApp')
         .controller("SellController", SellController);
 
-    SellController.$inject = ['ProductService', '$scope', '$routeParams', '$location', 'ProgressBarFactory','$timeout'];
+    SellController.$inject = ['ProductService', '$scope', '$routeParams', '$location', 'ProgressBarFactory', '$timeout'];
 
-    function SellController(ProductService, $scope, $routeParams, $location, ProgressBarFactory,$timeout) {
+    function SellController(ProductService, $scope, $routeParams, $location, ProgressBarFactory, $timeout) {
 
         var SellController = this;
 
@@ -32,6 +32,9 @@
         }
 
         function sellSearch() {
+            if (!SellController.search_input) {
+                return;
+            }
             console.log("Got KeyEvent Enter");
             $location.url("/search/q/" + SellController.search_input);
         }

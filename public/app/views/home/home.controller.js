@@ -23,11 +23,13 @@
 
         function search() {
             console.log("Got KeyEvent Enter");
+            if (!vm.search_input) {
+                return;
+            }
             $location.url("/search/q/" + vm.search_input);
         }
 
         function isLoggedIn() {
-            // console.log($rootScope.user);
             if ($rootScope.user == 'undefined') {
                 return false;
             } else {
