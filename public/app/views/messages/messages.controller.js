@@ -6,6 +6,7 @@
 
     function MessageController($scope, MessageService, $rootScope, $timeout, UserService) {
         var vm = this;
+        vm.userId = $rootScope.user._id;
         var fromUserId = $rootScope.user._id;
         vm.message = {};
 

@@ -7,7 +7,7 @@
                 <li ng-repeat="message in mc.messages">
                     <div class="collapsible-header collection-item avatar">
                         <img ng-src="{{message.user.imageUrl}}" alt="" class="circle">
-                        <span class="title">{{message.from}}</span>
+                        <span class="title">{{message.user.firstName | capitalize}} {{message.user.lastName | capitalize}}</span>
                         <p>{{message.subject}}</p>
                         <a class="secondary-content" ng-click="mc.deleteMessage($index)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                     </div>
@@ -29,7 +29,7 @@
                 <div class="col s12">
                     <label for="catalog">Select User</label>
                     <select name="catalog" id="catalog" ng-model="mc.message.to">
-                        <option ng-repeat="user in mc.users" value="{{user._id}}">{{user.firstName}} {{user.lastName}}</option>
+                        <option ng-repeat="user in mc.users" ng-if="user._id !== mc.userId" value="{{user._id}}">{{user.firstName}} {{user.lastName}}</option>
                     </select>
                 </div>
 
