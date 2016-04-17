@@ -7,9 +7,9 @@
         .module('GluecApp')
         .controller('RegisterController', RegisterController);
 
-    RegisterController.$inject = ['UserService', '$rootScope', '$location','$timeout'];
+    RegisterController.$inject = ['UserService', '$rootScope', '$location','$timeout','Upload'];
 
-    function RegisterController(UserService, $rootScope, $location, $timeout) {
+    function RegisterController(UserService, $rootScope, $location, $timeout, Upload) {
         var vm = this;
 
         vm.user = {};
@@ -31,16 +31,38 @@
         // });
         //Event Handlers Implementations
         function Register() {
-            console.log(vm.user);
-            UserService.createUser(vm.user).then(function (response) {
+            if (vm.user.image) {
+            Upload.upload({
+                url: '/api/user/upload', //webAPI exposed to upload the file
+                data:{file:vm.user.image} //pass file as data, should be user ng-model
+            }).then(function (res) { //upload function returns a promise
+                if (res.data.error_code !== 1) { //validate success
+                    console.log(res.data);
+                    vm.user.imageUrl = '/media/images/users/'+res.data;
+                    UserService.createUser(vm.user).then(function (response) {
+                        if (response.data != null) {
+                            //Storing the user in the Root Scope
+                            $rootScope.user = response.data;
+                            // Navigating to the Profile Page of this particular User
+                            $location.url("/");
+                        }
+                    });
+                    
+                } else {
+                    console.log('an error occurred');
+                }
+            });
+
+        } else {
+                UserService.createUser(vm.user).then(function (response) {
                     if (response.data != null) {
                         //Storing the user in the Root Scope
                         $rootScope.user = response.data;
                         // Navigating to the Profile Page of this particular User
                         $location.url("/");
                     }
-                }
-            )
+                });
+            }
         }
     }
 })();

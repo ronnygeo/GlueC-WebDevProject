@@ -79,18 +79,40 @@
                             </select>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col s12 m6">
-                            <img ng-show="user.user.imageUrl !== undefined"
-                                 src={{user.user.imageUrl}}
-                                 width="100%"/>
+                    <div class="row s12">
+                        <div class="file-field input-field">
+                            <div class="btn">
+                                <span>Upload Avatar</span>
+                                <input
+                                        type="file"
+                                        id="imageUpload"
+                                        ngf-select
+                                        ng-model="user.user.image"
+                                        name="file"
+                                        ngf-pattern="'image/*'"
+                                        accept="image/*"
+                                        ngf-max-size="20MB"
+                                />
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text">
+                            </div>
                         </div>
+                        </div>
+                    <div class="row">
                         <div class="col s12 m6">
                             <input ng-model="user.user.imageUrl"
                                    id="imageUrl"
                                    type="text">
-                            <label for="imageUrl">Avatar</label>
+                            <label for="imageUrl">or Enter Image URL</label>
                         </div>
+                        <div class="col s12 m6">
+                            <img ng-if="user.user.imageUrl"
+                                 src={{user.user.imageUrl}}
+                                 width="100%"/>
+                            <img style="width:100%" ng-if="user.user.image && !user.user.imageUrl" ngf-thumbnail="user.user.image"/>
+                        </div>
+
                     </div>
                     <div class="row center">
                         <div class

@@ -120,4 +120,10 @@
                 responsive: true
             });
         });
+        // .config(['flowFactoryProvider', function (flowFactoryProvider) {
+        //     flowFactoryProvider.defaults = {
+        //         target: '/media/images/users',
+        //         permanentErrors: [404, 500, 501]
+        //     }
+        // }]);
 })();

@@ -54,7 +54,7 @@ module.exports = function (mongoose) {
         });
         return deferred.promise;
     }
-
+    
     // //Accepts parameters user object and callback function
     // //Adds property called _id with unique value to the user object parameter.
     // //Adds the new user to local array of users

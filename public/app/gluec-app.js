@@ -9,7 +9,7 @@
             "angular.filter",
             "gluec.directives",
             "ngProgress",
-            'chart.js'
-            //'flow'
+            'chart.js',
+            'ngFileUpload'
         ]);
 })();

@@ -1,7 +1,7 @@
 /**
  * Created by ronnygeo on 3/24/16.
  */
-module.exports = function (app, userModel) {
+module.exports = function (app, userModel, userImageUpload) {
     app.get("/api/users", findAllUsersAdmin);
     app.get("/api/user/users", findAllUsers);
     app.get("/api/user/:id", findUserById);
@@ -10,6 +10,18 @@ module.exports = function (app, userModel) {
     app.post("/api/user", registerUser);
     app.put("/api/user/:id", updateUser);
     app.delete("/api/user/:id", deleteUser);
+    app.post('/api/user/upload', uploadImage);
+    
+    function uploadImage(req, res) {
+        userImageUpload(req,res,function(err){
+            if(err){
+                res.json({error_code:1,err_desc:err});
+                return;
+            }
+            res.json(req.file.filename);
+        });
+    }
+
 
     function findAllUsersAdmin(req, res) {
         userModel
