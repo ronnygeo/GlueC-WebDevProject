@@ -17,7 +17,8 @@
                 <li ng-show="user && user._id"
                     ng-class="{'active': $location.url() == '/messages'}">
                     <a href="#/messages"><i class="material-icons left">message</i>Messages</a></li>
-                <li ng-show="user">
+                <li ng-show="user"
+                    ng-class="{'active': $location.url() == '/dashboard'}">
                     <a href="#/dashboard"><i class="material-icons left">dashboard</i>Dashboard</a></li>
                 <li ng-class="{'active': $location.url() == '/sell'}"><a href="#/sell"><i class="material-icons left">shopping_cart</i>Sell
                 </a></li>
@@ -36,7 +37,9 @@
                 <li ng-show="user && user._id"
                     ng-class="{'active': $location.url() == '/messages'}">
                     <a href="#/messages"><i class="material-icons left">message</i>Messages</a></li>
-                <li ng-show="user"><a href="#/dashboard"><i class="material-icons left">dashboard</i>Dashboard</a></li>
+                <li ng-show="user"
+                    ng-class="{'active': $location.url() == '/dashboard'}"><a href="#/dashboard">
+                    <i class="material-icons left">dashboard</i>Dashboard</a></li>
                 <li ng-class="{'active': $location.url() == '/sell'}"><a href="#/sell"><i class="material-icons left">shopping_cart</i>Sell
                 </a></li>
                 <li ng-hide="user"
