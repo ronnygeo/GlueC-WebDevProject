@@ -48,11 +48,11 @@
                 opacity: .5, // Opacity of modal background
                 in_duration: 300, // Transition in duration
                 out_duration: 200, // Transition out duration
-                // ready: function() {
-                //     vm.message.from = fromUserId;
-                //     vm.message.subject = "";
-                //     vm.message.message = "";
-                // },
+                ready: function() {
+                    vm.message.from = fromUserId;
+                    vm.message.subject = "";
+                    vm.message.message = "";
+                },
                 complete: function() {
                     console.log(vm.message);
                     MessageService.createMessage(vm.message.to, vm.message).then(function(data) {
@@ -64,10 +64,9 @@
             }, 100, false);
 
         });
-
         MessageService.findMessagesByUser(fromUserId).then(function (data) {
             vm.messages = data.data;
-            for (m in vm.messages) {
+            for (var m in vm.messages) {
                 UserService.findUserByIdMinimal(vm.messages[m].from).then(function (data) {
                     // $scope.$apply(function () {
                         vm.messages[m].user = data.data;
@@ -78,7 +77,6 @@
         });
 
         UserService.findAllUsers().then(function (data) {
-            console.log(data.data);
             vm.users = data.data;
         });
     }

@@ -442,3 +442,11 @@ body {
 .sell-page .sell-search-btn{
     cursor: pointer;
 }
+
+.reply-button {
+    margin: 1rem;
+}
+
+.collapsible-body {
+    background-color: white;
+}
