@@ -393,7 +393,7 @@ body {
     border-left: 0;
     border-top: 0;
     border-bottom: 0;
-    height: 15vh;
+    height: 18vh;
 
 }
 
@@ -442,4 +442,3 @@ body {
 .sell-page .sell-search-btn{
     cursor: pointer;
 }
-
