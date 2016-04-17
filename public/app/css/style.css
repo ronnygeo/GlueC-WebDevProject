@@ -1,5 +1,9 @@
 @import url(https://fonts.googleapis.com/css?family=Noto+Serif);
 
+.container {
+    padding-top: 10vh;
+}
+
 .main-content {
     min-height: 90vh !important;
     margin-top: -40px;
@@ -418,8 +422,9 @@ body {
     box-shadow: none;
 }
 
-.container {
-    padding-top: 10vh;
+
+#sell-search-bar{
+    /*display: none;*/
 }
 
 /*# sourceMappingURL=style.css.map */

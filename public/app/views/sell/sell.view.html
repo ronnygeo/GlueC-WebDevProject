@@ -7,6 +7,16 @@
 
         <div class="card-image">
             <img src="../../media/photo-1451186859696-371d9477be93.jpg">
+            <div class="col s8 search-bar" id="sell-search-bar">
+                <div class="input-field col offset-s1 s10 offset-m3 m6">
+                    <input placeholder="Start by searching for a product.."
+                           id="home-search"
+                           ng-model="model.search_input"
+                           ng-keypress="($event.which ==13 || $event.keyCode==13)? model.search():return"
+                           type="text"
+                           class="validate">
+                </div>
+            </div>
         </div>
         <!--Page Content-->
         <div class="card-content">
@@ -26,12 +36,22 @@
                 </div>
             </div>
             <div class="col s12 l4">
-                <div class="row center-align sell-flow-nav  "
+                <div class="row center-align sell-flow-nav" id="sell-search"
                      ng-click="model.sellSearch()">
-                    <div class="col s4 sell-flow-nav-image">
+                    <div class="col s8 search-bar" id="sell-search-bar">
+                        <div class="input-field col offset-s1 s10 offset-m3 m6">
+                            <input placeholder="Start by searching for a product.."
+                                   id="home-search"
+                                   ng-model="model.search_input"
+                                   ng-keypress="($event.which ==13 || $event.keyCode==13)? model.search():return"
+                                   type="text"
+                                   class="validate">
+                        </div>
+                    </div>
+                    <div class="col s4 sell-flow-nav-image" id="sell-search-icon">
                         <i class="fa fa-5x fa-search"></i>
                     </div>
-                    <div class="col s8 sell-flow-nav-text">
+                    <div class="col s8 sell-flow-nav-text" id="sell-search-text">
                         <h5>Search</h5>
                         <h6>Search for similar products before selling.</h6>
                     </div>

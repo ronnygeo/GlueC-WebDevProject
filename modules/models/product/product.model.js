@@ -119,6 +119,7 @@ module.exports = function (q, request, mongoose) {
         url += "&REST-PAYLOAD";
         url += "&keywords=" + keyword;
         url += "&paginationInput.entriesPerPage=50";
+        //url += "&outputSelector=GalleryInfo";
 
         request(url, function (error, response, body) {
             if (!error && response.statusCode == 200) {
@@ -127,7 +128,7 @@ module.exports = function (q, request, mongoose) {
                     res.findItemsAdvancedResponse[0].searchResult[0] &&
                     res.findItemsAdvancedResponse[0].searchResult[0].item) {
                     deferred.resolve(
-                        mapListingToGluecListing(res.findItemsAdvancedResponse[0].searchResult[0].item), ebay_providerId);
+                        mapListingToGluecListing(res.findItemsAdvancedResponse[0].searchResult[0].item, ebay_providerId));
                 } else {
                     console.log("Ebay API Call Failed");
                     deferred.reject("Ebay API Call Failed")
@@ -154,31 +155,21 @@ module.exports = function (q, request, mongoose) {
         return listings;
     }
 
-    function mapEbayListingToGluecListing(ebayProduct) {
+    function mapAmazonListingToGluecListing(amazonListing) {
         var title, extId, desc, providerId, imageURL, providerURL;
+        // console.log(ebayProduct.ImageSets.ImageSet[0].MediumImage.URL);
+        title = amazonListing.ItemAttributes.Title;
+        extId = amazonListing.ASIN;
+        desc = amazonListing.ItemAttributes.Title;
+        providerId = 10002;
+        imageURL = amazonListing.LargeImage.URL;
+        providerURL = amazonListing.DetailPageURL;
 
-        if (ebayProduct.hasOwnProperty("ASIN")) {
-            // console.log(ebayProduct.ImageSets.ImageSet[0].MediumImage.URL);
-            title = ebayProduct.ItemAttributes.Title;
-            extId = ebayProduct.ASIN;
-            // desc = ebayProduct.ItemAttributes.Feature[0];
-            providerId = 10002;
-            // imageURL = ebayProduct.ImageSets.ImageSet[0].MediumImage.URL;
-            providerURL = ebayProduct.DetailPageURL;
-        } else {
-            title = ebayProduct.title;
-            extId = ebayProduct.itemId[0];
-            desc = "";
-            providerId = 10002;
-            imageURL = ebayProduct.galleryURL[0];
-            providerURL = "";
-        }
-
-        var product = {
+        var listing = {
             //"externalProductId": ebayProduct.productId[0].__value__,
             "externalItemId": extId,
             "title": title,
-            "name": "",
+            "name": title,
             "manufacturer": "",
             "description": desc,
             "categories": [],
@@ -190,30 +181,20 @@ module.exports = function (q, request, mongoose) {
             "imageUrl": imageURL,
             "providerUrl": providerURL
         };
-        return product;
+        return listing;
     }
 
-    function mapAmazonListingToGluecListing(ebayProduct) {
+    function mapEbayListingToGluecListing(ebayListing) {
         var title, extId, desc, providerId, imageURL, providerURL;
 
-        if (ebayProduct.hasOwnProperty("ASIN")) {
-            // console.log(ebayProduct.ImageSets.ImageSet[0].MediumImage.URL);
-            title = ebayProduct.ItemAttributes.Title;
-            extId = ebayProduct.ASIN;
-            desc = ebayProduct.ItemAttributes.Feature[0];
-            providerId = 10001;
-            imageURL = ebayProduct.ImageSets.ImageSet[0].MediumImage.URL;
-            providerURL = ebayProduct.DetailPageURL;
-        } else {
-            title = ebayProduct.title;
-            extId = ebayProduct.itemId[0];
-            desc = "";
-            providerId = 10001;
-            imageURL = ebayProduct.galleryURL[0];
-            providerURL = "";
-        }
+        title = ebayListing.title[0];
+        extId = ebayListing.itemId[0];
+        desc = "";
+        providerId = 10001;
+        imageURL = ebayListing.galleryURL[0];
+        providerURL = "";
 
-        var product = {
+        var listing = {
             //"externalProductId": ebayProduct.productId[0].__value__,
             "externalItemId": extId,
             "title": title,
@@ -229,7 +210,7 @@ module.exports = function (q, request, mongoose) {
             "imageUrl": imageURL,
             "providerUrl": providerURL
         };
-        return product;
+        return listing;
     }
 
     function findItemsByProduct(productId, callback) {
@@ -358,10 +339,11 @@ module.exports = function (q, request, mongoose) {
     }
 
     function amazonFindItemsByKeywords(keyword) {
+        var amazon_providerId = "10002";
         var deferred = q.defer();
         // console.log(keyword);
         var prodAdv = aws.createProdAdvClient("AKIAJIAF55AX5MUBCQYQ", "6WAxZ3AS8xvoKFjSfjwUJhjgq9jP7kQ5xlb+Ub+G", "glueclabs-20");
-        var options = {SearchIndex: "All", Keywords: keyword, ResponseGroup: "Images,ItemAttributes,ItemIds"}
+        var options = {SearchIndex: "All", Keywords: keyword, ResponseGroup: "Images,ItemAttributes,ItemIds"};
         prodAdv.call("ItemSearch", options, function (err, result) {
             if (err) {
                 deferred.reject(err);
@@ -372,8 +354,8 @@ module.exports = function (q, request, mongoose) {
                 // console.log(I.DetailPageURL)
                 // console.log(I.ItemAttributes.Title)
                 // console.log(I.ItemAttributes.Feature[0])
-                // console.log(I.ASIN)
-                deferred.resolve(mapListingToGluecListing(items));
+                //console.log(items);
+                deferred.resolve(mapListingToGluecListing(items, amazon_providerId));
             }
         });
         return deferred.promise;
