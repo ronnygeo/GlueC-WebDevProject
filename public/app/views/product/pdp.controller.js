@@ -21,7 +21,7 @@
         function getProductById() {
             var productId = $routeParams.productId;
             var providerId = $routeParams.providerId;
-            if (!productId || !productId) {
+            if (!productId || !providerId) {
                 return;
             }
             ProgressBarFactory.showProgressBar();

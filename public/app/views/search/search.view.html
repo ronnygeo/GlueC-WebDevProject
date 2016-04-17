@@ -38,13 +38,25 @@
 <div class="container">
     <div class="section main-content">
         <div class="row">
-            <div class="col s12 m4 l4" ng-repeat="product in model.products">
+            <div class="col s12 m4 l4"
+                 ng-repeat="product in model.products">
                 <div class="card small">
                     <div class="card-image waves-effect waves-block waves-light">
                         <a href="#/item/{{product.providerId}}/{{product.externalItemId}}">
-                            <img ng-src="{{product.imageUrl}}" alt="Product Image">
+                            <img ng-src="{{product.imageUrl}}"
+                                 alt="Product Image">
                         </a>
-                        <span id="search-product-badge" class="badge">eBay</span>
+                        <div id="search-product-badge"
+                             class="chip"
+                             ng-if="product.providerId=='10001'">
+                            eBay
+                        </div>
+                        <div id="search-product-badge"
+                             class="chip"
+                             ng-if="product.providerId=='10002'">
+                            Amazon
+                        </div>
+                        <!--<span class="badge" id="search-product-badge"  >eBay</span>-->
                         <!--<span class="card-title">{{product.title[0] | removeDoubleQuotes}}</span>-->
                     </div>
                     <div class="card-content">

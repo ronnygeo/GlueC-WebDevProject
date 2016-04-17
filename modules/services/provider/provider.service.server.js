@@ -37,7 +37,7 @@ module.exports = function (app, productModel, providerModel) {
     }
 
     function getSingleItem(req, res) {
-
+        console.log("getSingleItem");
         /*Getting Single Item from Ebay*/
         if (req.params.providerId == "10001") {
             productModel.ebay
@@ -69,13 +69,17 @@ module.exports = function (app, productModel, providerModel) {
             .then(success_callback, error_callback);
 
         function success_callback(response) {
-            //console.log(response);
-            productModel.amazon.findItemsByKeywords(req.params.keyword).then(function (data) {
-                // console.log(data);
-                response.push(data);
-                response.sort();
-                res.send(response);
-            })
+            console.log(response);
+            productModel.amazon.findItemsByKeywords(req.params.keyword)
+                .then(function (data) {
+                    console.log(data);
+                    response.push(data);
+                    response.sort();
+                    res.send(response);
+                }, function (error) {
+                    console.log(error);
+                    res.statusCode(404).send(error);
+                })
         }
 
         function error_callback(error) {

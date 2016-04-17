@@ -43,6 +43,7 @@ module.exports = function (q, request, mongoose) {
     return api;
 
     function getSingleItem(itemId) {
+        console.log("Product Model - getSingleItem");
         var deferred = q.defer();
         var url = EBAY.SHOPPING_API;
         url += "?callName=GetSingleItem";
@@ -106,6 +107,7 @@ module.exports = function (q, request, mongoose) {
     }
 
     function findItemsAdvanced(keyword) {
+        var ebay_providerId = "10001";
         var deferred = q.defer();
         var url = EBAY.FIND_API;
         url += "?OPERATION-NAME=findItemsAdvanced";
@@ -125,7 +127,7 @@ module.exports = function (q, request, mongoose) {
                     res.findItemsAdvancedResponse[0].searchResult[0] &&
                     res.findItemsAdvancedResponse[0].searchResult[0].item) {
                     deferred.resolve(
-                        mapFindEbayToGluecProducts(res.findItemsAdvancedResponse[0].searchResult[0].item));
+                        mapListingToGluecListing(res.findItemsAdvancedResponse[0].searchResult[0].item), ebay_providerId);
                 } else {
                     console.log("Ebay API Call Failed");
                     deferred.reject("Ebay API Call Failed")
@@ -140,15 +142,19 @@ module.exports = function (q, request, mongoose) {
 
     }
 
-    function mapFindEbayToGluecProducts(ebayProducts) {
-        var products = [];
-        for (var ebayProduct in ebayProducts) {
-            products.push(mapFindEbayToGluecProduct(ebayProducts[ebayProduct]))
+    function mapListingToGluecListing(apiListings, providerId) {
+        var listings = [];
+        for (var apiListingIndex in apiListings) {
+            if (providerId == '10002') {
+                listings.push(mapAmazonListingToGluecListing(apiListings[apiListingIndex]))
+            } else if (providerId == '10001') {
+                listings.push(mapEbayListingToGluecListing(apiListings[apiListingIndex]))
+            }
         }
-        return products;
+        return listings;
     }
 
-    function mapFindEbayToGluecProduct(ebayProduct) {
+    function mapEbayListingToGluecListing(ebayProduct) {
         var title, extId, desc, providerId, imageURL, providerURL;
 
         if (ebayProduct.hasOwnProperty("ASIN")) {
@@ -164,6 +170,45 @@ module.exports = function (q, request, mongoose) {
             extId = ebayProduct.itemId[0];
             desc = "";
             providerId = 10002;
+            imageURL = ebayProduct.galleryURL[0];
+            providerURL = "";
+        }
+
+        var product = {
+            //"externalProductId": ebayProduct.productId[0].__value__,
+            "externalItemId": extId,
+            "title": title,
+            "name": "",
+            "manufacturer": "",
+            "description": desc,
+            "categories": [],
+            "price": "",
+            "discount": "",
+            "providerId": providerId,
+            "catalogId": "",
+            "merchantId": "",
+            "imageUrl": imageURL,
+            "providerUrl": providerURL
+        };
+        return product;
+    }
+
+    function mapAmazonListingToGluecListing(ebayProduct) {
+        var title, extId, desc, providerId, imageURL, providerURL;
+
+        if (ebayProduct.hasOwnProperty("ASIN")) {
+            // console.log(ebayProduct.ImageSets.ImageSet[0].MediumImage.URL);
+            title = ebayProduct.ItemAttributes.Title;
+            extId = ebayProduct.ASIN;
+            desc = ebayProduct.ItemAttributes.Feature[0];
+            providerId = 10001;
+            imageURL = ebayProduct.ImageSets.ImageSet[0].MediumImage.URL;
+            providerURL = ebayProduct.DetailPageURL;
+        } else {
+            title = ebayProduct.title;
+            extId = ebayProduct.itemId[0];
+            desc = "";
+            providerId = 10001;
             imageURL = ebayProduct.galleryURL[0];
             providerURL = "";
         }
@@ -221,16 +266,15 @@ module.exports = function (q, request, mongoose) {
     }
 
 
-
     // function findProductByUserId(req, res) {}
     // function findProductByCatalogId(req, res) {}
 
     //Functions for our product
     function findProductById(prodId) {
         var deferred = q.defer();
-        ProductModel.findById(prodId).then(function(data){
+        ProductModel.findById(prodId).then(function (data) {
             deferred.resolve(data);
-        }, function(err){
+        }, function (err) {
             deferred.reject(err);
         });
         return deferred.promise;
@@ -240,7 +284,7 @@ module.exports = function (q, request, mongoose) {
         var deferred = q.defer();
         ProductModel.find({"merchantId": userId}).then(function (data) {
             deferred.resolve(data);
-        }, function (err){
+        }, function (err) {
             deferred.reject(err);
         });
         return deferred.promise;
@@ -251,7 +295,7 @@ module.exports = function (q, request, mongoose) {
         var deferred = q.defer();
         ProductModel.find({"catalogId": catId}).then(function (prod) {
             deferred.resolve(prod);
-        }, function (err){
+        }, function (err) {
             deferred.reject(err);
         });
         return deferred.promise;
@@ -262,7 +306,7 @@ module.exports = function (q, request, mongoose) {
         var deferred = q.defer();
         ProductModel.find().then(function (data) {
             deferred.resolve(data);
-        }, function (err){
+        }, function (err) {
             deferred.reject(err);
         });
         return deferred.promise;
@@ -277,7 +321,7 @@ module.exports = function (q, request, mongoose) {
         prod.merchantId = userId;
         ProductModel.create(prod).then(function (data) {
             deferred.resolve(data);
-        }, function (err){
+        }, function (err) {
             deferred.reject(err);
         });
         return deferred.promise;
@@ -290,9 +334,9 @@ module.exports = function (q, request, mongoose) {
     // //Calls back with updated user
     function updateProduct(prodId, prod) {
         var deferred = q.defer();
-        ProductModel.update({ _id: prodId}, prod).then(function (data) {
+        ProductModel.update({_id: prodId}, prod).then(function (data) {
             deferred.resolve(data);
-        }, function (err){
+        }, function (err) {
             deferred.reject(err);
         });
         return deferred.promise;
@@ -307,18 +351,18 @@ module.exports = function (q, request, mongoose) {
         var deferred = q.defer();
         ProductModel.remove({_id: prodId}).then(function (data) {
             deferred.resolve(data);
-        }, function (err){
+        }, function (err) {
             deferred.reject(err);
         });
         return deferred.promise;
     }
 
-    function amazonFindItemsByKeywords (keyword) {
+    function amazonFindItemsByKeywords(keyword) {
         var deferred = q.defer();
         // console.log(keyword);
         var prodAdv = aws.createProdAdvClient("AKIAJIAF55AX5MUBCQYQ", "6WAxZ3AS8xvoKFjSfjwUJhjgq9jP7kQ5xlb+Ub+G", "glueclabs-20");
         var options = {SearchIndex: "All", Keywords: keyword, ResponseGroup: "Images,ItemAttributes,ItemIds"}
-        prodAdv.call("ItemSearch", options, function(err, result) {
+        prodAdv.call("ItemSearch", options, function (err, result) {
             if (err) {
                 deferred.reject(err);
             } else {
@@ -329,13 +373,11 @@ module.exports = function (q, request, mongoose) {
                 // console.log(I.ItemAttributes.Title)
                 // console.log(I.ItemAttributes.Feature[0])
                 // console.log(I.ASIN)
-                deferred.resolve(mapFindEbayToGluecProducts(items));
+                deferred.resolve(mapListingToGluecListing(items));
             }
         });
         return deferred.promise;
     }
-
-
 
 
 };
