@@ -6,9 +6,9 @@
     angular.module('GluecApp')
         .controller('EditProductController', EditProductController);
 
-    EditProductController.$inject = ['ProductService', '$location', '$routeParams', 'CatalogService', '$timeout', '$rootScope'];
+    EditProductController.$inject = ['ProductService', '$location', '$routeParams', 'CatalogService', '$timeout', '$rootScope', 'Upload'];
 
-    function EditProductController(ProductService, $location, $routeParams, CatalogService, $timeout, $rootScope) {
+    function EditProductController(ProductService, $location, $routeParams, CatalogService, $timeout, $rootScope, Upload) {
 
         var vm = this;
         var prodId = $routeParams.prodId;
@@ -38,9 +38,27 @@
         vm.updateProduct = updateProduct;
 
         function updateProduct() {
-            ProductService.updateProduct(vm.product.merchantId, vm.product._id, vm.product).then(function () {
-                $location.url('/dashboard/products');
-            });
+            if (vm.product.image) {
+                console.log('Image Upload');
+                Upload.upload({
+                    url: '/api/product/upload', //webAPI exposed to upload the file
+                    data:{file:vm.product.image} //pass file as data, should be user ng-model
+                }).then(function (res) { //upload function returns a promise
+                    if (res.data.error_code !== 1) { //validate success
+                        vm.product.imageUrl = '/media/images/products/'+res.data;
+                        ProductService.updateProduct(vm.product.merchantId, vm.product._id, vm.product).then(function () {
+                            $location.url('/dashboard/products');
+                        });
+                    } else {
+                        console.log('an error occurred');
+                    }
+                });
+            } else {
+                ProductService.updateProduct(vm.product.merchantId, vm.product._id, vm.product).then(function () {
+                    $location.url('/dashboard/products');
+                });
+            }
+
         }
     }
 })();

@@ -6,9 +6,9 @@
     angular.module('GluecApp')
         .controller('NewProductController', NewProductController);
 
-    NewProductController.$inject = ['ProductService', '$rootScope','$location', '$routeParams', 'CatalogService', '$timeout'];
+    NewProductController.$inject = ['ProductService', '$rootScope','$location', '$routeParams', 'CatalogService', '$timeout', 'Upload'];
 
-    function NewProductController(ProductService, $rootScope, $location, $routeParams, CatalogService, $timeout) {
+    function NewProductController(ProductService, $rootScope, $location, $routeParams, CatalogService, $timeout, Upload) {
         var userId = $rootScope.user._id;
         console.log(userId);
 
@@ -48,13 +48,28 @@
         // }
 
         function createProduct() {
-            // console.log(vm.product);
-            if (vm.product.imageUrl == undefined) {
-                vm.product.imageUrl = '/media/placeholder-new-listing-image.png';
+            if (vm.product.image) {
+                Upload.upload({
+                    url: '/api/product/upload', //webAPI exposed to upload the file
+                    data:{file:vm.product.image} //pass file as data, should be user ng-model
+                }).then(function (res) { //upload function returns a promise
+                    if (res.data.error_code !== 1) { //validate success
+                        vm.product.imageUrl = '/media/images/products/'+res.data;
+                        ProductService.createProduct(userId, vm.product).then(function () {
+                            $location.url('/dashboard/products');
+                        });
+                    } else {
+                        console.log('an error occurred');
+                    }
+                });
+            } else {
+                if (vm.product.imageUrl == undefined) {
+                    vm.product.imageUrl = '/media/placeholder-new-listing-image.png';
+                }
+                ProductService.createProduct(userId, vm.product).then(function () {
+                    $location.url('/dashboard/products');
+                });
             }
-        ProductService.createProduct(userId, vm.product).then(function (data) {
-            $location.url('/dashboard/products');
-        });
         }
     }
 })();

@@ -2,7 +2,7 @@
  * Created by ronnygeo on 3/26/16.
  */
 
-module.exports = function (app, productModel) {
+module.exports = function (app, productModel, productImageUpload) {
 
     // app.get('api/user/:id/product/:prodId', findProductByUserId);
     // app.get('api/catalog/:catId/product/:prodId', findProductByCatalogId);
@@ -13,6 +13,17 @@ module.exports = function (app, productModel) {
     app.post('/api/user/:id/product', createProduct);
     app.put('/api/user/:id/product/:prodId', updateProduct);
     app.delete('/api/user/:id/product/:prodId', deleteProduct);
+    app.post('/api/product/upload', uploadImage);
+
+    function uploadImage(req, res) {
+        productImageUpload(req,res,function(err){
+            if(err){
+                res.json({error_code:1,err_desc:err});
+                return;
+            }
+            res.json(req.file.filename);
+        });
+    }
 
     // function findProductByUserId(req, res) {}
     // function findProductByCatalogId(req, res) {}

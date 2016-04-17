@@ -54,6 +54,9 @@
             });
 
         } else {
+                if (vm.user.imageUrl == undefined) {
+                    vm.user.imageUrl = '/media/placeholder-new-listing-image.png';
+                }
                 UserService.createUser(vm.user).then(function (response) {
                     if (response.data != null) {
                         //Storing the user in the Root Scope

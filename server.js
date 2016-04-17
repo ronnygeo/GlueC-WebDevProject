@@ -41,6 +41,18 @@ var userImageStore = multer.diskStorage({
 });
 var userImageUpload = multer({storage: userImageStore}).single('file');
 
+//Multer for Users
+var productImageStore = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './public/app/media/images/products')
+    },
+    filename: function (req, file, cb) {
+        var datetimestamp = Date.now();
+        cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1])
+    }
+});
+var productImageUpload = multer({storage: productImageStore}).single('file');
+
     //Security
 app.use(session({
     secret: 'this is our little secret',
@@ -76,6 +88,6 @@ app.get('/hello', function (req, res) {
 
 
 /*Injecting Server App*/
-require("./modules/app.js")(app, request, q, upload, mongoose, uuid, userImageUpload);
+require("./modules/app.js")(app, request, q, upload, mongoose, uuid, userImageUpload, productImageUpload);
 
 app.listen(port, ipaddress);
