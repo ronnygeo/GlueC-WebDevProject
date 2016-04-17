@@ -9,7 +9,7 @@
                         <img src="{{message.imageUrl}}" alt="" class="circle">
                         <span class="title">{{message.from}}</span>
                         <p>{{message.subject}}</p>
-                        <a href="#!" class="secondary-content" ng-click="mc.deleteMessage($index)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                        <a class="secondary-content" ng-click="mc.deleteMessage($index)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                     </div>
                     <div class="collapsible-body">
                         <p>{{message.message}}</p>
@@ -56,6 +56,6 @@
         </div>
     </div>
     <div class="modal-footer">
-        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Send</a>
+        <a class=" modal-action modal-close waves-effect waves-green btn-flat">Send</a>
     </div>
 </div>

@@ -13,9 +13,8 @@
         vm.deleteMessage = deleteMessage;
 
         function reply(i) {
+            vm.message.subject = "Re: "+vm.messages[i].subject;
             vm.message.to = vm.messages[i].from;
-            vm.message.from = fromUserId;
-            vm.message.subject = "Re:"+vm.messages[i].subject;
 
             $('#message-modal').openModal({
                 dismissible: true, // Modal can be dismissed by clicking outside of the modal
@@ -24,7 +23,6 @@
                 out_duration: 200, // Transition out duration
                 ready: function() {
                     vm.message.from = fromUserId;
-                    vm.message.subject = "";
                     vm.message.message = "";
                 },
                 complete: function() {
