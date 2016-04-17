@@ -381,17 +381,19 @@ body {
 }
 
 .sell-page .card-content {
-    padding-top: 0px;
+    padding: 0px;
+    margin: 0px;
 }
 
 .sell-page .sell-flow-nav {
     margin-top: 30px;
+    margin-left: auto;
     padding: 10px;
     border-right: 1px solid #e0e0e0;
     border-left: 0;
     border-top: 0;
     border-bottom: 0;
-    min-height: 20vh;
+    height: 15vh;
 
 }
 
@@ -410,7 +412,7 @@ body {
         border-top: 0;
         border-left: 0;
         border-right: 0;
-        min-height: 20vh;
+        height: 25vh;
     }
 }
 
@@ -434,7 +436,7 @@ body {
 }
 
 .sell-page .sell-card-image {
-    max-height: 50vh;
+    max-height: 80vh;
     overflow: hidden;
 }
 .sell-page .sell-search-btn{

@@ -1,20 +1,44 @@
 <div class="container sell-page">
     <div class="section main-content white card">
         <!--Page Header-->
-        <!--<div class="row center div-10">-->
-        <!--<h4 class="grey-text">Start Selling</h4>-->
-        <!--</div>-->
-        <div class="sell-card-image">
-            <div class="card-image">
-                <img src="../../media/photo-1451186859696-371d9477be93.jpg">
-            </div>
+        <div class="slider">
+            <ul class="slides">
+                <li>
+                    <img src="../../media/photo-1451186859696-371d9477be93.jpg"> <!-- random image -->
+                    <div class="caption right-align">
+                        <h3>This is our big Tagline!</h3>
+                        <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                    </div>
+                </li>
+                <li>
+                    <img src="../../media/images/construction-work-carpenter-tools.jpg"> <!-- random image -->
+                    <div class="caption left-align">
+                        <h3>Left Aligned Caption</h3>
+                        <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                    </div>
+                </li>
+                <li>
+                    <img src="../../media/images/sell_page_1.jpg"> <!-- random image -->
+                    <div class="caption right-align">
+                        <h3>Right Aligned Caption</h3>
+                        <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                    </div>
+                </li>
+                <li>
+                    <img src="../../media/images/city-sunset-sunrise-lens-flare.jpg"> <!-- random image -->
+                    <div class="caption center-align">
+                        <h3>This is our big Tagline!</h3>
+                        <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                    </div>
+                </li>
+            </ul>
         </div>
         <!--Page Content-->
         <div class="row card-content grey-text">
             <div class="col s12 l4">
                 <div class="row center-align sell-flow-nav"
                      ng-click="model.sellImage()">
-                    <div class="col s4 sell-flow-nav-image">
+                    <div class="col s3 sell-flow-nav-image">
                         <i class="fa fa-5x fa-picture-o"></i>
                     </div>
                     <div class="col s8 sell-flow-nav-text">
@@ -52,7 +76,7 @@
             <div class="col s12 l4">
                 <div class="row center-align sell-flow-nav last-one"
                      ng-click="model.sellDirect()">
-                    <div class="col s4 sell-flow-nav-image">
+                    <div class="col s3 sell-flow-nav-image">
                         <i class="fa fa-5x fa-shopping-cart"></i>
                     </div>
                     <div class="col s8 sell-flow-nav-text">

@@ -8,9 +8,9 @@
         .module('GluecApp')
         .controller("SellController", SellController);
 
-    SellController.$inject = ['ProductService', '$scope', '$routeParams', '$location', 'ProgressBarFactory'];
+    SellController.$inject = ['ProductService', '$scope', '$routeParams', '$location', 'ProgressBarFactory','$timeout'];
 
-    function SellController(ProductService, $scope, $routeParams, $location, ProgressBarFactory) {
+    function SellController(ProductService, $scope, $routeParams, $location, ProgressBarFactory,$timeout) {
 
         var SellController = this;
 
@@ -20,15 +20,10 @@
 
         function init() {
             angular.element(document).ready(function () {
-                //$("#sell-search").hover(function () {
-                //    $('#sell-search-bar').show("slow");
-                //    $('#sell-search-text').hide();
-                //}, function() {
-                //    //$('#sell-search-bar').hide();
-                //    //$('#sell-search-text').show("slow");
-                //})
+                $timeout(function () {
+                    $('.slider').slider();
+                }, 0, false);
             });
-
         }
 
         init();
