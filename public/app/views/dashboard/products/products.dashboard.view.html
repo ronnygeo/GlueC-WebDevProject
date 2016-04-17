@@ -1,6 +1,6 @@
 <div class="row" ng-if="dc.isUserMerchant() || dc.isUserAdmin()">
     <div ng-controller="ProductController as prodc">
-    <div class="col s6" ng-repeat="product in prodc.products">
+    <div class="col s12" ng-repeat="product in prodc.products">
         <div class="card grey darken-3">
             <div class="card-image">
                 <img ng-src="{{product.imageUrl}}" />

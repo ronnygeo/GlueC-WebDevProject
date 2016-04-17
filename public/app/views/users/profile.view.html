@@ -34,8 +34,8 @@
                             <label for="roles">Role</label>
                             <select class="browser-default" name="roles" id="roles" ng-model="user.user.roles">
                                 <!--<option value="" disabled selected>Choose your option</option>-->
-                                <option value="customer">Customer</option>
-                                <option value="merchant">Merchant</option>
+                                <option value="customer" ng-selected="user.user.roles.indexOf('customer') !== -1">Customer</option>
+                                <option value="merchant" ng-selected="user.user.roles.indexOf('merchant') !== -1">Merchant</option>
                             </select>
                         </div>
                     </div>
