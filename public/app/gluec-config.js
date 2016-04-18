@@ -120,13 +120,16 @@
                 })
                 .when('/item/:providerId/:productId', {
                     controller: 'PDPController',
-                    templateUrl: 'views/product/pdp.view.html',
-                    controllerAs: "model"
+                    controllerAs: "model",
+                    templateUrl: 'views/product/pdp.view.html'
                 })
-                .when('/listing/direct/create', {
+                .when('/listing/create/:flow', {
                     controller: 'CreateListingController',
                     templateUrl: 'views/listing/direct/create-listing.view.html',
-                    controllerAs: "model"
+                    controllerAs: "model",
+                    resolve: {
+                        loggedin: checkLoggedin
+                    }
                 })
                 .when('/listing/interactive', {
                     controller: 'InteractiveListingController',
@@ -144,7 +147,10 @@
                 .when('/sell', {
                     controller: 'SellController',
                     templateUrl: 'views/sell/sell.view.html',
-                    controllerAs: "model"
+                    controllerAs: "model",
+                    resolve: {
+                        loggedin: checkLoggedin
+                    }
                 })
                 .otherwise({
                     redirectTo: '/'

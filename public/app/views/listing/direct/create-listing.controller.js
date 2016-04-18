@@ -8,16 +8,27 @@
         .module("GluecApp")
         .controller("CreateListingController", CreateListingController);
 
-    function CreateListingController(CategoryService, ProgressBarFactory, ListingService, $rootScope, $location, $timeout, ProviderService) {
+    function CreateListingController(CategoryService, ProgressBarFactory, ListingService, $rootScope, $location, $timeout, ProviderService, $routeParams) {
 
         var CreateListingController = this;
+        var flow = $routeParams.flow;
 
         function init() {
             if (!$rootScope.user) {
                 $location.url("/login");
                 return
             }
-            initNewListing();
+
+            if (flow == "direct") {
+                CreateListingController.flow = flow;
+                initNewDirectListing();
+            } else if (flow == "similar" && $rootScope.similarlisting) {
+                CreateListingController.flow = flow;
+                initNewSimilarListing($rootScope.similarlisting);
+            } else if (flow == "similar" && !$rootScope.similarlisting) {
+                CreateListingController.flow = flow;
+                initNewDirectListing();
+            }
         }
 
         init();
@@ -52,7 +63,7 @@
             } else if (card.type == "uploadImage") {
                 CreateListingController.listing.image = card.selectedData;
                 clearOtherCards(card.type);
-                addOtherDetailsCard(card.selectedData);
+                addOtherDetailsCardWithPost(card.selectedData);
             }
             else if (card.type == "otherDetails") {
                 CreateListingController.listing = angular.copy(card.selectedData);
@@ -148,7 +159,22 @@
             ProgressBarFactory.hideProgressBar();
         }
 
-        function addOtherDetailsCard() {
+        function addOtherDetailsCard(data) {
+            ProgressBarFactory.showProgressBar();
+            var otherDetailsCard = {
+                type: "otherDetails",
+                data: [],
+                selectedData: "",
+                header: ""
+            };
+            console.log(data);
+            otherDetailsCard.data = data;
+            ProgressBarFactory.hideProgressBar();
+            console.log(otherDetailsCard);
+            CreateListingController.cards = [otherDetailsCard];
+        }
+
+        function addOtherDetailsCardWithPost() {
             ProgressBarFactory.showProgressBar();
             var otherDetailsCard = {
                 type: "otherDetails",
@@ -202,13 +228,13 @@
 
         }
 
-        function initNewListing() {
+        function initNewDirectListing() {
             ProgressBarFactory.showProgressBar();
             var newListing = {
                 userId: $rootScope.user._id
             };
             //Getting New Listing Template
-            ListingService.getNewListingTemplate(newListing)
+            ListingService.getDirectListingTemplate(newListing)
                 .then(function (response) {
                     console.log(response.data);
                     CreateListingController.listing = response.data;
@@ -216,6 +242,20 @@
                 }, function (err) {
                     console.log(err);
                 });
+        }
+
+        function initNewSimilarListing(listing) {
+            ProgressBarFactory.showProgressBar();
+            listing.userId = $rootScope.user._id;
+            ListingService.getSimilarListingTemplate($rootScope.similarlisting)
+                .then(function (response) {
+                    console.log(response.data);
+                    CreateListingController.listing = response.data;
+                    addOtherDetailsCard(response.data);
+                }, function (err) {
+                    console.log(err);
+                });
+
         }
 
         function addProviderCard() {

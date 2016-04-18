@@ -59,7 +59,21 @@ module.exports = function (listingDB, ebayListingDB, q) {
     }
 
     function createNewListing(listing) {
+        //if (listing.flow == 'direct') {
+        //    return listingDB.create(listing);
+        //} else if (listing.flow == 'similar') {
+        //    listingDB.create(listing)
+        //        .then(function (listingDoc) {
+        //            listingDB.ebay = listing.ebay;
+        //            listingDB.price = listing.price;
+        //            listingDoc.markModified('ebay');
+        //            return saveListing(listingDoc);
+        //        }, function (err) {
+        //            console.log(err);
+        //        })
+        //}
         return listingDB.create(listing);
+
     }
 
     function addImageToListing(listingId, image) {

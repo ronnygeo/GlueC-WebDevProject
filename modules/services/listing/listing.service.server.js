@@ -6,9 +6,10 @@ var aws = require("aws-lib");
 module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, upload, amazonAPIClient, uuid, categoryService) {
 
     /*WEB Service API*/
-    app.post("/api/listing/", upload.single('image'), addImageAndCateogry);
+    app.post("/api/listing/", upload.single('image'), addImageAndCategory);
     app.post("/api/listing/publish", publishListing);
-    app.post("/api/listing/template", getNewListingTemplate);
+    app.post("/api/listing/template/direct", getDirectListingTemplate);
+    app.post("/api/listing/template/similar", getSimilarListingTemplate);
     app.get("/api/listing/external/:providerId/:itemId", getItemFromProvider);
     app.get("/api/listing/external/:keyword", findItemsFromProvider);
 
@@ -73,11 +74,12 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
         }
     }
 
-    function getNewListingTemplate(req, res) {
-        console.log("Inside ListingService.getNewListingTemplate");
+    function getDirectListingTemplate(req, res) {
+        console.log("Inside ListingService.getDirectListingTemplate");
         var listing = req.body;
+        listing.flow = "direct";
         console.log(listing);
-        listingModel.createNewListing(mapListing(listing))
+        listingModel.createNewListing(mapDirectListing(listing))
             .then(function (listingDoc) {
                 console.log(listingDoc);
                 res.json(listingDoc);
@@ -85,6 +87,47 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
                 console.log(err);
                 res.statusCode(404).send(err);
             });
+    }
+
+
+    function getSimilarListingTemplate(req, res) {
+        console.log("Inside ListingService.getSimilarListingTemplate");
+        var listing = req.body;
+        listing.flow = "similar";
+        console.log(listing);
+        //Step 1: Create New Listing
+        listingModel.createNewListing(listing)
+            .then(function (listingDoc) {
+                    console.log(listingDoc);
+                    //Step 2: Get Other Details for Category
+                    categoryService.ebay.fetchCategoryDetails(listingDoc.ebay.subCategoryId)
+                        .then(function (response) {
+                            console.log(response);
+
+                            //Setting Category Details in Listing
+                            listingDoc.ebay.categoryDetails = response;
+                            console.log(listingDoc);
+
+                            //Step 4: Save the listing to DB
+                            listingModel.ebay.saveListing(listingDoc)
+                                .then(function (response) {
+                                    console.log("Saved Response Received");
+                                    console.log(response);
+                                    res.json(response);
+                                }, function (err) {
+                                    console.log(err);
+                                    res.statusCode(404).send(err);
+                                })
+                        }, function (error) {
+                            console.log(error);
+                            res.statusCode(404).send(err);
+                        });
+                },
+                function (err) {
+                    console.log(err);
+                    res.statusCode(404).send(err);
+                }
+            );
     }
 
     function publishListing(req, res) {
@@ -106,8 +149,8 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
                             listingDoc.title = listing.title;
                             listingDoc.providerItemId = response;
                             listingDoc.description = listing.description;
-                            listingDoc.price.value = listing.price;
-                            listingDoc.price.currency = "USD";
+                            listingDoc.price.value = listing.price.value;
+                            listingDoc.price.currency = listing.price.currency;
                             listingDoc.mpn = listing.mpn;
                             listingDoc.model = listing.model;
                             listingDoc.ebay.itemCondition = listing.ebay.itemCondition;
@@ -136,8 +179,8 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
     }
 
 
-    function addImageAndCateogry(req, res) {
-        console.log("Inside ListingService.addImageAndCateogry");
+    function addImageAndCategory(req, res) {
+        console.log("Inside ListingService.addImageAndCategory");
         var listing = req.body;
         listing['images'] = [req.file.path];
         console.log("Incoming Listing");
@@ -203,7 +246,7 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
 
     }
 
-    function mapListing(listing) {
+    function mapDirectListing(listing) {
         var newListing = {
             userId: listing.userId,
             parentCategory: listing.parentCategory,
@@ -220,10 +263,11 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
                 listingType: listing.ebay_listingType,
                 paymentMethod: listing.ebay_paymentMethod,
                 returnPolicyEnabled: listing.ebay_returnPolicyEnabled,
-                listingDuration: listing.ebay_listingDuration
+                listingDuration: listing.ebay_listingDuration,
             },
             model: listing.model,
-            mpn: listing.mpn
+            mpn: listing.mpn,
+            flow: listing.flow
         };
 
         console.log("Mapped Listing");
@@ -295,7 +339,7 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
             '<CategoryID>' + listing.ebay.subCategoryId + '</CategoryID>' +
             '</PrimaryCategory>' +
             '<StartPrice currencyID="USD">0.99</StartPrice>' +
-            '<BuyItNowPrice currencyID="USD">' + listing.price + '</BuyItNowPrice>' +
+            '<BuyItNowPrice currencyID="USD">' + listing.price.value + '</BuyItNowPrice>' +
             '<ConditionID>' + listing.ebay.itemCondition.ID + '</ConditionID>' +
             '<CategoryMappingAllowed>true</CategoryMappingAllowed>' +
             '<Country>US</Country>' +
@@ -307,9 +351,9 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
             '<PayPalEmailAddress>' + 'test@test.com' + '</PayPalEmailAddress>' +
             '<PictureDetails>' +
             '<GalleryType>Gallery</GalleryType>' +
-            '<GalleryURL>' + listing.ebay.siteHostedPictureDetails.PictureSetMember[0].MemberURL + '</GalleryURL>' +
-            '<PictureURL>' + listing.ebay.siteHostedPictureDetails.PictureSetMember[1].MemberURL + '</PictureURL>' +
-            '<PictureURL>' + listing.ebay.siteHostedPictureDetails.PictureSetMember[2].MemberURL + '</PictureURL>' +
+            '<GalleryURL>' + listing.ebay.image + '</GalleryURL>' +
+            '<PictureURL>' + listing.ebay.image + '</PictureURL>' +
+            '<PictureURL>' + listing.ebay.image + '</PictureURL>' +
             '</PictureDetails>' +
             '<PostalCode>95125</PostalCode>' +
             '<Quantity>1</Quantity>' +

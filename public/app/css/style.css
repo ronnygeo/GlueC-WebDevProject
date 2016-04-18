@@ -522,3 +522,7 @@ body {
 #view-profile-image {
     width: 100%;
 }
+
+.otherDetailsForm{
+    margin: 10vh 5vw 5vh 5vw;
+}
