@@ -87,6 +87,15 @@
             flatListing['selectedSubCategoryId'] = listing.ebay.subCategoryId;
             flatListing['selectedSubCategoryName'] = listing.ebay.subCategoryName;
             flatListing['image'] = listing.image;
+            if (listing.ebay.description) {
+                flatListing['description'] = listing.ebay.subCategoryName;
+            }
+            if (listing.ebay.price) {
+                flatListing['price'] = listing.ebay.price;
+            }
+            if (listing.ebay.title) {
+                flatListing['title'] = listing.ebay.title;
+            }
             return flatListing;
         }
 

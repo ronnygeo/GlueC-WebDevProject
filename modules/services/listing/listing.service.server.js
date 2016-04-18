@@ -195,12 +195,14 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
                     dbListing = response;
 
                     dbListing.providerId = listing.providerId;
-                    //Add Categories
+                    //Add Categories and Other Details
                     dbListing.ebay.parentCategoryId = listing.selectedParentCategoryId;
                     dbListing.ebay.parentCategoryName = listing.selectedParentCategoryName;
                     dbListing.ebay.subCategoryId = listing.selectedSubCategoryId;
                     dbListing.ebay.subCategoryName = listing.selectedSubCategoryName;
-
+                    dbListing.ebay.description = listing.description;
+                    dbListing.ebay.price = listing.price;
+                    dbListing.ebay.title = listing.title;
                     //Step2: Save Image and Ebay Url In Database
                     uploadImageToEbay(req.file)
                         .then(function (response) {

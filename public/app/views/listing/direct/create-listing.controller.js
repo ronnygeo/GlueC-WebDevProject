@@ -18,7 +18,6 @@
                 $location.url("/login");
                 return
             }
-
             if (flow == "direct") {
                 CreateListingController.flow = flow;
                 initNewDirectListing();
@@ -26,7 +25,14 @@
                 CreateListingController.flow = flow;
                 initNewSimilarListing($rootScope.similarlisting);
             } else if (flow == "similar" && !$rootScope.similarlisting) {
+                CreateListingController.flow = "direct";
+                initNewDirectListing();
+            } else if (flow == "prod" && $rootScope.prodListing) {
+                CreateListingController.product = $rootScope.prodListing;
                 CreateListingController.flow = flow;
+                initNewProdListing();
+            } else if (flow == "prod" && !$rootScope.prodListing) {
+                CreateListingController.flow = "direct";
                 initNewDirectListing();
             }
         }
@@ -63,7 +69,7 @@
             } else if (card.type == "uploadImage") {
                 CreateListingController.listing.image = card.selectedData;
                 clearOtherCards(card.type);
-                addOtherDetailsCardWithPost(card.selectedData);
+                addOtherDetailsCardWithPost();
             }
             else if (card.type == "otherDetails") {
                 CreateListingController.listing = angular.copy(card.selectedData);
@@ -228,7 +234,32 @@
 
         }
 
+        function initNewProdListing() {
+            console.log("initNewProdListing");
+            ProgressBarFactory.showProgressBar();
+            console.log(CreateListingController.product);
+            var newListing = {
+                userId: $rootScope.user._id
+            };
+            //Getting New Listing Template
+            ListingService.getDirectListingTemplate(newListing)
+                .then(function (response) {
+                    console.log(response.data);
+                    var listing = response.data;
+                    listing.description = CreateListingController.product.description;
+                    listing.price = CreateListingController.product.price;
+                    listing.title = CreateListingController.product.name;
+                    //listing.title.images = CreateListingController.product.image
+                    CreateListingController.listing = listing;
+                    addProviderCard();
+                }, function (err) {
+                    console.log(err);
+                });
+
+        }
+
         function initNewDirectListing() {
+            console.log("initNewDirectListing");
             ProgressBarFactory.showProgressBar();
             var newListing = {
                 userId: $rootScope.user._id
