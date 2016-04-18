@@ -44,8 +44,8 @@
 
         function render(data) {
             $rootScope.user = vm.user;
-            // $route.reload();
-            $location.url('/dashboard');
+            $route.reload();
+            // $location.url('/dashboard');
             // console.log(data.roles);
         }
     }

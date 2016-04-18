@@ -28,7 +28,7 @@
         }
         else if (user.roles.indexOf('merchant') !== -1) {
             vm.labels = ["Total Catalogs", "Total Products", "Views"];
-            vm.data = [20, 10, 500];
+            vm.data = [20, 10, 10];
             CatalogService.findAllCatalogsByUser(userId).then(function (data) {
                 vm.data[0] = data.data.length;
             });

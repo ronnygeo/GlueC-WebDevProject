@@ -105,18 +105,22 @@ module.exports = function (mongoose) {
     function updateUser(userId, data) {
         var deferred = q.defer();
         // console.log(data);
-        UserModel.findById(userId).then(function (oldUser) {
-            // console.log(data.password);
-            if (data.password !== oldUser.password || !bcrpyt.compareSync(data.password, oldUser.password)) {
-                data.password = bcrypt.hashSync(data.password);
-                // console.log(data.password);
-            }
-            UserModel.update({_id: userId}, data).then(function(res){
+        delete data._id;
+        UserModel.update({_id: userId}, data)
+            .then(function(res){
                 deferred.resolve(res);
             }, function (err) {
                 deferred.reject(err);
             });
-        });
+        // UserModel.findById(userId).then(function (oldUser) {
+        //     // console.log(data.password);
+        //     if (data.password !== oldUser.password || !bcrpyt.compareSync(data.password, oldUser.password)) {
+        //         data.password = bcrypt.hashSync(data.password);
+        //         // console.log(data.password);
+        //     }
+        //
+        //
+        // });
         return deferred.promise;
     }
 
