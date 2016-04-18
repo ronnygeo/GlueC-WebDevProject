@@ -54,7 +54,7 @@ var productImageUpload = multer({storage: productImageStore}).single('file');
 
     //Security
 app.use(session({
-    secret: 'this is our little secret',
+    secret: process.env.SESSION_SECRET,
     resave: true,
     saveUninitialized: true
 }));
