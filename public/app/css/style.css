@@ -5,7 +5,7 @@
 }
 
 .main-content {
-    min-height: 90vh !important;
+    min-height: 100vh !important;
     margin-top: -40px;
 }
 
@@ -102,8 +102,8 @@
 #splash-image {
     background-image: url("../media/images/pexels-photo-66997.jpeg");
     background-size: cover;
+    background-position: center;
     height: 100vh;
-    width: 100%;
 }
 
 #inside-splash-container {
@@ -138,8 +138,12 @@
 #home-search:focus {
     /*border: 2px solid red;*/
     border-color: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(255, 255, 255, 0.6);
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.075) inset, 0 0 12px rgba(255, 255, 255, 0.6);
     outline: 0 none;
+}
+
+.home-info {
+    padding: 10vh 0 10vh 0;
 }
 
 #home-cards {
@@ -166,7 +170,7 @@
 }
 
 #home-tutorial-button {
-    margin-top: 7vh;
+    margin: 2vh 1vh 1vh 1vh;
 }
 
 #scroll-arrow {
@@ -244,8 +248,8 @@ nav {
     padding: 40px;
     color: #F7F7F7;
     margin-bottom: 0;
-    border-bottom: 1px solid grey;
-    margin-bottom: 20px;
+    /*border-bottom: 1px solid grey;*/
+    /*margin-bottom: 20px;*/
 }
 
 footer a {
@@ -254,6 +258,7 @@ footer a {
 
 .footer-links {
     padding-top: 2rem;
+    border-top: 5px solid grey;
 }
 
 .dashboard-wrapper {
@@ -393,12 +398,13 @@ body {
     border-top: 0;
     border-bottom: 0;
     min-height: 18vh;
+    /*height: 22vh;*/
 }
 
 .sell-page .sell-flow-nav-image {
     text-align: right;
-    /*margin: 0.82rem 0 0.656rem 0;*/
-    font-size: 3em;
+    margin: 0.82rem 0 0.656rem 0;
+    font-size: 3rem;
 }
 
 @media all and (max-width: 992px) {
@@ -407,6 +413,7 @@ body {
         margin: 0.82rem 0 0.656rem 0;
         font-size: 4em;
     }
+
     .sell-page .sell-flow-nav {
         padding: 20px;
         margin: 10px;
@@ -414,7 +421,7 @@ body {
         border-top: 0;
         border-left: 0;
         border-right: 0;
-        height: 25vh;
+        min-height: 18vh;
     }
 
 }
@@ -452,6 +459,13 @@ body {
     cursor: pointer;
 }
 
+.search-results-page .card .card-content .card-title{
+     font-weight: normal;
+ }
+
+.search-results-page .card .card-title{
+    font-weight: normal;
+}
 .reply-button {
     margin: 1rem;
 }

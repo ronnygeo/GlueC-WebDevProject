@@ -2,12 +2,76 @@
  * Created by Bhanu on 26/03/2016.
  */
 var fs = require('fs');
+var aws = require("aws-lib");
 module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, upload, amazonAPIClient, uuid, categoryService) {
 
     /*WEB Service API*/
     app.post("/api/listing/", upload.single('image'), addImageAndCateogry);
     app.post("/api/listing/publish", publishListing);
     app.post("/api/listing/template", getNewListingTemplate);
+    app.get("/api/listing/external/:providerId/:itemId", getSingleItemFromProvider);
+    app.get("/api/listing/external/:keyword", findItemsFromProvider);
+
+
+    function getSingleItemFromProvider(req, res) {
+        console.log("getSingleItem");
+        /*Getting Single Item from Ebay*/
+        if (req.params.providerId == "10001") {
+            getSingleItemFromEbay(req.params.itemId)
+                .then(success_callback, error_callback);
+
+            function success_callback(response) {
+                res.json(response);
+            }
+
+            function error_callback(error) {
+                console.log(error);
+                res.statusCode(404).send(err);
+            }
+
+        }
+    }
+
+    function findItemsFromProvider(req, res) {
+        console.log("Listing Service findItemsAdvanced");
+        console.log('Keyword', req.params.keyword);
+        var items = [];
+        /*Step1: Get Providers*/
+
+        /*Get Items from all the providers*/
+
+        /*Getting the items from ebay*/
+        findItemsFromEbay(req.params.keyword)
+            .then(success_callback, error_callback);
+
+        function success_callback(response) {
+            //console.log(response);
+            findItemsFromAmazon(req.params.keyword)
+                .then(function (data) {
+                    //console.log(data);
+                    items = response.concat(data);
+                    //response.sort();
+                    console.log(items);
+                    res.json(items);
+                }, function (error) {
+                    console.log(error);
+                    res.statusCode(404).send(error);
+                })
+        }
+
+        function error_callback(error) {
+            console.log("Error Occurred while getting items from ebay");
+            console.log(error);
+            findItemsFromAmazon(req.params.keyword)
+                .then(function (data) {
+                    console.log(data);
+                    res.json(data);
+                }, function (error) {
+                    console.log(error);
+                    res.statusCode(404).send(error);
+                })
+        }
+    }
 
     function getNewListingTemplate(req, res) {
         console.log("Inside ListingService.getNewListingTemplate");
@@ -269,5 +333,161 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
                 deferred.reject(err);
             });
         return deferred.promise;
+    }
+
+    function findItemsFromEbay(keyword) {
+        var ebay_providerId = "10001";
+        var deferred = q.defer();
+        var functionToCall = "findItemsAdvanced";
+        var urlData = "&keywords=" + keyword;
+        urlData += "&paginationInput.entriesPerPage=50";
+        //url += "&outputSelector=GalleryInfo";
+        ebayAPIClient.finding.function(functionToCall, urlData)
+            .then(function (res) {
+                console.log(res);
+                if (res.findItemsAdvancedResponse[0] &&
+                    res.findItemsAdvancedResponse[0].searchResult[0] &&
+                    res.findItemsAdvancedResponse[0].searchResult[0].item) {
+                    deferred.resolve(
+                        mapListingToGluecListing(res.findItemsAdvancedResponse[0].searchResult[0].item, ebay_providerId));
+                } else {
+                    console.log("Ebay API Call Failed");
+                    deferred.reject("Ebay API Call Failed")
+                }
+            }, function (err) {
+                console.log(err);
+                deferred.reject(err)
+            });
+        return deferred.promise;
+
+    }
+
+
+    function findItemsFromAmazon(keyword) {
+        var amazon_providerId = "10002";
+        var deferred = q.defer();
+        // console.log(keyword);
+        var prodAdv = aws.createProdAdvClient("AKIAJIAF55AX5MUBCQYQ", "6WAxZ3AS8xvoKFjSfjwUJhjgq9jP7kQ5xlb+Ub+G", "glueclabs-20");
+        var options = {SearchIndex: "All", Keywords: keyword, ResponseGroup: "Images,ItemAttributes,ItemIds"};
+        prodAdv.call("ItemSearch", options, function (err, result) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                var items = result.Items.Item;
+                deferred.resolve(mapListingToGluecListing(items, amazon_providerId));
+            }
+        });
+        return deferred.promise;
+    }
+
+    function mapListingToGluecListing(apiListings, providerId) {
+        var listings = [];
+        for (var apiListingIndex in apiListings) {
+            if (providerId == '10002') {
+                listings.push(mapAmazonListingToGluecListing(apiListings[apiListingIndex]))
+            } else if (providerId == '10001') {
+                listings.push(mapEbayListingToGluecListing(apiListings[apiListingIndex]))
+            }
+        }
+        return listings;
+    }
+
+    function mapAmazonListingToGluecListing(amazonListing) {
+        var title, extId, desc, providerId, imageURL, providerURL;
+        // console.log(ebayProduct.ImageSets.ImageSet[0].MediumImage.URL);
+        title = amazonListing.ItemAttributes.Title;
+        extId = amazonListing.ASIN;
+        desc = amazonListing.ItemAttributes.Title;
+        providerId = 10002;
+        imageURL = amazonListing.LargeImage.URL;
+        providerURL = amazonListing.DetailPageURL;
+
+        var listing = {
+            //"externalProductId": ebayProduct.productId[0].__value__,
+            "externalItemId": extId,
+            "title": title,
+            "name": title,
+            "manufacturer": "",
+            "description": desc,
+            "categories": [],
+            "price": "",
+            "discount": "",
+            "providerId": providerId,
+            "catalogId": "",
+            "merchantId": "",
+            "imageUrl": imageURL,
+            "providerUrl": providerURL
+        };
+        return listing;
+    }
+
+    function mapEbayListingToGluecListing(ebayListing) {
+        var title, extId, desc, providerId, imageURL, providerURL;
+
+        title = ebayListing.title[0];
+        extId = ebayListing.itemId[0];
+        desc = "";
+        providerId = 10001;
+        imageURL = ebayListing.galleryURL[0];
+        providerURL = "";
+
+        var listing = {
+            //"externalProductId": ebayProduct.productId[0].__value__,
+            "externalItemId": extId,
+            "title": title,
+            "name": "",
+            "manufacturer": "",
+            "description": desc,
+            "categories": [],
+            "price": "",
+            "discount": "",
+            "providerId": providerId,
+            "catalogId": "",
+            "merchantId": "",
+            "imageUrl": imageURL,
+            "providerUrl": providerURL
+        };
+        return listing;
+    }
+
+    function getSingleItemFromEbay(itemId) {
+        var deferred = q.defer();
+
+        var functionToCall = "GetSingleItem";
+        var urlData = "&ItemID=" + itemId;
+        ebayAPIClient.shopping.function(functionToCall, urlData)
+            .then(function (res) {
+                console.log(res.Item);
+                if (res.Item) {
+                    deferred.resolve(mapEbaySingleFindToGluecListing(res.Item));
+                } else {
+                    deferred.reject("Cannot Find the Item from Ebay");
+                }
+            }, function (err) {
+                console.log(err);
+                deferred.reject(err)
+            });
+        return deferred.promise;
+    }
+
+
+    function mapEbaySingleFindToGluecListing(ebayProduct) {
+        var product = {
+            //"externalProductId": ebayProduct.productId[0].__value__,
+            "externalItemId": ebayProduct.ItemID,
+            "title": ebayProduct.Title,
+            "name": "",
+            "manufacturer": "",
+            "description": "",
+            "categories": [],
+            "price": "",
+            "discount": "",
+            "providerId": 10001,
+            "catalogId": "",
+            "merchantId": "",
+            "imageUrl": ebayProduct.PictureURL[0],
+            "providerUrl": ebayProduct.ViewItemURLForNaturalSearch
+        };
+        return product;
     }
 };

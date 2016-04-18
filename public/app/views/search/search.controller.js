@@ -8,9 +8,9 @@
         .module('GluecApp')
         .controller("SearchController", SearchController);
 
-    SearchController.$inject = ['ProductService', '$scope', '$routeParams', '$location', 'ProgressBarFactory'];
+    SearchController.$inject = ['ListingService', '$scope', '$routeParams', '$location', 'ProgressBarFactory'];
 
-    function SearchController(ProductService, $scope, $routeParams, $location, ProgressBarFactory) {
+    function SearchController(ListingService, $scope, $routeParams, $location, ProgressBarFactory) {
 
         $scope.$location = $location;
         //$scope.search = search;
@@ -48,8 +48,8 @@
         function buy(keyword) {
             console.log(keyword);
             ProgressBarFactory.showProgressBar();
-            ProductService
-                .findItemsAdvanced(keyword)
+            ListingService.external
+                .getProviderListings(keyword)
                 .then(success_callback, error_callback);
             function success_callback(response) {
                 ProgressBarFactory.hideProgressBar();

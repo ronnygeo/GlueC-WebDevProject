@@ -8,10 +8,9 @@
                  style="">
                 <div class="col s12">
                     <h2 class="white-text">Glue for eCommerce</h2>
-                    <h5 class="white-text">Sell, buy and review from more than 50 providers</h5>
+                    <h5 class="white-text">Sell, Buy and Review on more than 50 providers.</h5>
                 </div>
                 <br>
-                <a id="home-tutorial-button" class="waves-effect btn" href="#/sell">How it Works</a>
             </div>
             <br>
             <div class="row search-bar white-text">
@@ -24,6 +23,16 @@
                            class="validate">
                 </div>
             </div>
+            <div class="row center-align">
+                <div class="col offset-s1 s10 offset-m3 m6">
+                    <a id="home-tutorial-button"
+                       class="waves-effect btn"
+                       ng-click="model.search()">Search</a>
+                    <a id="home-tutorial-button"
+                       class="waves-effect btn"
+                       href="#/sell">How it Works</a>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -34,7 +43,7 @@
            style=""></i>
     </div>
 
-    <div class="container"
+    <div class="container home-info"
          ng-class="{'hide-content': !model.isLoggedIn()}">
         <div id="home-cards"
              class="row"

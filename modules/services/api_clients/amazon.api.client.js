@@ -11,8 +11,8 @@ var fs = require('fs'),
 module.exports = function (q) {
 
     var api = {
-        uploadToAmazonS3: uploadToAmazonS3,
-        AMAZON_S3_BUCKET_ADDRESS: AMAZON_S3_BUCKET_ADDRESS
+        AMAZON_S3_BUCKET_ADDRESS: AMAZON_S3_BUCKET_ADDRESS,
+        uploadToAmazonS3: uploadToAmazonS3
     };
     return api;
 

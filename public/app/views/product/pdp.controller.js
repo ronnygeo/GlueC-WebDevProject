@@ -6,8 +6,8 @@
     angular.module("GluecApp")
         .controller('PDPController', PDPController);
 
-    PDPController.$inject = ['ProductService', '$scope', '$routeParams', '$location', 'ProgressBarFactory'];
-    function PDPController(ProductService, $scope, $routeParams, $location, ProgressBarFactory) {
+    PDPController.$inject = ['ListingService', '$scope', '$routeParams', '$location', 'ProgressBarFactory'];
+    function PDPController(ListingService, $scope, $routeParams, $location, ProgressBarFactory) {
 
         $scope.$location = $location;
         var PDPController = this;
@@ -25,8 +25,8 @@
                 return;
             }
             ProgressBarFactory.showProgressBar();
-            ProductService
-                .getSingleItem(providerId, productId)
+            ListingService.external
+                .getProviderListing(providerId, productId)
                 .then(success_callback, error_callback);
 
             function success_callback(response) {
