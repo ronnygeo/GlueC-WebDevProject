@@ -67,7 +67,7 @@
             </div>
             <div class="col s12 m6">
                 <img ng-if="pc.product.imageUrl && !pc.product.image"
-                     src={{pc.product.imageUrl}}
+                     ng-src={{pc.product.imageUrl}}
                      width="100%"/>
                 <img style="width:100%" ng-if="pc.product.image" ngf-thumbnail="pc.product.image"/>
             </div>

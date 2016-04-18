@@ -45,7 +45,7 @@
         function render(data) {
             $rootScope.user = vm.user;
             $route.reload();
-            delete vm.user.image;
+            delete vm.is
             // console.log(data.roles);
         }
     }

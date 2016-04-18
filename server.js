@@ -12,7 +12,6 @@ var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 var mongoose = require("mongoose");
 var passport = require('passport')
-    , LocalStrategy = require('passport-local').Strategy;
 
 app.use(bodyParser.json({limit: "50mb"}));
 app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit: 50000}));
@@ -59,6 +58,7 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
+
 app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
@@ -88,6 +88,6 @@ app.get('/hello', function (req, res) {
 
 
 /*Injecting Server App*/
-require("./modules/app.js")(app, request, q, upload, mongoose, uuid, userImageUpload, productImageUpload);
+require("./modules/app.js")(app, request, q, upload, mongoose, uuid, userImageUpload, productImageUpload, passport);
 
 app.listen(port, ipaddress);

@@ -1,4 +1,4 @@
-module.exports = function (app, request, q, upload, mongoose, uuid, userImageUpload, productImageUpload) {
+module.exports = function (app, request, q, upload, mongoose, uuid, userImageUpload, productImageUpload, passport) {
 
     /*EBAY API CLIENT*/
     var ebayAPIClient = require("./services/api_clients/ebay.api.client")(q,request);
@@ -6,7 +6,7 @@ module.exports = function (app, request, q, upload, mongoose, uuid, userImageUpl
     var amazonAPIClient = require("./services/api_clients/amazon.api.client")(q);
 
     var userModel = require("./models/user/user.model.js")(mongoose);
-    require("./services/user/user.service.server")(app, userModel, userImageUpload);
+    require("./services/user/user.service.server")(app, userModel, userImageUpload, passport);
 
     var catalogModel = require('./models/catalog/catalog.model.js')(q, mongoose);
     require("./services/catalog/catalog.service.server.js")(app, catalogModel);

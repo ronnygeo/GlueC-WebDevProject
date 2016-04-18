@@ -3,6 +3,7 @@
  */
 module.exports = function (mongoose) {
     var q = require("q");
+    var bcrypt = require('bcrypt-nodejs');
     //var users = require("./user.test.json");
 
     // load user schema
@@ -12,11 +13,27 @@ module.exports = function (mongoose) {
     return {
         findUserById: findUserById,
         findUserByCredentials: findUserByCredentials,
+        findUserByUsername: findUserByUsername,
         findAllUsers: findAllUsers,
         register: register,
         updateUser: updateUser,
-        deleteUser: deleteUser
+        deleteUser: deleteUser,
+        findUserByGoogleId: findUserByGoogleId,
+        findUserByFacebookId: findUserByFacebookId
     };
+
+    //returns a single user whose username is equal to username parameter, null otherwise
+    function findUserByUsername(username) {
+        var deferred = q.defer();
+        UserModel.findOne({username: username}, function (err, data) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(data);
+            }
+        });
+        return deferred.promise;
+    }
 
     function findUserById(userId) {
         var deferred = q.defer();
@@ -34,16 +51,26 @@ module.exports = function (mongoose) {
     // //Iterates over the array of current users looking for user object
     // // whose username and password match the parameters
     // //Calls bac k with user found or null otherwise
-    function findUserByCredentials(username, password) {
+
+    //returns a single user whose username is equal to username parameter, null otherwise
+    function findUserByCredentials(credentials) {
         var deferred = q.defer();
-        // console.log(username, password);
-        UserModel.findOne({username: username, password: password}).then(function(data){
-            deferred.resolve(data);
-        }, function (err) {
-            deferred.reject(err);
+        UserModel.findOne({username: credentials.username}, function (err, data) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                // console.log(data, credentials);
+                if (bcrypt.compareSync(credentials.password, data.password)) {
+                    //  if (credentials.password === data.password) {
+                    deferred.resolve(data);
+                } else {
+                    deferred.reject(404);
+                }
+            }
         });
         return deferred.promise;
     }
+
 
     function findAllUsers() {
         var deferred = q.defer();
@@ -54,13 +81,14 @@ module.exports = function (mongoose) {
         });
         return deferred.promise;
     }
-    
+
     // //Accepts parameters user object and callback function
     // //Adds property called _id with unique value to the user object parameter.
     // //Adds the new user to local array of users
     // //Calls back with new user
     function register(user) {
         var deferred = q.defer();
+        user.password = bcrypt.hashSync(user.password);
         UserModel.create(user).then(function(data){
             deferred.resolve(data);
         }, function (err) {
@@ -76,10 +104,18 @@ module.exports = function (mongoose) {
     // //Calls back with updated user
     function updateUser(userId, data) {
         var deferred = q.defer();
-        UserModel.update({ _id: userId}, data).then(function(data){
-            deferred.resolve(data);
-        }, function (err) {
-            deferred.reject(err);
+        // console.log(data);
+        UserModel.findById(userId).then(function (oldUser) {
+            // console.log(data.password);
+            if (data.password !== oldUser.password || !bcrpyt.compareSync(data.password, oldUser.password)) {
+                data.password = bcrypt.hashSync(data.password);
+                console.log(data.password);
+            }
+            UserModel.update({ _id: userId}, data).then(function(data){
+                deferred.resolve(data);
+            }, function (err) {
+                deferred.reject(err);
+            });
         });
         return deferred.promise;
     }
@@ -100,4 +136,13 @@ module.exports = function (mongoose) {
         });
         return deferred.promise;
     }
+
+    function findUserByFacebookId(facebookId) {
+        return UserModel.findOne({'facebook.id': facebookId});
+    }
+
+    function findUserByGoogleId(googleId) {
+        return UserModel.findOne({'google.id': googleId});
+    }
+
 };

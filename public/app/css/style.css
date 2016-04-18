@@ -514,3 +514,7 @@ body {
 .card .pdp-image img{
     padding: 20px;
 }
+
+#view-profile-image {
+    width: 100%;
+}
