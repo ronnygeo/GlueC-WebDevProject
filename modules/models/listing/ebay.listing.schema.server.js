@@ -11,6 +11,7 @@ module.exports = function (mongoose) {
         listingDuration: String,
         categoryDetails:{},
         siteHostedPictureDetails: {},
-        publishDetails:{}
+        publishDetails:{},
+        image:String
     }, {collection: 'ebayListing'})
 };

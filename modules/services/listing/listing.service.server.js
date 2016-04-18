@@ -9,11 +9,11 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
     app.post("/api/listing/", upload.single('image'), addImageAndCateogry);
     app.post("/api/listing/publish", publishListing);
     app.post("/api/listing/template", getNewListingTemplate);
-    app.get("/api/listing/external/:providerId/:itemId", getSingleItemFromProvider);
+    app.get("/api/listing/external/:providerId/:itemId", getItemFromProvider);
     app.get("/api/listing/external/:keyword", findItemsFromProvider);
 
 
-    function getSingleItemFromProvider(req, res) {
+    function getItemFromProvider(req, res) {
         console.log("getSingleItem");
         /*Getting Single Item from Ebay*/
         if (req.params.providerId == "10001") {
@@ -140,36 +140,41 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
         listing['images'] = [req.file.path];
         console.log("Incoming Listing");
         console.log(listing);
-        var newDbListing;
+        var dbListing;
 
         if (listing.providerId == "10001") {
             //Step1: Create New Listing
             listingModel.ebay.getListingById(listing._id)
                 .then(function (response) {
                     console.log(response);
-                    newDbListing = response;
+                    dbListing = response;
 
+                    dbListing.providerId = listing.providerId;
                     //Add Categories
-                    newDbListing.ebay.parentCategory = listing.selectedParentCategory;
-                    newDbListing.ebay.subCategory = listing.selectedSubCategory;
+                    dbListing.ebay.parentCategory = listing.selectedParentCategory;
+                    dbListing.ebay.subCategory = listing.selectedSubCategory;
 
                     //Step2: Save Image and Ebay Url In Database
                     uploadImageToEbay(req.file)
                         .then(function (response) {
                             console.log(response);
-                            newDbListing.ebay.siteHostedPictureDetails = response;
-
+                            //Local Image Path
+                            dbListing.images = listing.images[0];
+                            //Image Upload Call Response
+                            dbListing.ebay.siteHostedPictureDetails = response;
+                            //Server Images
+                            dbListing.ebay.image = response.FullURL[0];
                             //Step3: Get Other Features For Category
-                            categoryService.ebay.fetchCategoryDetails(newDbListing.ebay.subCategory)
+                            categoryService.ebay.fetchCategoryDetails(dbListing.ebay.subCategory)
                                 .then(function (response) {
                                     console.log(response);
 
                                     //Sending New Listing Back to the Client
-                                    newDbListing.ebay.categoryDetails = response;
-                                    console.log(newDbListing);
+                                    dbListing.ebay.categoryDetails = response;
+                                    console.log(dbListing);
 
                                     //Step 4: Save the listing to DB
-                                    listingModel.ebay.saveListing(newDbListing)
+                                    listingModel.ebay.saveListing(dbListing)
                                         .then(function (response) {
                                             console.log("Saved Response Received");
                                             console.log(response);
@@ -455,6 +460,7 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
 
         var functionToCall = "GetSingleItem";
         var urlData = "&ItemID=" + itemId;
+        urlData += "&IncludeSelector=ItemSpecifics";
         ebayAPIClient.shopping.function(functionToCall, urlData)
             .then(function (res) {
                 console.log(res.Item);
@@ -472,22 +478,31 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
 
 
     function mapEbaySingleFindToGluecListing(ebayProduct) {
-        var product = {
-            //"externalProductId": ebayProduct.productId[0].__value__,
-            "externalItemId": ebayProduct.ItemID,
-            "title": ebayProduct.Title,
-            "name": "",
-            "manufacturer": "",
-            "description": "",
-            "categories": [],
-            "price": "",
-            "discount": "",
-            "providerId": 10001,
-            "catalogId": "",
-            "merchantId": "",
-            "imageUrl": ebayProduct.PictureURL[0],
-            "providerUrl": ebayProduct.ViewItemURLForNaturalSearch
+        var features = [];
+        var external_listing = {};
+        var ebay = {
+            subCategory: ebayProduct.PrimaryCategoryID,
+            ebayListingItemId: ebayProduct.ItemID,
+            image: ebayProduct.PictureURL[0],
+            ebayListingUrl: ebayProduct.ViewItemURLForNaturalSearch
         };
-        return product;
+        for (var i in ebayProduct.ItemSpecifics.NameValueList) {
+            if (ebayProduct.ItemSpecifics.NameValueList[i].Name == 'Model') {
+                external_listing['model'] = ebayProduct.ItemSpecifics.NameValueList[i].Value[0];
+            } else if (ebayProduct.ItemSpecifics.NameValueList[i].Name == 'MPN') {
+                external_listing['mpn'] = ebayProduct.ItemSpecifics.NameValueList[i].Value[0];
+            } else {
+                var feature = {};
+                feature['name'] = ebayProduct.ItemSpecifics.NameValueList[i].Name;
+                feature['value'] = ebayProduct.ItemSpecifics.NameValueList[i].Value[0];
+                features.push(feature);
+            }
+        }
+        external_listing['price'] = ebayProduct.ConvertedCurrentPrice;
+        external_listing['title'] = ebayProduct.Title;
+        external_listing['providerId'] = 10001;
+        external_listing['features'] = features;
+        external_listing['ebay'] = ebay;
+        return external_listing;
     }
 };

@@ -9,10 +9,14 @@ module.exports = function (mongoose) {
         description: String,
         images: [String],
         ebay: EbayListingSchema,
-        model: String,
-        mpn: String,
         price: String,
         startingPrice: String,
+        features: {
+            name: String,
+            value: String
+        },
+        model: String,
+        mpn: String,
         isComplete: {
             type: Boolean,
             default: false
