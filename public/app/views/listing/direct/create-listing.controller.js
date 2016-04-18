@@ -33,7 +33,8 @@
                 addCategoryCard();
             }
             else if (card.type == "parentCategory") {
-                CreateListingController.listing.ebay.parentCategory = card.selectedData._id;
+                CreateListingController.listing.ebay.parentCategoryId = card.selectedData._id;
+                CreateListingController.listing.ebay.parentCategoryName = card.selectedData.name;
                 clearOtherCards(card.type);
                 addSubCategoryCard(card.selectedData._id);
             } else if (card.type == "subCategory") {
@@ -43,7 +44,8 @@
                     addSubCategoryCard(card.selectedData._id)
                 } else {
                     console.log("Leaf Category.");
-                    CreateListingController.listing.ebay.subCategory = card.selectedData._id;
+                    CreateListingController.listing.ebay.subCategoryId = card.selectedData._id;
+                    CreateListingController.listing.ebay.subCategoryName = card.selectedData.name;
                     clearOtherCards(card.type);
                     addUploadImageCard();
                 }

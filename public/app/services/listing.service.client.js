@@ -74,8 +74,10 @@
             var flatListing = {};
             flatListing['_id'] = listing._id;
             flatListing['providerId'] = listing.providerId;
-            flatListing['selectedParentCategory'] = listing.ebay.parentCategory;
-            flatListing['selectedSubCategory'] = listing.ebay.subCategory;
+            flatListing['selectedParentCategoryId'] = listing.ebay.parentCategoryId;
+            flatListing['selectedParentCategoryName'] = listing.ebay.parentCategoryName;
+            flatListing['selectedSubCategoryId'] = listing.ebay.subCategoryId;
+            flatListing['selectedSubCategoryName'] = listing.ebay.subCategoryName;
             flatListing['image'] = listing.image;
             return flatListing;
         }

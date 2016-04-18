@@ -104,8 +104,10 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
                             //Step3: Save Publish Details to DB
                             listingDoc.isComplete = true;
                             listingDoc.title = listing.title;
+                            listingDoc.providerItemId = response;
                             listingDoc.description = listing.description;
-                            listingDoc.price = listing.price;
+                            listingDoc.price.value = listing.price;
+                            listingDoc.price.currency = "USD";
                             listingDoc.mpn = listing.mpn;
                             listingDoc.model = listing.model;
                             listingDoc.ebay.itemCondition = listing.ebay.itemCondition;
@@ -151,8 +153,10 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
 
                     dbListing.providerId = listing.providerId;
                     //Add Categories
-                    dbListing.ebay.parentCategory = listing.selectedParentCategory;
-                    dbListing.ebay.subCategory = listing.selectedSubCategory;
+                    dbListing.ebay.parentCategoryId = listing.selectedParentCategoryId;
+                    dbListing.ebay.parentCategoryName = listing.selectedParentCategoryName;
+                    dbListing.ebay.subCategoryId = listing.selectedSubCategoryId;
+                    dbListing.ebay.subCategoryName = listing.selectedSubCategoryName;
 
                     //Step2: Save Image and Ebay Url In Database
                     uploadImageToEbay(req.file)
@@ -165,7 +169,7 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
                             //Server Images
                             dbListing.ebay.image = response.FullURL[0];
                             //Step3: Get Other Features For Category
-                            categoryService.ebay.fetchCategoryDetails(dbListing.ebay.subCategory)
+                            categoryService.ebay.fetchCategoryDetails(dbListing.ebay.subCategoryId)
                                 .then(function (response) {
                                     console.log(response);
 
@@ -288,7 +292,7 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
             '<Title>' + listing.title + '</Title>' +
             '<Description>' + listing.description + '</Description>' +
             '<PrimaryCategory>' +
-            '<CategoryID>' + listing.ebay.subCategory + '</CategoryID>' +
+            '<CategoryID>' + listing.ebay.subCategoryId + '</CategoryID>' +
             '</PrimaryCategory>' +
             '<StartPrice currencyID="USD">0.99</StartPrice>' +
             '<BuyItNowPrice currencyID="USD">' + listing.price + '</BuyItNowPrice>' +
@@ -481,7 +485,8 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
         var features = [];
         var external_listing = {};
         var ebay = {
-            subCategory: ebayProduct.PrimaryCategoryID,
+            subCategoryId: ebayProduct.PrimaryCategoryID,
+            subCategoryName: ebayProduct.PrimaryCategoryName,
             ebayListingItemId: ebayProduct.ItemID,
             image: ebayProduct.PictureURL[0],
             ebayListingUrl: ebayProduct.ViewItemURLForNaturalSearch
@@ -498,11 +503,15 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
                 features.push(feature);
             }
         }
-        external_listing['price'] = ebayProduct.ConvertedCurrentPrice;
+        external_listing['price'] = {
+            value: ebayProduct.ConvertedCurrentPrice.Value,
+            currency: ebayProduct.ConvertedCurrentPrice.CurrencyID
+        };
         external_listing['title'] = ebayProduct.Title;
         external_listing['providerId'] = 10001;
         external_listing['features'] = features;
         external_listing['ebay'] = ebay;
+        external_listing['providerItemId'] = ebayProduct.ItemID;
         return external_listing;
     }
 };

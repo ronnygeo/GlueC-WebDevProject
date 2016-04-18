@@ -35,7 +35,6 @@
                 PDPController.product = response.data;
 
             }
-
             function error_callback(error) {
                 ProgressBarFactory.hideProgressBar();
                 console.log(error);

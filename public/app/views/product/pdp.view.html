@@ -2,35 +2,93 @@
     <div class="section main-content">
         <div class="row">
             <div class="col s12">
-                <div class="card pdp-card">
-                    <div class="card-image waves-effect waves-block waves-light pdp-image center-align">
-                        <img ng-src="{{model.product.imageUrl}}" alt="Product Image">
-                        <!--<span class="card-title">{{model.product.title[0] | removeDoubleQuotes}}</span>-->
-                    </div>
-                    <div class="card-content grey-text">
-                        <div class="margin-10">
-                            <span class="card-title activator grey-text text-darken-5">
-                                {{model.product.title}}
-                            </span>
+                <div class="product-description-card ">
+                    <div class="card">
+                        <col>
+                        <div class="card-image pdp-image center-align">
+                            <a target="_blank"
+                               href="{{model.product.ebay.ebayListingUrl}}">
+                                <img ng-src="{{model.product.ebay.image}}"
+                                     alt="Product Image">
+                            </a>
                         </div>
-                        <div class="margin-10">
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                unknown printer took a galley of type and scrambled it to make a type specimen book. It
-                                has
-                                survived not only five centuries, but also the leap into electronic typesetting,
-                                remaining
-                                essentially unchanged. It was popularised in the 1960s with the release of Letraset
-                                sheets
-                                containing Lorem Ipsum passages, and more recently with desktop publishing software like
-                                Aldus PageMaker including versions of Lorem Ipsum.
-                            </p>
+                        <div class="card-content">
+                            <ul class="collection">
+                                <li class="collection-item avatar">
+                                    <i class="fa fa-shopping-cart circle"
+                                       aria-hidden="true"></i>
+                                    <span class="title">Provider</span>
+                                    <p ng-if="model.product.providerId=='10002'">
+                                        Provider : Amazon
+                                    </p>
+                                    <p ng-if="model.product.providerId=='10001'">
+                                        Provider : Ebay
+                                    </p>
+                                    </p>
+                                </li>
+                                <li class="collection-item avatar">
+                                    <i class="fa fa-bullhorn circle"
+                                       aria-hidden="true"></i>
+                                    <span class="title">Title</span>
+                                    <p>{{model.product.title}}
+                                    </p>
+                                </li>
+                                <li class="collection-item avatar">
+                                    <i class="fa fa-plug circle"
+                                       aria-hidden="true"></i>
+                                    <span class="title">Provider Item ID</span>
+                                    <p>{{model.product.providerItemId}}
+                                    </p>
+                                </li>
+                                <li class="collection-item avatar">
+                                    <i class="fa fa-sitemap circle"
+                                       aria-hidden="true"></i>
+                                    <span class="title">Category</span>
+                                    <p>{{model.product.ebay.subCategoryName}}
+                                    </p>
+                                </li>
+                                <li class="collection-item avatar">
+                                    <i class="fa fa-sitemap circle"
+                                       aria-hidden="true"></i>
+                                    <span class="title">Category ID</span>
+                                    <p>{{model.product.ebay.subCategoryId}}
+                                    </p>
+                                </li>
+                                <li class="collection-item avatar">
+                                    <i class="fa fa-puzzle-piece circle"
+                                       aria-hidden="true"></i>
+                                    <span class="title">Model</span>
+                                    <p>{{model.product.model}}
+                                    </p>
+                                </li>
+                                <li class="collection-item avatar">
+                                    <i class="fa fa-info circle"
+                                       aria-hidden="true"></i>
+                                    <span class="title">MPN</span>
+                                    <p>{{model.product.mpn}}
+                                    </p>
+                                </li>
+                                <li class="collection-item avatar">
+                                    <i class="fa fa-usd circle"
+                                       aria-hidden="true"></i>
+                                    <span class="title">Price</span>
+                                    <p>{{model.product.price.value + " " + model.product.price.currency}}
+                                    </p>
+                                </li>
+                                <li class="collection-item avatar">
+                                    <i class="fa fa-list-alt circle"
+                                       aria-hidden="true"></i>
+                                    <span class="title">Description</span>
+                                    <p>{{model.product.description}}
+                                    </p>
+                                </li>
+                            </ul>
                         </div>
-
-                    </div>
-                    <div class="card-action">
-                        <a href="{{model.product.providerUrl}}">Buy</a>
-                        <a href="#/item/{{model.product.providerId}}/{{model.product.ItemID}}">Sell</a>
+                        <div class="card-action center-align">
+                            <a href="#/dashboard">Goto Dashboard</a>
+                            <a target="_blank"
+                               href="{{model.product.ebay.ebayListingUrl}}">See on Ebay</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -41,7 +99,7 @@
                     <div class="card-content white-text">
                         <span class="card-title">Analytics</span>
                         <p>I am a very simple card. I am good at containing small bits of information.
-                            I am convenient because I require little markup to use effectively.</p>
+                           I am convenient because I require little markup to use effectively.</p>
                     </div>
                     <div class="card-action">
                         <a href="#">This is a link</a>
@@ -54,7 +112,7 @@
                     <div class="card-content white-text">
                         <span class="card-title tex">Social</span>
                         <p>I am a very simple card. I am good at containing small bits of information.
-                            I am convenient because I require little markup to use effectively.</p>
+                           I am convenient because I require little markup to use effectively.</p>
                     </div>
                     <div class="card-action">
                         <a href="#">This is a link</a>

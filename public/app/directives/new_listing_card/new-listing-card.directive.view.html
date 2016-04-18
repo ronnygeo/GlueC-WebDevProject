@@ -217,52 +217,95 @@
             Published
         </div>
         <div class="collapsible-body">
-            <div class="card">
-                <col>
-                <div class="card-image pdp-image center-align">
-                    <a target="_blank"
-                       href="{{card.data.ebay.ebayListingUrl}}">
-                        <img ng-src="{{card.data.ebay.image}}"
-                             alt="Product Image">
-                    </a>
-                </div>
-                <div class="card-content">
-                    <ul class="collection">
-                        <li class="collection-item avatar">
-                            <i class="fa fa-bullhorn circle"
-                               aria-hidden="true"></i>
-                            <span class="title">Title</span>
-                            <p>{{card.data.title}}
-                            </p>
-                        </li>
-                        <li class="collection-item avatar">
-                            <i class="fa fa-puzzle-piece circle"
-                               aria-hidden="true"></i>
-                            <span class="title">Model</span>
-                            <p>{{card.data.model}}
-                            </p>
-                        </li>
-                        <li class="collection-item avatar">
-                            <i class="fa fa-usd circle"
-                               aria-hidden="true"></i>
-                            <span class="title">Price</span>
-                            <p>{{card.data.price}}
-                            </p>
-                        </li>
-                        <li class="collection-item avatar">
-                            <i class="fa fa-list-alt circle"
-                               aria-hidden="true"></i>
-                            <span class="title">Description</span>
-                            <p>{{card.data.description}}
-                            </p>
-                        </li>
-                    </ul>
-                </div>
-                <div class="card-action center-align">
-                    <a href="#/dashboard">Goto Dashboard</a>
-                    <a target="_blank"
-                       href="{{card.data.ebay.ebayListingUrl}}">See on Ebay</a>
+            <div class="product-description-card ">
+                <div class="card">
+                    <col>
+                    <div class="card-image pdp-image center-align">
+                        <a target="_blank"
+                           href="{{card.data.ebay.ebayListingUrl}}">
+                            <img ng-src="{{card.data.ebay.image}}"
+                                 alt="Product Image">
+                        </a>
+                    </div>
+                    <div class="card-content">
+                        <ul class="collection">
+                            <li class="collection-item avatar">
+                                <i class="fa fa-shopping-cart circle"
+                                   aria-hidden="true"></i>
+                                <span class="title">Provider</span>
+                                <p ng-if="card.data.providerId=='10002'">
+                                    Provider : Amazon
+                                </p>
+                                <p ng-if="card.data.providerId=='10001'">
+                                    Provider : Ebay
+                                </p>
+                                </p>
+                            </li>
+                            <li class="collection-item avatar">
+                                <i class="fa fa-bullhorn circle"
+                                   aria-hidden="true"></i>
+                                <span class="title">Title</span>
+                                <p>{{card.data.title}}
+                                </p>
+                            </li>
+                            <li class="collection-item avatar">
+                                <i class="fa fa-plug circle"
+                                   aria-hidden="true"></i>
+                                <span class="title">Provider Item ID</span>
+                                <p>{{card.data.providerItemId}}
+                                </p>
+                            </li>
+                            <li class="collection-item avatar">
+                                <i class="fa fa-sitemap circle"
+                                   aria-hidden="true"></i>
+                                <span class="title">Category</span>
+                                <p>{{card.data.ebay.subCategoryName}}
+                                </p>
+                            </li>
+                            <li class="collection-item avatar">
+                                <i class="fa fa-sitemap circle"
+                                   aria-hidden="true"></i>
+                                <span class="title">Category ID</span>
+                                <p>{{card.data.ebay.subCategoryId}}
+                                </p>
+                            </li>
+                            <li class="collection-item avatar">
+                                <i class="fa fa-puzzle-piece circle"
+                                   aria-hidden="true"></i>
+                                <span class="title">Model</span>
+                                <p>{{card.data.model}}
+                                </p>
+                            </li>
+                            <li class="collection-item avatar">
+                                <i class="fa fa-info circle"
+                                   aria-hidden="true"></i>
+                                <span class="title">MPN</span>
+                                <p>{{card.data.mpn}}
+                                </p>
+                            </li>
+                            <li class="collection-item avatar">
+                                <i class="fa fa-usd circle"
+                                   aria-hidden="true"></i>
+                                <span class="title">Price</span>
+                                <p>{{card.data.price.value + " " + card.data.price.currency}}
+                                </p>
+                            </li>
+                            <li class="collection-item avatar">
+                                <i class="fa fa-list-alt circle"
+                                   aria-hidden="true"></i>
+                                <span class="title">Description</span>
+                                <p>{{card.data.description}}
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-action center-align">
+                        <a href="#/dashboard">Goto Dashboard</a>
+                        <a target="_blank"
+                           href="{{card.data.ebay.ebayListingUrl}}">See on Ebay</a>
+                    </div>
                 </div>
             </div>
+        </div>
     </li>
 </ul>

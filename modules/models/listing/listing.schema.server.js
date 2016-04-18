@@ -9,7 +9,10 @@ module.exports = function (mongoose) {
         description: String,
         images: [String],
         ebay: EbayListingSchema,
-        price: String,
+        price: {
+            value:String,
+            currency:String
+        },
         startingPrice: String,
         features: {
             name: String,
@@ -20,6 +23,7 @@ module.exports = function (mongoose) {
         isComplete: {
             type: Boolean,
             default: false
-        }
+        },
+        providerItemId : String
     }, {collection: 'listing'})
 };

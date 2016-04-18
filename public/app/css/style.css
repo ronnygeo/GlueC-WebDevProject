@@ -57,9 +57,7 @@
     line-height: 0;
 }
 
-.card .pdp-image {
-    max-height: 40rem !important;
-}
+
 
 .pdp-card .card-content .card-title {
     font-size: 1.5rem;
@@ -475,43 +473,49 @@ body {
 }
 
 
-.publishListingCard .col {
+.product-description-card .col {
     padding-right: 0px;
 !important;
 
 }
 
-.publishListingCard .row {
+.product-description-card .row {
     margin: 0px;
 !important;
 
 }
 
-.publishListingCard .card {
+.product-description-card .card {
     margin: 2vh 0px 0px 0px;
     box-shadow: none;
 }
 
-.publishListingCard .card {
+.product-description-card .card {
     margin: 2vh 0px 0px 0px;
     box-shadow: none;
 }
 
-.publishListingCard .card .card-content {
+.product-description-card .card .card-content {
     padding-left: 0px;
     padding-right: 0px;
 }
 
-.publishListingCard .card .card-content .collection-item {
-    border-top: 1px solid #e0e0e0;
+.product-description-card .card .card-content .collection-item {
+    /*border-top: 1px solid #e0e0e0;*/
 }
 
-.publishListingCard .card .card-content .collection-item p {
+.product-description-card .card .card-content .collection-item p {
     margin: 0px;
     padding: 0px;
 }
 
-.card .pdp-image img{
+.product-description-card .collection{
+    border:0
+}
+.product-description-card .collection .collection-item:first-child{
+    border-top: 1px solid #e0e0e0;
+}
+.product-description-card .card .pdp-image img{
     padding: 20px;
 }
 
