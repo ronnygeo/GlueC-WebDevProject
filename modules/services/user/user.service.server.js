@@ -24,7 +24,7 @@ module.exports = function (app, userModel, userImageUpload, passport) {
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
 
-    app.get("/api/users", passport.authenticate('local'), findAllUsersAdmin);
+    app.get("/api/users", findAllUsersAdmin);
     app.get("/api/user/users", findAllUsers);
     app.get("/api/user/:id", passport.authenticate('local'), findUserById);
     app.get("/api/user/:id/min", findUserByIdMinimal);
