@@ -7,9 +7,9 @@
     angular.module('GluecApp')
         .controller("ProfileController", ProfileController);
 
-    ProfileController.$inject = ['$rootScope', 'UserService', '$route', 'Upload'];
+    ProfileController.$inject = ['$rootScope', 'UserService', '$location', 'Upload'];
 
-    function ProfileController($rootScope, UserService, $route, Upload) {
+    function ProfileController($rootScope, UserService, $location, Upload) {
         var vm = this;
 
         vm.user = $rootScope.user;
@@ -44,8 +44,8 @@
 
         function render(data) {
             $rootScope.user = vm.user;
-            $route.reload();
-            delete vm.is
+            // $route.reload();
+            $location.url('/dashboard');
             // console.log(data.roles);
         }
     }

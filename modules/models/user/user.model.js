@@ -109,10 +109,10 @@ module.exports = function (mongoose) {
             // console.log(data.password);
             if (data.password !== oldUser.password || !bcrpyt.compareSync(data.password, oldUser.password)) {
                 data.password = bcrypt.hashSync(data.password);
-                console.log(data.password);
+                // console.log(data.password);
             }
-            UserModel.update({ _id: userId}, data).then(function(data){
-                deferred.resolve(data);
+            UserModel.update({_id: userId}, data).then(function(res){
+                deferred.resolve(res);
             }, function (err) {
                 deferred.reject(err);
             });

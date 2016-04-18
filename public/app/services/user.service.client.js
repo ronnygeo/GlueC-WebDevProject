@@ -91,6 +91,7 @@
         //If found, updates user with new user properties
         //Calls back with updated user
         function updateUser(userId, newUser) {
+            // console.log(newUser);
             return $http.put("/api/user/"+userId, newUser);
         }
     }
