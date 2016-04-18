@@ -17,7 +17,9 @@ module.exports = function (mongoose) {
         findAllUsers: findAllUsers,
         register: register,
         updateUser: updateUser,
-        deleteUser: deleteUser
+        deleteUser: deleteUser,
+        findUserByGoogleId: findUserByGoogleId,
+        findUserByFacebookId: findUserByFacebookId
     };
 
     //returns a single user whose username is equal to username parameter, null otherwise
@@ -102,9 +104,9 @@ module.exports = function (mongoose) {
     // //Calls back with updated user
     function updateUser(userId, data) {
         var deferred = q.defer();
-        console.log(data);
+        // console.log(data);
         UserModel.findById(userId).then(function (oldUser) {
-            console.log(data.password);
+            // console.log(data.password);
             if (data.password !== oldUser.password || !bcrpyt.compareSync(data.password, oldUser.password)) {
                 data.password = bcrypt.hashSync(data.password);
                 console.log(data.password);
@@ -134,4 +136,13 @@ module.exports = function (mongoose) {
         });
         return deferred.promise;
     }
+
+    function findUserByFacebookId(facebookId) {
+        return UserModel.findOne({'facebook.id': facebookId});
+    }
+
+    function findUserByGoogleId(googleId) {
+        return UserModel.findOne({'google.id': googleId});
+    }
+
 };
