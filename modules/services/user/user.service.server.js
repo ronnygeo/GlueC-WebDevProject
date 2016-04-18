@@ -18,8 +18,8 @@ module.exports = function (app, userModel, userImageUpload, passport) {
     var GoogleStrategy   = require('passport-google-oauth').OAuth2Strategy;
     var FacebookStrategy = require('passport-facebook').Strategy;
 
-    //passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
-    //passport.use(new GoogleStrategy(googleConfig, googleStrategy));
+    passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
+    passport.use(new GoogleStrategy(googleConfig, googleStrategy));
     passport.use(new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
