@@ -20,9 +20,21 @@
             findAllUsers: findAllUsers,
             createUser: createUser,
             deleteUserById: deleteUserById,
-            updateUser: updateUser
+            updateUser: updateUser,
+            login: login,
+            logout: logout
         };
         return api;
+
+        function login(user) {
+            // console.log(user);
+            return $http.post("/api/login", user);
+        }
+
+        function logout() {
+            return $http.post("/api/logout");
+        }
+
 
         function findUserById(userId) {
             return $http.get("/api/user/"+userId);

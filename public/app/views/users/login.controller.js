@@ -13,9 +13,10 @@
         //Event Handlers Decelerations
         vm.login = Login;
 
+        var user = {};
         //Event Handlers Implementations
         function Login() {
-            UserService.findUserByCredentials(vm.user.username, vm.user.password).then(render, function (err) {
+            UserService.login(vm.user).then(render, function (err) {
                     $('#login-alert').show();
             });
 

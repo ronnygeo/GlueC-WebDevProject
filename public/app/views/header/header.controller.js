@@ -7,7 +7,7 @@
         .module("GluecApp")
         .controller("HeaderController", HeaderController);
 
-    function HeaderController($location, $scope, $rootScope) {
+    function HeaderController($location, $scope, $rootScope, UserService) {
 
         function init() {
             angular.element(document).ready(function () {
@@ -26,8 +26,10 @@
 
         //Event Handler Implementation
         function logout() {
-            delete $rootScope.user;
-            $location.url("/login");
+            UserService.logout().then(function (){
+                delete $rootScope.user;
+                $location.url("/login");
+            });
         }
     }
 })();

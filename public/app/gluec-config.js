@@ -10,7 +10,10 @@
                 .when('/', {
                     controller: 'HomeController',
                     controllerAs: "model",
-                    templateUrl: 'views/home/home.view.html'
+                    templateUrl: 'views/home/home.view.html',
+                    resolve: {
+                        loggedin: checkCurrentUser
+                    }
                 })
                 .when('/login', {
                     controller: 'LoginController',
@@ -30,57 +33,90 @@
                 .when('/dashboard', {
                     controller: 'DashboardController',
                     templateUrl: 'views/dashboard/dashboard.view.html',
-                    controllerAs: 'dc'
+                    controllerAs: 'dc',
+                    resolve: {
+                        loggedin: checkLoggedin
+                    }
                 })
                 .when('/dashboard/users', {
                     controller: 'DashboardController',
                     templateUrl: 'views/dashboard/dashboard.view.html',
-                    controllerAs: 'dc'
+                    controllerAs: 'dc',
+                    resolve: {
+                        loggedin: checkAdmin
+                    }
                 })
                 .when('/dashboard/catalogs', {
                     controller: 'DashboardController',
                     templateUrl: 'views/dashboard/dashboard.view.html',
-                    controllerAs: 'dc'
+                    controllerAs: 'dc',
+                    resolve: {
+                        loggedin: checkMerchant
+                    }
                 })
                 .when('/dashboard/catalog/new', {
                     controller: 'DashboardController',
                     templateUrl: 'views/dashboard/dashboard.view.html',
-                    controllerAs: 'dc'
+                    controllerAs: 'dc',
+                    resolve: {
+                        loggedin: checkMerchant
+                    }
                 })
                 .when('/dashboard/catalog/:catId/edit', {
                     controller: 'DashboardController',
                     templateUrl: 'views/dashboard/dashboard.view.html',
-                    controllerAs: 'dc'
+                    controllerAs: 'dc',
+                    resolve: {
+                        loggedin: checkMerchant
+                    }
                 })
                 .when('/dashboard/products', {
                     controller: 'DashboardController',
                     templateUrl: 'views/dashboard/dashboard.view.html',
-                    controllerAs: 'dc'
+                    controllerAs: 'dc',
+                    resolve: {
+                        loggedin: checkMerchant
+                    }
                 })
                 .when('/dashboard/product/new', {
                     controller: 'DashboardController',
                     templateUrl: 'views/dashboard/dashboard.view.html',
-                    controllerAs: 'dc'
+                    controllerAs: 'dc',
+                    resolve: {
+                        loggedin: checkMerchant
+                    }
                 })
                 .when('/dashboard/product/:prodId/edit', {
                     controller: 'DashboardController',
                     templateUrl: 'views/dashboard/dashboard.view.html',
-                    controllerAs: 'dc'
+                    controllerAs: 'dc',
+                    resolve: {
+                        loggedin: checkMerchant
+                    }
                 })
                 .when('/dashboard/product/:prodId/view', {
                     controller: 'DashboardController',
                     templateUrl: 'views/dashboard/dashboard.view.html',
-                    controllerAs: 'dc'
+                    controllerAs: 'dc',
+                    resolve: {
+                        loggedin: checkMerchant
+                    }
                 })
                 .when('/dashboard/profile', {
                     controller: 'DashboardController',
                     templateUrl: 'views/dashboard/dashboard.view.html',
-                    controllerAs: 'dc'
+                    controllerAs: 'dc',
+                    resolve: {
+                        loggedin: checkLoggedin
+                    }
                 })
                 .when('/dashboard/profile/edit', {
                     controller: 'DashboardController',
                     templateUrl: 'views/dashboard/dashboard.view.html',
-                    controllerAs: 'dc'
+                    controllerAs: 'dc',
+                    resolve: {
+                        loggedin: checkLoggedin
+                    }
                 })
                 .when('/item/:providerId/:productId', {
                     controller: 'PDPController',
@@ -100,7 +136,10 @@
                 .when('/messages', {
                     controller: 'MessageController',
                     templateUrl: 'views/messages/messages.view.html',
-                    controllerAs: "mc"
+                    controllerAs: "mc",
+                    resolve: {
+                        loggedin: checkLoggedin
+                    }
                 })
                 .when('/sell', {
                     controller: 'SellController',
@@ -120,6 +159,93 @@
                 responsive: true
             });
         });
+
+    var checkAdmin = function($q, $timeout, $http, $location, $rootScope)
+    {
+        var deferred = $q.defer();
+
+        $http.get('/api/loggedin').success(function(user)
+        {
+            $rootScope.errorMessage = null;
+            // User is Authenticated
+            if (user !== '0' && user.roles.indexOf('admin') != -1)
+            {
+                $rootScope.currentUser = user;
+                deferred.resolve();
+            } else {
+                $rootScope.errorMessage = 'You need to log in.';
+                deferred.reject();
+                $location.url('/login');
+            }
+        });
+
+        return deferred.promise;
+    };
+
+    var checkMerchant = function($q, $timeout, $http, $location, $rootScope)
+    {
+        var deferred = $q.defer();
+
+        $http.get('/api/loggedin').success(function(user)
+        {
+            $rootScope.errorMessage = null;
+            // User is Authenticated
+            if (user !== '0' && (user.roles.indexOf('merchant') != -1 || user.roles.indexOf('admin') != -1))
+            {
+                $rootScope.currentUser = user;
+                deferred.resolve();
+            } else {
+                $rootScope.errorMessage = 'You need to log in.';
+                deferred.reject();
+                $location.url('/login');
+            }
+        });
+
+        return deferred.promise;
+    };
+
+
+    var checkLoggedin = function($q, $timeout, $http, $location, $rootScope)
+    {
+        var deferred = $q.defer();
+
+        $http.get('/api/loggedin').success(function(user)
+        {
+            // User is Authenticated
+            if (user !== '0')
+            {
+                $rootScope.currentUser = user;
+                deferred.resolve(user);
+            }
+            // User is Not Authenticated
+            else
+            {
+                $rootScope.errorMessage = 'You need to log in.';
+                deferred.reject();
+                $location.url('/login');
+            }
+        });
+
+        return deferred.promise;
+    };
+
+    var checkCurrentUser = function($q, $timeout, $http, $location, $rootScope)
+    {
+        var deferred = $q.defer();
+
+        $http.get('/api/loggedin').success(function(user)
+        {
+            $rootScope.errorMessage = null;
+            // User is Authenticated
+            if (user !== '0')
+            {
+                $rootScope.currentUser = user;
+            }
+            deferred.resolve();
+        });
+
+        return deferred.promise;
+    };
         // .config(['flowFactoryProvider', function (flowFactoryProvider) {
         //     flowFactoryProvider.defaults = {
         //         target: '/media/images/users',

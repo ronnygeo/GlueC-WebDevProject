@@ -1,17 +1,42 @@
 /**
  * Created by ronnygeo on 3/24/16.
  */
-module.exports = function (app, userModel, userImageUpload) {
+module.exports = function (app, userModel, userImageUpload, passport) {
+
+    var LocalStrategy = require('passport-local').Strategy;
+
+    passport.use(new LocalStrategy(localStrategy));
+    passport.serializeUser(serializeUser);
+    passport.deserializeUser(deserializeUser);
+
     app.get("/api/users", findAllUsersAdmin);
-    app.get("/api/user/users", findAllUsers);
-    app.get("/api/user/:id", findUserById);
+    app.get("/api/user/users", passport.authenticate('local'), findAllUsers);
+    app.get("/api/user/:id", passport.authenticate('local'), findUserById);
     app.get("/api/user/:id/min", findUserByIdMinimal);
     app.get("/api/user", findUserByCredentials);
+    app.post("/api/login", passport.authenticate('local'), login);
     app.post("/api/user", registerUser);
     app.put("/api/user/:id", updateUser);
     app.delete("/api/user/:id", deleteUser);
     app.post('/api/user/upload', uploadImage);
-    
+    app.post('/api/logout', logout);
+    app.get('/api/loggedIn', loggedIn);
+
+
+    function loggedIn(req, res) {
+        res.send(req.isAuthenticated() ? req.user : '0');
+    }
+
+    function logout(req, res) {
+        req.logOut();
+        res.send(200);
+    }
+
+    function login(req, res) {
+        var user = req.user;
+        res.json(user);
+    }
+
     function uploadImage(req, res) {
         userImageUpload(req,res,function(err){
             if(err){
@@ -27,6 +52,9 @@ module.exports = function (app, userModel, userImageUpload) {
         userModel
             .findAllUsers()
             .then(function(data){
+                for (u in data) {
+                    delete data[u].password;
+                }
                 // console.log(data);
             res.json(data);
         },
@@ -36,16 +64,19 @@ module.exports = function (app, userModel, userImageUpload) {
     }
 
     function findAllUsers(req, res) {
-        userModel
-            .findAllUsers()
-            .then(function(data){
-                delete data.password;
-                    // console.log(data);
-                    res.json(data);
-                },
-                function (err) {
-                    res.status(404).send(err);
-                });
+        if (isAdmin(req.user)) {
+            userModel.findAllUsers()
+                .then(function(data){
+                        delete data.password;
+                        // console.log(data);
+                        res.json(data);
+                    },
+                    function (err) {
+                        res.status(404).send(err);
+                    });
+        } else {
+            res.status(403).send(403);
+        }
     }
 
     function findUserById(req, res) {
@@ -71,10 +102,11 @@ module.exports = function (app, userModel, userImageUpload) {
     }
 
     function findUserByCredentials(req, res) {
-        var username = req.query.username;
-        var password = req.query.password;
+        var user = {};
+        user.username = req.query.username;
+        user.password = req.query.password;
         // console.log(username, password);
-        userModel.findUserByCredentials(username, password).then(function (data) {
+        userModel.findUserByCredentials(user).then(function (data) {
                 // console.log(data);
                 res.json(data);
              }, function (err) {
@@ -87,16 +119,78 @@ module.exports = function (app, userModel, userImageUpload) {
     function registerUser(req, res) {
         // console.log(req);
         var data = req.body;
-        // console.log(data);
-        userModel.register(data).then(function (data) {
-                res.json(data);
-            },
-            function (err) {
-                res.status(404).send(err);
-            });
+        userModel
+            .findUserByUsername(data.username)
+            .then(
+                function(user){
+                    if(user) {
+                        res.json(null);
+                    } else {
+                        return userModel.register(data);
+                    }
+                },
+                function(err){
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function(user){
+                    if(user){
+                        req.login(user, function(err) {
+                            if(err) {
+                                res.status(400).send(err);
+                            } else {
+                                res.json(user);
+                            }
+                        });
+                    }
+                },
+                function(err){
+                    res.status(400).send(err);
+                }
+            );
     }
 
-    function updateUser(req, res) {
+    function localStrategy(username, password, done) {
+        // console.log(username, password);
+        userModel
+            .findUserByCredentials({username: username, password: password})
+            .then(
+                function(user) {
+                    if (!user) { return done(null, false); }
+                    return done(null, user);
+                },
+                function(err) {
+                    if (err) { return done(err); }
+                }
+            );
+    }
+
+    function isAdmin(user) {
+        if(user.roles.indexOf("admin") !== -1) {
+            return true;
+        }
+        return false;
+    }
+
+    function serializeUser(user, done) {
+        done(null, user);
+    }
+
+    function deserializeUser(user, done) {
+        userModel
+            .findUserById(user._id)
+            .then(
+                function(user){
+                    done(null, user);
+                },
+                function(err){
+                    done(err, null);
+                }
+            );
+    }
+
+function updateUser(req, res) {
         var userId = req.params['id'];
         data = req.body;
         userModel.updateUser(userId, data).then(function (data) {
@@ -107,6 +201,7 @@ module.exports = function (app, userModel, userImageUpload) {
                 res.status(404).send(err);
             });
     }
+
     function deleteUser(req, res) {
         var userId = req.params['id'];
         userModel.deleteUser(userId).then(function (data) {
