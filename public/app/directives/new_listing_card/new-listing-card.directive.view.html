@@ -140,68 +140,97 @@
             Final Details
         </div>
         <div class="collapsible-body">
-            <div class="margin-10">
+            <div class="otherDetailsForm">
                 <div class="row">
                     <form class="col s12">
-                        <div class="input-field col s12">
-                            <input placeholder="Title"
-                                   id="title"
-                                   type="text"
-                                   ng-model="card.data.title">
-                            <label for="title">Title</label>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input placeholder="Title"
+                                       id="title"
+                                       type="text"
+                                       ng-model="card.data.title">
+                                <label for="title">Title</label>
+                            </div>
                         </div>
-                        <div class="input-field col s12">
+                        <div class="row">
+                            <div class="input-field col s12">
                             <textarea id="description"
                                       class="materialize-textarea"
                                       ng-model="card.data.description"></textarea>
-                            <label for="description">Description</label>
+                                <label for="description">Description</label>
+                            </div>
                         </div>
-                        <div class="input-field col s12">
-                            <input placeholder="Price"
-                                   id="price"
-                                   type="text"
-                                   ng-model="card.data.price">
-                            <label for="price">Price</label>
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <input placeholder="Price"
+                                       id="price"
+                                       type="text"
+                                       ng-model="card.data.price.value">
+                                <label for="price">Price</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input placeholder="Currency"
+                                       id="currency"
+                                       type="text"
+                                       ng-model="card.data.price.currency">
+                                <label for="currency">Currency</label>
+                            </div>
                         </div>
-                        <div class="input-field col s12">
-                            <input placeholder="Manufacture Part Number"
-                                   id="mpn"
-                                   type="text"
-                                   ng-model="card.data.mpn">
-                            <label for="mpn">Manufacture Part Number</label>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input placeholder="Manufacture Part Number"
+                                       id="mpn"
+                                       type="text"
+                                       ng-model="card.data.mpn">
+                                <label for="mpn">Manufacture Part Number</label>
+                            </div>
                         </div>
-                        <div class="input-field col s12">
-                            <input placeholder="Model"
-                                   id="model"
-                                   type="text"
-                                   ng-model="card.data.model">
-                            <label for="model">Model</label>
+                        <div class="row">
+
+                            <div class="input-field col s12">
+                                <input placeholder="Model"
+                                       id="model"
+                                       type="text"
+                                       ng-model="card.data.model">
+                                <label for="model">Model</label>
+                            </div>
                         </div>
-                        <div class="input-field col s12">
-                            <select
-                                    ng-model="card.data.ebay.itemCondition"
-                                    ng-options="option.DisplayName for option in card.data.ebay.categoryDetails.ConditionValues">
-                            </select>
-                            <label>Condition</label>
-                            {{card.data.itemCondition}}
+                        <div class="row">
+
+                            <div class="input-field col s12">
+                                <select
+                                        ng-model="card.data.ebay.itemCondition"
+                                        ng-options="option.DisplayName for option in card.data.ebay.categoryDetails.ConditionValues">
+                                </select>
+                                <label>Condition</label>
+                                {{card.data.itemCondition}}
+                            </div>
                         </div>
-                        <div class="input-field col s12">
-                            <input placeholder="Payment Method"
-                                   id="payment_method"
-                                   type="text"
-                                   ng-model="card.data.ebay.paymentMethod">
-                            <label for="payment_method">Payment Method</label>
+                        <div class="row">
+
+                            <div class="input-field col s12">
+                                <input placeholder="Payment Method"
+                                       id="payment_method"
+                                       type="text"
+                                       ng-model="card.data.ebay.paymentMethod">
+                                <label for="payment_method">Payment Method</label>
+                            </div>
                         </div>
-                        <div class="input-field col s12">
-                            <input type="checkbox"
-                                   id="return"
-                                   ng-model="card.data.ebay.returnPolicyEnabled"/>
-                            <label for="return">Returns Accepted</label>
+                        <div class="row">
+
+                            <div class="input-field col s12">
+                                <input type="checkbox"
+                                       id="return"
+                                       ng-model="card.data.ebay.returnPolicyEnabled"/>
+                                <label for="return">Returns Accepted</label>
+                            </div>
                         </div>
-                        <div class="col s12 center">
-                            <a class="btn"
-                               ng-click="apply(card.data)"
-                               class="waves-effect waves-light btn">Publish</a>
+                        <div class="row">
+                            <div class="col s12 center">
+                                <a class="btn"
+                                   ng-click="apply(card.data)"
+                                   class="waves-effect waves-light btn">Publish</a>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -300,8 +329,10 @@
                         </ul>
                     </div>
                     <div class="card-action center-align">
-                        <a href="#/dashboard">Goto Dashboard</a>
-                        <a target="_blank"
+                        <a class="btn-flat"
+                           href="#/dashboard">Goto Dashboard</a>
+                        <a class="btn-flat"
+                           target="_blank"
                            href="{{card.data.ebay.ebayListingUrl}}">See on Ebay</a>
                     </div>
                 </div>

@@ -120,13 +120,16 @@
                 })
                 .when('/item/:providerId/:productId', {
                     controller: 'PDPController',
-                    templateUrl: 'views/product/pdp.view.html',
-                    controllerAs: "model"
+                    controllerAs: "model",
+                    templateUrl: 'views/product/pdp.view.html'
                 })
-                .when('/listing/direct/create', {
+                .when('/listing/create/:flow', {
                     controller: 'CreateListingController',
                     templateUrl: 'views/listing/direct/create-listing.view.html',
-                    controllerAs: "model"
+                    controllerAs: "model",
+                    resolve: {
+                        loggedin: checkLoggedin
+                    }
                 })
                 .when('/listing/interactive', {
                     controller: 'InteractiveListingController',
@@ -144,7 +147,10 @@
                 .when('/sell', {
                     controller: 'SellController',
                     templateUrl: 'views/sell/sell.view.html',
-                    controllerAs: "model"
+                    controllerAs: "model",
+                    resolve: {
+                        loggedin: checkLoggedin
+                    }
                 })
                 .otherwise({
                     redirectTo: '/'
@@ -170,7 +176,7 @@
             // User is Authenticated
             if (user !== '0' && user.roles.indexOf('admin') != -1)
             {
-                $rootScope.currentUser = user;
+                $rootScope.user = user;
                 deferred.resolve();
             } else {
                 $rootScope.errorMessage = 'You need to log in.';
@@ -192,7 +198,7 @@
             // User is Authenticated
             if (user !== '0' && (user.roles.indexOf('merchant') != -1 || user.roles.indexOf('admin') != -1))
             {
-                $rootScope.currentUser = user;
+                $rootScope.user = user;
                 deferred.resolve();
             } else {
                 $rootScope.errorMessage = 'You need to log in.';
@@ -207,6 +213,7 @@
 
     var checkLoggedin = function($q, $timeout, $http, $location, $rootScope)
     {
+        console.log("checkLoggedin");
         var deferred = $q.defer();
 
         $http.get('/api/loggedin').success(function(user)
@@ -214,7 +221,7 @@
             // User is Authenticated
             if (user !== '0')
             {
-                $rootScope.currentUser = user;
+                $rootScope.user = user;
                 deferred.resolve(user);
             }
             // User is Not Authenticated
@@ -239,7 +246,7 @@
             // User is Authenticated
             if (user !== '0')
             {
-                $rootScope.currentUser = user;
+                $rootScope.user = user;
             }
             deferred.resolve();
         });

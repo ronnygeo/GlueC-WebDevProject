@@ -7,6 +7,7 @@ module.exports = function (mongoose) {
         providerId: String,
         title: String,
         description: String,
+        flow: String,
         images: [String],
         ebay: EbayListingSchema,
         price: {
@@ -14,10 +15,10 @@ module.exports = function (mongoose) {
             currency:String
         },
         startingPrice: String,
-        features: {
+        features: [{
             name: String,
             value: String
-        },
+        }],
         model: String,
         mpn: String,
         isComplete: {

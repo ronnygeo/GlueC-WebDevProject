@@ -10,7 +10,10 @@ module.exports = function (mongoose) {
         manufacturer: String,
         description: String,
         categories: [String],
-        price: Number,
+        price: {
+            value:String,
+            currency:String
+        },
         discount: Number,
         providerId: String,
         catalogId: String,

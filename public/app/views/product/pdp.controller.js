@@ -6,17 +6,26 @@
     angular.module("GluecApp")
         .controller('PDPController', PDPController);
 
-    PDPController.$inject = ['ListingService', '$scope', '$routeParams', '$location', 'ProgressBarFactory'];
-    function PDPController(ListingService, $scope, $routeParams, $location, ProgressBarFactory) {
+    PDPController.$inject = ['ListingService', '$scope', '$routeParams', '$location', 'ProgressBarFactory','$rootScope'];
+    function PDPController(ListingService, $scope, $routeParams, $location, ProgressBarFactory,$rootScope) {
 
         $scope.$location = $location;
         var PDPController = this;
+        PDPController.pdpSell = pdpSell;
 
         function init() {
             getProductById();
         }
 
         init();
+
+        function pdpSell(listing){
+            if(!listing){
+                return;
+            }
+            $rootScope.similarlisting = listing;
+            $location.url("/listing/create/similar");
+        }
 
         function getProductById() {
             var productId = $routeParams.productId;
