@@ -24,8 +24,8 @@ module.exports = function (app, userModel, userImageUpload, passport) {
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
 
-    app.get("/api/users", findAllUsersAdmin);
-    app.get("/api/user/users", passport.authenticate('local'), findAllUsers);
+    app.get("/api/users", passport.authenticate('local'), findAllUsersAdmin);
+    app.get("/api/user/users", findAllUsers);
     app.get("/api/user/:id", passport.authenticate('local'), findUserById);
     app.get("/api/user/:id/min", findUserByIdMinimal);
     app.get("/api/user", findUserByCredentials);
@@ -145,7 +145,8 @@ module.exports = function (app, userModel, userImageUpload, passport) {
     }
 
 
-    function findAllUsersAdmin(req, res) {
+    function findAllUsers(req, res) {
+        // console.log("find all users.");
         userModel
             .findAllUsers()
             .then(function(data){
@@ -160,7 +161,7 @@ module.exports = function (app, userModel, userImageUpload, passport) {
         });
     }
 
-    function findAllUsers(req, res) {
+    function findAllUsersAdmin(req, res) {
         if (isAdmin(req.user)) {
             userModel.findAllUsers()
                 .then(function(data){

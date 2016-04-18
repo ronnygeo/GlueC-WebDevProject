@@ -77,7 +77,10 @@
         });
 
         UserService.findAllUsers().then(function (data) {
+            // console.log(data.data);
             vm.users = data.data;
+            $('select').material_select('destroy');
+
         });
     }
 })();
