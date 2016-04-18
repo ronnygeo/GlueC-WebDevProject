@@ -1,7 +1,7 @@
 module.exports = function (app, request, q, upload, mongoose, uuid, userImageUpload, productImageUpload) {
 
     /*EBAY API CLIENT*/
-    var ebayAPIClient = require("./services/api_clients/ebay.api.client")(q);
+    var ebayAPIClient = require("./services/api_clients/ebay.api.client")(q,request);
     /*Amazon API CLIENT*/
     var amazonAPIClient = require("./services/api_clients/amazon.api.client")(q);
 

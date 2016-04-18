@@ -13,9 +13,25 @@
         var api = {
             addImageAndCategory: addImageAndCategory,
             publishListing: publishListing,
-            getNewListingTemplate: getNewListingTemplate
+            getNewListingTemplate: getNewListingTemplate,
+            external:{
+                getProviderListings:getProviderListings,
+                getProviderListing:getProviderListing
+            }
         };
         return api;
+
+        function getProviderListings(keyword){
+            var url = "/api/listing/external/" + keyword;
+            return $http.get(url);
+        }
+
+        function getProviderListing(providerId, productId) {
+            var url = "/api/listing/external/" + providerId + "/" + productId;
+            console.log("Getting Single Item from "+url);
+            return $http.get(url);
+        }
+
 
         function getNewListingTemplate(listing) {
             console.log("Calling Server getNewListingTemplate");
