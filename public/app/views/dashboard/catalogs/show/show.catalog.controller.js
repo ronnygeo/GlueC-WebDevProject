@@ -23,6 +23,7 @@
         var catId = $routeParams.catId;
 
         CatalogService.findCatalogById(catId).then(function (res) {
+            console.log(res.data);
             vm.catalog = res.data;
         });
 
@@ -30,21 +31,24 @@
         vm.goToUpdate = goToUpdate;
         vm.goToCreate = goToCreate;
 
-        function createCatalog(){
-            CatalogService.createCatalog(userId).then(function (data){
+        function createCatalog() {
+            CatalogService.createCatalog(userId).then(function (data) {
                 // vm.catalog = data;
-                $location.url('user/'+userId+'/catalog/'+catId);
+                $location.url('user/' + userId + '/catalog/' + catId);
             });
         }
 
         function goToCreate(userId) {
-            $location.url("/user/"+userId+"/catalogz");
+            $location.url("/user/" + userId + "/catalogz");
         }
 
         function goToUpdate(catalog) {
-            $location.url("/user/"+userId+"/catalog/"+catalog._id+"/edit");
+            if (!catalog || !catalog._id) {
+                return
+            }
+            $location.url("/user/" + userId + "/catalog/" + catalog._id + "/edit");
         }
 
-        
+
     }
 })();

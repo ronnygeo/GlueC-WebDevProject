@@ -1,20 +1,44 @@
-<div class="container" ng-controller="NewCatalogController as cc">
+<div class="container"
+     ng-controller="NewCatalogController as cc">
     <div class="row">
-    <form class="col s12">
-        <h5>Create Catalog</h5>
-        <div class="row">
-            <div class="input-field col s12">
-                <label for="inputCatName">Catalog Name</label>
-                <input type="text" id="inputCatName" ng-model="cc.catalog.name" class="validate">
+        <form class="col s12">
+            <h5>Create Catalog</h5>
+            <div class="row">
+                <div class="input-field col s12">
+                    <label for="inputCatName">Catalog Name</label>
+                    <input type="text"
+                           id="inputCatName"
+                           ng-model="cc.catalog.name"
+                           class="validate">
+                </div>
             </div>
-            <div class="input-field col s12">
-                <label for="inputDesc">Catalog Description</label>
-        <textarea id="inputDesc" ng-model="cc.catalog.description" class="materialize-textarea validate"></textarea>
-                <input type="hidden" ng-model="cc.catalog.merchantId" value="{{cc.user._id}}" required>
+            <div class="row">
+                <div class="input-field col s12">
+                    <select
+                            ng-model="cc.catalog.parentCategory"
+                            ng-options="option.name for option in cc.categories">
+                        <option value="">Select a Category</option>
+                    </select>
+                    <label>Category</label>
+                </div>
             </div>
-        </div>
-        <br>
-        <button class="btn btn-lg btn-primary btn-block" ng-click="cc.createCatalog()">Create</button>
-    </form>
-</div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <label for="inputDesc">Catalog Description</label>
+                    <textarea id="inputDesc"
+                              ng-model="cc.catalog.description"
+                              class="materialize-textarea validate"></textarea>
+                    <input type="hidden"
+                           ng-model="cc.catalog.merchantId"
+                           value="{{cc.user._id}}"
+                           required>
+                </div>
+            </div>
+            <div class="row">
+                <button class="btn btn-lg btn-primary btn-block"
+                        ng-click="cc.createCatalog()">Create
+                </button>
+            </div>
+        </form>
     </div>
+</div>

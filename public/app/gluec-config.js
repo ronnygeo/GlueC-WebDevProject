@@ -59,7 +59,8 @@
                     templateUrl: 'views/dashboard/dashboard.view.html',
                     controllerAs: 'dc',
                     resolve: {
-                        loggedin: checkMerchant
+                        loggedin: checkMerchant,
+                        categories: getCategories
                     }
                 })
                 .when('/dashboard/catalog/:catId/edit', {
@@ -67,7 +68,8 @@
                     templateUrl: 'views/dashboard/dashboard.view.html',
                     controllerAs: 'dc',
                     resolve: {
-                        loggedin: checkMerchant
+                        loggedin: checkMerchant,
+                        categories: getCategories
                     }
                 })
                 .when('/dashboard/products', {
@@ -161,21 +163,18 @@
 
             // Configure all charts
             ChartJsProvider.setOptions({
-                colours: [ '#DD0000', '#DDAA00', '#0000BB', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360'],
+                colours: ['#DD0000', '#DDAA00', '#0000BB', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360'],
                 responsive: true
             });
         });
 
-    var checkAdmin = function($q, $timeout, $http, $location, $rootScope)
-    {
+    var checkAdmin = function ($q, $timeout, $http, $location, $rootScope) {
         var deferred = $q.defer();
 
-        $http.get('/api/loggedin').success(function(user)
-        {
+        $http.get('/api/loggedin').success(function (user) {
             $rootScope.errorMessage = null;
             // User is Authenticated
-            if (user !== '0' && user.roles.indexOf('admin') != -1)
-            {
+            if (user !== '0' && user.roles.indexOf('admin') != -1) {
                 $rootScope.user = user;
                 deferred.resolve();
             } else {
@@ -188,16 +187,13 @@
         return deferred.promise;
     };
 
-    var checkMerchant = function($q, $timeout, $http, $location, $rootScope)
-    {
+    var checkMerchant = function ($q, $timeout, $http, $location, $rootScope) {
         var deferred = $q.defer();
 
-        $http.get('/api/loggedin').success(function(user)
-        {
+        $http.get('/api/loggedin').success(function (user) {
             $rootScope.errorMessage = null;
             // User is Authenticated
-            if (user !== '0' && (user.roles.indexOf('merchant') != -1 || user.roles.indexOf('admin') != -1))
-            {
+            if (user !== '0' && (user.roles.indexOf('merchant') != -1 || user.roles.indexOf('admin') != -1)) {
                 $rootScope.user = user;
                 deferred.resolve();
             } else {
@@ -211,22 +207,18 @@
     };
 
 
-    var checkLoggedin = function($q, $timeout, $http, $location, $rootScope)
-    {
+    var checkLoggedin = function ($q, $timeout, $http, $location, $rootScope) {
         // console.log("checkLoggedin");
         var deferred = $q.defer();
 
-        $http.get('/api/loggedin').success(function(user)
-        {
+        $http.get('/api/loggedin').success(function (user) {
             // User is Authenticated
-            if (user !== '0')
-            {
+            if (user !== '0') {
                 $rootScope.user = user;
                 deferred.resolve(user);
             }
             // User is Not Authenticated
-            else
-            {
+            else {
                 $rootScope.errorMessage = 'You need to log in.';
                 deferred.reject();
                 $location.url('/login');
@@ -236,16 +228,13 @@
         return deferred.promise;
     };
 
-    var checkCurrentUser = function($q, $timeout, $http, $location, $rootScope)
-    {
+    var checkCurrentUser = function ($q, $timeout, $http, $location, $rootScope) {
         var deferred = $q.defer();
 
-        $http.get('/api/loggedin').success(function(user)
-        {
+        $http.get('/api/loggedin').success(function (user) {
             $rootScope.errorMessage = null;
             // User is Authenticated
-            if (user !== '0')
-            {
+            if (user !== '0') {
                 $rootScope.user = user;
             }
             deferred.resolve();
@@ -253,10 +242,42 @@
 
         return deferred.promise;
     };
-        // .config(['flowFactoryProvider', function (flowFactoryProvider) {
-        //     flowFactoryProvider.defaults = {
-        //         target: '/media/images/users',
-        //         permanentErrors: [404, 500, 501]
-        //     }
-        // }]);
+
+    var getCategories = function (CategoryService, $q,$rootScope) {
+        var deferred = $q.defer();
+        var providerId = "10001";
+        CategoryService
+            .getTopLevelCategories(providerId)
+            .then(success_callback, error_callback);
+        function success_callback(response) {
+            console.log(response.data);
+            $rootScope.catalogCatData= response.data;
+            deferred.resolve(response.data);
+        }
+        function error_callback(error) {
+            deferred.reject(error);
+            console.log(error);
+        }
+
+        return deferred.promise;
+    };
+
+    var getSubCategories = function (CategoryService, $q,$rootScope) {
+        var deferred = $q.defer();
+        var providerId = "10001";
+        CategoryService
+            .getTopLevelCategories(providerId)
+            .then(success_callback, error_callback);
+        function success_callback(response) {
+            console.log(response.data);
+            $rootScope.catalogCatData= response.data;
+            deferred.resolve(response.data);
+        }
+        function error_callback(error) {
+            deferred.reject(error);
+            console.log(error);
+        }
+
+        return deferred.promise;
+    }
 })();

@@ -29,19 +29,20 @@
         vm.goToUpdate = goToUpdate;
         vm.goToCreate = goToCreate;
 
-        function createCatalog(){
-            CatalogService.createCatalog(userId).then(function (data){
+        function createCatalog() {
+            CatalogService.createCatalog(userId).then(function (data) {
                 vm.catalogs = data;
             });
         }
 
         function goToCreate() {
-            $location.url("dashboard"+"/catalog/new");
+            $location.url("dashboard" + "/catalog/new");
         }
 
         function goToUpdate(catalog) {
             // $location.url("/dashboard/catalog/"+catalog._id+"/edit");
         }
+
         //
         // function updateCatalog(catId){
         //     CatalogService.updateCatalog(userId, catId).then(function (res) {
@@ -53,11 +54,11 @@
         //         vm.catalog = null;
         //     })
         // }
-        function deleteCatalog(catId){
-            CatalogService.deleteCatalog(userId, catId).then(function (){
+        function deleteCatalog(catId) {
+            CatalogService.deleteCatalog(userId, catId).then(function () {
                 for (var i in vm.catalogs) {
                     if (vm.catalogs[i]._id == catId)
-                        vm.catalogs.splice(i,1);
+                        vm.catalogs.splice(i, 1);
                 }
             });
         }

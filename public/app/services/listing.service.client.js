@@ -65,7 +65,7 @@
                     fd.append(key, flatListing[key]);
                 }
             }
-            var url = "/api/listing/";
+            var url = "/api/listing/addDetails/";
             console.log(url);
             console.log(fd);
             return $http.post(
@@ -82,10 +82,10 @@
             var flatListing = {};
             flatListing['_id'] = listing._id;
             flatListing['providerId'] = listing.providerId;
-            flatListing['selectedParentCategoryId'] = listing.ebay.parentCategoryId;
-            flatListing['selectedParentCategoryName'] = listing.ebay.parentCategoryName;
-            flatListing['selectedSubCategoryId'] = listing.ebay.subCategoryId;
-            flatListing['selectedSubCategoryName'] = listing.ebay.subCategoryName;
+            flatListing['selectedParentCategoryCode'] = listing.ebay.parentCategory.code;
+            flatListing['selectedParentCategoryName'] = listing.ebay.parentCategory.name;
+            flatListing['selectedSubCategoryCode'] = listing.ebay.subCategory.code;
+            flatListing['selectedSubCategoryName'] = listing.ebay.subCategory.name;
             flatListing['image'] = listing.image;
             if (listing.ebay.description) {
                 flatListing['description'] = listing.ebay.subCategoryName;

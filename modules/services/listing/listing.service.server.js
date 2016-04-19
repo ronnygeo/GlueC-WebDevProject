@@ -6,7 +6,7 @@ var aws = require("aws-lib");
 module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, upload, amazonAPIClient, uuid, categoryService) {
 
     /*WEB Service API*/
-    app.post("/api/listing/", upload.single('image'), addImageAndCategory);
+    app.post("/api/listing/addDetails", upload.single('image'), addImageAndCategory);
     app.post("/api/listing/publish", publishListing);
     app.post("/api/listing/template/direct", getDirectListingTemplate);
     app.post("/api/listing/template/similar", getSimilarListingTemplate);
@@ -79,7 +79,7 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
         var listing = req.body;
         listing.flow = "direct";
         console.log(listing);
-        listingModel.createNewListing(mapDirectListing(listing))
+        listingModel.createNewListing(mapDirectListingForTemplate(listing))
             .then(function (listingDoc) {
                 console.log(listingDoc);
                 res.json(listingDoc);
@@ -100,7 +100,7 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
             .then(function (listingDoc) {
                     console.log(listingDoc);
                     //Step 2: Get Other Details for Category
-                    categoryService.ebay.fetchCategoryDetails(listingDoc.ebay.subCategoryId)
+                    categoryService.ebay.fetchCategoryDetails(listingDoc.ebay.subCategory.code)
                         .then(function (response) {
                             console.log(response);
 
@@ -188,7 +188,7 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
         var dbListing;
 
         if (listing.providerId == "10001") {
-            //Step1: Create New Listing
+            //Step1: Get Listing By Id
             listingModel.ebay.getListingById(listing._id)
                 .then(function (response) {
                     console.log(response);
@@ -196,10 +196,10 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
 
                     dbListing.providerId = listing.providerId;
                     //Add Categories and Other Details
-                    dbListing.ebay.parentCategoryId = listing.selectedParentCategoryId;
-                    dbListing.ebay.parentCategoryName = listing.selectedParentCategoryName;
-                    dbListing.ebay.subCategoryId = listing.selectedSubCategoryId;
-                    dbListing.ebay.subCategoryName = listing.selectedSubCategoryName;
+                    dbListing.ebay.parentCategory.code = listing.selectedParentCategoryCode;
+                    dbListing.ebay.parentCategory.name = listing.selectedParentCategoryName;
+                    dbListing.ebay.subCategory.code = listing.selectedSubCategoryCode;
+                    dbListing.ebay.subCategory.name = listing.selectedSubCategoryName;
                     dbListing.ebay.description = listing.description;
                     dbListing.ebay.price = listing.price;
                     dbListing.ebay.title = listing.title;
@@ -214,7 +214,7 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
                             //Server Images
                             dbListing.ebay.image = response.FullURL[0];
                             //Step3: Get Other Features For Category
-                            categoryService.ebay.fetchCategoryDetails(dbListing.ebay.subCategoryId)
+                            categoryService.ebay.fetchCategoryDetails(dbListing.ebay.subCategory.code)
                                 .then(function (response) {
                                     console.log(response);
 
@@ -248,28 +248,51 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
 
     }
 
-    function mapDirectListing(listing) {
+    function mapDirectListingForTemplate(listing) {
         var newListing = {
             userId: listing.userId,
-            parentCategory: listing.parentCategory,
-            subCategory: listing.subCategory,
+            parentCategory: {
+                code: "",
+                name: ""
+            },
+            subCategory: {
+                code: "",
+                name: ""
+            },
             providerId: listing.providerId,
             title: listing.title,
             description: listing.description,
             images: listing.images,
             ebay: {
-                ebayListingId: listing.ebay_ebayListingId,
-                parentCategory: listing.ebay_parentCategory,
-                subCategory: listing.ebay_subCategory,
-                itemCondition: listing.ebay_itemCondition,
-                listingType: listing.ebay_listingType,
-                paymentMethod: listing.ebay_paymentMethod,
-                returnPolicyEnabled: listing.ebay_returnPolicyEnabled,
-                listingDuration: listing.ebay_listingDuration,
+                ebayListingItemId: "",
+                ebayListingUrl: "",
+                parentCategory: {
+                    code: "",
+                    name: ""
+                },
+                subCategory: {
+                    code: "",
+                    name: ""
+                },
+                itemCondition: {},
+                listingType: "",
+                paymentMethod: "",
+                returnPolicyEnabled: "",
+                listingDuration: "",
+                categoryDetails: "",
+                siteHostedPictureDetails: {},
+                publishDetails: {},
+                image: ""
             },
             model: listing.model,
             mpn: listing.mpn,
-            flow: listing.flow
+            flow: listing.flow,
+            price: {
+                value: "",
+                currency: ""
+            },
+            startingPrice: listing.startingPrice,
+            features: listing.features
         };
 
         console.log("Mapped Listing");
@@ -338,7 +361,7 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
             '<Title>' + listing.title + '</Title>' +
             '<Description>' + listing.description + '</Description>' +
             '<PrimaryCategory>' +
-            '<CategoryID>' + listing.ebay.subCategoryId + '</CategoryID>' +
+            '<CategoryID>' + listing.ebay.subCategory.code + '</CategoryID>' +
             '</PrimaryCategory>' +
             '<StartPrice currencyID="USD">0.99</StartPrice>' +
             '<BuyItNowPrice currencyID="USD">' + listing.price.value + '</BuyItNowPrice>' +
@@ -531,8 +554,10 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
         var features = [];
         var external_listing = {};
         var ebay = {
-            subCategoryId: ebayProduct.PrimaryCategoryID,
-            subCategoryName: ebayProduct.PrimaryCategoryName,
+            subCategory: {
+                code: ebayProduct.PrimaryCategoryID,
+                name: ebayProduct.PrimaryCategoryName
+            },
             ebayListingItemId: ebayProduct.ItemID,
             image: ebayProduct.PictureURL[0],
             ebayListingUrl: ebayProduct.ViewItemURLForNaturalSearch

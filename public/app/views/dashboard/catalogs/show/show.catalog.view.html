@@ -1,9 +1,14 @@
 <div>
     <ul>
         <li>{{catalog.name}}</li>
+        <li>{{catalog.parentCategory.name}}</li>
         <li>{{catalog.merchantId}}</li>
         <li>{{catalog.productIds}}</li>
-        <li><button ng-click="cc.goToUpdate(catalog._id)">Update</button></li>
-        <li><button ng-click="cc.deleteCatalog(catalog._id)">Delete</button></li>
+        <li>
+            <button ng-click="cc.goToUpdate(catalog._id)">Update</button>
+        </li>
+        <li>
+            <button ng-click="cc.deleteCatalog(catalog._id)">Delete</button>
+        </li>
     </ul>
 </div>

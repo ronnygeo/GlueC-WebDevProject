@@ -8,7 +8,11 @@ module.exports = function (mongoose) {
         description: String,
         merchantId: String,
         merchantName: String,
-        productIds: [String]
+        productIds: [String],
+        parentCategory: {
+            code: String,
+            name: String
+        }
     }, {collection: 'catalog'});
     return CatalogSchema;
 }
