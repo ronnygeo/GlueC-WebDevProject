@@ -1,21 +1,44 @@
-<div class="row" ng-controller="EditCatalogController as cc">
-<form class="col s12">
-    <h5>Update Catalog</h5>
-    <div class="row">
-        <div class="input-field col s12">
-        <label for="inputCatName" class="active">Catalog Name</label>
-        <input type="text" id="inputCatName" ng-model="cc.catalog.name" class="validate">
-        </div>
-        <div class="input-field col s12">
-            <label for="inputDesc" class="active">Catalog Description</label>
-        <textarea id="inputDesc" ng-model="cc.catalog.description" placeholder="" class="materialize-textarea validate">
-</textarea>
+<div class="row"
+     ng-controller="EditCatalogController as cc">
+    <form class="col s12">
+        <h5>Update Catalog</h5>
+        <div class="row div-10">
+            <div class="input-field col s12">
+                <label for="inputCatName"
+                       class="active">Catalog Name</label>
+                <input type="text"
+                       id="inputCatName"
+                       ng-model="cc.catalog.name"
+                       class="validate">
             </div>
-    </div>
-    <!--<div class="form-group">-->
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <select
+                        ng-model="cc.catalog.parentCategory"
+                        ng-options="option.name for option in cc.categories">
+                    <option value="">{{cc.catalog.parentCategory.name}}</option>
+                </select>
+                <label>Change Category</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <label for="inputDesc"
+                       class="active">Catalog Description</label>
+                <textarea id="inputDesc"
+                          ng-model="cc.catalog.description"
+                          placeholder=""
+                          class="materialize-textarea validate">
+                </textarea>
+            </div>
+        </div>
+        <!--<div class="form-group">-->
         <!--<input type="hidden" ng-model="cc.catalog.merchantId" value="cc.user._id" required>-->
-    <!--</div>-->
-    <br>
-    <button class="btn btn-lg btn-primary btn-block" ng-click="cc.updateCatalog()">Update</button>
-</form>
+        <!--</div>-->
+        <br>
+        <button class="btn btn-lg btn-primary btn-block"
+                ng-click="cc.updateCatalog()">Update
+        </button>
+    </form>
 </div>

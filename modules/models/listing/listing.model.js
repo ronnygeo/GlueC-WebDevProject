@@ -73,7 +73,6 @@ module.exports = function (listingDB, ebayListingDB, q) {
         //        })
         //}
         return listingDB.create(listing);
-
     }
 
     function addImageToListing(listingId, image) {

@@ -149,7 +149,8 @@
                                        id="title"
                                        type="text"
                                        ng-model="card.data.title">
-                                <label for="title">Title</label>
+                                <label for="title"
+                                       ng-class="{'active': card.data.title}">Title</label>
                             </div>
                         </div>
                         <div class="row">
@@ -157,7 +158,8 @@
                             <textarea id="description"
                                       class="materialize-textarea"
                                       ng-model="card.data.description"></textarea>
-                                <label for="description">Description</label>
+                                <label for="description"
+                                       ng-class="{'active': card.data.description}">Description</label>
                             </div>
                         </div>
                         <div class="row">
@@ -166,14 +168,16 @@
                                        id="price"
                                        type="text"
                                        ng-model="card.data.price.value">
-                                <label for="price">Price</label>
+                                <label for="price"
+                                       ng-class="{'active': card.data.price.value}">Price</label>
                             </div>
                             <div class="input-field col s6">
                                 <input placeholder="Currency"
                                        id="currency"
                                        type="text"
                                        ng-model="card.data.price.currency">
-                                <label for="currency">Currency</label>
+                                <label for="currency"
+                                       ng-class="{'active': card.data.price.currency}">Currency</label>
                             </div>
                         </div>
                         <div class="row">
@@ -182,47 +186,47 @@
                                        id="mpn"
                                        type="text"
                                        ng-model="card.data.mpn">
-                                <label for="mpn">Manufacture Part Number</label>
+                                <label for="mpn"
+                                       ng-class="{'active': card.data.mpn}">Manufacture Part Number</label>
                             </div>
                         </div>
                         <div class="row">
-
                             <div class="input-field col s12">
                                 <input placeholder="Model"
                                        id="model"
                                        type="text"
                                        ng-model="card.data.model">
-                                <label for="model">Model</label>
+                                <label for="model"
+                                       ng-class="{'active': card.data.model}">Model</label>
                             </div>
                         </div>
                         <div class="row">
-
                             <div class="input-field col s12">
                                 <select
                                         ng-model="card.data.ebay.itemCondition"
                                         ng-options="option.DisplayName for option in card.data.ebay.categoryDetails.ConditionValues">
+                                <option value="">Select item Condition</option>
                                 </select>
-                                <label>Condition</label>
-                                {{card.data.itemCondition}}
+                                <label ng-class="{'active': card.data.itemCondition}">Condition</label>
                             </div>
                         </div>
                         <div class="row">
-
                             <div class="input-field col s12">
                                 <input placeholder="Payment Method"
                                        id="payment_method"
                                        type="text"
                                        ng-model="card.data.ebay.paymentMethod">
-                                <label for="payment_method">Payment Method</label>
+                                <label for="payment_method"
+                                       ng-class="{'active': card.data.paymentMethod}">Payment Method</label>
                             </div>
                         </div>
                         <div class="row">
-
                             <div class="input-field col s12">
                                 <input type="checkbox"
                                        id="return"
                                        ng-model="card.data.ebay.returnPolicyEnabled"/>
-                                <label for="return">Returns Accepted</label>
+                                <label for="return"
+                                       ng-class="{'active': card.data.returnPolicyEnabled}">Returns Accepted</label>
                             </div>
                         </div>
                         <div class="row">
@@ -288,14 +292,14 @@
                                 <i class="fa fa-sitemap circle"
                                    aria-hidden="true"></i>
                                 <span class="title">Category</span>
-                                <p>{{card.data.ebay.subCategoryName}}
+                                <p>{{card.data.ebay.subCategory.name}}
                                 </p>
                             </li>
                             <li class="collection-item avatar">
                                 <i class="fa fa-sitemap circle"
                                    aria-hidden="true"></i>
                                 <span class="title">Category ID</span>
-                                <p>{{card.data.ebay.subCategoryId}}
+                                <p>{{card.data.ebay.subCategory.code}}
                                 </p>
                             </li>
                             <li class="collection-item avatar">

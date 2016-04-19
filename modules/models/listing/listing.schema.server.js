@@ -2,8 +2,14 @@ module.exports = function (mongoose) {
     var EbayListingSchema = require("./ebay.listing.schema.server")(mongoose);
     return mongoose.Schema({
         userId: String,
-        parentCategory: String,
-        subCategory: String,
+        parentCategory: {
+            name: String,
+            code: String
+        },
+        subCategory: {
+            name: String,
+            code: String
+        },
         providerId: String,
         title: String,
         description: String,
@@ -11,8 +17,8 @@ module.exports = function (mongoose) {
         images: [String],
         ebay: EbayListingSchema,
         price: {
-            value:String,
-            currency:String
+            value: String,
+            currency: String
         },
         startingPrice: String,
         features: [{
@@ -25,6 +31,6 @@ module.exports = function (mongoose) {
             type: Boolean,
             default: false
         },
-        providerItemId : String
+        providerItemId: String
     }, {collection: 'listing'})
 };
