@@ -2,14 +2,14 @@
     angular.module('GluecApp')
         .controller('ViewProductController', ViewProductController);
 
-    ViewProductController.$inject = ['ProductService', '$routeParams'];
+    ViewProductController.$inject = ['ProductService', '$route'];
 
-    function ViewProductController(ProductService, $routeParams) {
+    function ViewProductController(ProductService, $route) {
         var vm = this;
-        var prodId = $routeParams.prodId;
+        var prodId = $route.current.params.prodId;
         
         ProductService.findProductById(prodId).then(function (data) {
-            console.log(data.data);
+            // console.log(data.data);
             vm.product = data.data;
         });
     }

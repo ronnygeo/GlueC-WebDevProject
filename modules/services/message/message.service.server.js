@@ -12,6 +12,7 @@ module.exports = function (app, MessageModel) {
     function findMessagesByUser(req, res) {
         var userId = req.params.id;
         MessageModel.findMessagesByUser(userId).then(function (data) {
+            // console.log(data);
             res.json(data);
         });
     }

@@ -27,7 +27,7 @@
                     vm.message.message = "";
                 },
                 complete: function() {
-                    MessageService.createMessage(vm.message.to, vm.message).then(function(data) {
+                    MessageService.createMessage(vm.message.from, vm.message).then(function(data) {
                     });} // Callback for Modal close);
             });
         }
@@ -54,8 +54,8 @@
                     vm.message.message = "";
                 },
                 complete: function() {
-                    console.log(vm.message);
-                    MessageService.createMessage(vm.message.to, vm.message).then(function(data) {
+                    // console.log(vm.message);
+                    MessageService.createMessage(vm.message.from, vm.message).then(function(data) {
                     });} // Callback for Modal close
             });
 
@@ -66,14 +66,6 @@
         });
         MessageService.findMessagesByUser(fromUserId).then(function (data) {
             vm.messages = data.data;
-            for (var m in vm.messages) {
-                UserService.findUserByIdMinimal(vm.messages[m].from).then(function (data) {
-                    // $scope.$apply(function () {
-                        vm.messages[m].user = data.data;
-                    // });
-                });
-            }
-            console.log(vm.messages);
         });
 
         UserService.findAllUsers().then(function (data) {

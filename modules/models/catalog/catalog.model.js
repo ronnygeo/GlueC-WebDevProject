@@ -2,7 +2,7 @@
  * Created by ronnygeo on 3/25/16.
  */
 module.exports = function (q, mongoose) {
-   // var catalogs = require("./catalog.test.json");
+    // var catalogs = require("./catalog.test.json");
     var CatalogSchema = require("./catalog.schema.server.js")(mongoose);
     var CatalogModel = mongoose.model('Catalog', CatalogSchema);
 
@@ -17,11 +17,12 @@ module.exports = function (q, mongoose) {
 
     function findCatalogById(catId) {
         var deferred = q.defer();
-        CatalogModel.findById(catId).then(function(data){
-            deferred.resolve(data);
-        }, function(err){
-            deferred.reject(err);
-        });
+        CatalogModel.findById(catId)
+            .then(function(data){
+                deferred.resolve(data);
+            }, function(err){
+                deferred.reject(err);
+            });
         return deferred.promise;
     }
 
@@ -31,11 +32,12 @@ module.exports = function (q, mongoose) {
     // //Calls bac k with user found or null otherwise
     function findAllCatalogsByUser(userId) {
         var deferred = q.defer();
-        CatalogModel.find({"merchantId": userId}).then(function (data) {
-            deferred.resolve(data);
-        }, function (err){
-            deferred.reject(err);
-        });
+        CatalogModel.find({"merchantId": userId})
+            .then(function (data) {
+                deferred.resolve(data);
+            }, function (err){
+                deferred.reject(err);
+            });
         return deferred.promise;
     }
 

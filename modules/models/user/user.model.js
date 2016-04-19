@@ -25,24 +25,20 @@ module.exports = function (mongoose) {
     //returns a single user whose username is equal to username parameter, null otherwise
     function findUserByUsername(username) {
         var deferred = q.defer();
-        UserModel.findOne({username: username}, function (err, data) {
-            if (err) {
-                deferred.reject(err);
-            } else {
-                deferred.resolve(data);
-            }
+        UserModel.findOne({username: username}).then(function (data) {
+            deferred.resolve(data);
+        }, function (err) {
+            deferred.reject(err);
         });
         return deferred.promise;
     }
 
     function findUserById(userId) {
         var deferred = q.defer();
-        UserModel.findById(userId, function(err, data) {
-            if (err) {
-                deferred.reject(err);
-            } else {
-                deferred.resolve(data);
-            }
+        UserModel.findById(userId).then(function(data) {
+            deferred.resolve(data);
+        }, function (err) {
+            deferred.reject(err);
         });
         return deferred.promise;
     }
@@ -55,18 +51,16 @@ module.exports = function (mongoose) {
     //returns a single user whose username is equal to username parameter, null otherwise
     function findUserByCredentials(credentials) {
         var deferred = q.defer();
-        UserModel.findOne({username: credentials.username}, function (err, data) {
-            if (err) {
-                deferred.reject(err);
+        UserModel.findOne({username: credentials.username}).then(function (data) {
+            // console.log(data, credentials);
+            if (bcrypt.compareSync(credentials.password, data.password)) {
+                //  if (credentials.password === data.password) {
+                deferred.resolve(data);
             } else {
-                // console.log(data, credentials);
-                if (bcrypt.compareSync(credentials.password, data.password)) {
-                    //  if (credentials.password === data.password) {
-                    deferred.resolve(data);
-                } else {
-                    deferred.reject(404);
-                }
+                deferred.reject(404);
             }
+        }, function (err) {
+            deferred.reject(err);
         });
         return deferred.promise;
     }
@@ -74,7 +68,7 @@ module.exports = function (mongoose) {
 
     function findAllUsers() {
         var deferred = q.defer();
-        UserModel.find().then(function(data){
+        UserModel.find().then(function(data) {
             deferred.resolve(data);
         }, function (err) {
             deferred.reject(err);
@@ -89,7 +83,7 @@ module.exports = function (mongoose) {
     function register(user) {
         var deferred = q.defer();
         user.password = bcrypt.hashSync(user.password);
-        UserModel.create(user).then(function(data){
+        UserModel.create(user).then(function(data) {
             deferred.resolve(data);
         }, function (err) {
             deferred.reject(err);
@@ -107,9 +101,7 @@ module.exports = function (mongoose) {
         // console.log(data);
         delete data._id;
 
-        UserModel.findById(userId, function (err, oldUser) {
-            // console.log(data.password);
-            // console.log(oldUser);
+        UserModel.findById(userId).then(function (oldUser) {
             if (data.password !== oldUser.password || !bcrypt.compareSync(data.password, oldUser.password)) {
                 data.password = bcrypt.hashSync(data.password);
                 // console.log(data.password);
@@ -120,7 +112,8 @@ module.exports = function (mongoose) {
                 }, function (err) {
                     deferred.reject(err);
                 });
-
+        }, function (err) {
+            deferred.reject(err);
         });
         return deferred.promise;
     }

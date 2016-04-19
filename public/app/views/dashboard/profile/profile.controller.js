@@ -22,13 +22,13 @@
         function update() {
             //console.log($scope.user);
             if (vm.user.image) {
-                console.log('Image Upload');
+                // console.log('Image Upload');
                 Upload.upload({
                     url: '/api/user/upload', //webAPI exposed to upload the file
                     data:{file:vm.user.image} //pass file as data, should be user ng-model
                 }).then(function (res) { //upload function returns a promise
                     if (res.data.error_code !== 1) { //validate success
-                        console.log(res.data);
+                        // console.log(res.data);
                         vm.user.imageUrl = '/media/images/users/'+res.data;
                         UserService.updateUser(vm.user._id, vm.user).then(render);
                     } else {

@@ -8,22 +8,26 @@
         .module('GluecApp')
         .controller("EditCatalogController", EditCatalogController);
 
-    EditCatalogController.$inject = ['CatalogService', '$routeParams', '$location', '$rootScope'];
+    EditCatalogController.$inject = ['CatalogService', '$route', '$location', '$rootScope'];
 
-    function EditCatalogController(CatalogService, $routeParams, $location, $rootScope) {
+    function EditCatalogController(CatalogService, $route, $location, $rootScope) {
         //$scope.search = search;
         var vm = this;
 
         vm.$location = $location;
 
         var userId = $rootScope.user._id;
-        var catId = $routeParams.catId;
-        console.log(catId);
-        
+        //var catId = $routeParams.catId;
+        var catId = $route.current.params.catId;
+        // console.log(catId);
+
+        vm.catalog = {};
+
+        // if (catId) {
         CatalogService.findCatalogById(userId, catId).then(function (res) {
             vm.catalog = res.data;
         });
-
+        // }
         vm.updateCatalog = updateCatalog;
 
         function updateCatalog(){

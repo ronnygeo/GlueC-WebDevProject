@@ -8,15 +8,15 @@
         .module('GluecApp')
         .controller("CatalogController", CatalogController);
 
-    CatalogController.$inject = ['CatalogService', '$rootScope', '$routeParams', '$location'];
+    CatalogController.$inject = ['CatalogService', '$rootScope', '$location'];
 
-    function CatalogController(CatalogService, $rootScope, $routeParams, $location) {
+    function CatalogController(CatalogService, $rootScope, $location) {
 
         //$scope.search = search;
         var vm = this;
         vm.$location = $location;
         var userId = $rootScope.user._id;
-        var catId = $routeParams.catId;
+        //var catId = $routeParams.catId;
 
         vm.selectedcat = {};
 
@@ -40,7 +40,7 @@
         }
 
         function goToUpdate(catalog) {
-            $location.url("/dashboard/catalog/"+catalog._id+"/edit");
+            // $location.url("/dashboard/catalog/"+catalog._id+"/edit");
         }
         //
         // function updateCatalog(catId){
@@ -61,6 +61,5 @@
                 }
             });
         }
-
     }
 })();

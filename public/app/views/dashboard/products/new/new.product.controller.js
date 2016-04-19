@@ -10,12 +10,8 @@
 
     function NewProductController(ProductService, $rootScope, $location, $routeParams, CatalogService, $timeout, Upload) {
         var userId = $rootScope.user._id;
-        console.log(userId);
-
-        // if ($routeParams.catId) {
-        //     var catId = $routeParams.catId;
-        // }
-
+        // console.log(userId);
+        
         var vm = this;
         vm.product = {};
         vm.createProduct = createProduct;

@@ -9,6 +9,7 @@
     function DashboardController($rootScope, $timeout) {
         var vm = this;
         vm.user = $rootScope.user;
+        // console.log($routeParams.catId);
         // var userId = user._id;
 
         angular.element(document).ready(function (){

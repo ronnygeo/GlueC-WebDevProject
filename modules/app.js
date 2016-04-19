@@ -23,7 +23,7 @@ module.exports = function (app, request, q, upload, mongoose, uuid, userImageUpl
     var categoryModel = require("./models/category/category.model.js")(q, request, mongoose);
     var categoryService = require("./services/category/category.service.server")(app, categoryModel, q, ebayAPIClient);
 
-    var MessageModel = require("./models/message/message.model.js")(q, mongoose);
+    var MessageModel = require("./models/message/message.model.js")(q, mongoose, userModel);
     require("./services/message/message.service.server.js")(app, MessageModel);
 
     var listingSchema = require("./models/listing/listing.schema.server")(mongoose);

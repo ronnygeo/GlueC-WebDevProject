@@ -12,7 +12,7 @@
                     <tr></tr>
                     <tr><td>Username</td><td>{{dc.user.username}}</td></tr>
                     <tr><td>Email Address</td><td>{{dc.user.email}}</td></tr>
-                    <tr><td>Roles: </td><td ng-repeat="u in dc.user.roles">{{u | capitalize}} &nbsp;</td></tr>
+                    <tr><td>Roles: </td><td><tr ng-repeat="u in dc.user.roles"><td></td><td>{{u | capitalize}}</td></tr></td></tr>
                 </table>
             </div>
         </div>

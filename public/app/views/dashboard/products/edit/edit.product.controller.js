@@ -6,19 +6,22 @@
     angular.module('GluecApp')
         .controller('EditProductController', EditProductController);
 
-    EditProductController.$inject = ['ProductService', '$location', '$routeParams', 'CatalogService', '$timeout', '$rootScope', 'Upload'];
+    EditProductController.$inject = ['ProductService', '$location', '$route', 'CatalogService', '$timeout', '$rootScope', 'Upload'];
 
-    function EditProductController(ProductService, $location, $routeParams, CatalogService, $timeout, $rootScope, Upload) {
+    function EditProductController(ProductService, $location, $route, CatalogService, $timeout, $rootScope, Upload) {
 
         var vm = this;
-        var prodId = $routeParams.prodId;
+        var prodId = $route.current.params.prodId;
         var userId = $rootScope.user._id;
 
+        if (prodId) {
         ProductService.findProductById(prodId).then(function (res) {
             vm.product = res.data;
         });
+        }
 
         CatalogService.findAllCatalogsByUser(userId).then(function (data) {
+            vm.catalogs = [];
             vm.catalogs = data.data;
             vm.catalogs.push({_id: userId, name: "Default Catalog"});
             $('select').material_select('destroy');
@@ -39,7 +42,7 @@
 
         function updateProduct() {
             if (vm.product.image) {
-                console.log('Image Upload');
+                // console.log('Image Upload');
                 Upload.upload({
                     url: '/api/product/upload', //webAPI exposed to upload the file
                     data:{file:vm.product.image} //pass file as data, should be user ng-model

@@ -131,11 +131,11 @@
                         loggedin: checkLoggedin
                     }
                 })
-                .when('/listing/interactive', {
-                    controller: 'InteractiveListingController',
-                    templateUrl: 'views/listing/interactive.listing.view.html',
-                    controllerAs: "lc"
-                })
+                // .when('/listing/interactive', {
+                //     controller: 'InteractiveListingController',
+                //     templateUrl: 'views/listing/interactive.listing.view.html',
+                //     controllerAs: "lc"
+//                })
                 .when('/messages', {
                     controller: 'MessageController',
                     templateUrl: 'views/messages/messages.view.html',

@@ -1,8 +1,14 @@
 <div class="row" ng-controller="DashboardUserController as admin">
-    <div class="col s12" ng-if="dc.isUserAdmin()">
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
+    <div class="" ng-if="dc.isUserAdmin()">
+        <table class="responsive-table">
+            <tbody>
+            <!--<tr>-->
+        <!--<td>Username</td>-->
+                <!--<td>Password</td>-->
+                <!--<td>Email</td>-->
+                <!--<td>Roles</td>-->
+                <!--<td>Actions</td>-->
+            <!--</tr>-->
            <tr>
                 <td><input type="text" ng-model="admin.user.username" id="adminNewUsername" class="validate"
                            placeholder="Username"></td>
@@ -26,8 +32,6 @@
                     </button>
                 </td>
             </tr>
-            </thead>
-            <tbody>
             <tr ng-repeat="u in admin.users">
                 <td>{{u.username}}</td>
                 <td></td>
@@ -44,7 +48,6 @@
             </tr>
             </tbody>
         </table>
-    </div>
 </div>
 </div>
 
