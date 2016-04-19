@@ -16,11 +16,13 @@ module.exports = function (mongoose) {
         findUserByUsername: findUserByUsername,
         findAllUsers: findAllUsers,
         register: register,
+        createUser: createUser,
         updateUser: updateUser,
         deleteUser: deleteUser,
         findUserByGoogleId: findUserByGoogleId,
         findUserByFacebookId: findUserByFacebookId
     };
+
 
     //returns a single user whose username is equal to username parameter, null otherwise
     function findUserByUsername(username) {
@@ -133,6 +135,10 @@ module.exports = function (mongoose) {
             deferred.reject(err);
         });
         return deferred.promise;
+    }
+    
+    function createUser(user) {
+        return UserModel.create(user);
     }
 
     function findUserByFacebookId(facebookId) {
