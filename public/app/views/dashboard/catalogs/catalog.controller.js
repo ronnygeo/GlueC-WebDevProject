@@ -43,17 +43,6 @@
             // $location.url("/dashboard/catalog/"+catalog._id+"/edit");
         }
 
-        //
-        // function updateCatalog(catId){
-        //     CatalogService.updateCatalog(userId, catId).then(function (res) {
-        //         for (var i in vm.catalogs){
-        //             if (vm.catalogs[i]._id == catId)
-        //                 vm.catalogs[i] = res.data;
-        //
-        //         }
-        //         vm.catalog = null;
-        //     })
-        // }
         function deleteCatalog(catId) {
             CatalogService.deleteCatalog(userId, catId).then(function () {
                 for (var i in vm.catalogs) {

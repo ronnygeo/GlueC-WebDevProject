@@ -1,0 +1,29 @@
+<div class="row"
+     ng-if="dc.isUserAdmin()">
+    <div ng-controller="AdminProductController as prodc">
+        <div class="col s12 m6"
+             ng-repeat="product in prodc.products">
+            <div class="card grey darken-3">
+                <div class="card-image">
+                    <img ng-src="{{product.imageUrl}}"/>
+                    <span class="card-title">{{product.name}}</span>
+                </div>
+                <div class="card-content white-text">
+                    <p>{{product.description}}</p>
+                    <p>{{product.price.value}}</p>
+                </div>
+                <div class="card-action">
+                    <a href="#/dashboard/product/{{product._id}}/view">See {{product.name}}</a>
+                    <!--<a href="#/dashboard/product/{{product._id}}/edit">Edit</a>-->
+                    <!--<a href=""-->
+                       <!--ng-click="prodc.deleteProduct(product._id)">Delete</a>-->
+                    <!--<a ng-click="prodc.createListing(product)">Create Listing</a>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card-action center">
+    <a class="btn waves-effect"
+       href="#/dashboard/product/new">Add Product</a>
+</div>
