@@ -12,7 +12,7 @@
                             <div class="card-content black-text">
                                 <div ng-include src="'views/dashboard/profile/view.profile.dashboard.view.html'" ng-if="$location.url() == '/dashboard/profile'"></div>
                                 <div ng-include src="'views/dashboard/profile/edit.profile.dashboard.view.html'" ng-if="$location.url() == '/dashboard/profile/edit'"></div>
-                                <div ng-include src="'views/dashboard/users/users.dashboard.view.html'" ng-if="$location.url() == '/dashboard/users' && dc.isUserAdmin()"></div>
+                                <div ng-include src="'views/dashboard/admin/users/users.dashboard.view.html'" ng-if="$location.url() == '/dashboard/users' && dc.isUserAdmin()"></div>
                                 <div ng-include src="'views/dashboard/catalogs/catalogs.dashboard.view.html'" ng-if="$location.url() == '/dashboard/catalogs' && dc.isUserMerchant() && !dc.isUserAdmin()"></div>
                                 <div ng-include src="'views/dashboard/admin/catalogs/catalogs.admin.dashboard.html'" ng-if="$location.url() == '/dashboard/catalogs' && dc.isUserAdmin()"></div>
                                 <div ng-include src="'views/dashboard/catalogs/new/new.catalog.view.html'" ng-if="$location.url() == '/dashboard/catalog/new' && dc.isUserMerchant()"></div>
