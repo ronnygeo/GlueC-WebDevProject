@@ -1,5 +1,5 @@
 <div class="container"
-           ng-controller="NewProviderController as provc">
+     ng-controller="NewProviderController as provc">
     <div class="row">
         <form class="col s12">
             <h5>Add Provider</h5>
@@ -26,10 +26,11 @@
             <div class="row">
                 <div class="input-field col s12">
                     <label for="authToken">Authorization Token</label>
-                    <input type="text"
-                           id="authToken"
-                           ng-model="provc.provider.authToken"
-                           class="validate">
+                    <textarea
+                            id="authToken"
+                            ng-model="provc.provider.authToken"
+                            class="materialize-textarea">
+                    </textarea>
                 </div>
             </div>
             <div class="row">
