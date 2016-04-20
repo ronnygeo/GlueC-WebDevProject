@@ -77,6 +77,34 @@
                         categories: getCategories
                     }
                 })
+                .when('/dashboard/providers', {
+                    controller: 'DashboardController',
+                    templateUrl: 'views/dashboard/dashboard.view.html',
+                    controllerAs: 'dc',
+                    loginRequired: true,
+                    resolve: {
+                        loggedin: checkMerchant
+                    }
+                })
+                .when('/dashboard/provider/new', {
+                    controller: 'DashboardController',
+                    templateUrl: 'views/dashboard/dashboard.view.html',
+                    controllerAs: 'dc',
+                    loginRequired: true,
+                    resolve: {
+                        loggedin: checkMerchant
+                    }
+                })
+                .when('/dashboard/provider/:providerI/edit', {
+                    controller: 'DashboardController',
+                    templateUrl: 'views/dashboard/dashboard.view.html',
+                    controllerAs: 'dc',
+                    loginRequired: true,
+                    resolve: {
+                        loggedin: checkMerchant,
+                        categories: getCategories
+                    }
+                })
                 .when('/dashboard/products', {
                     controller: 'DashboardController',
                     templateUrl: 'views/dashboard/dashboard.view.html',
@@ -145,11 +173,6 @@
                         loggedin: checkLoggedin
                     }
                 })
-                // .when('/listing/interactive', {
-                //     controller: 'InteractiveListingController',
-                //     templateUrl: 'views/listing/interactive.listing.view.html',
-                //     controllerAs: "lc"
-                //                })
                 .when('/messages', {
                     controller: 'MessageController',
                     templateUrl: 'views/messages/messages.view.html',

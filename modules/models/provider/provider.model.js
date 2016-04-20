@@ -5,9 +5,16 @@ module.exports = function (providerDB) {
 
     var api = {
         getProvidersForUser: getProvidersForUser,
-        addProviderForUser: addProviderForUser
+        addProviderForUser: addProviderForUser,
+        deleteProviderWithId: deleteProviderWithId
     };
     return api;
+
+    function deleteProviderWithId(providerId) {
+        console.log("Server ProviderModel deleteProviderWithId");
+        console.log(providerId);
+        return providerDB.findByIdAndRemove(providerId);
+    }
 
     function addProviderForUser(provider) {
         console.log("Server ProviderModel addProviderForUser");

@@ -1,0 +1,23 @@
+<div class="row"
+     ng-if="dc.isUserMerchant() || dc.isUserAdmin()">
+    <div ng-controller="ProviderController as provc">
+        <div class="col s12 offset-m3 m6">
+            <div class="card grey"
+                 ng-repeat="provider in provc.providers">
+                <div class="card-content white-text">
+                    <span class="card-title">{{provider.name}}</span>
+                    <br>
+                    <p>Username: {{provider.providerUsername}}</p>
+                </div>
+                <div class="card-action">
+                    <!--<a href="#/dashboard/catalog/{{catalog._id}}/edit">Update</a>-->
+                    <a href= "" ng-click="provc.deleteProvider(provider._id)">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card-action center">
+    <a class="btn waves-effect"
+       href="#/dashboard/provider/new">Add Provider</a>
+</div>

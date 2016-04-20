@@ -1,0 +1,42 @@
+<div class="container"
+           ng-controller="NewProviderController as provc">
+    <div class="row">
+        <form class="col s12">
+            <h5>Add Provider</h5>
+            <h6>Supported Providers: eBay, Amazon.</h6>
+            <h6>More coming soon.</h6>
+            <div class="row">
+                <div class="input-field col s12">
+                    <label for="providerName">Provider Name</label>
+                    <input type="text"
+                           id="providerName"
+                           ng-model="provc.provider.name"
+                           class="validate">
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <label for="username">Username</label>
+                    <input type="text"
+                           id="username"
+                           ng-model="provc.provider.providerUsername"
+                           class="validate">
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <label for="authToken">Authorization Token</label>
+                    <input type="text"
+                           id="authToken"
+                           ng-model="provc.provider.authToken"
+                           class="validate">
+                </div>
+            </div>
+            <div class="row">
+                <button class="btn btn-lg btn-primary btn-block"
+                        ng-click="provc.addNewProvider()">Create
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

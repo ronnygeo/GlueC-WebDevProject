@@ -13,9 +13,18 @@
     function ProviderService($http) {
         var api = {
             getProvidersForUser: getProvidersForUser,
-            addProviderForUser: addProviderForUser
+            addProviderForUser: addProviderForUser,
+            deleteProvider:deleteProvider
         };
         return api;
+
+
+        function deleteProvider(providerId) {
+            console.log("Client deleteProvider");
+            console.log(providerId);
+            var url = "/api/provider/" + providerId;
+            return $http.delete(url);
+        }
 
         function addProviderForUser(provider) {
             console.log("Client addProviderForUser");

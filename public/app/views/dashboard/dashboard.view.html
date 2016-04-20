@@ -1,30 +1,74 @@
 <div class="dashboard-wrapper">
-    <div id="main-dashboard-wrapper" class="row">
+    <div id="main-dashboard-wrapper"
+         class="row">
         <div ng-include="'./views/dashboard/components/nav.dashboard.view.html'"></div>
-        <div id="dashboard-main-container" class="col s12 m9">
-            <div class="section" id="dashboard-content-container">
-                <div ng-include src="'./views/dashboard/components/crumps.dashboard.view.html'"></div>
+        <div id="dashboard-main-container"
+             class="col s12 m9">
+            <div class="section"
+                 id="dashboard-content-container">
+                <div ng-include
+                     src="'./views/dashboard/components/crumps.dashboard.view.html'"></div>
                 <div class="section height-80-div">
                     <h5>Dashboard</h5>
-                    <div class="row" id="dashboard-view">
-                        <div ng-include src="'views/dashboard/home/home.dashboard.view.html'" ng-if="$location.url() == '/dashboard'"></div>
-                        <div class="card white darken-1" ng-if="$location.url() !== '/dashboard'">
+                    <div class="row"
+                         id="dashboard-view">
+                        <div ng-include
+                             src="'views/dashboard/home/home.dashboard.view.html'"
+                             ng-if="$location.url() == '/dashboard'"></div>
+                        <div class="card white darken-1"
+                             ng-if="$location.url() !== '/dashboard'">
                             <div class="card-content black-text">
-                                <div ng-include src="'views/dashboard/profile/view.profile.dashboard.view.html'" ng-if="$location.url() == '/dashboard/profile'"></div>
-                                <div ng-include src="'views/dashboard/profile/edit.profile.dashboard.view.html'" ng-if="$location.url() == '/dashboard/profile/edit'"></div>
-                                <div ng-include src="'views/dashboard/admin/users/users.dashboard.view.html'" ng-if="$location.url() == '/dashboard/users' && dc.isUserAdmin()"></div>
-                                <div ng-include src="'views/dashboard/catalogs/catalogs.dashboard.view.html'" ng-if="$location.url() == '/dashboard/catalogs' && dc.isUserMerchant() && !dc.isUserAdmin()"></div>
-                                <div ng-include src="'views/dashboard/admin/catalogs/catalogs.admin.dashboard.html'" ng-if="$location.url() == '/dashboard/catalogs' && dc.isUserAdmin()"></div>
-                                <div ng-include src="'views/dashboard/catalogs/new/new.catalog.view.html'" ng-if="$location.url() == '/dashboard/catalog/new' && dc.isUserMerchant()"></div>
-                                <div ng-include src="'views/dashboard/catalogs/edit/edit.catalog.view.html'" ng-if="$location.url().includes('catalog') &&  $location.url().includes('edit')"></div>
-                                <div ng-include src="'views/dashboard/products/products.dashboard.view.html'" ng-if="$location.url() == '/dashboard/products' && dc.isUserMerchant() && !dc.isUserAdmin()"></div>
-                                <div ng-include src="'views/dashboard/admin/products/products.admin.dashboard.html'" ng-if="$location.url() == '/dashboard/products' && dc.isUserAdmin()"></div>
-                                <div ng-include src="'views/dashboard/products/new/new.product.view.html'" ng-if="$location.url() == '/dashboard/product/new' && dc.isUserMerchant()"></div>
-                                <div ng-include src="'views/dashboard/products/edit/edit.product.view.html'" ng-if="$location.url().includes('product') &&  $location.url().includes('edit')"></div>
-                                <div ng-include src="'views/dashboard/products/view/view.product.view.html'"ng-if="$location.url().includes('product') &&  $location.url().includes('view')"></div>
-                                <div ng-include src="'views/dashboard/listings/listings.dashboard.view.html'" ng-if="$location.url() == '/dashboard/listings' && dc.isUserMerchant()"></div>
-                                <div ng-include src="'views/dashboard/listings/add.listings.dashboard.view.html'" ng-if="$location.url() == '/dashboard/listings/add' && dc.isUserMerchant()"></div>
-                                <div ng-include src="'views/dashboard/listings/edit.listings.dashboard.view.html'" ng-if="$location.url() == '/dashboard/listings/edit' && dc.isUserMerchant()"></div>
+                                <div ng-include
+                                     src="'views/dashboard/profile/view.profile.dashboard.view.html'"
+                                     ng-if="$location.url() == '/dashboard/profile'"></div>
+                                <div ng-include
+                                     src="'views/dashboard/profile/edit.profile.dashboard.view.html'"
+                                     ng-if="$location.url() == '/dashboard/profile/edit'"></div>
+                                <div ng-include
+                                     src="'views/dashboard/admin/users/users.dashboard.view.html'"
+                                     ng-if="$location.url() == '/dashboard/users' && dc.isUserAdmin()"></div>
+                                <div ng-include
+                                     src="'views/dashboard/catalogs/catalogs.dashboard.view.html'"
+                                     ng-if="$location.url() == '/dashboard/catalogs' && dc.isUserMerchant() && !dc.isUserAdmin()"></div>
+                                <div ng-include
+                                     src="'views/dashboard/admin/catalogs/catalogs.admin.dashboard.html'"
+                                     ng-if="$location.url() == '/dashboard/catalogs' && dc.isUserAdmin()"></div>
+                                <div ng-include
+                                     src="'views/dashboard/catalogs/new/new.catalog.view.html'"
+                                     ng-if="$location.url() == '/dashboard/catalog/new' && dc.isUserMerchant()"></div>
+                                <div ng-include
+                                     src="'views/dashboard/catalogs/edit/edit.catalog.view.html'"
+                                     ng-if="$location.url().includes('catalog') &&  $location.url().includes('edit')"></div>
+                                <div ng-include
+                                     src="'views/dashboard/products/products.dashboard.view.html'"
+                                     ng-if="$location.url() == '/dashboard/products' && dc.isUserMerchant() && !dc.isUserAdmin()"></div>
+                                <div ng-include
+                                     src="'views/dashboard/admin/products/products.admin.dashboard.html'"
+                                     ng-if="$location.url() == '/dashboard/products' && dc.isUserAdmin()"></div>
+                                <div ng-include
+                                     src="'views/dashboard/products/new/new.product.view.html'"
+                                     ng-if="$location.url() == '/dashboard/product/new' && dc.isUserMerchant()"></div>
+                                <div ng-include
+                                     src="'views/dashboard/products/edit/edit.product.view.html'"
+                                     ng-if="$location.url().includes('product') &&  $location.url().includes('edit')"></div>
+                                <div ng-include
+                                     src="'views/dashboard/products/view/view.product.view.html'"
+                                     ng-if="$location.url().includes('product') &&  $location.url().includes('view')"></div>
+                                <div ng-include
+                                     src="'views/dashboard/listings/listings.dashboard.view.html'"
+                                     ng-if="$location.url() == '/dashboard/listings' && dc.isUserMerchant()"></div>
+                                <div ng-include
+                                     src="'views/dashboard/listings/add.listings.dashboard.view.html'"
+                                     ng-if="$location.url() == '/dashboard/listings/add' && dc.isUserMerchant()"></div>
+                                <div ng-include
+                                     src="'views/dashboard/listings/edit.listings.dashboard.view.html'"
+                                     ng-if="$location.url() == '/dashboard/listings/edit' && dc.isUserMerchant()"></div>
+                                <div ng-include
+                                     src="'views/dashboard/providers/providers.dashboard.view.html'"
+                                     ng-if="$location.url() == '/dashboard/providers' && dc.isUserMerchant() && !dc.isUserAdmin()"></div>
+                                <div ng-include
+                                     src="'views/dashboard/providers/new/new.provider.view.html'"
+                                     ng-if="$location.url() == '/dashboard/provider/new' && dc.isUserMerchant()"></div>
                             </div>
                         </div>
                     </div>
@@ -33,4 +77,5 @@
         </div>
     </div>
 </div>
-<div ng-include src="'views/dashboard/components/bar.dashboard.view.html'"></div>
+<div ng-include
+     src="'views/dashboard/components/bar.dashboard.view.html'"></div>

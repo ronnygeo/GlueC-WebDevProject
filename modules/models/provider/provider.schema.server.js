@@ -1,10 +1,10 @@
-
 module.exports = function (mongoose) {
     return mongoose.Schema({
         code: String,
         name: String,
+        providerUsername: String,
         userId: String,
-        accessToken: String,
+        authToken: String,
         apiKey: String,
         details: String
     }, {collection: 'provider'})
