@@ -1,15 +1,17 @@
 /**
  * Created by Bhanu on 26/03/2016.
  */
-var fs = require('fs');
-var aws = require("aws-lib");
-module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, upload, amazonAPIClient, uuid, categoryService) {
+var fs = require('fs'),
+    aws = require("aws-lib"),
+    path = require('path');
+module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, upload, amazonAPIClient, uuid, categoryService, catalogService) {
 
     /*WEB Service API*/
     app.post("/api/listing/addDetails", upload.single('image'), addImageAndCategory);
     app.post("/api/listing/publish", publishListing);
     app.post("/api/listing/template/direct", getDirectListingTemplate);
     app.post("/api/listing/template/similar", getSimilarListingTemplate);
+    app.post("/api/listing/template/prod", getProdListingTemplate);
     app.get("/api/listing/external/:providerId/:itemId", getItemFromProvider);
     app.get("/api/listing/external/:keyword", findItemsFromProvider);
 
@@ -89,6 +91,66 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
             });
     }
 
+    function getProdListingTemplate(req, res) {
+        console.log("Inside ListingService.getSimilarListingTemplate");
+        var product = req.body;
+        product.flow = "prod";
+        console.log(product);
+        //Step1: Map Product To Listing
+        mapProductToListing(product)
+            .then(function (listing) {
+                    console.log(listing);
+                    //Step 2: Create New Listing
+                    listingModel.createNewListing(listing)
+                        .then(function (dbListing) {
+                                console.log(dbListing);
+                                //Step2: Save Image and Ebay Url In Database
+                                uploadImageToEbay(dbListing.images[0])
+                                    .then(function (response) {
+                                        console.log(response);
+
+                                        //Image Upload Call Response
+                                        dbListing.ebay.siteHostedPictureDetails = response;
+                                        //Server Images
+                                        dbListing.ebay.image = response.FullURL[0];
+                                        //Step3: Get Other Features For Category
+                                        categoryService.ebay.fetchCategoryDetails(dbListing.ebay.subCategory.code)
+                                            .then(function (response) {
+                                                console.log(response);
+
+                                                //Sending New Listing Back to the Client
+                                                dbListing.ebay.categoryDetails = response;
+                                                console.log(dbListing);
+
+                                                //Step 4: Save the listing to DB
+                                                listingModel.ebay.saveListing(dbListing)
+                                                    .then(function (response) {
+                                                        console.log("Saved Response Received");
+                                                        console.log(response);
+                                                        res.json(response);
+                                                    }, function (err) {
+                                                        console.log(err);
+                                                        res.statusCode(404).send(err);
+                                                    })
+                                            }, function (error) {
+                                                console.log(error);
+                                                res.statusCode(404).send(err);
+                                            });
+                                    }, function (error) {
+                                        console.log(error);
+                                        res.statusCode(404).send(err);
+                                    });
+                            },
+                            function (err) {
+                                console.log(err);
+                                res.statusCode(404).send(err);
+                            })
+                },
+                function (err) {
+                    console.log(err);
+                    res.statusCode(404).send(err);
+                })
+    }
 
     function getSimilarListingTemplate(req, res) {
         console.log("Inside ListingService.getSimilarListingTemplate");
@@ -104,7 +166,7 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
                         .then(function (response) {
                             console.log(response);
 
-                            //Setting Category Details in Listing
+                            //Step 3:Setting Category Details in Listing
                             listingDoc.ebay.categoryDetails = response;
                             console.log(listingDoc);
 
@@ -204,7 +266,8 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
                     dbListing.ebay.price = listing.price;
                     dbListing.ebay.title = listing.title;
                     //Step2: Save Image and Ebay Url In Database
-                    uploadImageToEbay(req.file)
+                    console.log(req.file);
+                    uploadImageToEbay(req.file.path)
                         .then(function (response) {
                             console.log(response);
                             //Local Image Path
@@ -301,16 +364,16 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
     }
 
 
-    function uploadImageToEbay(file) {
+    function uploadImageToEbay(filePath) {
         console.log("Inside ListingService.uploadImageToEbay");
         var deferred = q.defer();
         /*Upload File To Amazon S3*/
-        amazonAPIClient.uploadToAmazonS3(file)
+        amazonAPIClient.uploadToAmazonS3(filePath)
             .then(
                 function (response) {
                     /*Upload File from Amazon to Ebay*/
                     if (response) {
-                        var imageLocation = amazonAPIClient.AMAZON_S3_BUCKET_ADDRESS + file.filename;
+                        var imageLocation = amazonAPIClient.AMAZON_S3_BUCKET_ADDRESS + path.basename(filePath);
                         var functionToCall = 'UploadSiteHostedPictures';
                         var requestData = '<?xml version="1.0" encoding="utf-8"?>' +
                             '<UploadSiteHostedPicturesRequest xmlns="urn:ebay:apis:eBLBaseComponents">' +
@@ -497,6 +560,54 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
             "providerUrl": providerURL
         };
         return listing;
+    }
+
+    function mapProductToListing(product) {
+        var deferred = q.defer();
+        catalogService.getCategoryForCatalog(product.catalogId)
+            .then(function (parentCategory) {
+                console.log(parentCategory);
+                var newListing = {
+                    userId: product.userId,
+                    parentCategory: parentCategory,
+                    subCategory: product.subCategory,
+                    providerId: product.providerId,
+                    title: product.name,
+                    description: product.description,
+                    images: ["./public/app/" + product.imageUrl],
+                    ebay: {
+                        ebayListingItemId: "",
+                        ebayListingUrl: "",
+                        parentCategory: parentCategory,
+                        subCategory: product.subCategory,
+                        itemCondition: {},
+                        listingType: "",
+                        paymentMethod: "",
+                        returnPolicyEnabled: "",
+                        listingDuration: "",
+                        categoryDetails: "",
+                        siteHostedPictureDetails: {},
+                        publishDetails: {},
+                        image: ""
+                    },
+                    model: "",
+                    mpn: "",
+                    flow: product.flow,
+                    price: product.price,
+                    startingPrice: "",
+                    features: ""
+                };
+
+                console.log("Mapped Listing");
+                console.log(newListing);
+                deferred.resolve(newListing);
+            }, function (err) {
+                console.log(err);
+                deferred.reject(err);
+            });
+
+        return deferred.promise;
+
     }
 
     function mapEbayListingToGluecListing(ebayListing) {

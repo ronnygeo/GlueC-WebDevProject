@@ -4,7 +4,7 @@
 /**
  * Created by ronnygeo on 3/24/16.
  */
-module.exports = function (app, catalogModel, categoryService) {
+module.exports = function (app, catalogModel, categoryService, q) {
     app.get("/api/catalogs", findAllCatalogs);
     app.get("/api/user/:id/catalogs", findAllCatalogsByUser);
     app.get("/api/user/:id/catalog/:catId", findCatalogById);
@@ -12,6 +12,25 @@ module.exports = function (app, catalogModel, categoryService) {
     app.post("/api/user/:id/catalog", createCatalog);
     app.put("/api/user/:id/catalog/:catId", updateCatalog);
     app.delete("/api/user/:id/catalog/:catId", deleteCatalog);
+
+
+    var api = {
+        getCategoryForCatalog: getCategoryForCatalog
+    };
+    return api;
+
+    function getCategoryForCatalog(catId) {
+        var deferred = q.defer();
+        catalogModel.findCatalogById(catId)
+            .then(function (catDoc) {
+                console.log(catDoc);
+                deferred.resolve(catDoc.parentCategory);
+            }, function (err) {
+                console.log(err);
+                deferred.reject(err);
+            });
+        return deferred.promise;
+    }
 
 
     function getSubCategoriesForCatalog(req, res) {

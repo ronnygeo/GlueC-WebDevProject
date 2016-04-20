@@ -1,7 +1,7 @@
 module.exports = function (app, request, q, upload, mongoose, uuid, userImageUpload, productImageUpload, passport) {
 
     /*EBAY API CLIENT*/
-    var ebayAPIClient = require("./services/api_clients/ebay.api.client")(q,request);
+    var ebayAPIClient = require("./services/api_clients/ebay.api.client")(q, request);
     /*Amazon API CLIENT*/
     var amazonAPIClient = require("./services/api_clients/amazon.api.client")(q);
 
@@ -22,7 +22,7 @@ module.exports = function (app, request, q, upload, mongoose, uuid, userImageUpl
     var categoryService = require("./services/category/category.service.server")(app, categoryModel, q, ebayAPIClient);
 
     var catalogModel = require('./models/catalog/catalog.model.js')(q, mongoose);
-    require("./services/catalog/catalog.service.server.js")(app, catalogModel, categoryService);
+    var catalogService = require("./services/catalog/catalog.service.server.js")(app, catalogModel, categoryService, q);
 
     var MessageModel = require("./models/message/message.model.js")(q, mongoose, userModel);
     require("./services/message/message.service.server.js")(app, MessageModel);
@@ -32,7 +32,7 @@ module.exports = function (app, request, q, upload, mongoose, uuid, userImageUpl
     var ebayListingDB = mongoose.model("EbayListing", ebayListingSchema);
     var listingDB = mongoose.model("Listing", listingSchema);
     var listingModel = require("./models/listing/listing.model")(listingDB, ebayListingDB, q);
-    require("./services/listing/listing.service.server")(app, q, listingModel, categoryModel, ebayAPIClient, upload, amazonAPIClient, uuid, categoryService);
+    require("./services/listing/listing.service.server")(app, q, listingModel, categoryModel, ebayAPIClient, upload, amazonAPIClient, uuid, categoryService, catalogService);
 
 
     //require("./services/image/clarfai.image.service")();

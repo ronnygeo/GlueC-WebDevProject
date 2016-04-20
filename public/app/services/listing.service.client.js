@@ -15,12 +15,20 @@
             publishListing: publishListing,
             getDirectListingTemplate: getDirectListingTemplate,
             getSimilarListingTemplate: getSimilarListingTemplate,
+            getProdListingTemplate: getProdListingTemplate,
             external: {
                 getProviderListings: getProviderListings,
                 getProviderListing: getProviderListing
             }
         };
         return api;
+
+        function getProdListingTemplate(product){
+            console.log("Calling Server getProdListingTemplate");
+            console.log(product);
+            var url = "/api/listing/template/prod";
+            return $http.post(url, product);
+        }
 
         function getProviderListings(keyword) {
             var url = "/api/listing/external/" + keyword;

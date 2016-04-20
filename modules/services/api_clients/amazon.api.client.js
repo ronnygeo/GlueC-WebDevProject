@@ -7,7 +7,8 @@ var fs = require('fs'),
         accessKeyId: 'AKIAJGLCCC33Q36BY4EA',
         secretAccessKey: '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'
     }),
-    AMAZON_S3_BUCKET_ADDRESS = "http://s3.amazonaws.com/gluec-listing-images/";
+    AMAZON_S3_BUCKET_ADDRESS = "http://s3.amazonaws.com/gluec-listing-images/",
+    path = require('path');
 module.exports = function (q) {
 
     var api = {
@@ -16,13 +17,14 @@ module.exports = function (q) {
     };
     return api;
 
-    function uploadToAmazonS3(file) {
+    function uploadToAmazonS3(filePath) {
         var deferred = q.defer();
-        console.log(file);
-        var stream = fs.createReadStream(file.path);
+        console.log(filePath);
+        console.log(path.basename(filePath));
+        var stream = fs.createReadStream(filePath);
         console.log(stream);
         //writeFile calls putObject behind the scenes
-        s3fsImpl.writeFile(file.filename, stream)
+        s3fsImpl.writeFile(path.basename(filePath), stream)
             .then(function () {
                     /*Do Not delete the file*/
                     //fs.unlink(file.path, function (err) {

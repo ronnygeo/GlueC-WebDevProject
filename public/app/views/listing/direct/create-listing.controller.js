@@ -44,10 +44,13 @@
 
         function apply(card) {
             console.log(card);
-            if (card.type == "provider") {
+            if (card.type == "provider" && CreateListingController.flow == "direct") {
                 CreateListingController.listing.providerId = card.selectedData.code;
                 clearOtherCards(card.type);
                 addCategoryCard();
+            } else if (card.type == "provider" && CreateListingController.flow == "prod") {
+                clearOtherCards(card.type);
+                getProdListingTemplate(card.selectedData.code);
             }
             else if (card.type == "parentCategory") {
                 CreateListingController.listing.ebay.parentCategory.code = card.selectedData._id;
@@ -236,26 +239,28 @@
         function initNewProdListing() {
             console.log("initNewProdListing");
             ProgressBarFactory.showProgressBar();
+            addProviderCard();
+        }
+
+
+        function getProdListingTemplate(providerId) {
+            console.log("getProdListingTemplate");
+            ProgressBarFactory.showProgressBar();
             console.log(CreateListingController.product);
-            var newListing = {
-                userId: $rootScope.user._id
-            };
+            var product = CreateListingController.product;
+            product.userId = $rootScope.user._id;
+            product.providerId = providerId;
             //Getting New Listing Template
-            ListingService.getDirectListingTemplate(newListing)
+            ListingService.getProdListingTemplate(product)
                 .then(function (response) {
                     console.log(response.data);
-                    var listing = response.data;
-                    listing.description = CreateListingController.product.description;
-                    listing.price = CreateListingController.product.price;
-                    listing.title = CreateListingController.product.name;
-                    //listing.title.images = CreateListingController.product.image
-                    CreateListingController.listing = listing;
-                    addProviderCard();
+                    CreateListingController.listing = response.data;
+                    addOtherDetailsCard(response.data);
                 }, function (err) {
                     console.log(err);
                 });
-
         }
+
 
         function initNewDirectListing() {
             console.log("initNewDirectListing");
