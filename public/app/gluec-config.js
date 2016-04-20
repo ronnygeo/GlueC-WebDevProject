@@ -163,10 +163,6 @@
                     controller: 'SellController',
                     templateUrl: 'views/sell/sell.view.html',
                     controllerAs: "model",
-                    loginRequired: true,
-                    resolve: {
-                        loggedin: checkLoggedin
-                    }
                 })
                 .otherwise({
                     redirectTo: '/'
