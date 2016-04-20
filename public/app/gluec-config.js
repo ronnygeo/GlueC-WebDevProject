@@ -34,6 +34,7 @@
                     controller: 'DashboardController',
                     templateUrl: 'views/dashboard/dashboard.view.html',
                     controllerAs: 'dc',
+                    loginRequired: true,
                     resolve: {
                         loggedin: checkLoggedin
                     }
@@ -42,6 +43,7 @@
                     controller: 'DashboardController',
                     templateUrl: 'views/dashboard/dashboard.view.html',
                     controllerAs: 'dc',
+                    loginRequired: true,
                     resolve: {
                         loggedin: checkAdmin
                     }
@@ -50,6 +52,7 @@
                     controller: 'DashboardController',
                     templateUrl: 'views/dashboard/dashboard.view.html',
                     controllerAs: 'dc',
+                    loginRequired: true,
                     resolve: {
                         loggedin: checkMerchant
                     }
@@ -58,6 +61,7 @@
                     controller: 'DashboardController',
                     templateUrl: 'views/dashboard/dashboard.view.html',
                     controllerAs: 'dc',
+                    loginRequired: true,
                     resolve: {
                         loggedin: checkMerchant,
                         categories: getCategories
@@ -67,6 +71,7 @@
                     controller: 'DashboardController',
                     templateUrl: 'views/dashboard/dashboard.view.html',
                     controllerAs: 'dc',
+                    loginRequired: true,
                     resolve: {
                         loggedin: checkMerchant,
                         categories: getCategories
@@ -76,6 +81,7 @@
                     controller: 'DashboardController',
                     templateUrl: 'views/dashboard/dashboard.view.html',
                     controllerAs: 'dc',
+                    loginRequired: true,
                     resolve: {
                         loggedin: checkMerchant
                     }
@@ -84,6 +90,7 @@
                     controller: 'DashboardController',
                     templateUrl: 'views/dashboard/dashboard.view.html',
                     controllerAs: 'dc',
+                    loginRequired: true,
                     resolve: {
                         loggedin: checkMerchant
                     }
@@ -92,6 +99,7 @@
                     controller: 'DashboardController',
                     templateUrl: 'views/dashboard/dashboard.view.html',
                     controllerAs: 'dc',
+                    loginRequired: true,
                     resolve: {
                         loggedin: checkMerchant
                     }
@@ -100,6 +108,7 @@
                     controller: 'DashboardController',
                     templateUrl: 'views/dashboard/dashboard.view.html',
                     controllerAs: 'dc',
+                    loginRequired: true,
                     resolve: {
                         loggedin: checkMerchant
                     }
@@ -108,6 +117,7 @@
                     controller: 'DashboardController',
                     templateUrl: 'views/dashboard/dashboard.view.html',
                     controllerAs: 'dc',
+                    loginRequired: true,
                     resolve: {
                         loggedin: checkLoggedin
                     }
@@ -116,6 +126,7 @@
                     controller: 'DashboardController',
                     templateUrl: 'views/dashboard/dashboard.view.html',
                     controllerAs: 'dc',
+                    loginRequired: true,
                     resolve: {
                         loggedin: checkLoggedin
                     }
@@ -129,6 +140,7 @@
                     controller: 'CreateListingController',
                     templateUrl: 'views/listing/direct/create-listing.view.html',
                     controllerAs: "model",
+                    loginRequired: true,
                     resolve: {
                         loggedin: checkLoggedin
                     }
@@ -142,6 +154,7 @@
                     controller: 'MessageController',
                     templateUrl: 'views/messages/messages.view.html',
                     controllerAs: "mc",
+                    loginRequired: true,
                     resolve: {
                         loggedin: checkLoggedin
                     }
@@ -150,6 +163,7 @@
                     controller: 'SellController',
                     templateUrl: 'views/sell/sell.view.html',
                     controllerAs: "model",
+                    loginRequired: true,
                     resolve: {
                         loggedin: checkLoggedin
                     }
