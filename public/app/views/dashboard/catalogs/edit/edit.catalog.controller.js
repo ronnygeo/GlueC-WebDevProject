@@ -18,23 +18,17 @@
         vm.categories = $rootScope.catalogCatData;
 
         var userId = $rootScope.user._id;
-        //var catId = $routeParams.catId;
         var catId = $route.current.params.catId;
-        // console.log(catId);
-
-        vm.catalog = {};
-
-        // if (catId) {
-        CatalogService.findCatalogById(userId, catId).then(function (res) {
-            vm.catalog = res.data;
-        });
-        // }
+        console.log(catId);
 
         function init() {
             angular.element(document).ready(function () {
                 $timeout(function () {
                     $('select').material_select();
                 }, 0, false);
+            });
+            CatalogService.findCatalogById(userId, catId).then(function (res) {
+                vm.catalog = res.data;
             });
         }
 
