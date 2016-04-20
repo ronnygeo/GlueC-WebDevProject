@@ -9,6 +9,9 @@
     <p>
         {{model.product.description}}
     </p>
+    <p>
+        Category : {{model.product.subCategory.name}}
+    </p>
     <h5>{{model.product.price.value | currency}}</h5>
 </div>
 <div class="card-action">

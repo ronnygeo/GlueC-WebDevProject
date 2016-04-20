@@ -19,6 +19,14 @@
         };
         return api;
 
+        function getSubCategoriesForCatalog(catId) {
+            console.log("Calling Server getSubCategoriesForCatalog");
+            console.log(catId);
+            var url = "/api/getSubCategories/catalog/" + providerId + "/";
+            console.log(url);
+            return $http.get(url);
+        }
+
         function getSubCategories(providerId, parentCategoryId) {
             console.log("Calling Server getSubCategories");
             console.log(parentCategoryId);

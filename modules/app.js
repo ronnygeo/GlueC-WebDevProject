@@ -8,8 +8,6 @@ module.exports = function (app, request, q, upload, mongoose, uuid, userImageUpl
     var userModel = require("./models/user/user.model.js")(mongoose);
     require("./services/user/user.service.server")(app, userModel, userImageUpload, passport);
 
-    var catalogModel = require('./models/catalog/catalog.model.js')(q, mongoose);
-    require("./services/catalog/catalog.service.server.js")(app, catalogModel);
 
     var productModel = require("./models/product/product.model.js")(q, request, mongoose);
     require("./services/product/product.service.server.js")(app, productModel, productImageUpload);
@@ -22,6 +20,9 @@ module.exports = function (app, request, q, upload, mongoose, uuid, userImageUpl
 
     var categoryModel = require("./models/category/category.model.js")(q, request, mongoose);
     var categoryService = require("./services/category/category.service.server")(app, categoryModel, q, ebayAPIClient);
+
+    var catalogModel = require('./models/catalog/catalog.model.js')(q, mongoose);
+    require("./services/catalog/catalog.service.server.js")(app, catalogModel, categoryService);
 
     var MessageModel = require("./models/message/message.model.js")(q, mongoose, userModel);
     require("./services/message/message.service.server.js")(app, MessageModel);

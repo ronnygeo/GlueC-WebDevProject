@@ -149,7 +149,7 @@
                 //     controller: 'InteractiveListingController',
                 //     templateUrl: 'views/listing/interactive.listing.view.html',
                 //     controllerAs: "lc"
-//                })
+                //                })
                 .when('/messages', {
                     controller: 'MessageController',
                     templateUrl: 'views/messages/messages.view.html',
@@ -257,7 +257,7 @@
         return deferred.promise;
     };
 
-    var getCategories = function (CategoryService, $q,$rootScope) {
+    var getCategories = function (CategoryService, $q, $rootScope) {
         var deferred = $q.defer();
         var providerId = "10001";
         CategoryService
@@ -265,9 +265,10 @@
             .then(success_callback, error_callback);
         function success_callback(response) {
             console.log(response.data);
-            $rootScope.catalogCatData= response.data;
+            $rootScope.catalogCatData = response.data;
             deferred.resolve(response.data);
         }
+
         function error_callback(error) {
             deferred.reject(error);
             console.log(error);
@@ -276,7 +277,7 @@
         return deferred.promise;
     };
 
-    var getSubCategories = function (CategoryService, $q,$rootScope) {
+    var getSubCategories = function (CategoryService, $q, $rootScope) {
         var deferred = $q.defer();
         var providerId = "10001";
         CategoryService
@@ -284,9 +285,10 @@
             .then(success_callback, error_callback);
         function success_callback(response) {
             console.log(response.data);
-            $rootScope.catalogCatData= response.data;
+            $rootScope.prodSubCatData = response.data;
             deferred.resolve(response.data);
         }
+
         function error_callback(error) {
             deferred.reject(error);
             console.log(error);

@@ -13,12 +13,34 @@ module.exports = function (app, categoryModel, q, ebayAPIClient) {
         ebay: {
             fetchTopCategories: fetchTopCategoriesFromEbay,
             fetchSubCategories: fetchSubCategoriesFromEbay,
-            fetchCategoryDetails: fetchCategoryDetailsFromEbay
-        }
+            fetchCategoryDetails: fetchCategoryDetailsFromEbay,
+            filterLeafCategories: filterLeafCategories
+        },
+        processToGluecFormat: processToGluecFormat
+
     };
     return api;
 
+    function processToGluecFormat(categories) {
+        var processedCategories = [];
+        for (var catIndex in categories) {
+            processedCategories.push({
+                code: categories[catIndex]._id,
+                name: categories[catIndex].name
+            })
+        }
+        return processedCategories;
+    }
 
+    function filterLeafCategories(categories) {
+        var filteredCategories = [];
+        for (var catIndex in categories) {
+            if ('leaf' in categories[catIndex] && categories[catIndex].leaf) {
+                filteredCategories.push(categories[catIndex])
+            }
+        }
+        return filteredCategories;
+    }
 
     function getFeaturesForCategory(req, res) {
         console.log("Inside CategoryService.getFeaturesForCategory");

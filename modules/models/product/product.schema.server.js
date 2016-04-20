@@ -11,15 +11,19 @@ module.exports = function (mongoose) {
         description: String,
         categories: [String],
         price: {
-            value:String,
-            currency:String
+            value: String,
+            currency: String
         },
         discount: Number,
         providerId: String,
         catalogId: String,
         merchantId: String,
         imageUrl: String,
-        providerUrl: String
+        providerUrl: String,
+        subCategory: {
+            code: String,
+            name: String
+        }
     }, {collection: 'product'});
     return ProductSchema;
 }
