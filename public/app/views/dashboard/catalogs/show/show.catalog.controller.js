@@ -2,53 +2,23 @@
  * Created by ronnygeo on 3/25/16.
  */
 
-/**
- * Created by ronnygeo on 3/25/16.
- */
-
 "use strict";
 (function () {
     angular
         .module('GluecApp')
         .controller("ShowCatalogController", ShowCatalogController);
 
-    ShowCatalogController.$inject = ['CatalogService', '$scope', '$routeParams', '$location'];
+    ShowCatalogController.$inject = ['ProductService', '$rootScope', '$route'];
 
-    function ShowCatalogController(CatalogService, $scope, $routeParams, $location) {
-
-        $scope.$location = $location;
+    function ShowCatalogController(ProductService, $rootScope, $route) {
         //$scope.search = search;
         var vm = this;
-        var userId = $routeParams.id;
-        var catId = $routeParams.catId;
-
-        CatalogService.findCatalogById(catId).then(function (res) {
+        var catId = $route.current.params.catId;
+        console.log(catId);
+        ProductService.findAllProductsByCatalogId(catId).then(function (res) {
             console.log(res.data);
-            vm.catalog = res.data;
+            vm.products = res.data;
         });
-
-        vm.createCatalog = createCatalog;
-        vm.goToUpdate = goToUpdate;
-        vm.goToCreate = goToCreate;
-
-        function createCatalog() {
-            CatalogService.createCatalog(userId).then(function (data) {
-                // vm.catalog = data;
-                $location.url('user/' + userId + '/catalog/' + catId);
-            });
-        }
-
-        function goToCreate(userId) {
-            $location.url("/user/" + userId + "/catalogz");
-        }
-
-        function goToUpdate(catalog) {
-            if (!catalog || !catalog._id) {
-                return
-            }
-            $location.url("/user/" + userId + "/catalog/" + catalog._id + "/edit");
-        }
-
 
     }
 })();

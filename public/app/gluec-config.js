@@ -77,6 +77,16 @@
                         categories: getCategories
                     }
                 })
+                .when('/dashboard/catalog/:catId/products', {
+                    controller: 'DashboardController',
+                    templateUrl: 'views/dashboard/dashboard.view.html',
+                    controllerAs: 'dc',
+                    loginRequired: true,
+                    resolve: {
+                        loggedin: checkMerchant,
+                        categories: getCategories
+                    }
+                })
                 .when('/dashboard/providers', {
                     controller: 'DashboardController',
                     templateUrl: 'views/dashboard/dashboard.view.html',

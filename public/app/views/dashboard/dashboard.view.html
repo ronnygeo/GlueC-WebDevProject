@@ -38,7 +38,10 @@
                                      ng-if="$location.url() == '/dashboard/catalog/new' && dc.isUserMerchant()"></div>
                                 <div ng-include
                                      src="'views/dashboard/catalogs/edit/edit.catalog.view.html'"
-                                     ng-if="$location.url().includes('catalog') &&  $location.url().includes('edit')"></div>
+                                     ng-if="$location.url().includes('catalog') &&  $location.url().includes('edit') && dc.isUserMerchant()"></div>
+                                <div ng-include
+                                     src="'views/dashboard/catalogs/show/show.catalog.view.html'"
+                                     ng-if="$location.url().includes('catalog') &&  $location.url().includes('products') && dc.isUserMerchant()"></div>
                                 <div ng-include
                                      src="'views/dashboard/products/products.dashboard.view.html'"
                                      ng-if="$location.url() == '/dashboard/products' && dc.isUserMerchant() && !dc.isUserAdmin()"></div>
