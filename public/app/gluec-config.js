@@ -77,6 +77,16 @@
                         categories: getCategories
                     }
                 })
+                .when('/dashboard/catalog/:catId/products', {
+                    controller: 'DashboardController',
+                    templateUrl: 'views/dashboard/dashboard.view.html',
+                    controllerAs: 'dc',
+                    loginRequired: true,
+                    resolve: {
+                        loggedin: checkMerchant,
+                        categories: getCategories
+                    }
+                })
                 .when('/dashboard/providers', {
                     controller: 'DashboardController',
                     templateUrl: 'views/dashboard/dashboard.view.html',
@@ -235,6 +245,20 @@
                 $location.url('/login');
             }
         });
+        var postLogInRoute;
+        $rootScope.$on('$routeChangeStart', function (event, nextRoute, currentRoute) {
+
+            //if login required and you're logged out, capture the current path
+            // console.log(currentRoute);
+            if (nextRoute.loginRequired && !$rootScope.user) {
+                postLogInRoute = $location.path();
+                $location.path('/login').replace();
+            } else if (postLogInRoute && $rootScope.user) {
+                //once logged in, redirect to the last route and reset it
+                $location.path(postLogInRoute).replace();
+                postLogInRoute = null;
+            }
+        });
 
         return deferred.promise;
     };
@@ -258,6 +282,20 @@
             }
         });
 
+        var postLogInRoute;
+        $rootScope.$on('$routeChangeStart', function (event, nextRoute, currentRoute) {
+
+            //if login required and you're logged out, capture the current path
+            // console.log(currentRoute);
+            if (nextRoute.loginRequired && !$rootScope.user) {
+                postLogInRoute = $location.path();
+                $location.path('/login').replace();
+            } else if (postLogInRoute && $rootScope.user) {
+                //once logged in, redirect to the last route and reset it
+                $location.path(postLogInRoute).replace();
+                postLogInRoute = null;
+            }
+        });
         return deferred.promise;
     };
 
@@ -271,6 +309,20 @@
                 $rootScope.user = user;
             }
             deferred.resolve();
+        });
+        var postLogInRoute;
+        $rootScope.$on('$routeChangeStart', function (event, nextRoute, currentRoute) {
+
+            //if login required and you're logged out, capture the current path
+            // console.log(currentRoute);
+            if (nextRoute.loginRequired && !$rootScope.user) {
+                postLogInRoute = $location.path();
+                $location.path('/login').replace();
+            } else if (postLogInRoute && $rootScope.user) {
+                //once logged in, redirect to the last route and reset it
+                $location.path(postLogInRoute).replace();
+                postLogInRoute = null;
+            }
         });
 
         return deferred.promise;

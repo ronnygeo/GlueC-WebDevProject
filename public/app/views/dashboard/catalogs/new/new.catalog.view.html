@@ -7,7 +7,7 @@
                 <div class="input-field col s12">
                     <label for="inputCatName">Catalog Name</label>
                     <input type="text"
-                           id="inputCatName"
+                           id="inputCatName" required=""
                            ng-model="cc.catalog.name"
                            class="validate">
                 </div>
@@ -25,7 +25,7 @@
             <div class="row">
                 <div class="input-field col s12">
                     <label for="inputDesc">Catalog Description</label>
-                    <textarea id="inputDesc"
+                    <textarea id="inputDesc" required=""
                               ng-model="cc.catalog.description"
                               class="materialize-textarea validate"></textarea>
                     <input type="hidden"

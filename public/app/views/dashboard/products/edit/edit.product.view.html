@@ -1,7 +1,7 @@
 <div class="row"
      ng-controller="EditProductController as pc">
     <form class="col s12">
-        <h5>Create Product</h5>
+        <h5>Edit Product</h5>
         <br>
         <div class="row">
             <div class="input-field col s12">
@@ -9,7 +9,7 @@
                        for="inputProductName">Product Name</label>
                 <input type="text"
                        id="inputProductName"
-                       ng-model="pc.product.name"
+                       ng-model="pc.product.name" required=""
                        class="validate"/>
             </div>
         </div>
@@ -18,7 +18,7 @@
                 <label class="active"
                        for="inputDesc">Product Description</label>
                 <textarea id="inputDesc"
-                          ng-model="pc.product.description"
+                          ng-model="pc.product.description" required=""
                           class="materialize-textarea validate"></textarea>
             </div>
         </div>
@@ -28,7 +28,7 @@
                        for="inputProductManufacturer">Manufacturer</label>
                 <input type="text"
                        id="inputProductManufacturer"
-                       ng-model="pc.product.manufacturer"
+                       ng-model="pc.product.manufacturer" required=""
                        class="validate">
             </div>
         </div>
@@ -38,7 +38,7 @@
                        for="inputProductPriceValue">Price</label>
                 <input type="text"
                        id="inputProductPriceValue"
-                       ng-model="pc.product.price.value"
+                       ng-model="pc.product.price.value" required=""
                        class="validate">
             </div>
             <div class="input-field col s6">
@@ -56,7 +56,7 @@
                        for="inputProductDiscount">Discount</label>
                 <input type="text"
                        id="inputProductDiscount"
-                       ng-model="pc.product.discount"
+                       ng-model="pc.product.discount" required=""
                        class="validate">
             </div>
         </div>
