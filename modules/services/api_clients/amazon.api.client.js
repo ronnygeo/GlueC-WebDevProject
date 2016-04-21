@@ -4,8 +4,8 @@
 var fs = require('fs'),
     S3FS = require('s3fs'),	//abstraction over Amazon S3's SDK
     s3fsImpl = new S3FS('gluec-listing-images', {
-        accessKeyId: 'AKIAJGLCCC33Q36BY4EA',
-        secretAccessKey: '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'
+        accessKeyId: process.env.awsAccessKeyId,
+        secretAccessKey: process.env.awsSecretAccessKey
     }),
     AMAZON_S3_BUCKET_ADDRESS = "http://s3.amazonaws.com/gluec-listing-images/",
     path = require('path');
