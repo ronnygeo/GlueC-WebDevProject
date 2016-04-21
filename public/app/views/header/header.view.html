@@ -31,8 +31,8 @@
             </ul>
             <ul class="side-nav"
                 id="mobile-demo">
-                <li ng-show="user && user._id">
-                    <i class="material-icons left">perm_identity</i>Welcome {{user.firstName}}
+                <li ng-show="user && user._id" class="grey-text">
+                    <i class="material-icons left">perm_identity</i>Welcome {{user.firstName | capitalize}}
                 </li>
                 <li ng-show="user && user._id"
                     ng-class="{'active': $location.url() == '/messages'}">

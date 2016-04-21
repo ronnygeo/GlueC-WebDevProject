@@ -14,9 +14,10 @@
         //$scope.search = search;
         var vm = this;
         var catId = $route.current.params.catId;
-        console.log(catId);
+
+        // console.log(catId);
         ProductService.findAllProductsByCatalogId(catId).then(function (res) {
-            console.log(res.data);
+            // console.log(res.data);
             vm.products = res.data;
         });
 
