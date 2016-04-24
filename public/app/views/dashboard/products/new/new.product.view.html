@@ -1,128 +1,130 @@
-<div class="row"
+<div class="container"
      ng-controller="NewProductController as pc">
-    <form class="col s12">
-        <h5>Create Product</h5>
-        <br>
-        <div class="row">
-            <div class="input-field col s12">
-                <label for="inputProductName">Product Name</label>
-                <input type="text"
-                       id="inputProductName"
-                       ng-model="pc.product.name" required=""
-                       class="validate"/>
+    <div class="row">
+        <form class="col s12">
+            <h4>Create Product</h4>
+            <br>
+            <div class="row">
+                <div class="input-field col s12">
+                    <label for="inputProductName">Product Name</label>
+                    <input type="text"
+                           id="inputProductName"
+                           ng-model="pc.product.name" required=""
+                           class="validate"/>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12">
-                <label for="inputDesc">Product Description</label>
+            <div class="row">
+                <div class="input-field col s12">
+                    <label for="inputDesc">Product Description</label>
                 <textarea id="inputDesc"
                           ng-model="pc.product.description" required=""
                           class="materialize-textarea validate"></textarea>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12">
-                <label for="inputProductManufacturer">Manufacturer</label>
-                <input type="text"
-                       id="inputProductManufacturer"
-                       ng-model="pc.product.manufacturer" required=""
-                       class="validate">
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s6">
-                <label class="active"
-                       for="inputProductPriceValue">Price</label>
-                <input type="text"
-                       id="inputProductPriceValue"
-                       ng-model="pc.product.price.value" required=""
-                       class="validate">
-            </div>
-            <div class="input-field col s6">
-                <label class="active"
-                       for="inputProductPriceCurrency">Currency</label>
-                <input type="text"
-                       id="inputProductPriceCurrency"
-                       ng-model="pc.product.price.currency" required=""
-                       class="validate">
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12">
-                <label for="inputProductDiscount">Discount</label>
-                <input type="text"
-                       id="inputProductDiscount"
-                       ng-model="pc.product.discount" required=""
-                       class="validate">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col s12">
-                <label for="catalog">Catalog</label>
-                <select name="catalog"
-                        id="catalog"
-                        ng-model="pc.product.catalogId"
-                        ng-options="option._id as option.name for option in pc.catalogs"
-                        ng-change="pc.getSubCategories(pc.product.catalogId)">>
-                    <option value=""
-                            disabled
-                            selected>Choose your Catalog
-                    </option>
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12">
-                <select
-                        ng-model="pc.product.subCategory"
-                        ng-options="option.name for option in pc.subcategories">
-                    <option value=""
-                            disabled>Choose a Category
-                    </option>
-                </select>
-                <label>Category</label>
-            </div>
-        </div>
-        <div class="row s12">
-            <div class="file-field input-field">
-                <div class="btn">
-                    <span>Upload Avatar</span>
-                    <input
-                            type="file"
-                            id="imageUpload"
-                            ngf-select
-                            ng-model="pc.product.image"
-                            name="file"
-                            ngf-pattern="'image/*'"
-                            accept="image/*"
-                            ngf-max-size="20MB"
-                    />
                 </div>
-                <div class="file-path-wrapper">
-                    <input class="file-path validate"
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <label for="inputProductManufacturer">Manufacturer</label>
+                    <input type="text"
+                           id="inputProductManufacturer"
+                           ng-model="pc.product.manufacturer" required=""
+                           class="validate">
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <label class="active"
+                           for="inputProductPriceValue">Price</label>
+                    <input type="text"
+                           id="inputProductPriceValue"
+                           ng-model="pc.product.price.value" required=""
+                           class="validate">
+                </div>
+                <div class="input-field col s6">
+                    <label class="active"
+                           for="inputProductPriceCurrency">Currency</label>
+                    <input type="text"
+                           id="inputProductPriceCurrency"
+                           ng-model="pc.product.price.currency" required=""
+                           class="validate">
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <label for="inputProductDiscount">Discount</label>
+                    <input type="text"
+                           id="inputProductDiscount"
+                           ng-model="pc.product.discount" required=""
+                           class="validate">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <label for="catalog">Catalog</label>
+                    <select name="catalog"
+                            id="catalog"
+                            ng-model="pc.product.catalogId"
+                            ng-options="option._id as option.name for option in pc.catalogs"
+                            ng-change="pc.getSubCategories(pc.product.catalogId)">>
+                        <option value=""
+                                disabled
+                                selected>Choose your Catalog
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <select
+                            ng-model="pc.product.subCategory"
+                            ng-options="option.name for option in pc.subcategories">
+                        <option value=""
+                                disabled>Choose a Category
+                        </option>
+                    </select>
+                    <label>Category</label>
+                </div>
+            </div>
+            <div class="row s12">
+                <div class="file-field input-field">
+                    <div class="btn">
+                        <span>Upload Image</span>
+                        <input
+                                type="file"
+                                id="imageUpload"
+                                ngf-select
+                                ng-model="pc.product.image"
+                                name="file"
+                                ngf-pattern="'image/*'"
+                                accept="image/*"
+                                ngf-max-size="20MB"
+                        />
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate"
+                               type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m6">
+                    <input ng-model="pc.product.imageUrl"
+                           id="imageUrl"
                            type="text">
+                    <label for="imageUrl">or Enter Image URL</label>
+                </div>
+                <div class="col s12 m6">
+                    <img ng-if="pc.product.imageUrl"
+                         ng-src={{pc.product.imageUrl}}
+                         width="100%"/>
+                    <img style="width:100%"
+                         ng-if="pc.product.image && !pc.product.imageUrl"
+                         ngf-thumbnail="pc.product.image"/>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col s12 m6">
-                <input ng-model="pc.product.imageUrl"
-                       id="imageUrl"
-                       type="text">
-                <label for="imageUrl">or Enter Image URL</label>
-            </div>
-            <div class="col s12 m6">
-                <img ng-if="pc.product.imageUrl"
-                     ng-src={{pc.product.imageUrl}}
-                     width="100%"/>
-                <img style="width:100%"
-                     ng-if="pc.product.image && !pc.product.imageUrl"
-                     ngf-thumbnail="pc.product.image"/>
-            </div>
-        </div>
-        <br>
-        <button class="btn btn-lg btn-primary btn-block"
-                ng-click="pc.createProduct()">Create
-        </button>
-    </form>
+            <br>
+            <button class="btn btn-lg btn-primary btn-block"
+                    ng-click="pc.createProduct()">Create
+            </button>
+        </form>
+    </div>
 </div>
