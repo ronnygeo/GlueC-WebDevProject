@@ -25,6 +25,9 @@
                     templateUrl: 'views/users/register.view.html',
                     controllerAs: "user"
                 })
+                .when('/how', {
+                    templateUrl: 'views/home/howto.view.html',
+                })
                 .when('/search/q/:keyword', {
                     controller: 'SearchController',
                     templateUrl: 'views/search/search.view.html',
