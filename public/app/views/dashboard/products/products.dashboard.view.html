@@ -8,14 +8,15 @@
                     <img ng-src="{{product.imageUrl}}"/>
                 </div>
                 <div class="card-content white-text">
-                    <h5>{{product.description}}</h5>
+                    <h5>{{product.name}}</h5>
+                    <h6>{{product.description}}</h6>
                     <h6>{{product.price.value | currency}}</h6>
                 </div>
                 <div class="card-action">
                     <div class="row">
                         <div class="col s12 l3">
                             <a href="#/dashboard/product/{{product._id}}/view">
-                                <i class="fa fa-info" aria-hidden="true"></i>
+                                <i class="fa fa-arrow-right" aria-hidden="true"></i>
                                 Details</a>
                         </div>
                         <div class="col s12 l3">

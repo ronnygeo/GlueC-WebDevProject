@@ -3,6 +3,8 @@ module.exports = function (listingDB, ebayListingDB, q) {
 
     var api = {
         createNewListing: createNewListing,
+        getAllListingsForUser: getAllListingsForUser,
+        deleteListingWithId: deleteListingWithId,
         ebay: {
             addImageToListing: addImageToListing,
             populateFeatures: populateFeatures,
@@ -11,9 +13,19 @@ module.exports = function (listingDB, ebayListingDB, q) {
             addImageAndCategoryDetails: addImageAndCategoryDetails,
             getListingById: getListingById
         }
-
     };
     return api;
+
+    function deleteListingWithId(listingId) {
+        console.log("Server ProviderModel deleteListingWithId");
+        console.log(listingId);
+        return listingDB.findByIdAndRemove(listingId);
+    }
+
+    function getAllListingsForUser(userId) {
+        return listingDB
+            .find({userId: userId, isComplete: true});
+    }
 
 
     function getListingById(listingId) {
@@ -82,6 +94,4 @@ module.exports = function (listingDB, ebayListingDB, q) {
     function populateFeatures(listingId) {
 
     }
-
-
 };

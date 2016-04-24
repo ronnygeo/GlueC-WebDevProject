@@ -90,6 +90,15 @@
                         categories: getCategories
                     }
                 })
+                .when('/dashboard/listings', {
+                    controller: 'DashboardController',
+                    templateUrl: 'views/dashboard/dashboard.view.html',
+                    controllerAs: 'dc',
+                    loginRequired: true,
+                    resolve: {
+                        loggedin: checkMerchant
+                    }
+                })
                 .when('/dashboard/providers', {
                     controller: 'DashboardController',
                     templateUrl: 'views/dashboard/dashboard.view.html',

@@ -19,11 +19,13 @@
             external: {
                 getProviderListings: getProviderListings,
                 getProviderListing: getProviderListing
-            }
+            },
+            getAllListingsForUser: getAllListingsForUser,
+            deleteListing:deleteListing
         };
         return api;
 
-        function getProdListingTemplate(product){
+        function getProdListingTemplate(product) {
             console.log("Calling Server getProdListingTemplate");
             console.log(product);
             var url = "/api/listing/template/prod";
@@ -105,6 +107,20 @@
                 flatListing['title'] = listing.ebay.title;
             }
             return flatListing;
+        }
+
+        function getAllListingsForUser(userId) {
+            console.log("Calling Server getAllListingsForUser");
+            console.log(userId);
+            var url = "/api/listings/" + userId;
+            return $http.get(url);
+        }
+
+        function deleteListing(listingId){
+            console.log("Calling Server deleteListing");
+            console.log(listingId);
+            var url = "/api/listing/" + listingId;
+            return $http.delete(url);
         }
 
 
