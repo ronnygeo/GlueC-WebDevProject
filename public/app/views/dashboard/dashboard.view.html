@@ -55,17 +55,14 @@
                                      src="'views/dashboard/products/edit/edit.product.view.html'"
                                      ng-if="$location.url().includes('product') &&  $location.url().includes('edit')"></div>
                                 <div ng-include
-                                     src="'views/dashboard/products/view/view.product.view.html'"
+                                         src="'views/dashboard/products/view/view.product.view.html'"
                                      ng-if="$location.url().includes('product') &&  $location.url().includes('view')"></div>
                                 <div ng-include
                                      src="'views/dashboard/listings/listings.dashboard.view.html'"
                                      ng-if="$location.url() == '/dashboard/listings' && dc.isUserMerchant()"></div>
                                 <div ng-include
-                                     src="'views/dashboard/listings/add.listings.dashboard.view.html'"
-                                     ng-if="$location.url() == '/dashboard/listings/add' && dc.isUserMerchant()"></div>
-                                <div ng-include
-                                     src="'views/dashboard/listings/edit.listings.dashboard.view.html'"
-                                     ng-if="$location.url() == '/dashboard/listings/edit' && dc.isUserMerchant()"></div>
+                                     src="'views/dashboard/listings/view/view.listing.view.html'"
+                                     ng-if="$location.url().includes('listing') &&  $location.url().includes('view')"></div>
                                 <div ng-include
                                      src="'views/dashboard/providers/providers.dashboard.view.html'"
                                      ng-if="$location.url() == '/dashboard/providers' && dc.isUserMerchant() && !dc.isUserAdmin()"></div>

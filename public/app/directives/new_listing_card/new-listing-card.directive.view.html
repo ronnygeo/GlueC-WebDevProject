@@ -147,7 +147,8 @@
                             <div class="input-field col s12">
                                 <input placeholder="Title"
                                        id="title"
-                                       type="text" required=""
+                                       type="text"
+                                       required=""
                                        ng-model="card.data.title">
                                 <label for="title"
                                        ng-class="{'active': card.data.title}">Title</label>
@@ -156,7 +157,8 @@
                         <div class="row">
                             <div class="input-field col s12">
                             <textarea id="description"
-                                      class="materialize-textarea" required=""
+                                      class="materialize-textarea"
+                                      required=""
                                       ng-model="card.data.description"></textarea>
                                 <label for="description"
                                        ng-class="{'active': card.data.description}">Description</label>
@@ -166,7 +168,8 @@
                             <div class="input-field col s6">
                                 <input placeholder="Price"
                                        id="price"
-                                       type="text" required=""
+                                       type="text"
+                                       required=""
                                        ng-model="card.data.price.value">
                                 <label for="price"
                                        ng-class="{'active': card.data.price.value}">Price</label>
@@ -174,7 +177,8 @@
                             <div class="input-field col s6">
                                 <input placeholder="Currency"
                                        id="currency"
-                                       type="text" required=""
+                                       type="text"
+                                       required=""
                                        ng-model="card.data.price.currency">
                                 <label for="currency"
                                        ng-class="{'active': card.data.price.currency}">Currency</label>
@@ -194,7 +198,8 @@
                             <div class="input-field col s12">
                                 <input placeholder="Model"
                                        id="model"
-                                       type="text" required=""
+                                       type="text"
+                                       required=""
                                        ng-model="card.data.model">
                                 <label for="model"
                                        ng-class="{'active': card.data.model}">Model</label>
@@ -205,7 +210,7 @@
                                 <select
                                         ng-model="card.data.ebay.itemCondition"
                                         ng-options="option.DisplayName for option in card.data.ebay.categoryDetails.ConditionValues">
-                                <option value="">Select item Condition</option>
+                                    <option value="">Select item Condition</option>
                                 </select>
                                 <label ng-class="{'active': card.data.itemCondition}">Condition</label>
                             </div>
@@ -214,7 +219,8 @@
                             <div class="input-field col s12">
                                 <input placeholder="Payment Method"
                                        id="payment_method"
-                                       type="text" required=""
+                                       type="text"
+                                       required=""
                                        ng-model="card.data.ebay.paymentMethod">
                                 <label for="payment_method"
                                        ng-class="{'active': card.data.paymentMethod}">Payment Method</label>
@@ -333,11 +339,21 @@
                         </ul>
                     </div>
                     <div class="card-action center-align">
-                        <a class="btn-flat"
-                           href="#/dashboard">Goto Dashboard</a>
-                        <a class="btn-flat"
-                           target="_blank"
-                           href="{{card.data.ebay.ebayListingUrl}}">See on Ebay</a>
+                        <div class="row">
+                            <div class="col s12 m6">
+                                <a class="btn-flat"
+                                   href="#/dashboard"><i class="material-icons left">dashboard</i>
+                                    Dashboard</a>
+                            </div>
+                            <div class="col s12 m6">
+                                <a class="btn-flat"
+                                   target="_blank"
+                                   href="{{card.data.ebay.ebayListingUrl}}">
+                                    <i class="fa fa-external-link"
+                                       aria-hidden="true"></i>
+                                    See on Ebay</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

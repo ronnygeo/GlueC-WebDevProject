@@ -5,32 +5,34 @@
              ng-repeat="listing in lc.listings">
             <div class="card grey darken-3">
                 <div class="card-image">
-                    <img ng-src="{{listing.ebay.image}}"/>
-                    <div id="search-product-badge"
-                         class="chip"
-                         ng-if="listing.providerId=='10001'">
-                        eBay
-                    </div>
-                    <div id="search-product-badge"
-                         class="chip"
-                         ng-if="listing.providerId=='10002'">
-                        Amazon
-                    </div>
+                    <a href="#/dashboard/listing/{{listing._id}}/view">
+                        <img ng-src="{{listing.ebay.image}}"/>
+                        <div id="search-product-badge"
+                             class="chip"
+                             ng-if="listing.providerId=='10001'">
+                            eBay
+                        </div>
+                        <div id="search-product-badge"
+                             class="chip"
+                             ng-if="listing.providerId=='10002'">
+                            Amazon
+                        </div>
+                    </a>
                 </div>
                 <div class="card-content white-text">
                     <h5>{{listing.title}}</h5>
                     <h6>{{listing.description}}</h6>
                     <h6>{{listing.price.value | currency}}</h6>
                 </div>
-                <div class="card-action">
+                <div class="card-action center">
                     <div class="row">
-                        <div class="col s6 l3">
-                            <a href="#/dashboard/product/{{product._id}}/view">
+                        <div class="col s6 m6">
+                            <a href="#/dashboard/listing/{{listing._id}}/view">
                                 <i class="fa fa-arrow-right"
                                    aria-hidden="true"></i>
                                 Details</a>
                         </div>
-                        <div class="col s6 l3">
+                        <div class="col s6 m6">
                             <a href=""
                                ng-click="lc.deleteListing(listing._id)">
                                 <i class="fa fa-trash-o"

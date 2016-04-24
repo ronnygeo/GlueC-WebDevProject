@@ -99,6 +99,15 @@
                         loggedin: checkMerchant
                     }
                 })
+                .when('/dashboard/listing/:listingId/view', {
+                    controller: 'DashboardController',
+                    templateUrl: 'views/dashboard/dashboard.view.html',
+                    controllerAs: 'dc',
+                    loginRequired: true,
+                    resolve: {
+                        loggedin: checkMerchant
+                    }
+                })
                 .when('/dashboard/providers', {
                     controller: 'DashboardController',
                     templateUrl: 'views/dashboard/dashboard.view.html',

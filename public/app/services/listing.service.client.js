@@ -21,7 +21,8 @@
                 getProviderListing: getProviderListing
             },
             getAllListingsForUser: getAllListingsForUser,
-            deleteListing:deleteListing
+            deleteListing:deleteListing,
+            findListingById:findListingById
         };
         return api;
 
@@ -121,6 +122,13 @@
             console.log(listingId);
             var url = "/api/listing/" + listingId;
             return $http.delete(url);
+        }
+
+        function findListingById(listingId){
+            console.log("Calling Server findListingById");
+            console.log(listingId);
+            var url = "/api/listing/" + listingId;
+            return $http.get(url);
         }
 
 

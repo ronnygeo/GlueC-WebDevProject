@@ -16,6 +16,23 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
     app.get("/api/listing/external/:keyword", findItemsFromProvider);
     app.get("/api/listings/:userId", getAllListingsForUser);
     app.delete("/api/listing/:listingId", deleteListing);
+    app.get("/api/listing/:listingId", findListing);
+
+    function findListing(req, res) {
+        console.log("Server findListing");
+        console.log(req.params.listingId);
+        listingModel.findListingById(req.params.listingId)
+            .then(success_callback, error_callback);
+        function success_callback(response) {
+            console.log("response", response);
+            res.json(response);
+        }
+
+        function error_callback(error) {
+            console.log("Error", error);
+            res.status(400).send(error);
+        }
+    }
 
     function deleteListing(req, res) {
         console.log("Server deleteListing");
