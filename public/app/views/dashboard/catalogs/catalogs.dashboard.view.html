@@ -1,25 +1,40 @@
-<div class="row" ng-if="dc.isUserMerchant() || dc.isUserAdmin()">
+<div class="row"
+     ng-if="dc.isUserMerchant() || dc.isUserAdmin()">
     <div ng-controller="CatalogController as cc">
-        <div class="col s12 offset-m3 m6">
-            <div class="card grey" ng-repeat="catalog in cc.catalogs">
+        <div class="col s12 offset-m3 m6 catalog-view">
+            <div class="card grey"
+                 ng-repeat="catalog in cc.catalogs">
                 <div class="card-content white-text">
-                    <span class="card-title">{{catalog.name}}</span>
-                    <br>
+                    <h5>{{catalog.name}}</h5>
                     <p>{{catalog.parentCategory.name}}</p>
                     <p>{{catalog.description}}</p>
                 </div>
                 <div class="card-action">
-                    <a href="#/dashboard/catalog/{{catalog._id}}/products">See Products</a>
-                    <a href="#/dashboard/catalog/{{catalog._id}}/edit">Update</a>
-                    <a href= "" ng-click="cc.deleteCatalog(catalog._id)">Delete</a>
+                    <div class="row">
+                        <div class="col s12 m4">
+                            <a href="#/dashboard/catalog/{{catalog._id}}/products">
+                                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                                Products</a>
+                        </div>
+                        <div class="col s12 m4">
+                            <a href=""
+                               ng-click="cc.deleteCatalog(catalog._id)">
+                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                Delete</a>
+                        </div>
+                        <div class="col s12 m4">
+                            <a href="#/dashboard/catalog/{{catalog._id}}/edit">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                Edit</a>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-
 <div class="card-action center">
-    <a class="btn waves-effect" href="#/dashboard/catalog/new">Add Catalog</a>
+    <a class="btn waves-effect"
+       href="#/dashboard/catalog/new">Add Catalog</a>
 </div>

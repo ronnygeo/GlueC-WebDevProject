@@ -526,3 +526,15 @@ body {
 .otherDetailsForm{
     margin: 10vh 5vw 5vh 5vw;
 }
+
+.catalog-view .card .card-action{
+    border-top: 1px solid whitesmoke;
+}
+
+.provider-view .card .card-action{
+    border-top: 1px solid whitesmoke;
+}
+
+/*.card .card-action a:not(.btn):not(.btn-large):not(.btn-floating):hover {*/
+    /*color:#ff6315;*/
+/*}*/

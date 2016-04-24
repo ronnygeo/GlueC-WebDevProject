@@ -25,8 +25,8 @@
                     templateUrl: 'views/users/register.view.html',
                     controllerAs: "user"
                 })
-                .when('/how', {
-                    templateUrl: 'views/home/howto.view.html',
+                .when('/how-it-works', {
+                    templateUrl: 'views/home/howto.view.html'
                 })
                 .when('/search/q/:keyword', {
                     controller: 'SearchController',
@@ -198,7 +198,7 @@
                 .when('/sell', {
                     controller: 'SellController',
                     templateUrl: 'views/sell/sell.view.html',
-                    controllerAs: "model",
+                    controllerAs: "model"
                 })
                 .otherwise({
                     redirectTo: '/'
