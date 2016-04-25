@@ -13,7 +13,7 @@
             findMessagesById: findMessagesById,
             createMessage: createMessage,
             deleteMessage: deleteMessage
-        }
+        };
 
         function findMessagesByUser(userId) {
             return $http.get('/api/user/'+userId+'/messages');

@@ -259,6 +259,7 @@ nav {
 
 .page-footer {
     background-color: rgba(0, 0, 0, 0.83) !important;
+    /*background-color: grey !important;*/
     margin-top: 0 !important;
     padding-top: 0 !important;
     color: #f7f7f7 !important;
@@ -269,6 +270,9 @@ nav {
     margin-bottom: 0;
 }
 
+.footer.page-footer .footer-copyright{
+    background-color: rgba(51,51,51,0.08) !important;
+}
 footer a {
     color: #F7F7F7;
 }
@@ -488,10 +492,6 @@ body {
     font-weight: normal;
 }
 
-.reply-button {
-    margin: 1rem;
-}
-
 .collapsible-body {
     background-color: white;
 }
@@ -560,6 +560,40 @@ body {
     border-top: 1px solid whitesmoke;
 }
 
+#message-modal{
+    max-height: 100vh;
+    width: 80vw;
+    left: 10%;
+}
+
+#message-modal .modal-footer .modal-action-div{
+    margin-right: 2vw;
+}
 /*.card .card-action a:not(.btn):not(.btn-large):not(.btn-floating):hover {*/
 /*color:#ff6315;*/
 /*}*/
+
+.messages .collapsible.popout>li.active .reply-button {
+    color: white;
+}
+.messages .collapsible.popout>li.active .delete-button {
+    color: white;
+}
+
+.messages .collection .collection-item.avatar .reply-button {
+    position: absolute;
+    top: 16px;
+    right: 54px;
+    float: right;
+    color: grey;
+}
+
+.messages .collection .collection-item.avatar .delete-button {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    float: right;
+    color: grey;
+}
+
+
