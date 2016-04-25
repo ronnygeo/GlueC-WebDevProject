@@ -187,7 +187,7 @@
 }
 
 #image-near-footer {
-    background-image: url("../media/images/bg3.jpg");
+    background-image: url("../media/images/black-and-white-city-skyline-buildings.jpg");
     background-size: cover;
     height: 50vh;
     width: 100%;
@@ -265,12 +265,8 @@ nav {
 }
 
 #footer-company-info {
-    font-family: "Raleway", sans-serif;
     padding: 40px;
-    color: #F7F7F7;
     margin-bottom: 0;
-    /*border-bottom: 1px solid grey;*/
-    /*margin-bottom: 20px;*/
 }
 
 footer a {
@@ -280,6 +276,10 @@ footer a {
 .footer-links {
     padding-top: 2rem;
     border-top: 5px solid grey;
+}
+
+.footer-links .container{
+    padding-top: 3vh;
 }
 
 .dashboard-wrapper {
