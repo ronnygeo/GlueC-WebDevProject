@@ -1,48 +1,83 @@
 <div class="content-wrapper">
-    <div id="splash-image"
-         style="">
-        <div id="inside-splash-container"
-             style="">
-            <div id="splash-text"
-                 class="row center-align"
-                 style="">
-                <div class="col s12">
-                    <h2 class="white-text">Glue for eCommerce</h2>
-                    <h5 class="white-text">Sell, Buy and Review on more than 50 providers.</h5>
-                </div>
-                <br>
-            </div>
-            <br>
-            <div class="row search-bar white-text">
-                <div class="input-field col offset-s1 s10 offset-m3 m6">
-                    <input placeholder="Start by searching for a product.."
-                           id="home-search"
-                           ng-model="model.search_input"
-                           ng-keypress="($event.which ==13 || $event.keyCode==13)? model.search():return"
-                           type="text"
-                           class="validate">
-                </div>
-            </div>
-            <div class="row center-align">
-                <div class="col offset-s1 s10 offset-m3 m6">
-                    <a id="home-tutorial-button"
-                       class="waves-effect btn"
-                       ng-click="model.search()">Search</a>
-                    <a id="home-tutorial-button"
-                       class="waves-effect btn"
-                       href="#/how-it-works">How it Works</a>
-                </div>
-            </div>
+    <div id="splash-image">
+        <div class="slider fullscreen">
+            <ul class="slides">
+                <li>
+                    <img src="../../media/images/home-2.jpg"> <!-- random image -->
+                    <div class="caption right-align">
+                        <div class="row center-align splash-text">
+                            <h2 class="white-text">Stand Out</h2>
+                            <h4 class="white-text">Sell, Buy and Review on more than 50 providers.</h4>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <img src="../../media/images/sell-page-2.jpg"> <!-- random image -->
+                    <div class="caption right-align">
+                        <div class="row center-align splash-text">
+                            <h2 class="white-text">Stand Out</h2>
+                            <h4 class="white-text">Sell, Buy and Review on more than 50 providers.</h4>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <img src="../../media/images/sell-page-6.jpg"> <!-- random image -->
+                    <div class="caption right-align">
+                        <div class="row center-align splash-text">
+                            <h2 class="white-text">Stand Out</h2>
+                            <h4 class="white-text">Sell, Buy and Review on more than 50 providers.</h4>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <img src="../../media/images/sell-page-5.jpg"> <!-- random image -->
+                    <div class="caption right-align">
+                        <div class="row center-align splash-text">
+                            <h2 class="white-text">Stand Out</h2>
+                            <h4 class="white-text">Sell, Buy and Review on more than 50 providers.</h4>
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
+        <!--<div id="inside-splash-container">-->
+        <!--<div id="splash-text"-->
+        <!--class="row center-align">-->
+        <!--<div class="col s12">-->
+        <!--<h1 class="white-text">Stand Out</h1>-->
+        <!--<br>-->
+        <!--<h4 class="white-text">Sell, Buy and Review on more than 50 providers.</h4>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--</div>-->
+        <!--</div>-->
     </div>
-
     <div id="scroll-arrow"
          class="arrow bounce">
         <i class="fa fa-2x fa-angle-double-down arrow-icon"
            aria-hidden="true"
            style=""></i>
     </div>
-
+    <div class="splash-search-div">
+        <div class="row">
+            <div class="input-field col s12 offset-m3 m6">
+                <input placeholder="Start by searching for a product.."
+                       id="home-search"
+                       ng-model="model.search_input"
+                       ng-keypress="($event.which ==13 || $event.keyCode==13)? model.search():return"
+                       type="text"
+                       class="validate">
+            </div>
+        </div>
+        <div class="row center-align">
+            <div class="col offset-s1 s10 offset-m3 m6">
+                <a class="waves-effect btn home-button"
+                   ng-click="model.search()">Search</a>
+                <a class="waves-effect btn home-button"
+                   href="#/how-it-works">How it Works</a>
+            </div>
+        </div>
+    </div>
     <div class="container home-info"
          ng-class="{'hide-content': !model.isLoggedIn()}">
         <div id="home-cards"
