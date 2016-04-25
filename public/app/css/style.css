@@ -122,11 +122,11 @@
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     padding-top: 8vh;
 }
-.splash-text h1,h2,h3,h4,h5,h6{
+.splash-text h4{
     font-weight: 600;
-
 }
 .splash-text h2 {
+    font-weight: 600;
     text-transform: uppercase;
 }
 
