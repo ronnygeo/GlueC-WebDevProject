@@ -28,14 +28,12 @@ module.exports = function (q) {
                 for (key in results.tags) {
                     keywords.push(results.tags[key].class);
                 }
-                console.log(keywords);
-                deferred.resolve(keywords);
+                //console.log(keywords.splice(0, 8));
+                deferred.resolve(keywords.splice(0, 7));
             }
         });
         return deferred.promise;
     }
-
-
 
 
 };

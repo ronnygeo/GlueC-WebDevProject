@@ -253,7 +253,7 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
                                     }
                                 }
                                 console.log(keywordString);
-                                categoryService.ebay.getSuggestedCategories(keyWordsArray)
+                                categoryService.ebay.getSuggestedCategories(keywordString)
                                     .then(function (response) {
                                         console.log("Successfully received suggested categories.");
                                         console.log(response);
