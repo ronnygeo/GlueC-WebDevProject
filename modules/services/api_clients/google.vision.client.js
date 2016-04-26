@@ -6,12 +6,12 @@
 
 var gcloud = require('gcloud');
 
-var vision = gcloud.vision({
-    projectId: process.env.GOOGLE_VISION_PROJECT_ID,
-    keyFilename: process.env.GOOGLE_VISION_KEY_PATH
-    //key: process.env.GOOGLE_VISION_API_KEY
-});
-
+var fs = require('fs'),
+    S3FS = require('s3fs'),	//abstraction over Amazon S3's SDK
+    s3fsImpl = new S3FS('gluec-keys', {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECURITY_ACCESS_KEY
+    });
 
 module.exports = function (q) {
 
@@ -46,15 +46,50 @@ module.exports = function (q) {
 
     function getImageLabels(imageUrl) {
         var deferred = q.defer();
-        vision.detectLabels(imageUrl, function (err, labels) {
+        /*Step1: Read Google Key File From Amazon S3*/
+        s3fsImpl.readFile('google-keys.json', function (err, data) {
             if (err) {
-                console.log('Error: ', e);
-                deferred.reject(e);
+                console.log(err);
+                console.log('Unable to read');
+                deferred.reject(err);
             } else {
-                console.log(labels);
-                deferred.resolve(processLabels(labels));
+                console.log(data);
+                /*Step2: Save keys to local server*/
+                fs.writeFile("./keys/google-key.json", data, function (err) {
+                    if (err) {
+                        console.log(err);
+                        deferred.reject(err);
+                    } else {
+                        /*Step3: Create Vision Object*/
+                        console.log('File Created in local.');
+                        var vision = gcloud.vision({
+                            projectId: process.env.GOOGLE_VISION_PROJECT_ID,
+                            keyFilename: './keys/google-key.json'
+                        });
+                        /*Step4: Call Google Vision For Labels*/
+                        vision.detectLabels(imageUrl, function (err, labels) {
+                            if (err) {
+                                console.log('Error: ', e);
+                                deferred.reject(e);
+                            } else {
+                                console.log(labels);
+                                /*Step5: Delete Keys File from App Server*/
+                                fs.unlink('./keys/google-key.json', function (err) {
+                                    if (err) {
+                                        console.error(err);
+                                        deferred.reject(err);
+                                    } else {
+                                        deferred.resolve(processLabels(labels));
+                                    }
+                                });
+                            }
+                        });
+                    }
+
+                });
             }
         });
+
         return deferred.promise;
     }
 
