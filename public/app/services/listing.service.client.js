@@ -12,19 +12,50 @@
     function ListingService($http) {
         var api = {
             addImageAndCategory: addImageAndCategory,
+            addCategory: addCategory,
             publishListing: publishListing,
             getDirectListingTemplate: getDirectListingTemplate,
             getSimilarListingTemplate: getSimilarListingTemplate,
             getProdListingTemplate: getProdListingTemplate,
+            getImageListingTemplate: getImageListingTemplate,
             external: {
                 getProviderListings: getProviderListings,
                 getProviderListing: getProviderListing
             },
             getAllListingsForUser: getAllListingsForUser,
-            deleteListing:deleteListing,
-            findListingById:findListingById
+            deleteListing: deleteListing,
+            findListingById: findListingById
         };
         return api;
+
+
+        function addCategory(listing){
+            console.log("Calling Server addCategory");
+            console.log(listing);
+            var url = "/api/listing/addCategory";
+            return $http.post(url, listing);
+        }
+
+        function getImageListingTemplate(listing) {
+            console.log("Calling Server getImageListingTemplate");
+            console.log(listing);
+            var url = "/api/listing/template/image";
+            var fd = new FormData();
+            for (var key in listing) {
+                if (listing[key]) {
+                    fd.append(key, listing[key]);
+                }
+            }
+            console.log(fd);
+            return $http.post(
+                url,
+                fd,
+                {
+                    transformRequest: angular.indentity,
+                    headers: {'Content-Type': undefined}
+                }
+            );
+        }
 
         function getProdListingTemplate(product) {
             console.log("Calling Server getProdListingTemplate");
@@ -93,6 +124,7 @@
             var flatListing = {};
             flatListing['_id'] = listing._id;
             flatListing['providerId'] = listing.providerId;
+            flatListing['userId'] = listing.userId;
             flatListing['selectedParentCategoryCode'] = listing.ebay.parentCategory.code;
             flatListing['selectedParentCategoryName'] = listing.ebay.parentCategory.name;
             flatListing['selectedSubCategoryCode'] = listing.ebay.subCategory.code;
@@ -117,14 +149,14 @@
             return $http.get(url);
         }
 
-        function deleteListing(listingId){
+        function deleteListing(listingId) {
             console.log("Calling Server deleteListing");
             console.log(listingId);
             var url = "/api/listing/" + listingId;
             return $http.delete(url);
         }
 
-        function findListingById(listingId){
+        function findListingById(listingId) {
             console.log("Calling Server findListingById");
             console.log(listingId);
             var url = "/api/listing/" + listingId;

@@ -14,6 +14,7 @@
         var flow = $routeParams.flow;
 
         function init() {
+            console.log(flow);
             if (!$rootScope.user) {
                 $location.url("/login");
                 return
@@ -34,6 +35,9 @@
             } else if (flow == "prod" && !$rootScope.prodListing) {
                 CreateListingController.flow = "direct";
                 initNewDirectListing();
+            } else if (flow == 'image') {
+                CreateListingController.flow = "image";
+                initNewImageListingCard();
             }
         }
 
@@ -51,8 +55,11 @@
             } else if (card.type == "provider" && CreateListingController.flow == "prod") {
                 clearOtherCards(card.type);
                 getProdListingTemplate(card.selectedData.code);
-            }
-            else if (card.type == "parentCategory") {
+            } else if (card.type == "provider" && CreateListingController.flow == "image") {
+                CreateListingController.listing.providerId = card.selectedData.code;
+                clearOtherCards(card.type);
+                addUploadImageCard();
+            } else if (card.type == "parentCategory") {
                 CreateListingController.listing.ebay.parentCategory.code = card.selectedData._id;
                 CreateListingController.listing.ebay.parentCategory.name = card.selectedData.name;
                 clearOtherCards(card.type);
@@ -62,6 +69,12 @@
                     console.log("Not Leaf Category.");
                     clearOtherCards(card.type);
                     addSubCategoryCard(card.selectedData._id)
+                } else if (CreateListingController.flow == "image") {
+                    console.log("Leaf Category. Image Flow.");
+                    CreateListingController.listing.ebay.subCategory.code = card.selectedData._id;
+                    CreateListingController.listing.ebay.subCategory.name = card.selectedData.name;
+                    clearOtherCards(card.type);
+                    addOtherDetailsCardWithoutImagePost();
                 } else {
                     console.log("Leaf Category.");
                     CreateListingController.listing.ebay.subCategory.code = card.selectedData._id;
@@ -70,9 +83,17 @@
                     addUploadImageCard();
                 }
             } else if (card.type == "uploadImage") {
-                CreateListingController.listing.image = card.selectedData;
-                clearOtherCards(card.type);
-                addOtherDetailsCardWithPost();
+
+                if (CreateListingController.flow == 'image') {
+                    CreateListingController.listing.image = card.selectedData;
+                    clearOtherCards(card.type);
+                    getImageListingTemplate();
+                } else {
+                    CreateListingController.listing.image = card.selectedData;
+                    clearOtherCards(card.type);
+                    addOtherDetailsCardWithPost();
+                }
+
             }
             else if (card.type == "otherDetails") {
                 CreateListingController.listing = angular.copy(card.selectedData);
@@ -182,6 +203,33 @@
             CreateListingController.cards = [otherDetailsCard];
         }
 
+        function addOtherDetailsCardWithoutImagePost() {
+            ProgressBarFactory.showProgressBar();
+            var otherDetailsCard = {
+                type: "otherDetails",
+                data: [],
+                selectedData: "",
+                header: ""
+            };
+            ListingService
+                .addCategory(CreateListingController.listing)
+                .then(success_callback, error_callback);
+            function success_callback(response) {
+                console.log(response.data);
+                otherDetailsCard.data = response.data;
+                ProgressBarFactory.hideProgressBar();
+                console.log(otherDetailsCard);
+                CreateListingController.cards.push(otherDetailsCard);
+            }
+
+            function error_callback(error) {
+                console.log(error);
+                ProgressBarFactory.hideProgressBar();
+            }
+
+
+        }
+
         function addOtherDetailsCardWithPost() {
             ProgressBarFactory.showProgressBar();
             var otherDetailsCard = {
@@ -243,6 +291,31 @@
         }
 
 
+        function getImageListingTemplate() {
+            console.log("getImageListingTemplate");
+            var subCategoryCard = {
+                type: "subCategory",
+                data: [],
+                selectedData: "",
+                header: ""
+            };
+            ProgressBarFactory.showProgressBar();
+            console.log(CreateListingController.listing);
+            ListingService.getImageListingTemplate(CreateListingController.listing)
+                .then(function (response) {
+                    console.log(response.data);
+                    subCategoryCard.data = response.data.suggestedCategories;
+                    ProgressBarFactory.hideProgressBar();
+                    console.log(subCategoryCard);
+                    CreateListingController.cards.push(subCategoryCard);
+                    CreateListingController.listing = response.data.listing;
+                    console.log(CreateListingController.listing);
+                }, function (err) {
+                    console.log(err);
+                    ProgressBarFactory.hideProgressBar();
+                })
+        }
+
         function getProdListingTemplate(providerId) {
             console.log("getProdListingTemplate");
             ProgressBarFactory.showProgressBar();
@@ -261,6 +334,17 @@
                 });
         }
 
+        function initNewImageListingCard() {
+            console.log("initNewImageListingCard");
+            ProgressBarFactory.showProgressBar();
+            CreateListingController.listing = {
+                userId: $rootScope.user._id,
+                providerId: "",
+                image: "",
+                flow: "image"
+            };
+            addProviderCard();
+        }
 
         function initNewDirectListing() {
             console.log("initNewDirectListing");

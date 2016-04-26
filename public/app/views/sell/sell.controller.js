@@ -40,7 +40,7 @@
         }
 
         function sellImage() {
-
+            $location.url("/listing/create/image");
         }
 
 

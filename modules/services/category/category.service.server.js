@@ -14,12 +14,38 @@ module.exports = function (app, categoryModel, q, ebayAPIClient) {
             fetchTopCategories: fetchTopCategoriesFromEbay,
             fetchSubCategories: fetchSubCategoriesFromEbay,
             fetchCategoryDetails: fetchCategoryDetailsFromEbay,
-            filterLeafCategories: filterLeafCategories
+            filterLeafCategories: filterLeafCategories,
+            getSuggestedCategories: getSuggestedCategories
         },
         processToGluecFormat: processToGluecFormat
 
     };
     return api;
+
+    function getSuggestedCategories(keywordString) {
+        console.log("Category Service, getSuggestedCategories");
+        var deferred = q.defer();
+        var functionToCall = "GetSuggestedCategories";
+        var requestData = '<?xml version="1.0" encoding="utf-8"?>' +
+            '<GetSuggestedCategoriesRequest xmlns="urn:ebay:apis:eBLBaseComponents">' +
+            '<RequesterCredentials>' +
+            '<eBayAuthToken>' +
+            ebayAPIClient.trading.PRD_AUTH_TOKEN +
+            '</eBayAuthToken>' +
+            '</RequesterCredentials>' +
+            '<Query>' + keywordString + '</Query>' +
+            '<WarningLevel>High</WarningLevel>' +
+            '</GetSuggestedCategoriesRequest>';
+        ebayAPIClient.trading.functionPRD(functionToCall, requestData)
+            .then(function (response) {
+                console.log(response.GetSuggestedCategoriesResponse.SuggestedCategoryArray[0].SuggestedCategory);
+                deferred.resolve(mapSuggestedCategories(response.GetSuggestedCategoriesResponse.SuggestedCategoryArray[0].SuggestedCategory));
+            }, function (err) {
+                console.log(err);
+                deferred.reject(err);
+            });
+        return deferred.promise;
+    }
 
     function processToGluecFormat(categories) {
         var processedCategories = [];
@@ -147,6 +173,21 @@ module.exports = function (app, categoryModel, q, ebayAPIClient) {
                 deferred.reject(err);
             });
         return deferred.promise;
+    }
+
+    function mapSuggestedCategories(incomingCatArray) {
+        var categories = [];
+        for (var catindex in incomingCatArray) {
+            //console.log(incomingCatArray[catindex].Category);
+            var cat = {
+                "_id": incomingCatArray[catindex].Category[0].CategoryID[0],
+                "parentId": incomingCatArray[catindex].Category[0].CategoryParentID[0],
+                "name": incomingCatArray[catindex].Category[0].CategoryName[0],
+                "leaf": true
+            };
+            categories.push(cat);
+        }
+        return categories;
     }
 
     function mapCategories(incomingCatArray) {

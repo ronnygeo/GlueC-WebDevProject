@@ -108,7 +108,7 @@
                         </div>
                         <div class="col s12 m6">
                             <img ng-if="user.user.imageUrl"
-                                 src={{user.user.imageUrl}}
+                                 ng-src={{user.user.imageUrl}}
                                  width="100%"/>
                             <img style="width:100%" ng-if="user.user.image && !user.user.imageUrl" ngf-thumbnail="user.user.image"/>
                         </div>
