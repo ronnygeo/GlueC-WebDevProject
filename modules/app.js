@@ -6,7 +6,10 @@ module.exports = function (app, request, q, upload, mongoose, uuid, userImageUpl
     var amazonAPIClient = require("./services/api_clients/amazon.api.client")(q);
     /*Vision Clients*/
     //var clariFaiClient =  require("./services/api_clients/clarfai.image.service")(q);
-    var googleVisionClint = require("./services/api_clients/google.vision.client")(q);
+    var googleVisionClint;
+    if (process.env.ENABLE_VISON_API) {
+        googleVisionClint = require("./services/api_clients/google.vision.client")(q);
+    }
 
     var userModel = require("./models/user/user.model.js")(mongoose);
     require("./services/user/user.service.server")(app, userModel, userImageUpload, passport);
