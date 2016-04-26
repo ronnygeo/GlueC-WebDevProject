@@ -1,0 +1,105 @@
+<div ng-controller="ViewListingController as model">
+    <div class="product-description-card ">
+        <div class="card">
+            <col>
+            <div class="card-image pdp-image center-align waves-effect waves-block waves-light center-align">
+                <a target="_blank"
+                   href="{{model.listing.ebay.ebayListingUrl}}">
+                    <img ng-src="{{model.listing.ebay.image}}"
+                         alt="Product Image">
+                </a>
+            </div>
+            <div class="card-content">
+                <ul class="collection">
+                    <li class="collection-item avatar">
+                        <i class="fa fa-shopping-cart circle"
+                           aria-hidden="true"></i>
+                        <span class="title">Provider</span>
+                        <p ng-if="model.listing.providerId=='10002'">
+                            Provider : Amazon
+                        </p>
+                        <p ng-if="model.listing.providerId=='10001'">
+                            Provider : ebay
+                        </p>
+                        </p>
+                    </li>
+                    <li class="collection-item avatar">
+                        <i class="fa fa-bullhorn circle"
+                           aria-hidden="true"></i>
+                        <span class="title">Title</span>
+                        <p>{{model.listing.title}}
+                        </p>
+                    </li>
+                    <li class="collection-item avatar">
+                        <i class="fa fa-plug circle"
+                           aria-hidden="true"></i>
+                        <span class="title">Provider Item ID</span>
+                        <p>{{model.listing.providerItemId}}
+                        </p>
+                    </li>
+                    <li class="collection-item avatar">
+                        <i class="fa fa-sitemap circle"
+                           aria-hidden="true"></i>
+                        <span class="title">Category</span>
+                        <p>{{model.listing.ebay.subCategory.name}}
+                        </p>
+                    </li>
+                    <li class="collection-item avatar">
+                        <i class="fa fa-sitemap circle"
+                           aria-hidden="true"></i>
+                        <span class="title">Category ID</span>
+                        <p>{{model.listing.ebay.subCategory.code}}
+                        </p>
+                    </li>
+                    <li class="collection-item avatar">
+                        <i class="fa fa-puzzle-piece circle"
+                           aria-hidden="true"></i>
+                        <span class="title">Model</span>
+                        <p>{{model.listing.model}}
+                        </p>
+                    </li>
+                    <li class="collection-item avatar">
+                        <i class="fa fa-info circle"
+                           aria-hidden="true"></i>
+                        <span class="title">MPN</span>
+                        <p>{{model.listing.mpn}}
+                        </p>
+                    </li>
+                    <li class="collection-item avatar">
+                        <i class="fa fa-usd circle"
+                           aria-hidden="true"></i>
+                        <span class="title">Price</span>
+                        <p>{{model.listing.price.value + " " + model.listing.price.currency}}
+                        </p>
+                    </li>
+                    <li class="collection-item avatar">
+                        <i class="fa fa-list-alt circle"
+                           aria-hidden="true"></i>
+                        <span class="title">Description</span>
+                        <p>{{model.listing.description}}
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-action center-align">
+                <div class="row">
+                    <div class="col s12 m6">
+                        <a href=""
+                           ng-click="model.deleteListing(model.listing._id)">
+                            <i class="fa fa-trash-o"
+                               aria-hidden="true"></i>
+                            Delete</a>
+                    </div>
+                    <div class="col s12 m6  ">
+                        <a target="_blank"
+                           href="{{model.listing.ebay.ebayListingUrl}}">
+                            <i class="fa fa-external-link"
+                               aria-hidden="true"></i>
+                            See on Ebay</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

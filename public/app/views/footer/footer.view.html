@@ -1,35 +1,32 @@
-<footer class="page-footer" style="">
-    <div id="footer-company-info" class="row cyan darken-4"  ng-if="$location.url() == '/'">
-        <div class="s12">
+<footer class="page-footer">
+    <div class="row"
+         ng-if="$location.url() == '/'"
+         id="image-near-footer"></div>
+    <div id="footer-company-info"
+         class="row grey"
+         ng-if="$location.url() == '/'">
+        <div class="row container center">
             <!--<div class="card-panel">-->
-            <h5>Company Bio</h5>
+            <h3 class="">About Us</h3>
             <p class="">We are a team of college students working on this project like it's
-                our full time job. Any amount would help support and continue development on this project and is
-                greatly appreciated.</p>
+                        our full time job. Any amount would help support and continue development on this project and is
+                        greatly appreciated.</p>
         </div>
         <!--</div>-->
     </div>
     <div class="footer-links">
         <div class="row container">
-            <div class="col m5 s12">
-                <h5>Settings</h5>
-                <ul>
-                    <li ng-show="user && user._id"><a href="#/messages">Messages</a></li>
-                    <li ng-show="user"><a href="#/dashboard">Dashboard</a></li>
-                    <li><a href="#/sell">Sell</a></li>
-                    <li ng-hide="user"><a href="#/register">Register</a>
-                    </li>
-                    <li ng-hide="user"><a href="#/login">Login</a></li>
-                    <li ng-show="user"><a ng-click="logout()">Logout</a></li>
-                </ul>
-            </div>
-            <div class="col m5 s12 push-m5">
+            <div class="col s12 center">
                 <h5 class="">Connect</h5>
                 <ul>
-                    <li><a href="http://www.facebook.com" target="_blank">Facebook</a></li>
-                    <li><a href="http://www.twitter.com" target="_blank">Twitter</a></li>
-                    <li><a href="http://www.linkedin.com" target="_blank">Linkedin</a></li>
-                    <li><a href="http://www.pinterest.com" target="_blank">Pinterest</a></li>
+                    <li><a href="http://www.facebook.com"
+                           target="_blank">Facebook</a></li>
+                    <li><a href="http://www.twitter.com"
+                           target="_blank">Twitter</a></li>
+                    <li><a href="http://www.linkedin.com"
+                           target="_blank">Linkedin</a></li>
+                    <li><a href="http://www.pinterest.com"
+                           target="_blank">Pinterest</a></li>
                 </ul>
             </div>
         </div>
@@ -43,31 +40,31 @@
 
 
 <!--<footer class="page-footer" style="">-->
-    <!--<div class="container">-->
-        <!--<div class="row footer-links">-->
-            <!--<div class="col m5 s12">-->
-                <!--<h5>Settings</h5>-->
-                <!--<ul>-->
-                    <!--<li><a href="#!">Home</a></li>-->
-                    <!--<li><a href="#!">Login</a></li>-->
-                    <!--<li><a href="#!">Register</a></li>-->
-                    <!--<li><a href="#!">Profile</a></li>-->
-                <!--</ul>-->
-            <!--</div>-->
-            <!--<div class="col m5 s12 push-m5">-->
-                <!--<h5 class="">Connect</h5>-->
-                <!--<ul>-->
-                    <!--<li><a href="#!">Facebook</a></li>-->
-                    <!--<li><a href="#!">Twitter</a></li>-->
-                    <!--<li><a href="#!">Linkedin</a></li>-->
-                    <!--<li><a href="#!">Pinterest</a></li>-->
-                <!--</ul>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-    <!--<div class="footer-copyright">-->
-        <!--<div class="container center-align">-->
-            <!--Made with <i class="fa fa-heart"></i> from GlueC Labs-->
-        <!--</div>-->
-    <!--</div>-->
+<!--<div class="container">-->
+<!--<div class="row footer-links">-->
+<!--<div class="col m5 s12">-->
+<!--<h5>Settings</h5>-->
+<!--<ul>-->
+<!--<li><a href="#!">Home</a></li>-->
+<!--<li><a href="#!">Login</a></li>-->
+<!--<li><a href="#!">Register</a></li>-->
+<!--<li><a href="#!">Profile</a></li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--<div class="col m5 s12 push-m5">-->
+<!--<h5 class="">Connect</h5>-->
+<!--<ul>-->
+<!--<li><a href="#!">Facebook</a></li>-->
+<!--<li><a href="#!">Twitter</a></li>-->
+<!--<li><a href="#!">Linkedin</a></li>-->
+<!--<li><a href="#!">Pinterest</a></li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="footer-copyright">-->
+<!--<div class="container center-align">-->
+<!--Made with <i class="fa fa-heart"></i> from GlueC Labs-->
+<!--</div>-->
+<!--</div>-->
 <!--</footer>-->

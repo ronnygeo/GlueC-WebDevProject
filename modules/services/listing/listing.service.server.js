@@ -4,17 +4,68 @@
 var fs = require('fs'),
     aws = require("aws-lib"),
     path = require('path');
-module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, upload, amazonAPIClient, uuid, categoryService, catalogService) {
+module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, upload, amazonAPIClient, uuid, categoryService, catalogService, googleVisionClint) {
 
     /*WEB Service API*/
     app.post("/api/listing/addDetails", upload.single('image'), addImageAndCategory);
+    app.post("/api/listing/addCategory", addCategory);
     app.post("/api/listing/publish", publishListing);
     app.post("/api/listing/template/direct", getDirectListingTemplate);
     app.post("/api/listing/template/similar", getSimilarListingTemplate);
+    app.post("/api/listing/template/image", upload.single('image'), getImageListingTemplate);
     app.post("/api/listing/template/prod", getProdListingTemplate);
     app.get("/api/listing/external/:providerId/:itemId", getItemFromProvider);
     app.get("/api/listing/external/:keyword", findItemsFromProvider);
+    app.get("/api/listings/:userId", getAllListingsForUser);
+    app.delete("/api/listing/:listingId", deleteListing);
+    app.get("/api/listing/:listingId", findListing);
 
+    function findListing(req, res) {
+        console.log("Server findListing");
+        console.log(req.params.listingId);
+        listingModel.findListingById(req.params.listingId)
+            .then(success_callback, error_callback);
+        function success_callback(response) {
+            console.log("response", response);
+            res.json(response);
+        }
+
+        function error_callback(error) {
+            console.log("Error", error);
+            res.status(400).send(error);
+        }
+    }
+
+    function deleteListing(req, res) {
+        console.log("Server deleteListing");
+        console.log(req.params.listingId);
+        listingModel.deleteListingWithId(req.params.listingId)
+            .then(success_callback, error_callback);
+        function success_callback(response) {
+            console.log("response", response);
+            res.json(response);
+        }
+
+        function error_callback(error) {
+            console.log("Error", error);
+            res.status(400).send(error);
+        }
+    }
+
+    function getAllListingsForUser(req, res) {
+        console.log("getSingleItem");
+        listingModel.getAllListingsForUser(req.params.userId)
+            .then(success_callback, error_callback);
+
+        function success_callback(response) {
+            res.json(response);
+        }
+
+        function error_callback(error) {
+            console.log(error);
+            res.statusCode(404).send(err);
+        }
+    }
 
     function getItemFromProvider(req, res) {
         console.log("getSingleItem");
@@ -152,6 +203,85 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
                 })
     }
 
+
+    function getImageListingTemplate(req, res) {
+        console.log("Inside ListingService.getSimilarListingTemplate");
+
+        var listing = req.body;
+        var newListing = mapDirectListingForTemplate(listing);
+        newListing.images = [req.file.path];
+        newListing.flow = "image";
+        //Step 1: Create New Listing
+        listingModel.createNewListing(newListing)
+            .then(function (dbListing) {
+                console.log(dbListing);
+
+                //Step2: Upload Image to Server
+                uploadImageToEbay(dbListing.images[0])
+                    .then(function (response) {
+                        console.log(response);
+                        //Image Upload Call Response
+                        dbListing.ebay.siteHostedPictureDetails = response;
+                        //Server Images
+                        dbListing.ebay.image = response.FullURL[0];
+
+                        //Step3: Get Image Keywords
+                        googleVisionClint.getImageLabels(req.file.path)
+                            .then(function (response) {
+                                console.log(response);
+                                //var keyWordsArray = response.splice(0, 5);
+                                var keyWordsArray = response;
+                                var keywordString = "(";
+                                for (var index in keyWordsArray) {
+                                    if (index == (keyWordsArray.length - 1)) {
+                                        keywordString += keyWordsArray[index] + ")"
+
+                                    } else {
+                                        keywordString += keyWordsArray[index] + ","
+                                    }
+                                }
+                                console.log(keywordString);
+                                categoryService.ebay.getSuggestedCategories(keyWordsArray)
+                                    .then(function (response) {
+                                        console.log("Successfully received suggested categories.");
+                                        console.log(response);
+                                        var suggestedCategories = response;
+
+                                        //Step 4: Save the listing to DB
+                                        listingModel.ebay.saveListing(dbListing)
+                                            .then(function (response) {
+                                                console.log("Saved Response Received");
+                                                console.log(response);
+                                                var data = {
+                                                    listing: response,
+                                                    suggestedCategories: suggestedCategories
+                                                };
+                                                res.json(data);
+                                            }, function (err) {
+                                                console.log(err);
+                                                res.statusCode(404).send(err);
+                                            });
+
+                                    }, function (error) {
+                                        console.log(error);
+                                        res.statusCode(404).send(err);
+                                    });
+                            }, function (error) {
+                                console.log(error);
+                                res.statusCode(404).send(err);
+                            });
+
+                    }, function (error) {
+                        console.log(error);
+                        res.statusCode(404).send(err);
+                    });
+
+            }, function (error) {
+                console.log(error);
+                res.statusCode(404).send(err);
+            });
+    }
+
     function getSimilarListingTemplate(req, res) {
         console.log("Inside ListingService.getSimilarListingTemplate");
         var listing = req.body;
@@ -240,6 +370,49 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
         }
     }
 
+    function addCategory(req, res) {
+        console.log("Inside ListingService.addCategory");
+        var listing = req.body;
+
+        if (listing.providerId == "10001") {
+            //Step1: Get Listing By Id
+            listingModel.ebay.getListingById(listing._id)
+                .then(function (response) {
+                    console.log(response);
+                    var dbListing = response;
+                    dbListing.ebay.subCategory.code = listing.ebay.subCategory.code;
+                    dbListing.ebay.subCategory.name = listing.ebay.subCategory.name;
+
+                    //Step2: Get Other Features For Category
+                    categoryService.ebay.fetchCategoryDetails(dbListing.ebay.subCategory.code)
+                        .then(function (response) {
+                            console.log(response);
+
+                            //Sending New Listing Back to the Client
+                            dbListing.ebay.categoryDetails = response;
+                            console.log(dbListing);
+
+                            //Step 3: Save the listing to DB
+                            listingModel.ebay.saveListing(dbListing)
+                                .then(function (response) {
+                                    console.log("Saved Response Received");
+                                    console.log(response);
+                                    res.json(response);
+                                }, function (err) {
+                                    console.log(err);
+                                    res.statusCode(404).send(err);
+                                })
+                        }, function (error) {
+                            console.log(error);
+                            res.statusCode(404).send(err);
+                        });
+
+                }, function (error) {
+                    console.log(error);
+                    res.statusCode(404).send(err);
+                });
+        }
+    }
 
     function addImageAndCategory(req, res) {
         console.log("Inside ListingService.addImageAndCategory");

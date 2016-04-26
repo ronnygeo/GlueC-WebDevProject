@@ -7,12 +7,16 @@
         .module('GluecApp')
         .controller('HomeController', HomeController);
 
-    function HomeController(ProductService, $location, $scope, $rootScope, ngProgressFactory) {
+    function HomeController($location, $rootScope, $timeout) {
 
         var vm = this;
 
         function init() {
-
+            angular.element(document).ready(function () {
+                $timeout(function () {
+                    $('.slider').slider();
+                }, 0, false);
+            });
             $("#search").focus();
         }
 

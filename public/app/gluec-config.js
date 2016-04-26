@@ -25,8 +25,8 @@
                     templateUrl: 'views/users/register.view.html',
                     controllerAs: "user"
                 })
-                .when('/how', {
-                    templateUrl: 'views/home/howto.view.html',
+                .when('/how-it-works', {
+                    templateUrl: 'views/home/howto.view.html'
                 })
                 .when('/search/q/:keyword', {
                     controller: 'SearchController',
@@ -88,6 +88,15 @@
                     resolve: {
                         loggedin: checkMerchant,
                         categories: getCategories
+                    }
+                })
+                .when('/dashboard/listings', {
+                    controller: 'DashboardController',
+                    templateUrl: 'views/dashboard/dashboard.view.html',
+                    controllerAs: 'dc',
+                    loginRequired: true,
+                    resolve: {
+                        loggedin: checkMerchant
                     }
                 })
                 .when('/dashboard/providers', {
@@ -198,7 +207,7 @@
                 .when('/sell', {
                     controller: 'SellController',
                     templateUrl: 'views/sell/sell.view.html',
-                    controllerAs: "model",
+                    controllerAs: "model"
                 })
                 .otherwise({
                     redirectTo: '/'

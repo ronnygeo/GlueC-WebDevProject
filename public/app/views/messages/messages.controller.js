@@ -10,25 +10,100 @@
         var fromUserId = $rootScope.user._id;
         vm.message = {};
 
+        vm.newMessage = newMessage;
         vm.reply = reply;
         vm.deleteMessage = deleteMessage;
+        vm.send = send;
 
-        function reply(i) {
-            vm.message.subject = "Re: "+vm.messages[i].subject;
-            vm.message.to = vm.messages[i].from;
+        function init() {
+            angular.element(document).ready(function () {
+                $('.collapsible').collapsible({
+                    accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+                });
+                $timeout(function () {
+                    $('select').material_select();
+                }, 100, false);
 
+            });
+            MessageService.findMessagesByUser(fromUserId).then(function (data) {
+                vm.messages = data.data;
+            });
+
+            UserService.findAllUsers().then(function (data) {
+                // console.log(data.data);
+                vm.users = removeCurrentUser(data.data);
+                $('select').material_select('destroy');
+
+            });
+        }
+
+        init();
+
+        function removeCurrentUser(users) {
+            var filteredUsers = [];
+            for (let user of users) {
+                if (user._id != $rootScope.user._id) {
+                    filteredUsers.push(user);
+                }
+            }
+            return filteredUsers;
+        }
+
+        function send() {
+            $('#message-modal').closeModal();
+            MessageService.createMessage(vm.messageTemp.from, vm.messageTemp)
+                .then(function (data) {
+                }, function (err) {
+                    console.log(err)
+                });
+        }
+
+        function newMessage() {
+            vm.messageTemp = {
+                type: 'new',
+                from: fromUserId,
+                subject: "",
+                message: ""
+            };
             $('#message-modal').openModal({
                 dismissible: true, // Modal can be dismissed by clicking outside of the modal
                 opacity: .5, // Opacity of modal background
                 in_duration: 300, // Transition in duration
                 out_duration: 200, // Transition out duration
-                ready: function() {
-                    vm.message.from = fromUserId;
-                    vm.message.message = "";
-                },
-                complete: function() {
-                    MessageService.createMessage(vm.message.from, vm.message).then(function(data) {
-                    });} // Callback for Modal close);
+                ready: function () {
+                    angular.element(document).ready(function () {
+                        $timeout(function () {
+                            $('select').material_select();
+                        }, 100, false);
+                    });
+                } // Callback for Modal open
+
+            });
+        }
+
+        function reply(i) {
+            console.log("reply index ", i);
+            vm.messageTemp = {
+                type: 'reply',
+                from: fromUserId,
+                subject: "Re: " + vm.messages[i].subject,
+                message: vm.messages[i].message,
+                toUser: vm.messages[i].user.firstName,
+                to: vm.messages[i].from
+            };
+            $('#message-modal').openModal({
+                dismissible: true, // Modal can be dismissed by clicking outside of the modal
+                opacity: .5, // Opacity of modal background
+                in_duration: 300, // Transition in duration
+                out_duration: 200, // Transition out duration
+                ready: function () {
+                    angular.element(document).ready(function () {
+                        $timeout(function () {
+                            $('select').material_select();
+                        }, 100, false);
+                    });
+                } // Callback for Modal open
+
             });
         }
 
@@ -38,41 +113,5 @@
             });
         }
 
-        angular.element(document).ready(function () {
-            $('.collapsible').collapsible({
-                accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-            });
-
-            $('.modal-trigger').leanModal({
-                dismissible: true, // Modal can be dismissed by clicking outside of the modal
-                opacity: .5, // Opacity of modal background
-                in_duration: 300, // Transition in duration
-                out_duration: 200, // Transition out duration
-                ready: function() {
-                    vm.message.from = fromUserId;
-                    vm.message.subject = "";
-                    vm.message.message = "";
-                },
-                complete: function() {
-                    // console.log(vm.message);
-                    MessageService.createMessage(vm.message.from, vm.message).then(function(data) {
-                    });} // Callback for Modal close
-            });
-
-            $timeout(function () {
-                $('select').material_select();
-            }, 100, false);
-
-        });
-        MessageService.findMessagesByUser(fromUserId).then(function (data) {
-            vm.messages = data.data;
-        });
-
-        UserService.findAllUsers().then(function (data) {
-            // console.log(data.data);
-            vm.users = data.data;
-            $('select').material_select('destroy');
-
-        });
     }
 })();

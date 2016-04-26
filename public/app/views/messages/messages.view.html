@@ -1,61 +1,113 @@
-<div class="main-content">
-    <div class="row">
-        <div class="col offset-s1 s10">
-            <h5>Messages</h5>
-            <br>
-            <ul class="collection collapsible" data-collapsible="accordion">
+<div class="container">
+    <div class="section main-content">
+        <div class="row">
+            <div class="row center div-10">
+                <h4 class="grey-text">Messages</h4>
+            </div>
+        </div>
+        <div class="row messages">
+            <ul class="collection collapsible popout"
+                data-collapsible="accordion">
                 <li ng-repeat="message in mc.messages">
                     <div class="collapsible-header collection-item avatar">
-                        <img ng-src="{{message.user.imageUrl}}" alt="" class="circle">
+                        <img ng-src="{{message.user.imageUrl}}"
+                             alt=""
+                             class="circle">
                         <span class="title">{{message.user.firstName | capitalize}} {{message.user.lastName | capitalize}}</span>
                         <p>{{message.subject}}</p>
-                        <a class="secondary-content" ng-click="mc.deleteMessage($index)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                        <a class="reply-button"
+                           ng-click="mc.reply($index)">
+                            <i class="fa fa-reply"
+                               aria-hidden="true"></i></a>
+                        <a class="delete-button"
+                           ng-click="mc.deleteMessage($index)">
+                            <i class="fa fa-trash-o"
+                               aria-hidden="true"></i></a>
                     </div>
                     <div class="collapsible-body">
                         <p>{{message.message}}</p>
-                    <button ng-click="mc.reply($index)" class="waves-effect waves-light btn modal-trigger">Reply</button>
                     </div>
-                    <br>
+                    <!--<br>-->
                 </li>
-                </ul>
+            </ul>
         </div>
-    </div>
-<div class="row">
-    <div class="card">
-        <div class="card-content">
-            <div class="row">
-                <h5>New Message</h5>
-
-                <div class="col s12">
-                    <label for="catalog">Select User</label>
-                    <select name="catalog" id="catalog" ng-model="mc.message.to">
-                        <option ng-repeat="user in mc.users" ng-if="user._id !== mc.userId" value="{{user._id}}">{{user.firstName}} {{user.lastName}}</option>
-                    </select>
-                </div>
-
-                <button data-target="message-modal" class="btn waves-effect modal-trigger">Message</button>
-            </div>
+        <div class="fixed-action-btn horizontal">
+            <a href=""
+               ng-click="mc.newMessage()"
+               class="btn-floating btn-large waves-effect waves-light red">
+                <i class="material-icons">add</i></a>
         </div>
     </div>
 </div>
-</div>
+
 
 <!-- Modal Structure -->
-<div id="message-modal" class="modal bottom-sheet">
+<div id="message-modal"
+     class="modal bottom-sheet">
     <div class="modal-content">
-        <!--<h6>Message to {{model.user.firstName}}</h6>-->
+        <div class="row"
+             ng-switch
+             on="mc.messageTemp.type">
+            <div ng-switch-when="reply">
+                <div class="col s12">
+                    <label for="meassageTo">To</label>
+                    <select disabled
+                            name="meassageTo"
+                            id="meassageTo"
+                            ng-model="mc.messageTemp.to"
+                            ng-options="user._id as user.firstName for user in mc.users">
+                        <option value="">{{mc.messageTemp.toUser}}</option>
+                    </select>
+                </div>
+            </div>
+            <div ng-switch-when="new">
+                <div class="col s12">
+                    <label for="meassageTo">To</label>
+                    <select name="meassageTo"
+                            id="meassageTo"
+                            ng-model="mc.messageTemp.to"
+                            ng-options="user._id as user.firstName for user in mc.users">
+                        <option value="">Select a User</option>
+                    </select>
+                </div>
+            </div>
+            <div ng-switch-default>
+                <div class="col s12">
+                    <label for="meassageTo">To</label>
+                    <select name="meassageTo"
+                            id="meassageTo"
+                            ng-model="mc.messageTemp.to"
+                            ng-options="user._id as user.firstName for user in mc.users">
+                        <option value="">Select a User</option>
+                    </select>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="input-field col s12">
-                <input placeholder="Subject" id="subject" ng-model="mc.message.subject" type="text" class="validate">
-                <label for="subject">Subject</label>
+                <input placeholder="Subject"
+                       id="subject"
+                       ng-model="mc.messageTemp.subject"
+                       type="text">
+                <label ng-class="{'active': mc.messageTemp.subject}"
+                       for="subject">Subject</label>
             </div>
             <div class="input-field col s12">
-                <textarea id="message" class="materialize-textarea" ng-model="mc.message.message"></textarea>
-                <label for="message">Message</label>
+                <textarea id="message"
+                          class="materialize-textarea"
+                          ng-model="mc.messageTemp.message"></textarea>
+                <label ng-class="{'active': mc.messageTemp.message}"
+                       for="message">Message</label>
             </div>
         </div>
     </div>
     <div class="modal-footer">
-        <a class=" modal-action modal-close waves-effect waves-green btn-flat">Send</a>
+        <div class="modal-action-div">
+            <a ng-click="mc.send()"
+               class="btn waves-effect">
+                <i class="fa fa-paper-plane-o"
+                   aria-hidden="true"></i>
+                Send</a>
+        </div>
     </div>
 </div>
