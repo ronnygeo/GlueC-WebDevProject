@@ -4,7 +4,7 @@
 var fs = require('fs'),
     aws = require("aws-lib"),
     path = require('path');
-module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, upload, amazonAPIClient, uuid, categoryService, catalogService, googleVisionClint) {
+module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, upload, amazonAPIClient, uuid, categoryService, catalogService, googleVisionClint, clariFaiClient ) {
 
     /*WEB Service API*/
     app.post("/api/listing/addDetails", upload.single('image'), addImageAndCategory);
@@ -95,7 +95,18 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
         /*Get Items from all the providers*/
 
         /*Getting the items from ebay*/
-        findItemsFromEbay(req.params.keyword)
+        var keywordString = "";
+        var keyWordsArray = req.params.keyword.split(" ");
+        for (var index in keyWordsArray) {
+            if (index == (keyWordsArray.length - 1)) {
+                keywordString += keyWordsArray[index] + ")"
+
+            } else {
+                keywordString += keyWordsArray[index] + ","
+            }
+        }
+        console.log(keywordString);
+        findItemsFromEbay(keywordString)
             .then(success_callback, error_callback);
 
         function success_callback(response) {
@@ -226,7 +237,8 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
                         dbListing.ebay.image = response.FullURL[0];
 
                         //Step3: Get Image Keywords
-                        googleVisionClint.getImageLabels(req.file.path)
+                        clariFaiClient.getImageLabels(response.FullURL[0])
+                        //googleVisionClint.getImageLabels(req.file.path)
                             .then(function (response) {
                                 console.log(response);
                                 //var keyWordsArray = response.splice(0, 5);
@@ -707,13 +719,19 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
     }
 
     function mapAmazonListingToGluecListing(amazonListing) {
+        console.log(amazonListing);
         var title, extId, desc, providerId, imageURL, providerURL;
         // console.log(ebayProduct.ImageSets.ImageSet[0].MediumImage.URL);
         title = amazonListing.ItemAttributes.Title;
         extId = amazonListing.ASIN;
         desc = amazonListing.ItemAttributes.Title;
         providerId = 10002;
-        imageURL = amazonListing.LargeImage.URL;
+        if (amazonListing.LargeImage) {
+            imageURL = amazonListing.LargeImage.URL;
+        }else{
+            imageURL = "/media/placeholder-new-listing-image.png";
+
+        }
         providerURL = amazonListing.DetailPageURL;
 
         var listing = {

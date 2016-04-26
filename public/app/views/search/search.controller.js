@@ -28,18 +28,19 @@
                 return;
             }
             console.log(keyword);
-            var inputArray = keyword.split(/[ ,]+/);
-            console.log(inputArray);
-            if (inputArray[0].toUpperCase() == "BUY") {
-                inputArray.splice(0, 1);
-                buy(inputArray.join());
-            } else if (inputArray[0].toUpperCase() == "SELL") {
-                inputArray.splice(0, 1);
-                sell(inputArray.join());
-            }else{
-                buy(keyword );
-            }
-}
+            //var inputArray = keyword.split(/[ ,]+/);
+            //console.log(inputArray);
+            //if (inputArray[0].toUpperCase() == "BUY") {
+            //    inputArray.splice(0, 1);
+            //    buy(inputArray.join());
+            //} else if (inputArray[0].toUpperCase() == "SELL") {
+            //    inputArray.splice(0, 1);
+            //    sell(inputArray.join());
+            //}else{
+            //    buy(keyword );
+            //}
+            buy(keyword);
+        }
 
         function sell(keyword) {
 
@@ -59,7 +60,6 @@
 
             function error_callback(error) {
                 ProgressBarFactory.hideProgressBar();
-                console.log("error");
                 console.log(error);
             }
         }
