@@ -226,7 +226,7 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
                         dbListing.ebay.image = response.FullURL[0];
 
                         //Step3: Get Image Keywords
-                        googleVisionClint.getImageLabels(response.FullURL[0])
+                        googleVisionClint.getImageLabels(req.file.path)
                             .then(function (response) {
                                 console.log(response);
                                 //var keyWordsArray = response.splice(0, 5);
