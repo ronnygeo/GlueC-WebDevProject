@@ -12,12 +12,9 @@ var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 var mongoose = require("mongoose");
 var passport = require('passport');
-<<<<<<< HEAD
 var favicon = require('serve-favicon');
 
 app.use(favicon(__dirname + '/public/media/favicon.ico'));
-=======
->>>>>>> c1b0988d733bd6b0fba8a60480eaffda31ed11b3
 
 app.use(bodyParser.json({limit: "50mb"}));
 app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit: 50000}));
