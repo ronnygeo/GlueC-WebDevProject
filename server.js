@@ -11,7 +11,10 @@ var app = express();
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 var mongoose = require("mongoose");
-var passport = require('passport')
+var passport = require('passport');
+var favicon = require('serve-favicon');
+
+app.use(favicon(__dirname + '/public/media/favicon.ico'));
 
 app.use(bodyParser.json({limit: "50mb"}));
 app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit: 50000}));
