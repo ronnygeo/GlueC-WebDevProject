@@ -4,9 +4,9 @@ module.exports = function (app, request, q, upload, mongoose, uuid, userImageUpl
     var ebayAPIClient = require("./services/api_clients/ebay.api.client")(q, request);
     /*Amazon API CLIENT*/
     var amazonAPIClient = require("./services/api_clients/amazon.api.client")(q);
-    /*Vision Client*/
-    var clariFaiClient =  require("./services/api_clients/clarfai.image.service")(q);
-
+    /*Vision Clients*/
+    //var clariFaiClient =  require("./services/api_clients/clarfai.image.service")(q);
+    var googleVisionClint = require("./services/api_clients/google.vision.client")(q);
 
     var userModel = require("./models/user/user.model.js")(mongoose);
     require("./services/user/user.service.server")(app, userModel, userImageUpload, passport);
@@ -35,7 +35,7 @@ module.exports = function (app, request, q, upload, mongoose, uuid, userImageUpl
     var ebayListingDB = mongoose.model("EbayListing", ebayListingSchema);
     var listingDB = mongoose.model("Listing", listingSchema);
     var listingModel = require("./models/listing/listing.model")(listingDB, ebayListingDB, q);
-    require("./services/listing/listing.service.server")(app, q, listingModel, categoryModel, ebayAPIClient, upload, amazonAPIClient, uuid, categoryService, catalogService, clariFaiClient);
+    require("./services/listing/listing.service.server")(app, q, listingModel, categoryModel, ebayAPIClient, upload, amazonAPIClient, uuid, categoryService, catalogService, googleVisionClint);
 
 
     //require("./services/image/clarfai.image.service")();

@@ -4,7 +4,7 @@
 var fs = require('fs'),
     aws = require("aws-lib"),
     path = require('path');
-module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, upload, amazonAPIClient, uuid, categoryService, catalogService, clariFaiClient) {
+module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, upload, amazonAPIClient, uuid, categoryService, catalogService, googleVisionClint) {
 
     /*WEB Service API*/
     app.post("/api/listing/addDetails", upload.single('image'), addImageAndCategory);
@@ -226,7 +226,7 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
                         dbListing.ebay.image = response.FullURL[0];
 
                         //Step3: Get Image Keywords
-                        clariFaiClient.getImageLabels(response.FullURL[0])
+                        googleVisionClint.getImageLabels(response.FullURL[0])
                             .then(function (response) {
                                 console.log(response);
                                 //var keyWordsArray = response.splice(0, 5);
