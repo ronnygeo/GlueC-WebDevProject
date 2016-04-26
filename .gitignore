@@ -82,5 +82,5 @@ bower_components
 
 uploads
 
-#public/app/media/images/products
-#public/app/media/images/users
+public/app/media/images/products
+public/app/media/images/users
