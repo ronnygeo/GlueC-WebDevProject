@@ -7,7 +7,7 @@ module.exports = function (app, request, q, upload, mongoose, uuid, userImageUpl
     /*Vision Clients*/
     var googleVisionClint;
     var clariFaiClient;
-    if (process.env.ENABLE_VISION_API) {
+    if (process.env.ENABLE_VISION_API=='true') {
         clariFaiClient =  require("./services/api_clients/clarfai.image.service")(q);
         googleVisionClint = require("./services/api_clients/google.vision.client")(q);
     }
