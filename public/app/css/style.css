@@ -597,3 +597,24 @@ body {
 }
 
 
+.home-info .card-panel {
+    min-height:20vh;
+}
+
+.branding-info-panel{
+    margin-top : 20vh;
+}
+.branding-info-panel .row{
+    min-height: 60vh;
+}
+
+.branding-info-panel .branding-text{
+    /*margin-top: 3vh;*/
+}
+
+.img-responsive{
+    max-width: 100%;
+    /* just in case, to force correct aspect ratio */
+    height: auto !important;
+
+}
