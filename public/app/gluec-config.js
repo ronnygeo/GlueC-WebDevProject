@@ -28,7 +28,7 @@
                 .when('/help', {
                     templateUrl: 'views/help/help.view.html',
                     controller: 'HelpController',
-                    controllerAs:'model'
+                    controllerAs: 'model'
                 })
                 .when('/search/q/:keyword', {
                     controller: 'SearchController',
@@ -93,6 +93,15 @@
                     }
                 })
                 .when('/dashboard/listings', {
+                    controller: 'DashboardController',
+                    templateUrl: 'views/dashboard/dashboard.view.html',
+                    controllerAs: 'dc',
+                    loginRequired: true,
+                    resolve: {
+                        loggedin: checkMerchant
+                    }
+                })
+                .when('/dashboard/listing/:listingId/view', {
                     controller: 'DashboardController',
                     templateUrl: 'views/dashboard/dashboard.view.html',
                     controllerAs: 'dc',
