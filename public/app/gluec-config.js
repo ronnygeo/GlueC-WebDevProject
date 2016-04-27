@@ -25,8 +25,10 @@
                     templateUrl: 'views/users/register.view.html',
                     controllerAs: "user"
                 })
-                .when('/how-it-works', {
-                    templateUrl: 'views/home/howto.view.html'
+                .when('/help', {
+                    templateUrl: 'views/help/help.view.html',
+                    controller: 'HelpController',
+                    controllerAs:'model'
                 })
                 .when('/search/q/:keyword', {
                     controller: 'SearchController',
