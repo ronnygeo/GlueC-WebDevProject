@@ -82,6 +82,7 @@ module.exports = function (app, productModel, productImageUpload) {
 
     function updateProduct(req, res) {
         var product = req.body;
+        //delete product._id;
         var prodId = req.params['prodId'];
         productModel.product.updateProduct(prodId, product).then(function (data) {
                 res.json(data);
