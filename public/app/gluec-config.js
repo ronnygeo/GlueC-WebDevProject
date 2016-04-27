@@ -98,7 +98,7 @@
                     controllerAs: 'dc',
                     loginRequired: true,
                     resolve: {
-                        loggedin: checkMerchant
+                        loggedin: checkLoggedin
                     }
                 })
                 .when('/dashboard/listing/:listingId/view', {
@@ -107,7 +107,7 @@
                     controllerAs: 'dc',
                     loginRequired: true,
                     resolve: {
-                        loggedin: checkMerchant
+                        loggedin: checkLoggedin
                     }
                 })
                 .when('/dashboard/providers', {
@@ -116,7 +116,7 @@
                     controllerAs: 'dc',
                     loginRequired: true,
                     resolve: {
-                        loggedin: checkMerchant
+                        loggedin: checkLoggedin
                     }
                 })
                 .when('/dashboard/provider/new', {
@@ -125,17 +125,7 @@
                     controllerAs: 'dc',
                     loginRequired: true,
                     resolve: {
-                        loggedin: checkMerchant
-                    }
-                })
-                .when('/dashboard/provider/:providerI/edit', {
-                    controller: 'DashboardController',
-                    templateUrl: 'views/dashboard/dashboard.view.html',
-                    controllerAs: 'dc',
-                    loginRequired: true,
-                    resolve: {
-                        loggedin: checkMerchant,
-                        categories: getCategories
+                        loggedin: checkLoggedin
                     }
                 })
                 .when('/dashboard/products', {

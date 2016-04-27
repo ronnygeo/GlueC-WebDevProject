@@ -7,16 +7,18 @@
     angular.module('GluecApp')
         .controller("ProfileController", ProfileController);
 
-    ProfileController.$inject = ['$rootScope', 'UserService', '$location', 'Upload'];
+    ProfileController.$inject = ['$rootScope', 'UserService', '$location', 'Upload', '$timeout'];
 
-    function ProfileController($rootScope, UserService, $location, Upload) {
+    function ProfileController($rootScope, UserService, $location, Upload, $timeout) {
         var vm = this;
 
         vm.user = $rootScope.user;
         vm.update = update;
 
-        angular.element(document).ready(function() {
-            $('select').material_select(vm.user.roles[0]);
+        angular.element(document).ready(function () {
+            $timeout(function () {
+                $('select').material_select();
+            }, 0, false);
         });
 
         function update() {

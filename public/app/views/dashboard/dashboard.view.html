@@ -59,16 +59,16 @@
                                      ng-if="$location.url().includes('product') &&  $location.url().includes('view')"></div>
                                 <div ng-include
                                      src="'views/dashboard/listings/listings.dashboard.view.html'"
-                                     ng-if="$location.url() == '/dashboard/listings' && dc.isUserMerchant()"></div>
+                                     ng-if="$location.url() == '/dashboard/listings'"></div>
                                 <div ng-include
                                      src="'views/dashboard/listings/view/view.listing.view.html'"
                                      ng-if="$location.url().includes('listing') &&  $location.url().includes('view')"></div>
                                 <div ng-include
                                      src="'views/dashboard/providers/providers.dashboard.view.html'"
-                                     ng-if="$location.url() == '/dashboard/providers' && dc.isUserMerchant() && !dc.isUserAdmin()"></div>
+                                     ng-if="$location.url() == '/dashboard/providers'"></div>
                                 <div ng-include
                                      src="'views/dashboard/providers/new/new.provider.view.html'"
-                                     ng-if="$location.url() == '/dashboard/provider/new' && dc.isUserMerchant()"></div>
+                                     ng-if="$location.url() == '/dashboard/provider/new'"></div>
                             </div>
                         </div>
                     </div>
