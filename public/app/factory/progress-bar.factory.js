@@ -18,8 +18,8 @@
 
         function showProgressBar() {
             $rootScope.progressbar = ngProgressFactory.createInstance();
-            $rootScope.progressbar.setHeight('4px');
-            $rootScope.progressbar.setColor('#003d43');
+            $rootScope.progressbar.setHeight('3px');
+            $rootScope.progressbar.setColor('#ef5350');
             $rootScope.progressbar.start();
         }
 
