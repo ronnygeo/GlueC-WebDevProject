@@ -167,7 +167,7 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
                         .then(function (dbListing) {
                                 console.log(dbListing);
                                 //Step2: Save Image and Ebay Url In Database
-                                uploadImageToEbay(dbListing.images[0])
+                                uploadImageOnlyToEbay(dbListing.images[0])
                                     .then(function (response) {
                                         console.log(response);
 
@@ -591,6 +591,32 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
         return deferred.promise;
     }
 
+
+    function uploadImageOnlyToEbay(imageLocation) {
+        console.log("Inside ListingService.uploadImageOnlyToEbay");
+        var deferred = q.defer();
+        var functionToCall = 'UploadSiteHostedPictures';
+        var requestData = '<?xml version="1.0" encoding="utf-8"?>' +
+            '<UploadSiteHostedPicturesRequest xmlns="urn:ebay:apis:eBLBaseComponents">' +
+            '<RequesterCredentials>' +
+            '<eBayAuthToken>' +
+            ebayAPIClient.trading.AUTH_TOKEN +
+            '</eBayAuthToken>' +
+            '</RequesterCredentials>' +
+            '<WarningLevel>High</WarningLevel>' +
+            '<ExternalPictureURL>' + imageLocation + '</ExternalPictureURL>' +
+            '</UploadSiteHostedPicturesRequest>';
+        ebayAPIClient.trading.function(functionToCall, requestData)
+            .then(function (response) {
+                console.log(response.UploadSiteHostedPicturesResponse.SiteHostedPictureDetails[0]);
+                deferred.resolve(response.UploadSiteHostedPicturesResponse.SiteHostedPictureDetails[0]);
+            }, function (err) {
+                console.log(err);
+                deferred.reject(err);
+            });
+        return deferred.promise;
+    }
+
     function publishListingToEbay(listing) {
         var deferred = q.defer();
         var functionToCall = "AddItem";
@@ -765,7 +791,7 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
                     providerId: product.providerId,
                     title: product.name,
                     description: product.description,
-                    images: ["./public/app/" + product.imageUrl],
+                    images: [product.imageUrl],
                     ebay: {
                         ebayListingItemId: "",
                         ebayListingUrl: "",
