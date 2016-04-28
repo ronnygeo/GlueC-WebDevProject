@@ -12,7 +12,10 @@
             <ul id="nav-med-up"
                 class="right hide-on-med-and-down">
                 <li ng-show="user && user._id">
-                    <i class="material-icons left">perm_identity</i>Welcome {{user.firstName}}
+                    <a><img ng-src="{{user.imageUrl}}"
+                            alt=""
+                            class="header-img circle">
+                        Welcome {{user.firstName}}</a>
                 </li>
                 <li ng-show="user && user._id"
                     ng-class="{'active': $location.url() == '/messages'}">
@@ -31,8 +34,12 @@
             </ul>
             <ul class="side-nav"
                 id="mobile-demo">
-                <li ng-show="user && user._id" class="grey-text">
-                    <i class="material-icons left">perm_identity</i>Welcome {{user.firstName | capitalize}}
+                <li ng-show="user && user._id"
+                    class="text-black">
+                    <a><img ng-src="{{user.imageUrl}}"
+                            alt=""
+                            class="header-img circle">
+                        Welcome {{user.firstName}}</a>
                 </li>
                 <li ng-show="user && user._id"
                     ng-class="{'active': $location.url() == '/messages'}">
