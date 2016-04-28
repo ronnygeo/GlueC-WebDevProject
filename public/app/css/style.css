@@ -609,7 +609,16 @@ body {
 }
 
 .branding-info-panel .branding-text{
-    /*margin-top: 3vh;*/
+    /*margin-top: 2vh;*/
+}
+.margin-top-5{
+    margin-top: 5vh;
+}
+.margin-top-2{
+    margin-top: 2vh;
+}
+.margin-top-10{
+    margin-top: 10vh;
 }
 
 .img-responsive{
