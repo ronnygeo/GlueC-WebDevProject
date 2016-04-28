@@ -30,12 +30,12 @@
                 </li>
                 <li ng-hide="user"
                     ng-class="{'active': $location.url() == '/login'}"><a href="#/login">Login</a></li>
-                <li ng-show="user"><a ng-click="logout()">Logout</a></li>
+                <li ng-show="user"><a ng-click="logout()"><i class="material-icons left">exit_to_app</i>Logout</a></li>
             </ul>
             <ul class="side-nav"
                 id="mobile-demo">
                 <li ng-show="user && user._id"
-                    class="text-black">
+                    class="text-black grey lighten-2">
                     <a><img ng-src="{{user.imageUrl}}"
                             alt=""
                             class="header-img circle">
@@ -54,7 +54,8 @@
                 </li>
                 <li ng-hide="user"
                     ng-class="{'active': $location.url() == '/login'}"><a href="#/login">Login</a></li>
-                <li ng-show="user"><a ng-click="logout()">Logout</a></li>
+                <li ng-show="user"><a ng-click="logout()"><i class="material-icons left">exit_to_app</i>
+                    Logout</a></li>
             </ul>
         </div>
     </nav>

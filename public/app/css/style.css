@@ -644,6 +644,7 @@ body {
 
 .header-img {
     /*position: absolute;*/
+    margin-right: 10px;
     width: 42px;
     height: 42px;
     overflow: hidden;
