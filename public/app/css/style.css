@@ -566,6 +566,10 @@ body {
     left: 10%;
 }
 
+#message-modal .modal-content{
+    min-height: 50vh;
+}
+
 #message-modal .modal-footer .modal-action-div{
     margin-right: 2vw;
 }
