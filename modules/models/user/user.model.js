@@ -108,6 +108,7 @@ module.exports = function (mongoose) {
                 data.password = bcrypt.hashSync(data.password);
                 // console.log(data.password);
             }
+            delete data.password;
             UserModel.update({_id: userId}, data)
                 .then(function(res){
                     deferred.resolve(res);
