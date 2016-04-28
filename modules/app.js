@@ -13,11 +13,11 @@ module.exports = function (app, request, q, upload, mongoose, uuid, userImageUpl
     }
 
     var userModel = require("./models/user/user.model.js")(mongoose);
-    require("./services/user/user.service.server")(app, userModel, userImageUpload, passport);
+    require("./services/user/user.service.server")(app, userModel, userImageUpload, passport, amazonAPIClient);
 
 
     var productModel = require("./models/product/product.model.js")(q, request, mongoose);
-    require("./services/product/product.service.server.js")(app, productModel, productImageUpload);
+    require("./services/product/product.service.server.js")(app, productModel, productImageUpload, amazonAPIClient);
 
     /*Provider*/
     var providerSchema = require("./models/provider/provider.schema.server")(mongoose);

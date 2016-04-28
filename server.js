@@ -34,7 +34,7 @@ var upload = multer({storage: storage});
 //Multer for Users
 var userImageStore = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './public/app/media/images/users')
+        cb(null, './uploads/users')
     },
     filename: function (req, file, cb) {
         var datetimestamp = Date.now();
@@ -46,7 +46,7 @@ var userImageUpload = multer({storage: userImageStore}).single('file');
 //Multer for Users
 var productImageStore = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './public/app/media/images/products')
+        cb(null, './uploads/products')
     },
     filename: function (req, file, cb) {
         var datetimestamp = Date.now();

@@ -80,7 +80,7 @@ node_modules
 
 bower_components
 
-uploads
+#uploads
 
 #public/app/media/images/products
 #public/app/media/images/users

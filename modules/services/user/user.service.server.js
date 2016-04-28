@@ -1,21 +1,21 @@
 /**
  * Created by ronnygeo on 3/24/16.
  */
-module.exports = function (app, userModel, userImageUpload, passport) {
+module.exports = function (app, userModel, userImageUpload, passport, amazonAPIClient) {
 
     var googleConfig = {
-        clientID        : process.env.GOOGLE_CLIENT_ID,
-        clientSecret    : process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL     : process.env.GOOGLE_CALLBACK_URL
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        callbackURL: process.env.GOOGLE_CALLBACK_URL
     };
 
     var facebookConfig = {
-        clientID        : process.env.FACEBOOK_CLIENT_ID,
-        clientSecret    : process.env.FACEBOOK_CLIENT_SECRET,
-        callbackURL     : process.env.FACEBOOK_CALLBACK_URL
+        clientID: process.env.FACEBOOK_CLIENT_ID,
+        clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+        callbackURL: process.env.FACEBOOK_CALLBACK_URL
     };
     var LocalStrategy = require('passport-local').Strategy;
-    var GoogleStrategy   = require('passport-google-oauth').OAuth2Strategy;
+    var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
     var FacebookStrategy = require('passport-facebook').Strategy;
 
     passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
@@ -33,18 +33,18 @@ module.exports = function (app, userModel, userImageUpload, passport) {
     app.post("/api/user", registerUser);
     app.put("/api/user/:id", updateUser);
     app.delete("/api/user/:id", deleteUser);
-    app.post('/api/user/upload', uploadImage);
+    app.post('/api/user/upload', userImageUpload, uploadImage);
     app.post('/api/logout', logout);
     app.get('/api/loggedIn', loggedIn);
-    app.get   ('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
+    app.get('/auth/facebook', passport.authenticate('facebook', {scope: 'email'}));
     app.get('/auth/facebook/callback',
         passport.authenticate('facebook', {
             successRedirect: '/#',
             failureRedirect: '/#/login'
         }));
 
-    app.get   ('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
-    app.get   ('/auth/google/callback',
+    app.get('/auth/google', passport.authenticate('google', {scope: ['profile', 'email']}));
+    app.get('/auth/google/callback',
         passport.authenticate('google', {
             successRedirect: '#',
             failureRedirect: '#/login'
@@ -54,33 +54,37 @@ module.exports = function (app, userModel, userImageUpload, passport) {
         userModel
             .findUserByFacebookId(profile.id)
             .then(
-                function(user) {
-                    if(user) {
+                function (user) {
+                    if (user) {
                         return done(null, user);
                     } else {
                         var names = profile.displayName.split(" ");
                         var newFacebookUser = {
-                            lastName:  names[1],
+                            lastName: names[1],
                             firstName: names[0],
-                            email:     profile.emails ? profile.emails[0].value:"",
+                            email: profile.emails ? profile.emails[0].value : "",
                             facebook: {
-                                id:    profile.id,
+                                id: profile.id,
                                 token: token
                             }
                         };
                         return userModel.createUser(newFacebookUser);
                     }
                 },
-                function(err) {
-                    if (err) { return done(err); }
+                function (err) {
+                    if (err) {
+                        return done(err);
+                    }
                 }
             )
             .then(
-                function(user){
+                function (user) {
                     return done(null, user);
                 },
-                function(err){
-                    if (err) { return done(err); }
+                function (err) {
+                    if (err) {
+                        return done(err);
+                    }
                 }
             );
     }
@@ -89,8 +93,8 @@ module.exports = function (app, userModel, userImageUpload, passport) {
         userModel
             .findUserByGoogleId(profile.id)
             .then(
-                function(user) {
-                    if(user) {
+                function (user) {
+                    if (user) {
                         return done(null, user);
                     } else {
                         var newGoogleUser = {
@@ -98,23 +102,27 @@ module.exports = function (app, userModel, userImageUpload, passport) {
                             firstName: profile.name.givenName,
                             email: profile.emails[0].value,
                             google: {
-                                id:          profile.id,
-                                token:       token
+                                id: profile.id,
+                                token: token
                             }
                         };
                         return userModel.createUser(newGoogleUser);
                     }
                 },
-                function(err) {
-                    if (err) { return done(err); }
+                function (err) {
+                    if (err) {
+                        return done(err);
+                    }
                 }
             )
             .then(
-                function(user){
+                function (user) {
                     return done(null, user);
                 },
-                function(err){
-                    if (err) { return done(err); }
+                function (err) {
+                    if (err) {
+                        return done(err);
+                    }
                 }
             );
     }
@@ -135,13 +143,14 @@ module.exports = function (app, userModel, userImageUpload, passport) {
     }
 
     function uploadImage(req, res) {
-        userImageUpload(req,res,function(err){
-            if(err){
-                res.json({error_code:1,err_desc:err});
-                return;
-            }
-            res.json(req.file.filename);
-        });
+        amazonAPIClient.uploadImageToBucket(req.file.path, amazonAPIClient.AMAZON_USER_BUCKET_NAME)
+            .then(function (response) {
+                console.log(response);
+                res.json(response);
+            }, function (err) {
+                console.log(err);
+                res.statusCode(404).send(err);
+            });
     }
 
 
@@ -149,22 +158,22 @@ module.exports = function (app, userModel, userImageUpload, passport) {
         // console.log("find all users.");
         userModel
             .findAllUsers()
-            .then(function(data){
-                for (u in data) {
-                    delete data[u].password;
-                }
-                // console.log(data);
-            res.json(data);
-        },
-        function (err) {
-            res.status(404).send(err);
-        });
+            .then(function (data) {
+                    for (u in data) {
+                        delete data[u].password;
+                    }
+                    // console.log(data);
+                    res.json(data);
+                },
+                function (err) {
+                    res.status(404).send(err);
+                });
     }
 
     function findAllUsersAdmin(req, res) {
         if (isAdmin(req.user)) {
             userModel.findAllUsers()
-                .then(function(data){
+                .then(function (data) {
                         delete data.password;
                         // console.log(data);
                         res.json(data);
@@ -180,9 +189,9 @@ module.exports = function (app, userModel, userImageUpload, passport) {
     function findUserById(req, res) {
         var userId = req.params['id'];
         userModel.findUserById(userId).then(function (data) {
-            // console.log(data);
-            res.json(data);
-        },
+                // console.log(data);
+                res.json(data);
+            },
             function (err) {
                 res.status(404).send(err);
             });
@@ -207,11 +216,11 @@ module.exports = function (app, userModel, userImageUpload, passport) {
         userModel.findUserByCredentials(user).then(function (data) {
                 // console.log(data);
                 res.json(data);
-             }, function (err) {
-            console.log("Error", err);
-            res.status(400).send(err);
-        }
-            )
+            }, function (err) {
+                console.log("Error", err);
+                res.status(400).send(err);
+            }
+        )
     }
 
     function registerUser(req, res) {
@@ -220,22 +229,22 @@ module.exports = function (app, userModel, userImageUpload, passport) {
         userModel
             .findUserByUsername(data.username)
             .then(
-                function(user){
-                    if(user) {
+                function (user) {
+                    if (user) {
                         res.json(null);
                     } else {
                         return userModel.register(data);
                     }
                 },
-                function(err){
+                function (err) {
                     res.status(400).send(err);
                 }
             )
             .then(
-                function(user){
-                    if(user){
-                        req.login(user, function(err) {
-                            if(err) {
+                function (user) {
+                    if (user) {
+                        req.login(user, function (err) {
+                            if (err) {
                                 res.status(400).send(err);
                             } else {
                                 res.json(user);
@@ -243,7 +252,7 @@ module.exports = function (app, userModel, userImageUpload, passport) {
                         });
                     }
                 },
-                function(err){
+                function (err) {
                     res.status(400).send(err);
                 }
             );
@@ -254,18 +263,22 @@ module.exports = function (app, userModel, userImageUpload, passport) {
         userModel
             .findUserByCredentials({username: username, password: password})
             .then(
-                function(user) {
-                    if (!user) { return done(null, false); }
+                function (user) {
+                    if (!user) {
+                        return done(null, false);
+                    }
                     return done(null, user);
                 },
-                function(err) {
-                    if (err) { return done(err); }
+                function (err) {
+                    if (err) {
+                        return done(err);
+                    }
                 }
             );
     }
 
     function isAdmin(user) {
-        if(user.roles.indexOf("admin") !== -1) {
+        if (user.roles.indexOf("admin") !== -1) {
             return true;
         }
         return false;
@@ -279,21 +292,21 @@ module.exports = function (app, userModel, userImageUpload, passport) {
         userModel
             .findUserById(user._id)
             .then(
-                function(user){
+                function (user) {
                     done(null, user);
                 },
-                function(err){
+                function (err) {
                     done(err, null);
                 }
             );
     }
 
-function updateUser(req, res) {
+    function updateUser(req, res) {
         var userId = req.params['id'];
         data = req.body;
         userModel.updateUser(userId, data).then(function (data) {
-            // console.log(data);
-            res.json(data);
+                // console.log(data);
+                res.json(data);
             },
             function (err) {
                 res.status(404).send(err);

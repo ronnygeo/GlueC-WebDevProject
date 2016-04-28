@@ -4,7 +4,7 @@
 var fs = require('fs'),
     aws = require("aws-lib"),
     path = require('path');
-module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, upload, amazonAPIClient, uuid, categoryService, catalogService, googleVisionClint, clariFaiClient ) {
+module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, upload, amazonAPIClient, uuid, categoryService, catalogService, googleVisionClint, clariFaiClient) {
 
     /*WEB Service API*/
     app.post("/api/listing/addDetails", upload.single('image'), addImageAndCategory);
@@ -238,7 +238,7 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
 
                         //Step3: Get Image Keywords
                         clariFaiClient.getImageLabels(response.FullURL[0])
-                        //googleVisionClint.getImageLabels(req.file.path)
+                            //googleVisionClint.getImageLabels(req.file.path)
                             .then(function (response) {
                                 console.log(response);
                                 //var keyWordsArray = response.splice(0, 5);
@@ -553,12 +553,12 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
         console.log("Inside ListingService.uploadImageToEbay");
         var deferred = q.defer();
         /*Upload File To Amazon S3*/
-        amazonAPIClient.uploadToAmazonS3(filePath)
+        amazonAPIClient.uploadImageToBucket(filePath, amazonAPIClient.AMAZON_LISTING_BUCKET_NAME)
             .then(
                 function (response) {
                     /*Upload File from Amazon to Ebay*/
                     if (response) {
-                        var imageLocation = amazonAPIClient.AMAZON_S3_BUCKET_ADDRESS + path.basename(filePath);
+                        var imageLocation = response;
                         var functionToCall = 'UploadSiteHostedPictures';
                         var requestData = '<?xml version="1.0" encoding="utf-8"?>' +
                             '<UploadSiteHostedPicturesRequest xmlns="urn:ebay:apis:eBLBaseComponents">' +
@@ -728,7 +728,7 @@ module.exports = function (app, q, listingModel, categoryModel, ebayAPIClient, u
         providerId = 10002;
         if (amazonListing.LargeImage) {
             imageURL = amazonListing.LargeImage.URL;
-        }else{
+        } else {
             imageURL = "/media/placeholder-new-listing-image.png";
 
         }

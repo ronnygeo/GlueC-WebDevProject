@@ -38,7 +38,7 @@
             }).then(function (res) { //upload function returns a promise
                 if (res.data.error_code !== 1) { //validate success
                     console.log(res.data);
-                    vm.user.imageUrl = '/media/images/users/'+res.data;
+                    vm.user.imageUrl = res.data;
                     UserService.createUser(vm.user).then(function (response) {
                         if (response.data != null) {
                             //Storing the user in the Root Scope

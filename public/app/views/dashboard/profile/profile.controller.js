@@ -27,11 +27,11 @@
                 // console.log('Image Upload');
                 Upload.upload({
                     url: '/api/user/upload', //webAPI exposed to upload the file
-                    data:{file:vm.user.image} //pass file as data, should be user ng-model
+                    data: {file: vm.user.image} //pass file as data, should be user ng-model
                 }).then(function (res) { //upload function returns a promise
                     if (res.data.error_code !== 1) { //validate success
                         // console.log(res.data);
-                        vm.user.imageUrl = '/media/images/users/'+res.data;
+                        vm.user.imageUrl = res.data;
                         UserService.updateUser(vm.user._id, vm.user).then(render);
                     } else {
                         console.log('an error occurred');
@@ -42,7 +42,7 @@
                     .then(render);
             }
 
-        };
+        }
 
         function render(data) {
             $rootScope.user = vm.user;

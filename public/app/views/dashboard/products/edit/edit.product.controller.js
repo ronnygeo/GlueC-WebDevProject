@@ -52,7 +52,7 @@
                     data: {file: vm.product.image} //pass file as data, should be user ng-model
                 }).then(function (res) { //upload function returns a promise
                     if (res.data.error_code !== 1) { //validate success
-                        vm.product.imageUrl = '/media/images/products/' + res.data;
+                        vm.product.imageUrl = res.data;
                         ProductService.updateProduct(vm.product.merchantId, vm.product._id, vm.product).then(function () {
                             $location.url('/dashboard/products');
                         });

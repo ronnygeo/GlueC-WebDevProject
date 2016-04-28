@@ -2,7 +2,7 @@
  * Created by ronnygeo on 3/26/16.
  */
 
-module.exports = function (app, productModel, productImageUpload) {
+module.exports = function (app, productModel, productImageUpload, amazonAPIClient) {
 
     // app.get('api/user/:id/product/:prodId', findProductByUserId);
     // app.get('api/catalog/:catId/product/:prodId', findProductByCatalogId);
@@ -13,16 +13,17 @@ module.exports = function (app, productModel, productImageUpload) {
     app.post('/api/user/:id/product', createProduct);
     app.put('/api/user/:id/product/:prodId', updateProduct);
     app.delete('/api/user/:id/product/:prodId', deleteProduct);
-    app.post('/api/product/upload', uploadImage);
+    app.post('/api/product/upload', productImageUpload, uploadImage);
 
     function uploadImage(req, res) {
-        productImageUpload(req,res,function(err){
-            if(err){
-                res.json({error_code:1,err_desc:err});
-                return;
-            }
-            res.json(req.file.filename);
-        });
+        amazonAPIClient.uploadImageToBucket(req.file.path, amazonAPIClient.AMAZON_PROD_BUCKET_NAME)
+            .then(function (response) {
+                console.log(response);
+                res.json(response);
+            }, function (err) {
+                console.log(err);
+                res.statusCode(404).send(err);
+            });
     }
 
     // function findProductByUserId(req, res) {}
@@ -31,11 +32,11 @@ module.exports = function (app, productModel, productImageUpload) {
     function findProductById(req, res) {
         var prodId = req.params['prodId'];
         productModel.product.findProductById(prodId).then(function (data) {
-            res.json(data);
-        },
-        function (err){
-            res.status(400).send(err);
-        })
+                res.json(data);
+            },
+            function (err) {
+                res.status(400).send(err);
+            })
     }
 
     function findAllProductsByUserId(req, res) {
@@ -43,7 +44,7 @@ module.exports = function (app, productModel, productImageUpload) {
         productModel.product.findAllProductsByUserId(userId).then(function (data) {
                 res.json(data);
             },
-            function (err){
+            function (err) {
                 res.status(400).send(err);
             });
     }
@@ -53,28 +54,28 @@ module.exports = function (app, productModel, productImageUpload) {
         productModel.product.findAllProductsByCatalogId(catId).then(function (data) {
                 res.json(data);
             },
-            function (err){
+            function (err) {
                 res.status(400).send(err);
             });
     }
 
     function findAllProducts(req, res) {
-    productModel.product.findAllProducts().then(function (data) {
-            res.json(data);
-        },
-        function (err){
-            res.status(400).send(err);
-        });
+        productModel.product.findAllProducts().then(function (data) {
+                res.json(data);
+            },
+            function (err) {
+                res.status(400).send(err);
+            });
 
     }
 
-    function createProduct(req,res) {
-    var product = req.body;
+    function createProduct(req, res) {
+        var product = req.body;
         var userId = req.params['id'];
         productModel.product.createProduct(userId, product).then(function (data) {
                 res.json(data);
             },
-            function (err){
+            function (err) {
                 res.status(400).send(err);
             });
 
@@ -87,7 +88,7 @@ module.exports = function (app, productModel, productImageUpload) {
         productModel.product.updateProduct(prodId, product).then(function (data) {
                 res.json(data);
             },
-            function (err){
+            function (err) {
                 res.status(400).send(err);
             });
     }
@@ -97,7 +98,7 @@ module.exports = function (app, productModel, productImageUpload) {
         productModel.product.deleteProduct(prodId).then(function (data) {
                 res.json(data);
             },
-            function (err){
+            function (err) {
                 res.status(400).send(err);
             });
     }
