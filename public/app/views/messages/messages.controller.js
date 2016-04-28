@@ -41,9 +41,9 @@
 
         function removeCurrentUser(users) {
             var filteredUsers = [];
-            for (let user of users) {
-                if (user._id != $rootScope.user._id) {
-                    filteredUsers.push(user);
+            for (var userIndex in users) {
+                if (users[userIndex]._id != $rootScope.user._id) {
+                    filteredUsers.push(users[userIndex]);
                 }
             }
             return filteredUsers;
